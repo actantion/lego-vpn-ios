@@ -389,7 +389,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             self.popBottomView.callBackBlk = {(cell,indexPath) in
                 if indexPath.section == 0 {
                     let tempCell:AccountSetHeaderTableViewCell = cell as! AccountSetHeaderTableViewCell
-                    tempCell.tfPrivateKeyValue.text = self.local_private_key
+                    tempCell.lbPrivateKeyValue.text = self.local_private_key
                     tempCell.lbAccountAddress.text = self.local_account_id
                     
                     tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"

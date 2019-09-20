@@ -9,7 +9,8 @@
 import UIKit
 
 class AccountSetHeaderTableViewCell: UITableViewCell {
-    @IBOutlet weak var tfPrivateKeyValue: UITextField!
+    @IBOutlet weak var lbPrivateKeyValue: UILabel!
+//    @IBOutlet weak var tfPrivateKeyValue: UITextField!
     @IBOutlet weak var lbAccountAddress: UILabel!
     @IBOutlet weak var lbBalanceLego: UILabel!
     @IBOutlet weak var lbBalanceCost: UILabel!
