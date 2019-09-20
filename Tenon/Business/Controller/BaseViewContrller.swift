@@ -15,7 +15,8 @@ let SCREEN_HEIGHT = (UIScreen.main.bounds.size.height)
 let APP_COLOR = UIColor(red: 9.0/255.0, green: 222.0/255.0, blue: 202.0/255.0, alpha: 1)
 let NAVIGATION_HEIGHT = 44.0;
 let IS_IN_CN = false
-
+let URL_SERVER = "http://192.168.1.90:8080/"
+let INTERFACE_API = "appleIAPAuth"
 class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerDelegate {
     var btnBack:EXButton!
     var vwNavigation:UIView!

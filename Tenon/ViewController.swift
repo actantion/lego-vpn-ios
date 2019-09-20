@@ -12,8 +12,8 @@ import Eureka
 import NEKit
 import libp2p
 import StoreKit
-
-
+import Alamofire
+import SwiftyJSON
 
 class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver {
     
@@ -155,7 +155,6 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             case .purchased:do {
                 print("交易完成")
                 CBToast.hiddenToastAction()
-                CBToast.showToastAction(message: "订单验证中，请稍后...")
                 SKPaymentQueue.default().finishTransaction(tran)
                 completeTransaction(transaction: tran)
             }
@@ -181,35 +180,18 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     func completeTransaction(transaction:SKPaymentTransaction) {
         let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
         let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
-//        https://sandbox.itunes.apple.com/verifyReceipt
-        let url:NSURL! = NSURL(string: "https://sandbox.itunes.apple.com/verifyReceipt")
-        var urlRequest:URLRequest = URLRequest(url: url! as URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 15.0)
-        urlRequest.httpMethod = "POST"
         let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
-        let payload:NSString = NSString.localizedStringWithFormat("{\"receipt-data\" : \"%@\"}", encodeStr)
-        let payloadData:NSData = payload.data(using: String.Encoding.utf8.rawValue)! as NSData
-        urlRequest.httpBody = payloadData as Data
-        let task:URLSessionDataTask = URLSession.shared.dataTask(with: urlRequest) { (Data, URLResponse, Error) in
-
+        let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
+        AF.request(URL_SERVER + INTERFACE_API ,parameters:reqDic).responseJSON {
+            (response)   in
+            let result:Bool = response.value as! Bool
+            if result == true{
+                CBToast.showToastAction(message: "服务端验证通过")
+            }else{
+                CBToast.showToastAction(message: "服务端验证未通过")
+            }
         }
-        if task.error != nil {
-            print("验证失败")
-        }else{
-            print("验证成功")
-        }
-//        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Voidin
-//
-//                                    println("Response: \(response)")})
-//
-//
-//
-//                        task.resume()
         
-//        if !result {
-//            print("验证失败")
-//        }else{
-//            print("验证成功")
-//        }
         
 //        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
 //        urlRequest.HTTPMethod = @"POST";
@@ -345,7 +327,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                     print("rotue: \(route_node.ip):\(route_node.port)")
                     print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                     let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
-                    let index:Int = Int(arc4random_uniform((UInt32)(encodeMethodList.count)))
+//                    let index:Int = Int(arc4random_uniform((UInt32)(encodeMethodList.count)))
                     VpnManager.shared.public_key = LibP2P.getPublicKey() as String
                     
                     VpnManager.shared.enc_method = "aes-128-cfb," + String(vpn_ip_int) + "," + vpn_node.port
