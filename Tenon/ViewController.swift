@@ -18,6 +18,7 @@ import SwiftyJSON
 class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver {
     
     
+    @IBOutlet weak var swSmartRoute: UISwitch!
     @IBOutlet weak var vwCircleBack: CircleProgress!
     @IBOutlet weak var lbAccountAddress: UILabel!
     @IBOutlet weak var lbLego: UILabel!
@@ -130,6 +131,13 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         SKPaymentQueue.default().remove(self)
+    }
+    @IBAction func clickSwitch(_ sender: Any) {
+        if self.swSmartRoute.isOn == true{
+            print("开启智能路由")
+        }else{
+            print("关闭智能路由")
+        }
     }
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         let product:[SKProduct] = response.products

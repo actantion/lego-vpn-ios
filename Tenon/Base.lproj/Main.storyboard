@@ -146,21 +146,35 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mining free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
-                                        <rect key="frame" x="290" y="31" width="77" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
+                                        <rect key="frame" x="220.5" y="31" width="85.5" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
+                                        <rect key="frame" x="318" y="24.5" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="clickSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="5Ke-nf-n52"/>
+                                        </connections>
+                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Lhd-zF-ibB" firstAttribute="centerY" secondItem="44X-VY-8FV" secondAttribute="centerY" id="Qx5-Hr-gKL"/>
                                     <constraint firstAttribute="bottom" secondItem="44X-VY-8FV" secondAttribute="bottom" constant="11" id="dRQ-MT-nYH"/>
                                     <constraint firstItem="qwq-jt-YtR" firstAttribute="leading" secondItem="JAj-3M-U9V" secondAttribute="leading" constant="8" id="f7l-e5-vR9"/>
-                                    <constraint firstAttribute="trailing" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="8" id="pIc-1b-T7H"/>
+                                    <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="12" id="jhR-Ua-m8V"/>
+                                    <constraint firstAttribute="trailing" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="120" id="pIc-1b-T7H"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lhd-zF-ibB" secondAttribute="trailing" constant="8" id="q0p-ue-sh0"/>
                                     <constraint firstAttribute="height" constant="60" id="rWC-nR-g5I"/>
                                     <constraint firstAttribute="bottom" secondItem="qwq-jt-YtR" secondAttribute="bottom" constant="11" id="tMk-hb-mkn"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="pIc-1b-T7H"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-lE-cST">
                                 <rect key="frame" x="324" y="509" width="41" height="43"/>
@@ -265,6 +279,7 @@
                         <outlet property="lbDolor" destination="C0t-OL-mqm" id="vD9-rh-pXS"/>
                         <outlet property="lbLego" destination="DR5-wC-YXE" id="xs7-qO-n1q"/>
                         <outlet property="lbNodes" destination="hb3-hP-Gvn" id="NaH-Ab-E5L"/>
+                        <outlet property="swSmartRoute" destination="Lhd-zF-ibB" id="kvT-jC-9Cr"/>
                         <outlet property="vwBackHub" destination="cUP-wN-Y58" id="X6y-tr-4Fl"/>
                         <outlet property="vwCircleBack" destination="XmI-eh-EA5" id="XtT-Jc-RVc"/>
                     </connections>
