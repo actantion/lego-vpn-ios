@@ -14,9 +14,9 @@ let SCREEN_WIDTH = (UIScreen.main.bounds.size.width)
 let SCREEN_HEIGHT = (UIScreen.main.bounds.size.height)
 let APP_COLOR = UIColor(red: 9.0/255.0, green: 222.0/255.0, blue: 202.0/255.0, alpha: 1)
 let NAVIGATION_HEIGHT = 44.0;
-let IS_IN_CN = false
-let URL_SERVER = "http://192.168.1.90:8080/"
-let INTERFACE_API = "appleIAPAuth"
+//let IS_IN_CN = false
+//let URL_SERVER = "http://192.168.1.90:8080/"
+//let INTERFACE_API = "appleIAPAuth"
 class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerDelegate {
     var btnBack:EXButton!
     var vwNavigation:UIView!
@@ -74,7 +74,7 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
         }
     }
     
-    func applePayInit() {
+    func applePayInit(_ amount:Int) {
         if !PKPaymentAuthorizationViewController.canMakePayments(){
             print("设备不支持ApplePay，请升级至9.0以上版本，且iPhone6以上设备才支持")
         }
@@ -85,8 +85,8 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
         }
         print("可以支付，开始建立支付请求");
         let payRequest:PKPaymentRequest = PKPaymentRequest()
-        payRequest.countryCode = "US"
-        payRequest.currencyCode = "USD"
+        payRequest.countryCode = "CN"
+        payRequest.currencyCode = "CNY"
         payRequest.merchantIdentifier = "merchant.TenonVpn.TenonCoin"
         payRequest.supportedNetworks = supportedNetworks as! [PKPaymentNetwork]
         payRequest.merchantCapabilities = PKMerchantCapability(rawValue: PKMerchantCapability.capability3DS.rawValue | PKMerchantCapability.capabilityEMV.rawValue)
@@ -99,38 +99,38 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
         //        let freeShipping:PKShippingMethod = PKShippingMethod(label: "包邮", amount: NSDecimalNumber.zero)
         //        freeShipping.identifier = "freeshipping"
         //        freeShipping.detail = "1 天 送达"
-        
+
         //        let expressShipping:PKShippingMethod = PKShippingMethod(label: "极速送达", amount: NSDecimalNumber.init(decimal:10.00) )
         //        expressShipping.identifier = "expressshipping"
         //        expressShipping.detail = "2-3 小时 送达"
-        
+
         //        shippingMethods = [freeShipping]
         //        payRequest.shippingMethods = shippingMethods
-        
-        let subtotalAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: 0.01)
-        let subtotal:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "商品:1000 Tenon", amount: subtotalAmount)
-        
+
+        let subtotalAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: Decimal(amount))
+        let subtotal:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "商品:" + String(amount*500) + " Tenon", amount: subtotalAmount)
+
         //        let discountAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: 1000)
         //        let discount:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "收到Tenon", amount: discountAmount)
         //
         //        let methodsAmount:NSDecimalNumber = NSDecimalNumber.zero
         //        let methods:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "包邮", amount: methodsAmount)
-        
+
         var totalAmount:NSDecimalNumber = NSDecimalNumber.zero
         totalAmount = totalAmount.adding(subtotalAmount)
         //        totalAmount = totalAmount.adding(discountAmount)
         //        totalAmount = totalAmount.adding(methodsAmount)
-        
-        let total:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "FriendWu", amount: totalAmount)
-        
+
+        let total:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "xielei", amount: totalAmount)
+
         summaryItems = [subtotal,total] // , discount, methods, total
         payRequest.paymentSummaryItems = summaryItems
-        
+
         let view:PKPaymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: payRequest)!
         view.delegate = self
         self.present(view, animated: true, completion: nil)
     }
-    
+
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true, completion: nil)
     }

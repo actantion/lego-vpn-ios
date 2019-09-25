@@ -6,6 +6,92 @@
 //  Copyright © 2019 zly. All rights reserved.
 //
 
+
+//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+//        let product:[SKProduct] = response.products
+//        if product.count == 0 {
+//            print("没有该商品")
+//            CBToast.hiddenToastAction()
+//            CBToast.showToastAction(message: "没有该商品")
+//        }else{
+//            var requestProduct:SKProduct!
+//            for pro:SKProduct in product{
+//                if pro.productIdentifier == productId{
+//                    requestProduct = pro
+//                }
+//            }
+//            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)
+//            payment.applicationUsername = local_account_id+productId
+//            SKPaymentQueue.default().add(payment)
+//        }
+//    }
+//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+//        for tran:SKPaymentTransaction in transactions{
+//            switch tran.transactionState{
+//            case .purchased:do {
+//                print("交易完成")
+//                CBToast.hiddenToastAction()
+//                SKPaymentQueue.default().finishTransaction(tran)
+//                completeTransaction(transaction: tran)
+//            }
+//            case .purchasing:do {
+//                print("商品添加进列表")
+//            }
+//            case .failed:do {
+//                CBToast.hiddenToastAction()
+//                CBToast.showToastAction(message: "购买失败")
+//                SKPaymentQueue.default().finishTransaction(tran)
+//            }
+//            case .restored:do {
+//                print("已经购买过商品")
+//            }
+//            case .deferred:do {
+//                print("延迟购买")
+//            }
+//            @unknown default:
+//                print("未知错误")
+//            }
+//        }
+//    }
+//    func completeTransaction(transaction:SKPaymentTransaction) {
+//        let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
+//        let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
+//        let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
+//        let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
+//        AF.request(URL_SERVER + INTERFACE_API ,parameters:reqDic).responseJSON {
+//            (response)   in
+//            let result:Bool = response.value as! Bool
+//            if result == true{
+//                CBToast.showToastAction(message: "服务端验证通过")
+//            }else{
+//                CBToast.showToastAction(message: "服务端验证未通过")
+//            }
+//        }
+
+
+//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
+//        urlRequest.HTTPMethod = @"POST";
+//        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//        _receipt = encodeStr;
+//        NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
+//        NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
+//        urlRequest.HTTPBody = payloadData;
+//
+//        NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
+//
+//        if (result == nil) {
+//            NSLog(@"验证失败");
+//            return;
+//        }
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
+//        NSLog(@"请求成功后的数据:%@",dic);
+//        //这里可以通过判断 state == 0 验证凭据成功，然后进入自己服务器二次验证，,也可以直接进行服务器逻辑的判断。
+//        //本地服务器验证成功之后别忘了 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+//
+//        NSString *productId = transaction.payment.productIdentifier;
+//        NSString *applicationUsername = transaction.payment.applicationUsername;
+//    }
+
 import UIKit
 import NetworkExtension
 import Eureka
@@ -15,7 +101,7 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 
-class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver {
+class ViewController: BaseViewController {
     
     
     @IBOutlet weak var swSmartRoute: UISwitch!
@@ -32,7 +118,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     @IBOutlet weak var imgCountryIcon: UIImageView!
     @IBOutlet weak var lbNodes: UILabel!
     
-    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
+//    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
     var isHub:Bool = false
     var popMenu:FWPopMenu!
     var isClick:Bool = false
@@ -44,6 +130,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     
     
     var popBottomView:FWBottomPopView!
+    var popBottomPayWayView:FWPayPopView!
     var local_country: String = ""
     var local_private_key: String = ""
     var local_account_id: String = ""
@@ -52,8 +139,20 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     var iCon:[String] = ["us", "sg", "br","de","fr","kr", "jp", "ca","au","hk", "in", "gb","cn"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     var transcationList = [TranscationModel]()
+    var payModelList = [payModel]()
+    var payWay:Int!
+    var payAmount:Int!
+    
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //        SKPaymentQueue.default().add(self)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //        SKPaymentQueue.default().remove(self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,35 +202,119 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         self.imgCountryIcon.image = UIImage(named:self.iCon[0])
         self.lbNodes.text = self.countryNodes[0]
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
+        
+        do {
+            let model:payModel = payModel()
+            model.iconName = "alipay"
+            model.payName = "alipay"
+            model.isSelect = true
+            payModelList.append(model)
+        }
+        do {
+            let model:payModel = payModel()
+            model.iconName = "wechatpay"
+            model.payName = "wechat pay"
+            payModelList.append(model)
+        }
+        do {
+            let model:payModel = payModel()
+            model.iconName = "applepay"
+            model.payName = "apple pay"
+            payModelList.append(model)
+        }
         requestData()
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    @IBAction func clickApplePay(_ sender: Any) {
-        if IS_IN_CN == true{
-            applePayInit()
+    func paymentTenonCoin(_ amount:Int , _ type:Int) {
+        if type == 0 {
+            // 支付宝
+        }else if(type == 1){
+            // 微信支付
+        }else if(type == 2){
+            // apple pay
+            applePayInit(amount)
         }else{
-            if SKPaymentQueue.canMakePayments(){
-                CBToast.showToastAction()
-                let product:NSArray = [productId]
-                let nsset:NSSet = NSSet(array: product as! [Any])
-                let request:SKProductsRequest = SKProductsRequest(productIdentifiers: nsset as! Set<String>)
-                request.delegate = self
-                request.start()
-            }else{
-                CBToast.showToastAction(message: "您的手机暂时不支持苹果内购哦!")
-            }
+            
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        SKPaymentQueue.default().add(self)
+    @IBAction func clickBuyTenon(_ sender: Any) {
+//        if IS_IN_CN == true{
+//            applePayInit()
+//        }else{
+//            if SKPaymentQueue.canMakePayments(){
+//                CBToast.showToastAction()
+//                let product:NSArray = [productId]
+//                let nsset:NSSet = NSSet(array: product as! [Any])
+//                let request:SKProductsRequest = SKProductsRequest(productIdentifiers: nsset as! Set<String>)
+//                request.delegate = self
+//                request.start()
+//            }else{
+//                CBToast.showToastAction(message: "您的手机暂时不支持苹果内购哦!")
+//            }
+//        }
+        self.payWay = 0
+        self.payAmount = 0
+        self.popBottomPayWayView = FWPayPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 300, width: SCREEN_WIDTH, height: 300))
+        self.popBottomPayWayView.loadCell("PayWayTableViewCell","payConfirmTableViewCell","ConfirmBtnTableViewCell", payModelList.count)
+        self.popBottomPayWayView.callBackBlk = {(cell,indexPath) in
+            if indexPath.section == 0 {
+                let tempCell:PayWayTableViewCell = cell as! PayWayTableViewCell
+                let model:payModel = self.payModelList[indexPath.row]
+                tempCell.imgLogo.image = UIImage(named: model.iconName)
+                tempCell.lbName.text = model.payName
+                tempCell.imgSelect.isHidden = !model.isSelect
+                return tempCell
+            }else if indexPath.section == 1{
+                let tempCell:payConfirmTableViewCell = cell as! payConfirmTableViewCell
+                tempCell.lbTenonCount.text = String(self.payAmount*500)
+                tempCell.inputAmountBlk = {(amount) in
+                    print(amount)
+                    self.payAmount = amount
+                }
+                return tempCell
+            }else{
+                let tempCell:ConfirmBtnTableViewCell = cell as! ConfirmBtnTableViewCell
+                tempCell.confirmBlock = {() in
+                    print("确认 payway = %d amount = %d",self.payWay!,self.payAmount!)
+                    UIView.animate(withDuration: 0.4, animations: {
+                        self.popBottomPayWayView.top = SCREEN_HEIGHT
+                    }, completion: { (Bool) in
+                        self.popBottomPayWayView.removeFromSuperview()
+                        self.paymentTenonCoin(self.payAmount,self.payWay)
+                    })
+                }
+                return tempCell
+            }
+        }
+        
+        self.popBottomPayWayView.clickBlck = {(idx) in
+            if idx == -1 {
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.popBottomPayWayView.top = SCREEN_HEIGHT
+                }, completion: { (Bool) in
+                    self.popBottomPayWayView.removeFromSuperview()
+                })
+            }else{
+                for model:payModel in self.payModelList{
+                    model.isSelect = false
+                }
+                let model:payModel = self.payModelList[idx]
+                model.isSelect = true
+                self.payWay = idx
+                self.popBottomPayWayView.tableView.reloadData()
+            }
+        }
+        self.popBottomPayWayView.top = self.popBottomPayWayView.height
+        self.view.addSubview(self.popBottomPayWayView)
+        UIView.animate(withDuration: 0.4, animations: {
+            self.popBottomPayWayView.top = 0
+        }, completion: { (Bool) in
+//            self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+        })
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        SKPaymentQueue.default().remove(self)
-    }
+
     @IBAction func clickSwitch(_ sender: Any) {
         if self.swSmartRoute.isOn == true{
             print("开启智能路由")
@@ -139,90 +322,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             print("关闭智能路由")
         }
     }
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        let product:[SKProduct] = response.products
-        if product.count == 0 {
-            print("没有该商品")
-            CBToast.hiddenToastAction()
-            CBToast.showToastAction(message: "没有该商品")
-        }else{
-            var requestProduct:SKProduct!
-            for pro:SKProduct in product{
-                if pro.productIdentifier == productId{
-                    requestProduct = pro
-                }
-            }
-            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)
-            payment.applicationUsername = local_account_id+productId
-            SKPaymentQueue.default().add(payment)
-        }
-    }
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for tran:SKPaymentTransaction in transactions{
-            switch tran.transactionState{
-            case .purchased:do {
-                print("交易完成")
-                CBToast.hiddenToastAction()
-                SKPaymentQueue.default().finishTransaction(tran)
-                completeTransaction(transaction: tran)
-            }
-            case .purchasing:do {
-                print("商品添加进列表")
-            }
-            case .failed:do {
-                CBToast.hiddenToastAction()
-                CBToast.showToastAction(message: "购买失败")
-                SKPaymentQueue.default().finishTransaction(tran)
-            }
-            case .restored:do {
-                print("已经购买过商品")
-            }
-            case .deferred:do {
-                print("延迟购买")
-            }
-            @unknown default:
-                print("未知错误")
-            }
-        }
-    }
-    func completeTransaction(transaction:SKPaymentTransaction) {
-        let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
-        let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
-        let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
-        let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
-        AF.request(URL_SERVER + INTERFACE_API ,parameters:reqDic).responseJSON {
-            (response)   in
-            let result:Bool = response.value as! Bool
-            if result == true{
-                CBToast.showToastAction(message: "服务端验证通过")
-            }else{
-                CBToast.showToastAction(message: "服务端验证未通过")
-            }
-        }
-        
-        
-//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
-//        urlRequest.HTTPMethod = @"POST";
-//        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//        _receipt = encodeStr;
-//        NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
-//        NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
-//        urlRequest.HTTPBody = payloadData;
-//
-//        NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
-//
-//        if (result == nil) {
-//            NSLog(@"验证失败");
-//            return;
-//        }
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-//        NSLog(@"请求成功后的数据:%@",dic);
-//        //这里可以通过判断 state == 0 验证凭据成功，然后进入自己服务器二次验证，,也可以直接进行服务器逻辑的判断。
-//        //本地服务器验证成功之后别忘了 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-//
-//        NSString *productId = transaction.payment.productIdentifier;
-//        NSString *applicationUsername = transaction.payment.applicationUsername;
-    }
+
     @objc func requestData(){
         transcationList.removeAll()
         self.balance = TenonP2pLib.sharedInstance.GetBalance()

@@ -36,7 +36,7 @@ class FWBottomPopView: UIView,UITableViewDelegate,UITableViewDataSource,UIGestur
         //        self.tableView.showsVerticalScrollIndicator = false
         self.tableView.showsHorizontalScrollIndicator = false
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.tableView.allowsSelection = false
+//        self.tableView.allowsSelection = false
         self.tableView.dataSource = self
         self.addSubview(self.topView)
         self.addSubview(self.tableView)
@@ -74,6 +74,13 @@ class FWBottomPopView: UIView,UITableViewDelegate,UITableViewDataSource,UIGestur
         }
     }
     
+    public func loadCell(_ cellName:String ,_ rowCount:Int){
+        self.cellName = cellName
+        self.rowCount = rowCount
+        self.tableView.loadCell(cellName)
+        self.tableView.reloadData()
+    }
+    
     public func loadCell(_ cellName:String ,_ cellHeaderName:String ,_ rowCount:Int){
         self.cellName = cellName
         self.cellHeaderName = cellHeaderName
@@ -84,25 +91,40 @@ class FWBottomPopView: UIView,UITableViewDelegate,UITableViewDataSource,UIGestur
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if self.cellHeaderName == nil{
+            return 1
+        }
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        }else{
+        if self.cellHeaderName == nil{
             return self.rowCount
+        }else{
+            if section == 0 {
+                return 1
+            }else{
+                return self.rowCount
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell:UITableViewCell = tableView.reUseCell(self.cellHeaderName)
-            return self.callBackBlk!(cell,indexPath) as! UITableViewCell
-        }else{
+        if self.cellHeaderName == nil{
             let cell:UITableViewCell = tableView.reUseCell(self.cellName)
             return self.callBackBlk!(cell,indexPath) as! UITableViewCell
+        }else{
+            if indexPath.section == 0 {
+                let cell:UITableViewCell = tableView.reUseCell(self.cellHeaderName)
+                return self.callBackBlk!(cell,indexPath) as! UITableViewCell
+            }else{
+                let cell:UITableViewCell = tableView.reUseCell(self.cellName)
+                return self.callBackBlk!(cell,indexPath) as! UITableViewCell
+            }
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.clickBlck!(indexPath.row)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

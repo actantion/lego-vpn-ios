@@ -21,6 +21,7 @@ target 'TenonVPN' do
   use_frameworks!
   pod 'Alamofire', '~> 5.0.0-rc.2'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'IQKeyboardManagerSwift'
 #   Pods for TenonVPN
   pod 'YYKit'
 end

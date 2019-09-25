@@ -1,5 +1,0 @@
-module TenonVPNConnectionExtern {
-    header "TenonVPNConnection-PCH.h"
-    export *
-}
-

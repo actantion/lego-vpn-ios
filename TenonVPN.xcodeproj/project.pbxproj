@@ -26,6 +26,14 @@
 		852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852577722329ECD800BF8AF8 /* TenonP2pLib.swift */; };
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
+		D30639322339F7F50006CC7C /* PayWayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30639302339F7F50006CC7C /* PayWayTableViewCell.swift */; };
+		D30639332339F7F50006CC7C /* PayWayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30639312339F7F50006CC7C /* PayWayTableViewCell.xib */; };
+		D3063935233A04980006CC7C /* payModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063934233A04980006CC7C /* payModel.swift */; };
+		D3063937233A108D0006CC7C /* FWPayPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063936233A108D0006CC7C /* FWPayPopView.swift */; };
+		D306393A233A12100006CC7C /* payConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063938233A12100006CC7C /* payConfirmTableViewCell.swift */; };
+		D306393B233A12100006CC7C /* payConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */; };
+		D306393E233B075C0006CC7C /* ConfirmBtnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306393C233B075C0006CC7C /* ConfirmBtnTableViewCell.swift */; };
+		D306393F233B075C0006CC7C /* ConfirmBtnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D306393D233B075C0006CC7C /* ConfirmBtnTableViewCell.xib */; };
 		D30B566D23277310003E87EE /* AcountSetTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B566B23277310003E87EE /* AcountSetTestViewController.swift */; };
 		D30B566E23277310003E87EE /* AcountSetTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30B566C23277310003E87EE /* AcountSetTestViewController.xib */; };
 		D30B567323277953003E87EE /* FWPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B567223277953003E87EE /* FWPopMenu.swift */; };
@@ -86,7 +94,6 @@
 		D35BBDDC2330C37B0043E340 /* libp2p.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDDA2330C37B0043E340 /* libp2p.framework */; };
 		D35BBDDE2330C4840043E340 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */; };
 		D35BBDDF2330D8F10043E340 /* CocoaLumberjackSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D35BBDE22332113A0043E340 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDE12332113A0043E340 /* StoreKit.framework */; };
 		D38E584A232F72CE00D99A90 /* TranscationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5849232F72CE00D99A90 /* TranscationModel.swift */; };
 		D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
 		D38E5857232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
@@ -179,6 +186,14 @@
 		9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freeWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PacketTunnel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenonVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D30639302339F7F50006CC7C /* PayWayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWayTableViewCell.swift; sourceTree = "<group>"; };
+		D30639312339F7F50006CC7C /* PayWayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayWayTableViewCell.xib; sourceTree = "<group>"; };
+		D3063934233A04980006CC7C /* payModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payModel.swift; sourceTree = "<group>"; };
+		D3063936233A108D0006CC7C /* FWPayPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPayPopView.swift; sourceTree = "<group>"; };
+		D3063938233A12100006CC7C /* payConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = payConfirmTableViewCell.xib; sourceTree = "<group>"; };
+		D306393C233B075C0006CC7C /* ConfirmBtnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBtnTableViewCell.swift; sourceTree = "<group>"; };
+		D306393D233B075C0006CC7C /* ConfirmBtnTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmBtnTableViewCell.xib; sourceTree = "<group>"; };
 		D30B566B23277310003E87EE /* AcountSetTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcountSetTestViewController.swift; sourceTree = "<group>"; };
 		D30B566C23277310003E87EE /* AcountSetTestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcountSetTestViewController.xib; sourceTree = "<group>"; };
 		D30B567223277953003E87EE /* FWPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPopMenu.swift; sourceTree = "<group>"; };
@@ -213,7 +228,6 @@
 		D34378FE2328F234000F1F69 /* TenonVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenonVPN.entitlements; sourceTree = "<group>"; };
 		D35BBDDA2330C37B0043E340 /* libp2p.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libp2p.framework; path = Carthage/Build/iOS/libp2p.framework; sourceTree = "<group>"; };
 		D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
-		D35BBDE12332113A0043E340 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D38E5849232F72CE00D99A90 /* TranscationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscationModel.swift; sourceTree = "<group>"; };
 		D38E5855232F8C0B00D99A90 /* VpnManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnManager.swift; path = Tenon/VpnManager.swift; sourceTree = SOURCE_ROOT; };
 		ED6901FF968591280E6CB988 /* Pods-PacketTunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.release.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.release.xcconfig"; sourceTree = "<group>"; };
@@ -233,7 +247,6 @@
 				D33FB670231F8AF9004ECA2A /* lwip.framework in Frameworks */,
 				D33FB67C231F8B15004ECA2A /* Sodium.framework in Frameworks */,
 				D33FB67F231F8B1B004ECA2A /* tun2socks.framework in Frameworks */,
-				D35BBDE22332113A0043E340 /* StoreKit.framework in Frameworks */,
 				D33FB682231F8B23004ECA2A /* Yaml.framework in Frameworks */,
 				D33FB66D231F8AE6004ECA2A /* CommonCrypto.framework in Frameworks */,
 				D33FB685231F8F03004ECA2A /* Eureka.framework in Frameworks */,
@@ -358,7 +371,6 @@
 		AE2E93114404A35E87606173 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D35BBDE12332113A0043E340 /* StoreKit.framework */,
 				D35BBDDA2330C37B0043E340 /* libp2p.framework */,
 				8525776E2329DC0A00BF8AF8 /* libz.1.2.11.tbd */,
 				8525776C2329DBF600BF8AF8 /* libc++.1.tbd */,
@@ -389,6 +401,7 @@
 				D38E584C232F87E400D99A90 /* View */,
 				D30B567223277953003E87EE /* FWPopMenu.swift */,
 				D34378F323289126000F1F69 /* FWBottomPopView.swift */,
+				D3063936233A108D0006CC7C /* FWPayPopView.swift */,
 			);
 			path = FWPopMenu;
 			sourceTree = "<group>";
@@ -409,6 +422,12 @@
 			children = (
 				D34378F52328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift */,
 				D34378F62328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib */,
+				D30639302339F7F50006CC7C /* PayWayTableViewCell.swift */,
+				D30639312339F7F50006CC7C /* PayWayTableViewCell.xib */,
+				D3063938233A12100006CC7C /* payConfirmTableViewCell.swift */,
+				D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */,
+				D306393C233B075C0006CC7C /* ConfirmBtnTableViewCell.swift */,
+				D306393D233B075C0006CC7C /* ConfirmBtnTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -471,6 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				D38E5849232F72CE00D99A90 /* TranscationModel.swift */,
+				D3063934233A04980006CC7C /* payModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -556,8 +576,11 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
 							};
-							com.apple.InAppPurchase = {
+							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
 							};
 							com.apple.NetworkExtensions.iOS = {
 								enabled = 1;
@@ -624,10 +647,13 @@
 				D316BC2123224D86008C8FD3 /* ChoseCountryViewController.xib in Resources */,
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
 				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
+				D306393F233B075C0006CC7C /* ConfirmBtnTableViewCell.xib in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
+				D30639332339F7F50006CC7C /* PayWayTableViewCell.xib in Resources */,
 				18E9149C2267220B005E6027 /* NEKitRule.conf in Resources */,
 				18E914242266C7B5005E6027 /* Assets.xcassets in Resources */,
 				D316BC2523224D97008C8FD3 /* AcountSetViewController.xib in Resources */,
+				D306393B233A12100006CC7C /* payConfirmTableViewCell.xib in Resources */,
 				18E914222266C7B4005E6027 /* Main.storyboard in Resources */,
 				D30B566E23277310003E87EE /* AcountSetTestViewController.xib in Resources */,
 			);
@@ -748,16 +774,21 @@
 				D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */,
 				D38E584A232F72CE00D99A90 /* TranscationModel.swift in Sources */,
 				D3204B5C232635FB002ECB69 /* UIButton+Extension.swift in Sources */,
+				D30639322339F7F50006CC7C /* PayWayTableViewCell.swift in Sources */,
 				D316BC2023224D86008C8FD3 /* ChoseCountryViewController.swift in Sources */,
 				D30B566D23277310003E87EE /* AcountSetTestViewController.swift in Sources */,
 				D34378F423289126000F1F69 /* FWBottomPopView.swift in Sources */,
+				D3063937233A108D0006CC7C /* FWPayPopView.swift in Sources */,
 				D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */,
 				18E9141F2266C7B4005E6027 /* ViewController.swift in Sources */,
+				D306393E233B075C0006CC7C /* ConfirmBtnTableViewCell.swift in Sources */,
 				D316BC2423224D97008C8FD3 /* AcountSetViewController.swift in Sources */,
 				852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */,
 				D34378F72328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift in Sources */,
 				18E9141D2266C7B4005E6027 /* AppDelegate.swift in Sources */,
+				D3063935233A04980006CC7C /* payModel.swift in Sources */,
 				D316BC2823224F24008C8FD3 /* CountryTableViewCell.swift in Sources */,
+				D306393A233A12100006CC7C /* payConfirmTableViewCell.swift in Sources */,
 				8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */,
 				D30B567323277953003E87EE /* FWPopMenu.swift in Sources */,
 				D3204B522325EA7A002ECB69 /* UITableView+Extension.swift in Sources */,
@@ -952,7 +983,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenonVPN.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZYNR4RP3S7;
+				DEVELOPMENT_TEAM = MF5R7KP39Q;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -971,6 +1002,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/libp2p/lib",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Tenon/WechatPay",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1024,11 +1056,12 @@
 					"-lcrypto",
 					"-lssl",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maofang.TenonVPN;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64e armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -1040,7 +1073,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenonVPN.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZYNR4RP3S7;
+				DEVELOPMENT_TEAM = MF5R7KP39Q;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1059,6 +1092,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/libp2p/lib",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Tenon/WechatPay",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1112,11 +1146,12 @@
 					"-lcrypto",
 					"-lssl",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maofang.TenonVPN;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64e armv7s arm64";
 			};
 			name = Release;
 		};
@@ -1127,7 +1162,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZYNR4RP3S7;
+				DEVELOPMENT_TEAM = MF5R7KP39Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1140,7 +1175,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maofang.TenonVPN.PacketTunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-.PacketTunnel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1155,7 +1190,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZYNR4RP3S7;
+				DEVELOPMENT_TEAM = MF5R7KP39Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1168,7 +1203,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maofang.TenonVPN.PacketTunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-.PacketTunnel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1183,7 +1218,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_ENTITLEMENTS = freeWidget/freeWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZYNR4RP3S7;
+				DEVELOPMENT_TEAM = MF5R7KP39Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1196,7 +1231,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.maofang.TenonVPN.freeWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-.freeWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1212,7 +1247,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_ENTITLEMENTS = freeWidget/freeWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZYNR4RP3S7;
+				DEVELOPMENT_TEAM = MF5R7KP39Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1225,7 +1260,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.maofang.TenonVPN.freeWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-.freeWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.0.0-rc.2)
+  - IQKeyboardManagerSwift (6.4.2)
   - SwiftyJSON (4.3.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -7,20 +8,23 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.2)
+  - IQKeyboardManagerSwift
   - SwiftyJSON (~> 4.0)
   - YYKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - IQKeyboardManagerSwift
     - SwiftyJSON
     - YYKit
 
 SPEC CHECKSUMS:
   Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
+  IQKeyboardManagerSwift: 79a3ec200dfb41cb66a89b8575417b5378107c5d
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 4011d68669d5bdb2ee4143d6b8540c437d03bd5a
+PODFILE CHECKSUM: 3303b186e8bb9d6e2663033492d0dd6a697adf35
 
 COCOAPODS: 1.7.5
