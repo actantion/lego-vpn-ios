@@ -18,13 +18,15 @@ extension ShadowsocksAdapter {
                 let array : Array = in_method.components(separatedBy: ",")
                 var vpn_ip = UInt32(array[1]) as! UInt32
                 var vpn_port = UInt16(array[2]) as! UInt16
+                var smart_route = Bool(array[3]) as! Bool
                 return CryptoStreamProcessor(
                     key: key,
                     algorithm: algorithm,
                     pubkey: in_pubkey,
                     method: array[0],
                     choose_vpn_ip: vpn_ip,
-                    choose_vpn_port: vpn_port)
+                    choose_vpn_port: vpn_port,
+                    use_smart_route: smart_route)
             }
         }
 
@@ -40,6 +42,7 @@ extension ShadowsocksAdapter {
         var method = "aes-256-cfb"
         var choose_vpn_node_int_ip: UInt32 = 0
         var choose_vpn_node_port: UInt16 = 0
+        var use_smart_route: Bool = false
 
         var buffer = Buffer(capacity: 0)
 
@@ -66,13 +69,15 @@ extension ShadowsocksAdapter {
                 pubkey: String,
                 method: String,
                 choose_vpn_ip: UInt32,
-                choose_vpn_port: UInt16) {
+                choose_vpn_port: UInt16,
+                use_smart_route: Bool) {
             self.key = key
             self.algorithm = algorithm
             self.local_public_key = pubkey
             self.method = method
             self.choose_vpn_node_int_ip = choose_vpn_ip
             self.choose_vpn_node_port = choose_vpn_port
+            self.use_smart_route = use_smart_route
         }
 
         func changeLocalPublicKey(local_pubkey: String) {
@@ -109,22 +114,26 @@ extension ShadowsocksAdapter {
 
         private func relayData(withData data: Data) -> Data {
             let method = self.method
-            let start_pos = 0
+            var start_pos = 0
+            if (self.use_smart_route) {
+                start_pos = 6
+            }
+            
             let public_len = 66
             let length = start_pos + public_len + 1 + method.utf8.count + data.count
             var response = Data(count: length)
-            /*
-            response[0] = 1
-            var beip = UInt32(self.choose_vpn_node_int_ip)
-            withUnsafeBytes(of: &beip) {
-                response.replaceSubrange(1..<5, with: $0)
+            if (self.use_smart_route) {
+                var beip = UInt32(self.choose_vpn_node_int_ip)
+                withUnsafeBytes(of: &beip) {
+                    response.replaceSubrange(0..<4, with: $0)
+                }
+                
+                var beport = UInt16(self.choose_vpn_node_port).bigEndian
+                withUnsafeBytes(of: &beport) {
+                    response.replaceSubrange(4..<6, with: $0)
+                }
             }
             
-            var beport = UInt16(self.choose_vpn_node_port).bigEndian
-            withUnsafeBytes(of: &beport) {
-                response.replaceSubrange(5..<7, with: $0)
-            }
-            */
             response.replaceSubrange(start_pos..<(start_pos + public_len), with: self.local_public_key.utf8)
             response[start_pos + public_len] = UInt8(method.utf8.count)
             response.replaceSubrange(
@@ -146,8 +155,7 @@ extension ShadowsocksAdapter {
                 var out = Data(capacity: data.count + writeIV.count)
                 out.append(writeIV)
                 out.append(data)
-
-                print("hello world")
+                
                 return outputStreamProcessor!.output(data: relayData(withData: out))
             }
         }

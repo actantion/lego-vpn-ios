@@ -48,6 +48,7 @@ struct VpnServerNode {
             const std::string& skey,
             const std::string& dkey,
             const std::string& pkey,
+            const std::string& id,
             bool new_node)
             : ip(in_ip),
               svr_port(s_port),
@@ -55,14 +56,19 @@ struct VpnServerNode {
               seckey(skey),
               dht_key(dkey),
               pubkey(pkey),
-              new_get(new_node) {}
+              acccount_id(id),
+              new_get(new_node) {
+        timeout = std::chrono::steady_clock::now() + std::chrono::seconds(3600);
+    }
     std::string ip;
     uint16_t svr_port;
     uint16_t route_port;
     std::string seckey;
     std::string dht_key;
     std::string pubkey;
+    std::string acccount_id;
     bool new_get{ false };
+    std::chrono::steady_clock::time_point timeout;
 };
 typedef std::shared_ptr<VpnServerNode> VpnServerNodePtr;
 
@@ -100,8 +106,8 @@ public:
             std::vector<VpnServerNodePtr>& nodes);
     std::string Transaction(const std::string& to, uint64_t amount, std::string& tx_gid);
     std::string GetTransactionInfo(const std::string& tx_gid);
-    TxInfoPtr GetBlockWithGid(const std::string& gid);
-    TxInfoPtr GetBlockWithHash(const std::string& block_hash);
+    protobuf::BlockPtr GetBlockWithGid(const std::string& gid);
+    protobuf::BlockPtr GetBlockWithHash(const std::string& block_hash);
     int GetSocket();
     bool ConfigExists(const std::string& conf_path);
     bool IsFirstInstall() {
@@ -113,11 +119,15 @@ public:
     void VpnHeartbeat(const std::string& dht_key);
     int ResetTransport(const std::string& ip, uint16_t port);
     std::string GetPublicKey();
-    std::string GetPublicKeySrc();
     std::string GetSecretKey(const std::string& peer_pubkey);
     int EncryptData(char* seckey, int seclen, char* data, int data_len, char* out);
     int DecryptData(char* seckey, int seclen, char* data, int data_len, char* out);
     std::string GetRouting(const std::string& start, const std::string& end);
+    int VpnLogin(
+            const std::string& svr_account,
+            const std::vector<std::string>& route_vec,
+            std::string& login_gid);
+    int VpnLogout();
 
 private:
     VpnClient();
@@ -149,6 +159,7 @@ private:
     void ReadRouteNodesFromConf();
     void DumpBootstrapNodes();
     void GetNetworkNodes(const std::vector<std::string>& country_vec, uint32_t network_id);
+    void InitRouteAndVpnServer();
 
     static const uint32_t kDefaultUdpSendBufferSize = 10u * 1024u * 1024u;
     static const uint32_t kDefaultUdpRecvBufferSize = 10u * 1024u * 1024u;
@@ -166,7 +177,7 @@ private:
     bool client_mode_{ true };
     uint32_t send_buff_size_{ kDefaultUdpSendBufferSize };
     uint32_t recv_buff_size_{ kDefaultUdpRecvBufferSize };
-    std::unordered_map<std::string, TxInfoPtr> tx_map_;
+    std::unordered_map<std::string, protobuf::BlockPtr> tx_map_;
     std::mutex tx_map_mutex_;
     bool first_install_{ false };
     std::string config_path_;

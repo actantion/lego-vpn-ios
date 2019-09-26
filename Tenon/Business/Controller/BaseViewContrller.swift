@@ -233,7 +233,7 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return ("", "")
         }
         
-        return (node_info_arr[0], node_info_arr[1])
+        return (node_info_arr[0], node_info_arr[2])
     }
     
     func getOneVpnNode(country: String) -> (ip: String, port: String, passwd: String) {

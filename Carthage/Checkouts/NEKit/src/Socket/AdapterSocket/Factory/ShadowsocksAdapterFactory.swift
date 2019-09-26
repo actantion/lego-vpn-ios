@@ -8,7 +8,14 @@ open class ShadowsocksAdapterFactory: ServerAdapterFactory {
     let pubkey: String
     let method: String
 
-    public init(serverHost: String, serverPort: Int, pk: String, m: String, protocolObfuscaterFactory: ShadowsocksAdapter.ProtocolObfuscater.Factory, cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory, streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.Factory) {
+    public init(
+            serverHost: String,
+            serverPort: Int,
+            pk: String,
+            m: String,
+            protocolObfuscaterFactory: ShadowsocksAdapter.ProtocolObfuscater.Factory,
+            cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory,
+            streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.Factory) {
         self.protocolObfuscaterFactory = protocolObfuscaterFactory
         self.cryptorFactory = cryptorFactory
         self.streamObfuscaterFactory = streamObfuscaterFactory
@@ -25,7 +32,12 @@ open class ShadowsocksAdapterFactory: ServerAdapterFactory {
      - returns: The built adapter.
      */
     override open func getAdapterFor(session: ConnectSession) -> AdapterSocket {
-        let adapter = ShadowsocksAdapter(host: serverHost, port: serverPort, protocolObfuscater: protocolObfuscaterFactory.build(), cryptor: cryptorFactory.build(in_pubkey: pubkey, in_method:  method), streamObfuscator: streamObfuscaterFactory.build(for: session))
+        let adapter = ShadowsocksAdapter(
+            host: serverHost,
+            port: serverPort,
+            protocolObfuscater: protocolObfuscaterFactory.build(),
+            cryptor: cryptorFactory.build(in_pubkey: pubkey, in_method:  method),
+            streamObfuscator: streamObfuscaterFactory.build(for: session))
         adapter.socket = RawSocketFactory.getRawSocket()
         return adapter
     }

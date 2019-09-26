@@ -115,6 +115,8 @@ class ViewController: BaseViewController {
     @IBOutlet weak var btnChoseCountry: UIButton!
     @IBOutlet weak var imgCountryIcon: UIImageView!
     @IBOutlet weak var lbNodes: UILabel!
+    @IBOutlet weak var smartRoute: UISwitch!
+    
     
 //    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
     var payWay:Int = 0
@@ -299,6 +301,8 @@ class ViewController: BaseViewController {
             
         }
     }
+    
+    
     @IBAction func clickBuyTenon(_ sender: Any) {
 //        if IS_IN_CN == true{
 //            applePayInit()
@@ -409,7 +413,7 @@ class ViewController: BaseViewController {
             if choosed_country != nil{
                 var route_node = getOneRouteNode(country: choosed_country)
                 if (route_node.ip.isEmpty) {
-                    route_node = getOneRouteNode(country: choosed_country)
+                    route_node = getOneRouteNode(country: local_country)
                     if (route_node.ip.isEmpty) {
                         for country in self.iCon {
                             route_node = getOneRouteNode(country: country)
@@ -435,20 +439,28 @@ class ViewController: BaseViewController {
                     self.vwBackHub.proStartgress = 0.0
                     self.playAnimotion()
                     
-                    VpnManager.shared.ip_address = vpn_node.ip
-                    VpnManager.shared.port = Int(vpn_node.port)!
+                    if (smartRoute.isOn) {
+                        VpnManager.shared.ip_address = route_node.ip
+                        VpnManager.shared.port = Int(route_node.port)!
+                    } else {
+                        VpnManager.shared.ip_address = vpn_node.ip
+                        VpnManager.shared.port = Int(vpn_node.port)!
+                    }
+                    
                     
                     print("rotue: \(route_node.ip):\(route_node.port)")
                     print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                     let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
                     VpnManager.shared.public_key = LibP2P.getPublicKey() as String
                     
-                    VpnManager.shared.enc_method = "aes-128-cfb," + String(vpn_ip_int) + "," + vpn_node.port
+                    VpnManager.shared.enc_method = (
+                        "aes-128-cfb," + String(vpn_ip_int) + "," +
+                        vpn_node.port + "," + String(smartRoute.isOn))
                     VpnManager.shared.password = vpn_node.passwd
                     VpnManager.shared.algorithm = "aes-128-cfb"
                     VpnManager.shared.connect()
                 }else{
-                    CBToast.showToastAction(message: "node error")
+                    CBToast.showToastAction(message: "first use, wairting for search nodes...")
                 }
             }else{
                 CBToast.showToastAction(message: "please chose a country")

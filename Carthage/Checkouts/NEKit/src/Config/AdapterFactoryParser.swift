@@ -153,7 +153,13 @@ struct AdapterFactoryParser {
 
         let cryptoFactory = ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm)
 
-        return ShadowsocksAdapterFactory(serverHost: host, serverPort: port, pk: in_pk, m:  in_m, protocolObfuscaterFactory: protocolObfuscaterFactory, cryptorFactory: cryptoFactory, streamObfuscaterFactory: streamObfuscaterFactory)
+        return ShadowsocksAdapterFactory(
+            serverHost: host,
+            serverPort: port,
+            pk: in_pk,
+            m:  in_m,
+            protocolObfuscaterFactory: protocolObfuscaterFactory,
+            cryptorFactory: cryptoFactory, streamObfuscaterFactory: streamObfuscaterFactory)
     }
 
     static func parseSpeedAdapterFactory(_ config: Yaml, factoryDict: [String:AdapterFactory]) throws -> SpeedAdapterFactory {

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:TenonVPNConnection/TenonVPNConnection.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TenonVPN.xcodeproj">
    </FileRef>
    <FileRef
