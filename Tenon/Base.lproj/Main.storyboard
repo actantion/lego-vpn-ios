@@ -177,6 +177,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
                                         <rect key="frame" x="318" y="28" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="clickSmartRoute:" destination="BYZ-38-t0r" eventType="valueChanged" id="8kO-gX-XLw"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -297,10 +300,10 @@
                                 <exclude reference="GU0-VX-f4b"/>
                                 <exclude reference="WpM-yU-ZN8"/>
                                 <exclude reference="s8l-UD-U7h"/>
+                                <exclude reference="8Pb-D9-OtD"/>
                                 <exclude reference="DsB-OJ-sbZ"/>
                                 <exclude reference="Zpd-Xm-sFd"/>
                                 <exclude reference="ySE-Rg-jpb"/>
-                                <exclude reference="8Pb-D9-OtD"/>
                             </mask>
                         </variation>
                     </view>

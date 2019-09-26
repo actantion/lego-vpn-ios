@@ -235,6 +235,11 @@ class ViewController: BaseViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    @IBAction func clickSmartRoute(_ sender: Any) {
+        if VpnManager.shared.vpnStatus == .on {
+            clickConnect(sender)
+        }
+    }
     @IBAction func clickPKPop(_ sender: Any) {
         self.btnChangePK.isUserInteractionEnabled = false
         self.popPKPopView = FWOperPKView.init(frame:CGRect(x: Int(AUTOSIZE_HEIGHT(value: 60.0)),
