@@ -20,6 +20,8 @@ class AccountSetHeaderTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.vwBottom.backgroundColor = APP_COLOR
+        self.vwBottom.layer.masksToBounds = true
+        self.vwBottom.layer.cornerRadius = 4
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
 

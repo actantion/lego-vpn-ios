@@ -59,7 +59,7 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
     func initView(frame:CGRect) {
         let lbTitle:UILabel = UILabel.init(frame:CGRect.zero)
         lbTitle.text = "Private Key"
-        lbTitle.top = 8
+        lbTitle.top = 16
         lbTitle.sizeToFit()
         lbTitle.centerX = frame.width/2
         lbTitle.font = UIFont.systemFont(ofSize: 16)
@@ -69,15 +69,15 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
         lbPrivateKeyTitle.text = "Private Key (Long Press To Copy)"
         lbPrivateKeyTitle.sizeToFit()
         lbPrivateKeyTitle.top = lbTitle.bottom + 16
-        lbPrivateKeyTitle.left = 8
+        lbPrivateKeyTitle.left = 16
         lbPrivateKeyTitle.font = UIFont.systemFont(ofSize: 14)
         lbPrivateKeyTitle.textColor = APP_COLOR
         
         lbPrivateKeyValue = UILabel.init(frame:CGRect.zero)
-        lbPrivateKeyValue.width = selfView.width - 16
+        lbPrivateKeyValue.width = selfView.width - 32
         lbPrivateKeyValue.numberOfLines = 0
         lbPrivateKeyValue.top = lbPrivateKeyTitle.bottom + 8
-        lbPrivateKeyValue.left = 8
+        lbPrivateKeyValue.left = 16
         lbPrivateKeyValue.font = UIFont.systemFont(ofSize: 12)
         lbPrivateKeyValue.textColor = UIColor.black
         
@@ -85,11 +85,11 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
         lbPrivateKeyChangeTitle.text = "Private Key (Input New Private Key)"
         lbPrivateKeyChangeTitle.sizeToFit()
         lbPrivateKeyChangeTitle.top = lbPrivateKeyValue.bottom + 30
-        lbPrivateKeyChangeTitle.left = 8
+        lbPrivateKeyChangeTitle.left = 16
         lbPrivateKeyChangeTitle.font = UIFont.systemFont(ofSize: 14)
         lbPrivateKeyChangeTitle.textColor = APP_COLOR
         
-        tfPrivatekey = UITextField.init(frame: CGRect(x: lbPrivateKeyChangeTitle.left, y: lbPrivateKeyChangeTitle.bottom + 8, width: selfView.width - 16, height: 30))
+        tfPrivatekey = UITextField.init(frame: CGRect(x: lbPrivateKeyChangeTitle.left, y: lbPrivateKeyChangeTitle.bottom + 8, width: selfView.width - 32, height: 30))
         tfPrivatekey.placeholder = " Input New Private Key Please"
         tfPrivatekey.text = privateKey
         tfPrivatekey.font = UIFont.systemFont(ofSize: 12)
@@ -98,7 +98,7 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
         tfPrivatekey.layer.borderColor = APP_COLOR.cgColor
         tfPrivatekey.layer.borderWidth = 1
         
-        let btnChangeConfirm:UIButton = UIButton.init(frame: CGRect(x: 16, y: selfView.height - 66, width: selfView.width - 32, height: 50))
+        let btnChangeConfirm:UIButton = UIButton.init(frame: CGRect(x: 16, y: selfView.height - 56, width: selfView.width - 32, height: 40))
         btnChangeConfirm.setTitle("Change Confirm", for: UIControl.State.normal)
         btnChangeConfirm.backgroundColor = APP_COLOR
         btnChangeConfirm.setTitleColor(UIColor.white, for: UIControl.State.normal)
@@ -126,7 +126,7 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
         self.clickBlck!(-1)
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) ->   Bool {
-        if touch.view.hashValue != selfView.hashValue {
+        if touch.view.hashValue != selfView.hashValue && touch.view.hashValue != lbPrivateKeyValue.hashValue{
             return true
         } else {
             return false
