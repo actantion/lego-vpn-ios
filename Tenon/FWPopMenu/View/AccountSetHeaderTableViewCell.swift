@@ -20,6 +20,7 @@ class AccountSetHeaderTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.vwBottom.backgroundColor = APP_COLOR
+        self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

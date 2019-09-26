@@ -34,8 +34,16 @@
 		D306393B233A12100006CC7C /* payConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */; };
 		D306393E233B075C0006CC7C /* ConfirmBtnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306393C233B075C0006CC7C /* ConfirmBtnTableViewCell.swift */; };
 		D306393F233B075C0006CC7C /* ConfirmBtnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D306393D233B075C0006CC7C /* ConfirmBtnTableViewCell.xib */; };
-		D30B566D23277310003E87EE /* AcountSetTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B566B23277310003E87EE /* AcountSetTestViewController.swift */; };
-		D30B566E23277310003E87EE /* AcountSetTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30B566C23277310003E87EE /* AcountSetTestViewController.xib */; };
+		D306394F233B3A7D0006CC7C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D306394C233B3A7D0006CC7C /* README.txt */; };
+		D3063950233B3A7D0006CC7C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D306394E233B3A7D0006CC7C /* libWeChatSDK.a */; };
+		D3063956233B3D8D0006CC7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */; };
+		D3063958233B3D990006CC7C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063957233B3D990006CC7C /* libz.tbd */; };
+		D306395A233B3DA30006CC7C /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */; };
+		D306395C233B3DAB0006CC7C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395B233B3DAB0006CC7C /* CoreTelephony.framework */; };
+		D306395E233B3DBB0006CC7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395D233B3DBB0006CC7C /* QuartzCore.framework */; };
+		D3063960233B401C0006CC7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395F233B401C0006CC7C /* CoreGraphics.framework */; };
+		D3063962233B40860006CC7C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063961233B40860006CC7C /* WebKit.framework */; };
+		D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063964233B65410006CC7C /* FWOperPKView.swift */; };
 		D30B567323277953003E87EE /* FWPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B567223277953003E87EE /* FWPopMenu.swift */; };
 		D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316BB72232210C5008C8FD3 /* HomePageViewController.swift */; };
 		D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D316BB73232210C5008C8FD3 /* HomePageViewController.xib */; };
@@ -194,8 +202,21 @@
 		D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = payConfirmTableViewCell.xib; sourceTree = "<group>"; };
 		D306393C233B075C0006CC7C /* ConfirmBtnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBtnTableViewCell.swift; sourceTree = "<group>"; };
 		D306393D233B075C0006CC7C /* ConfirmBtnTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmBtnTableViewCell.xib; sourceTree = "<group>"; };
-		D30B566B23277310003E87EE /* AcountSetTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcountSetTestViewController.swift; sourceTree = "<group>"; };
-		D30B566C23277310003E87EE /* AcountSetTestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcountSetTestViewController.xib; sourceTree = "<group>"; };
+		D306394A233B3A7D0006CC7C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		D306394B233B3A7D0006CC7C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		D306394C233B3A7D0006CC7C /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		D306394D233B3A7D0006CC7C /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		D306394E233B3A7D0006CC7C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		D3063953233B3D560006CC7C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D3063957233B3D990006CC7C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		D306395B233B3DAB0006CC7C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		D306395D233B3DBB0006CC7C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D306395F233B401C0006CC7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D3063961233B40860006CC7C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D3063963233B40EA0006CC7C /* TenonVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		D3063964233B65410006CC7C /* FWOperPKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWOperPKView.swift; sourceTree = "<group>"; };
 		D30B567223277953003E87EE /* FWPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPopMenu.swift; sourceTree = "<group>"; };
 		D316BB72232210C5008C8FD3 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		D316BB73232210C5008C8FD3 /* HomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageViewController.xib; sourceTree = "<group>"; };
@@ -238,8 +259,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3063962233B40860006CC7C /* WebKit.framework in Frameworks */,
+				D3063960233B401C0006CC7C /* CoreGraphics.framework in Frameworks */,
+				D306395E233B3DBB0006CC7C /* QuartzCore.framework in Frameworks */,
+				D306395C233B3DAB0006CC7C /* CoreTelephony.framework in Frameworks */,
+				D306395A233B3DA30006CC7C /* libsqlite3.0.tbd in Frameworks */,
+				D3063958233B3D990006CC7C /* libz.tbd in Frameworks */,
+				D3063956233B3D8D0006CC7C /* SystemConfiguration.framework in Frameworks */,
 				8525776F2329DC0B00BF8AF8 /* libz.1.2.11.tbd in Frameworks */,
 				D35BBDDB2330C37B0043E340 /* libp2p.framework in Frameworks */,
+				D3063950233B3A7D0006CC7C /* libWeChatSDK.a in Frameworks */,
 				8525776D2329DBF600BF8AF8 /* libc++.1.tbd in Frameworks */,
 				D33FB664231F8AB2004ECA2A /* CocoaAsyncSocket.framework in Frameworks */,
 				D33FB676231F8B07004ECA2A /* NEKit.framework in Frameworks */,
@@ -319,6 +348,7 @@
 		18E9141B2266C7B4005E6027 /* Tenon */ = {
 			isa = PBXGroup;
 			children = (
+				D3063949233B3A7D0006CC7C /* WeChatSDK1.8.6.1 */,
 				D38E584F232F885200D99A90 /* ConfigFile */,
 				D38E584E232F881000D99A90 /* Business */,
 				D38E584D232F87F700D99A90 /* NetworkOperation */,
@@ -329,6 +359,7 @@
 				18E914202266C7B4005E6027 /* Main.storyboard */,
 				18E914232266C7B5005E6027 /* Assets.xcassets */,
 				18E914252266C7B5005E6027 /* LaunchScreen.storyboard */,
+				D3063963233B40EA0006CC7C /* TenonVPN-Bridging-Header.h */,
 				18E914282266C7B5005E6027 /* Info.plist */,
 			);
 			path = Tenon;
@@ -371,6 +402,14 @@
 		AE2E93114404A35E87606173 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3063961233B40860006CC7C /* WebKit.framework */,
+				D306395F233B401C0006CC7C /* CoreGraphics.framework */,
+				D306395D233B3DBB0006CC7C /* QuartzCore.framework */,
+				D306395B233B3DAB0006CC7C /* CoreTelephony.framework */,
+				D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */,
+				D3063957233B3D990006CC7C /* libz.tbd */,
+				D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */,
+				D3063953233B3D560006CC7C /* libc++.tbd */,
 				D35BBDDA2330C37B0043E340 /* libp2p.framework */,
 				8525776E2329DC0A00BF8AF8 /* libz.1.2.11.tbd */,
 				8525776C2329DBF600BF8AF8 /* libc++.1.tbd */,
@@ -395,6 +434,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D3063949233B3A7D0006CC7C /* WeChatSDK1.8.6.1 */ = {
+			isa = PBXGroup;
+			children = (
+				D306394A233B3A7D0006CC7C /* WXApi.h */,
+				D306394B233B3A7D0006CC7C /* WXApiObject.h */,
+				D306394C233B3A7D0006CC7C /* README.txt */,
+				D306394D233B3A7D0006CC7C /* WechatAuthSDK.h */,
+				D306394E233B3A7D0006CC7C /* libWeChatSDK.a */,
+			);
+			path = WeChatSDK1.8.6.1;
+			sourceTree = "<group>";
+		};
 		D30B5671232778F9003E87EE /* FWPopMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,6 +453,7 @@
 				D30B567223277953003E87EE /* FWPopMenu.swift */,
 				D34378F323289126000F1F69 /* FWBottomPopView.swift */,
 				D3063936233A108D0006CC7C /* FWPayPopView.swift */,
+				D3063964233B65410006CC7C /* FWOperPKView.swift */,
 			);
 			path = FWPopMenu;
 			sourceTree = "<group>";
@@ -480,8 +532,6 @@
 				D316BC2723224F24008C8FD3 /* CountryTableViewCell.xib */,
 				D3204B5323261E5D002ECB69 /* AccountSetTableViewCell.swift */,
 				D3204B5423261E5D002ECB69 /* AccountSetTableViewCell.xib */,
-				D30B566B23277310003E87EE /* AcountSetTestViewController.swift */,
-				D30B566C23277310003E87EE /* AcountSetTestViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -646,6 +696,7 @@
 				D3204B5623261E5D002ECB69 /* AccountSetTableViewCell.xib in Resources */,
 				D316BC2123224D86008C8FD3 /* ChoseCountryViewController.xib in Resources */,
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
+				D306394F233B3A7D0006CC7C /* README.txt in Resources */,
 				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
 				D306393F233B075C0006CC7C /* ConfirmBtnTableViewCell.xib in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
@@ -655,7 +706,6 @@
 				D316BC2523224D97008C8FD3 /* AcountSetViewController.xib in Resources */,
 				D306393B233A12100006CC7C /* payConfirmTableViewCell.xib in Resources */,
 				18E914222266C7B4005E6027 /* Main.storyboard in Resources */,
-				D30B566E23277310003E87EE /* AcountSetTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,7 +826,6 @@
 				D3204B5C232635FB002ECB69 /* UIButton+Extension.swift in Sources */,
 				D30639322339F7F50006CC7C /* PayWayTableViewCell.swift in Sources */,
 				D316BC2023224D86008C8FD3 /* ChoseCountryViewController.swift in Sources */,
-				D30B566D23277310003E87EE /* AcountSetTestViewController.swift in Sources */,
 				D34378F423289126000F1F69 /* FWBottomPopView.swift in Sources */,
 				D3063937233A108D0006CC7C /* FWPayPopView.swift in Sources */,
 				D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */,
@@ -791,6 +840,7 @@
 				D306393A233A12100006CC7C /* payConfirmTableViewCell.swift in Sources */,
 				8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */,
 				D30B567323277953003E87EE /* FWPopMenu.swift in Sources */,
+				D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */,
 				D3204B522325EA7A002ECB69 /* UITableView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1003,6 +1053,7 @@
 					"$(PROJECT_DIR)/libp2p/lib",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Tenon/WechatPay",
+					"$(PROJECT_DIR)/Tenon/WeChatSDK1.8.6.1",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1058,7 +1109,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64e armv7s arm64";
@@ -1093,6 +1144,7 @@
 					"$(PROJECT_DIR)/libp2p/lib",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Tenon/WechatPay",
+					"$(PROJECT_DIR)/Tenon/WeChatSDK1.8.6.1",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1148,7 +1200,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fmkj.hammer-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64e armv7s arm64";

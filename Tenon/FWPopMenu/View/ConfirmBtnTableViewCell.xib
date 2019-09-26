@@ -26,7 +26,7 @@
                             <constraint firstAttribute="height" constant="27.5" id="A2w-19-TBr"/>
                             <constraint firstAttribute="height" constant="43.5" id="Y6V-ZZ-6H1"/>
                         </constraints>
-                        <state key="normal" title="confirm">
+                        <state key="normal" title="Confirm">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <variation key="default">

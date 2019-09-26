@@ -154,16 +154,27 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
                                         <rect key="frame" x="318" y="24.5" width="51" height="31"/>
-                                        <connections>
-                                            <action selector="clickSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="5Ke-nf-n52"/>
-                                        </connections>
                                     </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRn-Kv-WZi">
+                                        <rect key="frame" x="9" y="20" width="70" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="M2o-nc-pcs"/>
+                                            <constraint firstAttribute="height" constant="40" id="acU-1s-eFb"/>
+                                        </constraints>
+                                        <state key="normal" title=" "/>
+                                        <connections>
+                                            <action selector="clickPKPop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jc2-xJ-Tq3"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="centerX" secondItem="qwq-jt-YtR" secondAttribute="centerX" id="BKt-FL-Aev"/>
+                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="centerY" secondItem="qwq-jt-YtR" secondAttribute="centerY" id="JCd-N2-kl9"/>
                                     <constraint firstItem="Lhd-zF-ibB" firstAttribute="centerY" secondItem="44X-VY-8FV" secondAttribute="centerY" id="Qx5-Hr-gKL"/>
                                     <constraint firstAttribute="bottom" secondItem="44X-VY-8FV" secondAttribute="bottom" constant="11" id="dRQ-MT-nYH"/>
                                     <constraint firstItem="qwq-jt-YtR" firstAttribute="leading" secondItem="JAj-3M-U9V" secondAttribute="leading" constant="8" id="f7l-e5-vR9"/>
+                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="width" secondItem="qwq-jt-YtR" secondAttribute="width" id="gJV-tN-cdq"/>
                                     <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="12" id="jhR-Ua-m8V"/>
                                     <constraint firstAttribute="trailing" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="120" id="pIc-1b-T7H"/>
                                     <constraint firstAttribute="trailing" secondItem="Lhd-zF-ibB" secondAttribute="trailing" constant="8" id="q0p-ue-sh0"/>
@@ -172,6 +183,7 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="gJV-tN-cdq"/>
                                         <exclude reference="pIc-1b-T7H"/>
                                     </mask>
                                 </variation>
@@ -270,6 +282,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btnAccount" destination="4OK-ia-4Gi" id="dQz-q7-Abm"/>
+                        <outlet property="btnChangePK" destination="GRn-Kv-WZi" id="Kwl-TA-OAN"/>
                         <outlet property="btnChoseCountry" destination="wu3-k5-dkf" id="Gjh-ES-6Qy"/>
                         <outlet property="btnConnect" destination="WMm-5y-Hlt" id="rH5-iU-oaX"/>
                         <outlet property="imgConnect" destination="mLz-mT-Jxf" id="B3H-cY-BrE"/>
@@ -279,7 +292,6 @@
                         <outlet property="lbDolor" destination="C0t-OL-mqm" id="vD9-rh-pXS"/>
                         <outlet property="lbLego" destination="DR5-wC-YXE" id="xs7-qO-n1q"/>
                         <outlet property="lbNodes" destination="hb3-hP-Gvn" id="NaH-Ab-E5L"/>
-                        <outlet property="swSmartRoute" destination="Lhd-zF-ibB" id="kvT-jC-9Cr"/>
                         <outlet property="vwBackHub" destination="cUP-wN-Y58" id="X6y-tr-4Fl"/>
                         <outlet property="vwCircleBack" destination="XmI-eh-EA5" id="XtT-Jc-RVc"/>
                     </connections>

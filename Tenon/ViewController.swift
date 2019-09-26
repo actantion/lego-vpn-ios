@@ -102,9 +102,7 @@ import Alamofire
 import SwiftyJSON
 
 class ViewController: BaseViewController {
-    
-    
-    @IBOutlet weak var swSmartRoute: UISwitch!
+    @IBOutlet weak var btnChangePK: UIButton!
     @IBOutlet weak var vwCircleBack: CircleProgress!
     @IBOutlet weak var lbAccountAddress: UILabel!
     @IBOutlet weak var lbLego: UILabel!
@@ -119,6 +117,8 @@ class ViewController: BaseViewController {
     @IBOutlet weak var lbNodes: UILabel!
     
 //    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
+    var payWay:Int = 0
+    var payAmount:Int!
     var isHub:Bool = false
     var popMenu:FWPopMenu!
     var isClick:Bool = false
@@ -128,9 +128,10 @@ class ViewController: BaseViewController {
     var balance:UInt64!
     var Dolor:Double!
     
-    
     var popBottomView:FWBottomPopView!
     var popBottomPayWayView:FWPayPopView!
+    var popPKPopView:FWOperPKView!
+    
     var local_country: String = ""
     var local_private_key: String = ""
     var local_account_id: String = ""
@@ -140,8 +141,7 @@ class ViewController: BaseViewController {
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
-    var payWay:Int!
-    var payAmount:Int!
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -193,6 +193,13 @@ class ViewController: BaseViewController {
         print("private key:" + res.prikey)
         print("account id:" + res.account_id)
         
+        if VpnManager.shared.vpnStatus == .connecting {
+            self.btnConnect.backgroundColor = APP_COLOR
+            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
+            imgConnect.image = UIImage(named: "connected")
+            lbConnect.text = "Connected"
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
         for _ in countryCode {
             countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
@@ -202,24 +209,23 @@ class ViewController: BaseViewController {
         self.imgCountryIcon.image = UIImage(named:self.iCon[0])
         self.lbNodes.text = self.countryNodes[0]
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
-        
         do {
             let model:payModel = payModel()
-            model.iconName = "alipay"
-            model.payName = "alipay"
+            model.iconName = "applepay"
+            model.payName = "Apple Pay"
             model.isSelect = true
             payModelList.append(model)
         }
         do {
             let model:payModel = payModel()
-            model.iconName = "wechatpay"
-            model.payName = "wechat pay"
+            model.iconName = "alipay"
+            model.payName = "Alipay"
             payModelList.append(model)
         }
         do {
             let model:payModel = payModel()
-            model.iconName = "applepay"
-            model.payName = "apple pay"
+            model.iconName = "wechatpay"
+            model.payName = "Wechat Pay"
             payModelList.append(model)
         }
         requestData()
@@ -227,14 +233,68 @@ class ViewController: BaseViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    @IBAction func clickPKPop(_ sender: Any) {
+        self.btnChangePK.isUserInteractionEnabled = false
+        self.popPKPopView = FWOperPKView.init(frame:CGRect(x: Int(AUTOSIZE_HEIGHT(value: 60.0)),
+                                                           y: Int(SCREEN_HEIGHT/2.0 - AUTOSIZE_HEIGHT(value: 300)/2),
+                                                           width: Int(SCREEN_WIDTH - AUTOSIZE_HEIGHT(value: 60.0)*2),
+                                                           height: Int(AUTOSIZE_HEIGHT(value: 300))))
+        self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
+        self.popPKPopView.privateKey = self.local_private_key
+        self.popPKPopView.clickBlck = {(value) in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
+            }) { (Bool) in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
+                    self.popPKPopView.alpha = 0
+                }) { (Bool) in
+                    self.popPKPopView.removeFromSuperview()
+                    self.btnChangePK.isUserInteractionEnabled = true
+                }
+            }
+        }
+        self.view.addSubview(self.popPKPopView)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
+        }) { (Bool) in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.popPKPopView.transform = CGAffineTransform.identity
+            }) { (Bool) in
+                
+            }
+        }
+        
+//        if (self.vwShadow.alpha == 0.0f) {
+//            // 动画由小变大
+//            self.vwShadow.transform = CGAffineTransformIdentity;
+//            [UIView animateWithDuration:0.8f animations:^{
+//                self.vwShadow.alpha = 1.0f;
+//                self.vwShadow.transform = CGAffineTransformMake(1.2, 0, 0, 1.2, offsetX, offsetY);
+//
+//                } completion:^(BOOL finished) {
+//
+//                }];
+//        } else {
+//            // 动画由大变小
+//            self.vwShadow.transform = CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0);
+//            [UIView animateWithDuration:0.8f animations:^{
+//                self.vwShadow.transform = CGAffineTransformMake(1, 0, 0, 1, offsetX, offsetY);
+//                self.vwShadow.alpha = 0.0f;
+//                } completion:^(BOOL finished) {
+//                self.vwShadow.transform = CGAffineTransformIdentity;
+//
+//                }];
+//        }
+    }
     func paymentTenonCoin(_ amount:Int , _ type:Int) {
         if type == 0 {
-            // 支付宝
-        }else if(type == 1){
-            // 微信支付
-        }else if(type == 2){
             // apple pay
             applePayInit(amount)
+        }else if(type == 1){
+            // 支付宝
+        }else if(type == 2){
+            // 微信支付
         }else{
             
         }
@@ -254,9 +314,9 @@ class ViewController: BaseViewController {
 //                CBToast.showToastAction(message: "您的手机暂时不支持苹果内购哦!")
 //            }
 //        }
-        self.payWay = 0
+        
         self.payAmount = 0
-        self.popBottomPayWayView = FWPayPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 300, width: SCREEN_WIDTH, height: 300))
+        self.popBottomPayWayView = FWPayPopView.init(frame:CGRect(x: 0, y: (Int(SCREEN_HEIGHT) - (payModelList.count+2)*60), width: Int(SCREEN_WIDTH), height: (payModelList.count+2)*60))
         self.popBottomPayWayView.loadCell("PayWayTableViewCell","payConfirmTableViewCell","ConfirmBtnTableViewCell", payModelList.count)
         self.popBottomPayWayView.callBackBlk = {(cell,indexPath) in
             if indexPath.section == 0 {
@@ -277,7 +337,7 @@ class ViewController: BaseViewController {
             }else{
                 let tempCell:ConfirmBtnTableViewCell = cell as! ConfirmBtnTableViewCell
                 tempCell.confirmBlock = {() in
-                    print("确认 payway = %d amount = %d",self.payWay!,self.payAmount!)
+                    print("确认 payway = %d amount = %d",self.payWay,self.payAmount!)
                     UIView.animate(withDuration: 0.4, animations: {
                         self.popBottomPayWayView.top = SCREEN_HEIGHT
                     }, completion: { (Bool) in
@@ -315,14 +375,6 @@ class ViewController: BaseViewController {
         })
     }
 
-    @IBAction func clickSwitch(_ sender: Any) {
-        if self.swSmartRoute.isOn == true{
-            print("开启智能路由")
-        }else{
-            print("关闭智能路由")
-        }
-    }
-
     @objc func requestData(){
         transcationList.removeAll()
         self.balance = TenonP2pLib.sharedInstance.GetBalance()
@@ -350,54 +402,8 @@ class ViewController: BaseViewController {
         }
         self.perform(#selector(requestData), afterDelay: 3)
     }
-    func getCountryShort(countryCode:String) -> String {
-        switch countryCode {
-        case "America":
-            return "US"
-        case "Singapore":
-            return "SG"
-        case "Brazil":
-            return "BR"
-        case "Germany":
-            return "DE"
-        case "France":
-            return "FR"
-        case "Korea":
-            return "KR"
-        case "Japan":
-            return "JP"
-        case "Canada":
-            return "CA"
-        case "Australia":
-            return "AU"
-        case "Hong Kong":
-            return "HK"
-        case "India":
-            return "IN"
-        case "England":
-            return "GB"
-        case "China":
-            return "CN"
-        default:
-            return ""
-        }
-    }
-    @objc func onVPNStatusChanged(){
-        isNetChange = true
-        if VpnManager.shared.vpnStatus == .on{
-            self.btnConnect.backgroundColor = APP_COLOR
-            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
-            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xA1FDEE))
-            imgConnect.image = UIImage(named: "connected")
-            lbConnect.text = "Connected"
-        }else{
-            self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
-            self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
-            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))
-            imgConnect.image = UIImage(named: "connect")
-            lbConnect.text = "Connect"
-        }
-    }
+    
+    
     @IBAction func clickConnect(_ sender: Any) {
         if VpnManager.shared.vpnStatus == .off {
             if choosed_country != nil{
@@ -435,7 +441,6 @@ class ViewController: BaseViewController {
                     print("rotue: \(route_node.ip):\(route_node.port)")
                     print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                     let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
-//                    let index:Int = Int(arc4random_uniform((UInt32)(encodeMethodList.count)))
                     VpnManager.shared.public_key = LibP2P.getPublicKey() as String
                     
                     VpnManager.shared.enc_method = "aes-128-cfb," + String(vpn_ip_int) + "," + vpn_node.port
@@ -453,7 +458,6 @@ class ViewController: BaseViewController {
             self.vwBackHub.proEndgress = 0.0
             self.vwBackHub.proStartgress = 0.0
             VpnManager.shared.disconnect()
-//            self.playAnimotion()
         }
     }
     @IBAction func clickChoseCountry(_ sender: Any) {
@@ -475,7 +479,7 @@ class ViewController: BaseViewController {
                     self.btnChoseCountry.setTitle(self.countryCode[idx], for: UIControl.State.normal)
                     self.imgCountryIcon.image = UIImage(named:self.iCon[idx])
                     self.lbNodes.text = self.countryNodes[idx]
-                    self.choosed_country = self.getCountryShort(countryCode: self.countryCode[idx])
+                    self.choosed_country = super.getCountryShort(countryCode: self.countryCode[idx])
                     if VpnManager.shared.vpnStatus == .on{
                         self.clickConnect(self.btnConnect as Any)
                     }
@@ -518,12 +522,14 @@ class ViewController: BaseViewController {
             }
             
             self.popBottomView.clickBlck = {(idx) in
-                self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-                UIView.animate(withDuration: 0.4, animations: {
-                    self.popBottomView.top = SCREEN_HEIGHT
-                }, completion: { (Bool) in
-                    self.popBottomView.removeFromSuperview()
-                })
+                if idx == -1{
+                    self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+                    UIView.animate(withDuration: 0.4, animations: {
+                        self.popBottomView.top = SCREEN_HEIGHT
+                    }, completion: { (Bool) in
+                        self.popBottomView.removeFromSuperview()
+                    })
+                }
             }
             self.popBottomView.top = self.popBottomView.height
             self.view.addSubview(self.popBottomView)
@@ -535,49 +541,21 @@ class ViewController: BaseViewController {
         }
     }
     
-    func randomCustom(min: Int, max: Int) -> Int {
-        let y = arc4random() % UInt32(max) + UInt32(min)
-        return Int(y)
-    }
-    
-    func getOneRouteNode(country: String) -> (ip: String, port: String) {
-        let res_str = LibP2P.getVpnNodes(country, true) as String
-        if (res_str.isEmpty) {
-            return ("", "")
+    @objc func onVPNStatusChanged(){
+        isNetChange = true
+        if VpnManager.shared.vpnStatus == .on{
+            self.btnConnect.backgroundColor = APP_COLOR
+            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
+            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xA1FDEE))
+            imgConnect.image = UIImage(named: "connected")
+            lbConnect.text = "Connected"
+        }else{
+            self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
+            self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
+            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))
+            imgConnect.image = UIImage(named: "connect")
+            lbConnect.text = "Connect"
         }
-        
-        let node_arr: Array = res_str.components(separatedBy: ",")
-        if (node_arr.count <= 0) {
-            return ("", "")
-        }
-        
-        let rand_pos = randomCustom(min: 0, max: node_arr.count)
-        let node_info_arr = node_arr[rand_pos].components(separatedBy: ":")
-        if (node_info_arr.count < 5) {
-            return ("", "")
-        }
-        
-        return (node_info_arr[0], node_info_arr[1])
-    }
-    
-    func getOneVpnNode(country: String) -> (ip: String, port: String, passwd: String) {
-        let res_str = LibP2P.getVpnNodes(country, false) as String
-        if (res_str.isEmpty) {
-            return ("", "", "")
-        }
-        
-        let node_arr: Array = res_str.components(separatedBy: ",")
-        if (node_arr.count <= 0) {
-            return ("", "", "")
-        }
-        
-        let rand_pos = randomCustom(min: 0, max: node_arr.count)
-        let node_info_arr = node_arr[rand_pos].components(separatedBy: ":")
-        if (node_info_arr.count < 5) {
-            return ("", "", "")
-        }
-        
-        return (node_info_arr[0], node_info_arr[1], node_info_arr[3])
     }
     
     func stopAnimotion() {

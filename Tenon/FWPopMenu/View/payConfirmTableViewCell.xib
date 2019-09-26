@@ -48,17 +48,17 @@
                             </mask>
                         </variation>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3l3-ec-5nh">
-                        <rect key="frame" x="264" y="21" width="50" height="17"/>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3l3-ec-5nh">
+                        <rect key="frame" x="254" y="21" width="60" height="17"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="geV-0v-ciI"/>
+                            <constraint firstAttribute="width" constant="60" id="geV-0v-ciI"/>
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     </textField>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NN-JH-hl8">
-                        <rect key="frame" x="232" y="14.5" width="30" height="30"/>
+                        <rect key="frame" x="222" y="14.5" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="jne-hg-AUy"/>
                             <constraint firstAttribute="width" constant="30" id="o8K-Mf-mEc"/>

@@ -9,11 +9,14 @@
 import UIKit
 import YYKit
 import PassKit
+import libp2p
 
 let SCREEN_WIDTH = (UIScreen.main.bounds.size.width)
 let SCREEN_HEIGHT = (UIScreen.main.bounds.size.height)
 let APP_COLOR = UIColor(red: 9.0/255.0, green: 222.0/255.0, blue: 202.0/255.0, alpha: 1)
 let NAVIGATION_HEIGHT = 44.0;
+let WX_ID = "wxd930ea5d5a258f4f"
+let WX_BUSINESS_ID = "123"
 //let IS_IN_CN = false
 //let URL_SERVER = "http://192.168.1.90:8080/"
 //let INTERFACE_API = "appleIAPAuth"
@@ -26,6 +29,9 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
     func hiddenBackBtn(bHidden:Bool){
         self.btnBack.isHidden = bHidden;
         
+    }
+    public func AUTOSIZE_HEIGHT(value:CGFloat) -> CGFloat{
+        return value*SCREEN_WIDTH/375.0
     }
     func IS_IPHONE_X() -> Bool {
         return self.isIphoneX()
@@ -73,7 +79,31 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return false
         }
     }
-    
+    func wechatPay(_ amount:Int) {
+//            //需要创建这个支付对象
+//            PayReq *req   = [[PayReq alloc] init];
+//            //由用户微信号和AppID组成的唯一标识，用于校验微信用户
+//            req.openID = appid;
+//            // 商家id，在注册的时候给的
+//            req.partnerId = partnerid;
+//            // 预支付订单这个是后台跟微信服务器交互后，微信服务器传给你们服务器的，你们服务器再传给你
+//            req.prepayId  = prepayid;
+//            // 根据财付通文档填写的数据和签名
+//            req.package  = package;
+//            // 随机编码，为了防止重复的，在后台生成
+//            req.nonceStr  = noncestr;
+//            // 这个是时间戳，也是在后台生成的，为了验证支付的
+//            NSString * stamp = timestamp;
+//            req.timeStamp = stamp.intValue;
+//            // 这个签名也是后台做的
+//            req.sign = sign;
+//            //发送请求到微信，等待微信返回onResp
+//            [WXApi sendReq:req];
+        let req:PayReq = PayReq()
+        req.openID = WX_ID
+        req.partnerId = WX_BUSINESS_ID
+        WXApi.send(req, completion: nil)
+    }
     func applePayInit(_ amount:Int) {
         if !PKPaymentAuthorizationViewController.canMakePayments(){
             print("设备不支持ApplePay，请升级至9.0以上版本，且iPhone6以上设备才支持")
@@ -148,6 +178,82 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    func getCountryShort(countryCode:String) -> String {
+        switch countryCode {
+        case "America":
+            return "US"
+        case "Singapore":
+            return "SG"
+        case "Brazil":
+            return "BR"
+        case "Germany":
+            return "DE"
+        case "France":
+            return "FR"
+        case "Korea":
+            return "KR"
+        case "Japan":
+            return "JP"
+        case "Canada":
+            return "CA"
+        case "Australia":
+            return "AU"
+        case "Hong Kong":
+            return "HK"
+        case "India":
+            return "IN"
+        case "England":
+            return "GB"
+        case "China":
+            return "CN"
+        default:
+            return ""
+        }
+    }
+    func randomCustom(min: Int, max: Int) -> Int {
+        let y = arc4random() % UInt32(max) + UInt32(min)
+        return Int(y)
+    }
+    
+    func getOneRouteNode(country: String) -> (ip: String, port: String) {
+        let res_str = LibP2P.getVpnNodes(country, true) as String
+        if (res_str.isEmpty) {
+            return ("", "")
+        }
+        
+        let node_arr: Array = res_str.components(separatedBy: ",")
+        if (node_arr.count <= 0) {
+            return ("", "")
+        }
+        
+        let rand_pos = randomCustom(min: 0, max: node_arr.count)
+        let node_info_arr = node_arr[rand_pos].components(separatedBy: ":")
+        if (node_info_arr.count < 5) {
+            return ("", "")
+        }
+        
+        return (node_info_arr[0], node_info_arr[1])
+    }
+    
+    func getOneVpnNode(country: String) -> (ip: String, port: String, passwd: String) {
+        let res_str = LibP2P.getVpnNodes(country, false) as String
+        if (res_str.isEmpty) {
+            return ("", "", "")
+        }
+        
+        let node_arr: Array = res_str.components(separatedBy: ",")
+        if (node_arr.count <= 0) {
+            return ("", "", "")
+        }
+        
+        let rand_pos = randomCustom(min: 0, max: node_arr.count)
+        let node_info_arr = node_arr[rand_pos].components(separatedBy: ":")
+        if (node_info_arr.count < 5) {
+            return ("", "", "")
+        }
+        
+        return (node_info_arr[0], node_info_arr[1], node_info_arr[3])
     }
     
 }
