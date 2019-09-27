@@ -31,7 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
         IQKeyboardManager.shared.enable = true
         // MARK:微信支付初始化
         WXApi.registerApp(WX_ID, universalLink: "TenonVPN")
-        
+        appleLocationManager = CLLocationManager()
+        appleLocationManager.allowsBackgroundLocationUpdates = true
+        appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        appleLocationManager.delegate = self
+        appleLocationManager.requestAlwaysAuthorization()
+        appleLocationManager.startUpdatingLocation()
         startBgTask()
         return true
     }
