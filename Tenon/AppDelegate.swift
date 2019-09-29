@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
         self.badgeTimer?.setEventHandler(handler: { [weak self] in
             DispatchQueue.main.async {
                 self?.player.play()
-//                UIApplication.shared.applicationIconBadgeNumber += 10
+                UIApplication.shared.applicationIconBadgeNumber += 10
 //                self?.appleLocationManager = CLLocationManager()
 //                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
 //                self?.appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
