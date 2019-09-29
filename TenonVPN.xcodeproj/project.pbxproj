@@ -44,6 +44,7 @@
 		D3063960233B401C0006CC7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395F233B401C0006CC7C /* CoreGraphics.framework */; };
 		D3063962233B40860006CC7C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063961233B40860006CC7C /* WebKit.framework */; };
 		D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063964233B65410006CC7C /* FWOperPKView.swift */; };
+		D3063B3B23403D520006CC7C /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D3063B3A23403D520006CC7C /* click.mp3 */; };
 		D30B567323277953003E87EE /* FWPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B567223277953003E87EE /* FWPopMenu.swift */; };
 		D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316BB72232210C5008C8FD3 /* HomePageViewController.swift */; };
 		D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D316BB73232210C5008C8FD3 /* HomePageViewController.xib */; };
@@ -217,6 +218,7 @@
 		D3063961233B40860006CC7C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D3063963233B40EA0006CC7C /* TenonVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		D3063964233B65410006CC7C /* FWOperPKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWOperPKView.swift; sourceTree = "<group>"; };
+		D3063B3A23403D520006CC7C /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		D30B567223277953003E87EE /* FWPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPopMenu.swift; sourceTree = "<group>"; };
 		D316BB72232210C5008C8FD3 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		D316BB73232210C5008C8FD3 /* HomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageViewController.xib; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				D30B5671232778F9003E87EE /* FWPopMenu */,
 				18E9141C2266C7B4005E6027 /* AppDelegate.swift */,
 				18E9141E2266C7B4005E6027 /* ViewController.swift */,
+				D3063B3A23403D520006CC7C /* click.mp3 */,
 				18E914202266C7B4005E6027 /* Main.storyboard */,
 				18E914232266C7B5005E6027 /* Assets.xcassets */,
 				18E914252266C7B5005E6027 /* LaunchScreen.storyboard */,
@@ -698,6 +701,7 @@
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
 				D306394F233B3A7D0006CC7C /* README.txt in Resources */,
 				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
+				D3063B3B23403D520006CC7C /* click.mp3 in Resources */,
 				D306393F233B075C0006CC7C /* ConfirmBtnTableViewCell.xib in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
 				D30639332339F7F50006CC7C /* PayWayTableViewCell.xib in Resources */,

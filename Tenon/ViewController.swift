@@ -100,6 +100,7 @@ import libp2p
 import StoreKit
 import Alamofire
 import SwiftyJSON
+import UserNotifications
 
 class ViewController: BaseViewController {
     @IBOutlet weak var btnChangePK: UIButton!
@@ -414,67 +415,77 @@ class ViewController: BaseViewController {
     
     
     @IBAction func clickConnect(_ sender: Any) {
-        if VpnManager.shared.vpnStatus == .off {
-            if choosed_country != nil{
-                var route_node = getOneRouteNode(country: choosed_country)
-                if (route_node.ip.isEmpty) {
-                    route_node = getOneRouteNode(country: local_country)
-                    if (route_node.ip.isEmpty) {
-                        for country in self.iCon {
-                            route_node = getOneRouteNode(country: country)
-                            if (!route_node.ip.isEmpty) {
-                                break
+
+        UNUserNotificationCenter.current().getNotificationSettings { set in
+            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+                print("推送允许")
+                DispatchQueue.main.sync {
+                    if VpnManager.shared.vpnStatus == .off {
+                        if self.choosed_country != nil{
+                            var route_node = super.getOneRouteNode(country: self.choosed_country)
+                            if (route_node.ip.isEmpty) {
+                                route_node = super.getOneRouteNode(country: self.local_country)
+                                if (route_node.ip.isEmpty) {
+                                    for country in self.iCon {
+                                        route_node = super.getOneRouteNode(country: country)
+                                        if (!route_node.ip.isEmpty) {
+                                            break
+                                        }
+                                    }
+                                }
+                                VpnManager.shared.disconnect()}
+                            
+                            var vpn_node = super.getOneVpnNode(country: self.choosed_country)
+                            if (vpn_node.ip.isEmpty) {
+                                for country in self.iCon {
+                                    vpn_node = super.getOneVpnNode(country: country)
+                                    if (!vpn_node.ip.isEmpty) {
+                                        break
+                                    }
+                                }
                             }
+                            
+                            if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
+                                self.vwBackHub.proEndgress = 0.0
+                                self.vwBackHub.proStartgress = 0.0
+                                self.playAnimotion()
+                                
+                                if (self.smartRoute.isOn) {
+                                    VpnManager.shared.ip_address = route_node.ip
+                                    VpnManager.shared.port = Int(route_node.port)!
+                                } else {
+                                    VpnManager.shared.ip_address = vpn_node.ip
+                                    VpnManager.shared.port = Int(vpn_node.port)!
+                                }
+                                
+                                print("rotue: \(route_node.ip):\(route_node.port)")
+                                print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
+                                let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
+                                VpnManager.shared.public_key = LibP2P.getPublicKey() as String
+                                
+                                VpnManager.shared.enc_method = (
+                                    "aes-128-cfb," + String(vpn_ip_int) + "," +
+                                        vpn_node.port + "," + String(self.smartRoute.isOn))
+                                VpnManager.shared.password = vpn_node.passwd
+                                VpnManager.shared.algorithm = "aes-128-cfb"
+                                VpnManager.shared.connect()
+                            }else{
+                                CBToast.showToastAction(message: "first use, wairting for search nodes...")
+                            }
+                        }else{
+                            CBToast.showToastAction(message: "please chose a country")
                         }
-                    }
-                VpnManager.shared.disconnect()}
-                
-                var vpn_node = getOneVpnNode(country: choosed_country)
-                if (vpn_node.ip.isEmpty) {
-                    for country in self.iCon {
-                        vpn_node = getOneVpnNode(country: country)
-                        if (!vpn_node.ip.isEmpty) {
-                            break
-                        }
-                    }
-                }
-                
-                if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
-                    self.vwBackHub.proEndgress = 0.0
-                    self.vwBackHub.proStartgress = 0.0
-                    self.playAnimotion()
-                    
-                    if (smartRoute.isOn) {
-                        VpnManager.shared.ip_address = route_node.ip
-                        VpnManager.shared.port = Int(route_node.port)!
+                        
                     } else {
-                        VpnManager.shared.ip_address = vpn_node.ip
-                        VpnManager.shared.port = Int(vpn_node.port)!
+                        self.vwBackHub.proEndgress = 0.0
+                        self.vwBackHub.proStartgress = 0.0
+                        VpnManager.shared.disconnect()
                     }
-                    
-                    
-                    print("rotue: \(route_node.ip):\(route_node.port)")
-                    print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
-                    let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
-                    VpnManager.shared.public_key = LibP2P.getPublicKey() as String
-                    
-                    VpnManager.shared.enc_method = (
-                        "aes-128-cfb," + String(vpn_ip_int) + "," +
-                        vpn_node.port + "," + String(smartRoute.isOn))
-                    VpnManager.shared.password = vpn_node.passwd
-                    VpnManager.shared.algorithm = "aes-128-cfb"
-                    VpnManager.shared.connect()
-                }else{
-                    CBToast.showToastAction(message: "first use, wairting for search nodes...")
                 }
-            }else{
-                CBToast.showToastAction(message: "please chose a country")
             }
-            
-        } else {
-            self.vwBackHub.proEndgress = 0.0
-            self.vwBackHub.proStartgress = 0.0
-            VpnManager.shared.disconnect()
+            else{
+                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
+            }
         }
     }
     @IBAction func clickChoseCountry(_ sender: Any) {

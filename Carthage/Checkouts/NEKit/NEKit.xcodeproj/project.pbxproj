@@ -1913,6 +1913,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -1941,6 +1942,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

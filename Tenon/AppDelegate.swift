@@ -10,6 +10,7 @@ import UIKit
 import UserNotifications
 import CoreLocation
 import IQKeyboardManagerSwift
+import AVFoundation
 
 @UIApplicationMain
 
@@ -20,24 +21,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     var badgeTimer:DispatchSourceTimer!
     var backTask:UIBackgroundTaskIdentifier!
     var appleLocationManager:CLLocationManager!
+    var player:AVAudioPlayer!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // MARK:角标设置用于后台持续状态测试
-        //        UIApplication.shared.applicationIconBadgeNumber = 0
-        //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound], completionHandler: { (success, error) in
-        //            print("授权" + (success ? "成功" : "失败"))
-        //        })
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound], completionHandler: { (success, error) in
+            print("授权" + (success ? "成功" : "失败"))
+        })
         IQKeyboardManager.shared.enable = true
         // MARK:微信支付初始化
-        WXApi.registerApp(WX_ID, universalLink: "TenonVPN")
-        appleLocationManager = CLLocationManager()
-        appleLocationManager.allowsBackgroundLocationUpdates = true
-        appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        appleLocationManager.delegate = self
-        appleLocationManager.requestAlwaysAuthorization()
-        appleLocationManager.startUpdatingLocation()
+//        WXApi.registerApp(WX_ID, universalLink: "TenonVPN")
+        // MARK:位置更新初始化-用于后台保持
+//        appleLocationManager = CLLocationManager()
+//        appleLocationManager.allowsBackgroundLocationUpdates = true
+//        appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        appleLocationManager.delegate = self
+//        appleLocationManager.requestAlwaysAuthorization()
+//        appleLocationManager.startUpdatingLocation()
+//        startBgTask()
+        
+        // MARK:后台声音播放-用户后台保持
         startBgTask()
+        do{
+            self.player = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "click.mp3", withExtension: nil)!)
+            self.player.prepareToPlay()
+            self.player.numberOfLoops = 1
+            let session:AVAudioSession = AVAudioSession.sharedInstance()
+            try session.setCategory(AVAudioSession.Category.playback)
+            try session.setActive(true, options: AVAudioSession.SetActiveOptions.init())
+            self.player.volume = 0
+//            self.player.play()
+        }catch let error as NSError {
+            print(error.description)
+        }
+        
         return true
     }
     
@@ -49,30 +68,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        stratBadgeNumberCount()
-        startBgTask()
+        // MARK:位置更新启动条件-用于后台保持
+//        stratBadgeNumberCount()
+//        startBgTask()
+        // MARK:后台播放声音条件-用于后台保持
+        UNUserNotificationCenter.current().getNotificationSettings { set in
+            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+                DispatchQueue.main.sync {
+                    self.stratBadgeNumberCount()
+                    self.startBgTask()
+                }
+            }
+            else{
+                if VpnManager.shared.vpnStatus == .on{
+                    VpnManager.shared.disconnect()
+                }
+            }
+        }
+        
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        appleLocationManager.stopUpdatingLocation()
-        appleLocationManager = nil
-    }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        appleLocationManager.stopUpdatingLocation()
-        appleLocationManager = nil
-    }
+    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        appleLocationManager.stopUpdatingLocation()
+//        appleLocationManager = nil
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        appleLocationManager.stopUpdatingLocation()
+//        appleLocationManager = nil
+//    }
     func stratBadgeNumberCount() {
         self.badgeTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-        self.badgeTimer?.schedule(wallDeadline: DispatchWallTime.now(), repeating: DispatchTimeInterval.seconds(1), leeway: DispatchTimeInterval.seconds(0))
+        self.badgeTimer?.schedule(wallDeadline: DispatchWallTime.now(), repeating: DispatchTimeInterval.seconds(10), leeway: DispatchTimeInterval.seconds(0))
         self.badgeTimer?.setEventHandler(handler: { [weak self] in
             DispatchQueue.main.async {
-                self?.appleLocationManager = CLLocationManager()
-                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
-                self?.appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-                self?.appleLocationManager.delegate = self
-                self?.appleLocationManager.requestAlwaysAuthorization()
-                self?.appleLocationManager.startUpdatingLocation()
+                self?.player.play()
+//                UIApplication.shared.applicationIconBadgeNumber += 10
+//                self?.appleLocationManager = CLLocationManager()
+//                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
+//                self?.appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+//                self?.appleLocationManager.delegate = self
+//                self?.appleLocationManager.requestAlwaysAuthorization()
+//                self?.appleLocationManager.startUpdatingLocation()
             }
         })
         self.badgeTimer?.resume()
