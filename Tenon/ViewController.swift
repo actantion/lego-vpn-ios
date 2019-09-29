@@ -479,6 +479,7 @@ class ViewController: BaseViewController {
                     } else {
                         self.vwBackHub.proEndgress = 0.0
                         self.vwBackHub.proStartgress = 0.0
+                        self.playAnimotion()
                         VpnManager.shared.disconnect()
                     }
                 }
@@ -595,7 +596,7 @@ class ViewController: BaseViewController {
     }
     @objc func playAnimotion() {
         if self.timer == nil {
-            self.timer = Timer(timeInterval: 0.1, target: self, selector: #selector(startAnimotion), userInfo: nil, repeats: true)
+            self.timer = Timer(timeInterval: 0.05, target: self, selector: #selector(startAnimotion), userInfo: nil, repeats: true)
             RunLoop.current.add(self.timer, forMode: RunLoop.Mode.common)
         }
     }

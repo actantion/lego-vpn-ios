@@ -46,11 +46,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmI-eh-EA5" customClass="CircleProgress" customModule="TenonVPN" customModuleProvider="target">
-                                <rect key="frame" x="77.5" y="228" width="220" height="220"/>
+                                <rect key="frame" x="82.5" y="233" width="210" height="210"/>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cUP-wN-Y58" customClass="CircleProgress" customModule="TenonVPN" customModuleProvider="target">
-                                <rect key="frame" x="77.5" y="228" width="220" height="220"/>
+                                <rect key="frame" x="82.5" y="233" width="210" height="210"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMm-5y-Hlt">
@@ -267,12 +267,12 @@
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="leading" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="8" id="ZzW-uQ-hut"/>
                             <constraint firstItem="wu3-k5-dkf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="74" id="bIG-dZ-Em1"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="c7u-w6-fm6"/>
-                            <constraint firstItem="cUP-wN-Y58" firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="width" constant="20" id="f3Y-zC-U8R"/>
+                            <constraint firstItem="cUP-wN-Y58" firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="width" constant="10" id="f3Y-zC-U8R"/>
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="fIM-7J-0p5"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="fmU-Ts-bhc"/>
                             <constraint firstItem="G86-7R-Ma8" firstAttribute="centerX" secondItem="DR5-wC-YXE" secondAttribute="centerX" id="g3j-iY-fET"/>
                             <constraint firstItem="DR5-wC-YXE" firstAttribute="top" secondItem="G86-7R-Ma8" secondAttribute="bottom" constant="3" id="hMw-tK-swI"/>
-                            <constraint firstItem="cUP-wN-Y58" firstAttribute="height" secondItem="WMm-5y-Hlt" secondAttribute="height" constant="20" id="hQH-44-w7T"/>
+                            <constraint firstItem="cUP-wN-Y58" firstAttribute="height" secondItem="WMm-5y-Hlt" secondAttribute="height" constant="10" id="hQH-44-w7T"/>
                             <constraint firstItem="R7l-lE-cST" firstAttribute="centerY" secondItem="G86-7R-Ma8" secondAttribute="centerY" constant="10" id="ig9-3P-S5M"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="lWq-t5-BfD"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" constant="-70" id="rg0-FB-CFl"/>
@@ -336,6 +336,7 @@
             <objects>
                 <navigationController id="KGV-Ay-2BC" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CVM-mz-dUu">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

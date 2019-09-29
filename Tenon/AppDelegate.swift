@@ -85,9 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
                 }
             }
         }
-        
     }
-    
 
     
 //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
