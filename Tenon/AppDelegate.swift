@@ -22,14 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     var backTask:UIBackgroundTaskIdentifier!
     var appleLocationManager:CLLocationManager!
     var player:AVAudioPlayer!
+//    var count:Int!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // MARK:角标设置用于后台持续状态测试
-        UIApplication.shared.applicationIconBadgeNumber = 0
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound], completionHandler: { (success, error) in
-            print("授权" + (success ? "成功" : "失败"))
-        })
+//        UIApplication.shared.applicationIconBadgeNumber = 0
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound], completionHandler: { (success, error) in
+//            print("授权" + (success ? "成功" : "失败"))
+//        })
+//        count = 0
         IQKeyboardManager.shared.enable = true
         // MARK:微信支付初始化
 //        WXApi.registerApp(WX_ID, universalLink: "TenonVPN")
@@ -73,17 +75,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 //        startBgTask()
         // MARK:后台播放声音条件-用于后台保持
         UNUserNotificationCenter.current().getNotificationSettings { set in
-            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+//            if set.authorizationStatus == UNAuthorizationStatus.authorized{
                 DispatchQueue.main.sync {
                     self.stratBadgeNumberCount()
                     self.startBgTask()
                 }
-            }
-            else{
-                if VpnManager.shared.vpnStatus == .on{
-                    VpnManager.shared.disconnect()
-                }
-            }
+//            }
+//            else{
+//                if VpnManager.shared.vpnStatus == .on{
+//                    VpnManager.shared.disconnect()
+//                }
+//            }
         }
     }
 
@@ -103,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
         self.badgeTimer?.setEventHandler(handler: { [weak self] in
             DispatchQueue.main.async {
                 self?.player.play()
+//                self?.count += 10
 //                UIApplication.shared.applicationIconBadgeNumber += 10
 //                self?.appleLocationManager = CLLocationManager()
 //                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
@@ -128,6 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//        CBToast.showToastAction(message: String(self.count) as NSString)
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

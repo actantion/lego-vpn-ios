@@ -417,7 +417,7 @@ class ViewController: BaseViewController {
     @IBAction func clickConnect(_ sender: Any) {
 
         UNUserNotificationCenter.current().getNotificationSettings { set in
-            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+//            if set.authorizationStatus == UNAuthorizationStatus.authorized{
                 print("推送允许")
                 DispatchQueue.main.sync {
                     if VpnManager.shared.vpnStatus == .off {
@@ -483,10 +483,10 @@ class ViewController: BaseViewController {
                         VpnManager.shared.disconnect()
                     }
                 }
-            }
-            else{
-                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
-            }
+//            }
+//            else{
+//                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
+//            }
         }
     }
     @IBAction func clickChoseCountry(_ sender: Any) {

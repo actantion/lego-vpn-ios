@@ -30,7 +30,7 @@ class FWBottomPopView: UIView,UITableViewDelegate,UITableViewDataSource,UIGestur
         self.topView.alpha = 0
         self.TapGestureRecognizer()
         
-        self.backgroundColor = UIColor.clear
+//        self.backgroundColor = UIColor.clear
         self.tableView = UITableView(frame: frame)
         self.tableView.delegate = self
         //        self.tableView.showsVerticalScrollIndicator = false
@@ -38,6 +38,7 @@ class FWBottomPopView: UIView,UITableViewDelegate,UITableViewDataSource,UIGestur
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
 //        self.tableView.allowsSelection = false
         self.tableView.dataSource = self
+        self.tableView.backgroundColor = UIColor.white
         self.addSubview(self.topView)
         self.addSubview(self.tableView)
         self.cellName = ""

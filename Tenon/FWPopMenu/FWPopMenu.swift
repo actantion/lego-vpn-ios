@@ -33,6 +33,7 @@ class FWPopMenu: UIView,UITableViewDelegate,UITableViewDataSource,UIGestureRecog
         self.tableView.showsHorizontalScrollIndicator = false
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.tableView.dataSource = self
+        self.tableView.backgroundColor = UIColor.white
         self.addSubview(self.tableView)
         self.cellName = ""
     }

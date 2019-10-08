@@ -27,6 +27,7 @@ class FWPayPopView: FWBottomPopView{
         self.tableView.loadCell(cellName)
         self.tableView.loadCell(cellPayWayName)
         self.tableView.loadCell(cellConfirmName)
+        self.tableView.backgroundColor = UIColor.white
         self.tableView.reloadData()
     }
     
