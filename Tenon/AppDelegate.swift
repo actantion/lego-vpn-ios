@@ -32,8 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 //            print("授权" + (success ? "成功" : "失败"))
 //        })
         IQKeyboardManager.shared.enable = true
-        // MARK:微信支付初始化
-//        WXApi.registerApp(WX_ID, universalLink: "TenonVPN")
         // MARK:位置更新初始化-用于后台保持
 //        appleLocationManager = CLLocationManager()
 //        appleLocationManager.allowsBackgroundLocationUpdates = true
@@ -141,56 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // MARK:支付宝&微信回调
-        if url.host == "safepay"{
-            
-        }else if url.host == "pay"{
-            WXApi.handleOpen(url, delegate: self)
-        }
-//        if ([url.host isEqualToString:@"safepay"]) {
-//            //跳转支付宝钱包进行支付，处理支付结果
-//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-//                NSLog(@"result = %@",resultDic);
-//                }];
-//        }else if ([url.host isEqualToString:@"pay"]) {
-//            // 处理微信的支付结果
-//            [WXApi handleOpenURL:url delegate:self];
-//        }
         return true
-    }
-    func onResp(_ resp: BaseResp) {
-//        NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
-//        if([resp isKindOfClass:[PayResp class]]){
-//            //支付返回结果，实际支付结果需要去微信服务器端查询
-//            switch (resp.errCode) {
-//            case 0:
-//                payResoult = @"支付结果：成功！";
-//                break;
-//            case -1:
-//                payResoult = @"支付结果：失败！";
-//                break;
-//            case -2:
-//                payResoult = @"用户已经退出支付！";
-//                break;
-//            default:
-//                payResoult = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
-//                break;
-//            }
-//        }
-        if resp.isKind(of: PayResp.self){
-            var result:String = "errorCode:"+String(resp.errCode)
-            switch resp.errCode{
-            case 0:
-                result = "wechat payment success"
-            case -1:
-                result = "wechat payment failed"
-            case -2:
-                result = "user exit payment"
-            default:
-                result = "wechat payment failed"
-            }
-            print(result)
-        }
     }
 }
 

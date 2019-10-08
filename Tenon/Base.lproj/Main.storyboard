@@ -208,16 +208,13 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-lE-cST">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-lE-cST">
                                 <rect key="frame" x="314" y="519" width="41" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="FQ7-GX-Fi8"/>
                                     <constraint firstAttribute="height" constant="43" id="nB6-Ux-dBI"/>
                                 </constraints>
                                 <state key="normal" image="course_btn_shopping"/>
-                                <connections>
-                                    <action selector="clickBuyTenon:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T2P-2J-puQ"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

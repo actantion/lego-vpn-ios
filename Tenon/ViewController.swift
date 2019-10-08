@@ -212,25 +212,7 @@ class ViewController: BaseViewController {
         self.imgCountryIcon.image = UIImage(named:self.iCon[0])
         self.lbNodes.text = self.countryNodes[0]
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
-        do {
-            let model:payModel = payModel()
-            model.iconName = "applepay"
-            model.payName = "Apple Pay"
-            model.isSelect = true
-            payModelList.append(model)
-        }
-        do {
-            let model:payModel = payModel()
-            model.iconName = "alipay"
-            model.payName = "Alipay"
-            payModelList.append(model)
-        }
-        do {
-            let model:payModel = payModel()
-            model.iconName = "wechatpay"
-            model.payName = "Wechat Pay"
-            payModelList.append(model)
-        }
+
         requestData()
     }
     deinit {
@@ -273,116 +255,6 @@ class ViewController: BaseViewController {
             }
         }
         
-//        if (self.vwShadow.alpha == 0.0f) {
-//            // 动画由小变大
-//            self.vwShadow.transform = CGAffineTransformIdentity;
-//            [UIView animateWithDuration:0.8f animations:^{
-//                self.vwShadow.alpha = 1.0f;
-//                self.vwShadow.transform = CGAffineTransformMake(1.2, 0, 0, 1.2, offsetX, offsetY);
-//
-//                } completion:^(BOOL finished) {
-//
-//                }];
-//        } else {
-//            // 动画由大变小
-//            self.vwShadow.transform = CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0);
-//            [UIView animateWithDuration:0.8f animations:^{
-//                self.vwShadow.transform = CGAffineTransformMake(1, 0, 0, 1, offsetX, offsetY);
-//                self.vwShadow.alpha = 0.0f;
-//                } completion:^(BOOL finished) {
-//                self.vwShadow.transform = CGAffineTransformIdentity;
-//
-//                }];
-//        }
-    }
-    func paymentTenonCoin(_ amount:Int , _ type:Int) {
-        if type == 0 {
-            // apple pay
-            applePayInit(amount)
-        }else if(type == 1){
-            // 支付宝
-        }else if(type == 2){
-            // 微信支付
-        }else{
-            
-        }
-    }
-    
-    
-    @IBAction func clickBuyTenon(_ sender: Any) {
-//        if IS_IN_CN == true{
-//            applePayInit()
-//        }else{
-//            if SKPaymentQueue.canMakePayments(){
-//                CBToast.showToastAction()
-//                let product:NSArray = [productId]
-//                let nsset:NSSet = NSSet(array: product as! [Any])
-//                let request:SKProductsRequest = SKProductsRequest(productIdentifiers: nsset as! Set<String>)
-//                request.delegate = self
-//                request.start()
-//            }else{
-//                CBToast.showToastAction(message: "您的手机暂时不支持苹果内购哦!")
-//            }
-//        }
-        
-        self.payAmount = 0
-        self.popBottomPayWayView = FWPayPopView.init(frame:CGRect(x: 0, y: (Int(SCREEN_HEIGHT) - (payModelList.count+2)*60), width: Int(SCREEN_WIDTH), height: (payModelList.count+2)*60))
-        self.popBottomPayWayView.loadCell("PayWayTableViewCell","payConfirmTableViewCell","ConfirmBtnTableViewCell", payModelList.count)
-        self.popBottomPayWayView.callBackBlk = {(cell,indexPath) in
-            if indexPath.section == 0 {
-                let tempCell:PayWayTableViewCell = cell as! PayWayTableViewCell
-                let model:payModel = self.payModelList[indexPath.row]
-                tempCell.imgLogo.image = UIImage(named: model.iconName)
-                tempCell.lbName.text = model.payName
-                tempCell.imgSelect.isHidden = !model.isSelect
-                return tempCell
-            }else if indexPath.section == 1{
-                let tempCell:payConfirmTableViewCell = cell as! payConfirmTableViewCell
-                tempCell.lbTenonCount.text = String(self.payAmount*500)
-                tempCell.inputAmountBlk = {(amount) in
-                    print(amount)
-                    self.payAmount = amount
-                }
-                return tempCell
-            }else{
-                let tempCell:ConfirmBtnTableViewCell = cell as! ConfirmBtnTableViewCell
-                tempCell.confirmBlock = {() in
-                    print("确认 payway = %d amount = %d",self.payWay,self.payAmount!)
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.popBottomPayWayView.top = SCREEN_HEIGHT
-                    }, completion: { (Bool) in
-                        self.popBottomPayWayView.removeFromSuperview()
-                        self.paymentTenonCoin(self.payAmount,self.payWay)
-                    })
-                }
-                return tempCell
-            }
-        }
-        
-        self.popBottomPayWayView.clickBlck = {(idx) in
-            if idx == -1 {
-                UIView.animate(withDuration: 0.4, animations: {
-                    self.popBottomPayWayView.top = SCREEN_HEIGHT
-                }, completion: { (Bool) in
-                    self.popBottomPayWayView.removeFromSuperview()
-                })
-            }else{
-                for model:payModel in self.payModelList{
-                    model.isSelect = false
-                }
-                let model:payModel = self.payModelList[idx]
-                model.isSelect = true
-                self.payWay = idx
-                self.popBottomPayWayView.tableView.reloadData()
-            }
-        }
-        self.popBottomPayWayView.top = self.popBottomPayWayView.height
-        self.view.addSubview(self.popBottomPayWayView)
-        UIView.animate(withDuration: 0.4, animations: {
-            self.popBottomPayWayView.top = 0
-        }, completion: { (Bool) in
-//            self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-        })
     }
 
     @objc func requestData(){

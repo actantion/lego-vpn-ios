@@ -28,7 +28,6 @@
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
 		D30639322339F7F50006CC7C /* PayWayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30639302339F7F50006CC7C /* PayWayTableViewCell.swift */; };
 		D30639332339F7F50006CC7C /* PayWayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30639312339F7F50006CC7C /* PayWayTableViewCell.xib */; };
-		D3063935233A04980006CC7C /* payModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063934233A04980006CC7C /* payModel.swift */; };
 		D3063937233A108D0006CC7C /* FWPayPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063936233A108D0006CC7C /* FWPayPopView.swift */; };
 		D306393A233A12100006CC7C /* payConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063938233A12100006CC7C /* payConfirmTableViewCell.swift */; };
 		D306393B233A12100006CC7C /* payConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */; };
@@ -103,9 +102,10 @@
 		D35BBDDC2330C37B0043E340 /* libp2p.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDDA2330C37B0043E340 /* libp2p.framework */; };
 		D35BBDDE2330C4840043E340 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */; };
 		D35BBDDF2330D8F10043E340 /* CocoaLumberjackSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D38E584A232F72CE00D99A90 /* TranscationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5849232F72CE00D99A90 /* TranscationModel.swift */; };
 		D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
 		D38E5857232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
+		D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D52CC234C894500A3CEEB /* TranscationModel.swift */; };
+		D39D52CF234C894500A3CEEB /* payModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D52CD234C894500A3CEEB /* payModel.swift */; };
 		DB56AE96686C8BBBDFD30356 /* Pods_TenonVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */; };
 		FAF27737A01FDB61323194AC /* Pods_freeWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */; };
 /* End PBXBuildFile section */
@@ -197,7 +197,6 @@
 		C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenonVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30639302339F7F50006CC7C /* PayWayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWayTableViewCell.swift; sourceTree = "<group>"; };
 		D30639312339F7F50006CC7C /* PayWayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayWayTableViewCell.xib; sourceTree = "<group>"; };
-		D3063934233A04980006CC7C /* payModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payModel.swift; sourceTree = "<group>"; };
 		D3063936233A108D0006CC7C /* FWPayPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPayPopView.swift; sourceTree = "<group>"; };
 		D3063938233A12100006CC7C /* payConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payConfirmTableViewCell.swift; sourceTree = "<group>"; };
 		D3063939233A12100006CC7C /* payConfirmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = payConfirmTableViewCell.xib; sourceTree = "<group>"; };
@@ -251,8 +250,9 @@
 		D34378FE2328F234000F1F69 /* TenonVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenonVPN.entitlements; sourceTree = "<group>"; };
 		D35BBDDA2330C37B0043E340 /* libp2p.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libp2p.framework; path = Carthage/Build/iOS/libp2p.framework; sourceTree = "<group>"; };
 		D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
-		D38E5849232F72CE00D99A90 /* TranscationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscationModel.swift; sourceTree = "<group>"; };
 		D38E5855232F8C0B00D99A90 /* VpnManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnManager.swift; path = Tenon/VpnManager.swift; sourceTree = SOURCE_ROOT; };
+		D39D52CC234C894500A3CEEB /* TranscationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscationModel.swift; sourceTree = "<group>"; };
+		D39D52CD234C894500A3CEEB /* payModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = payModel.swift; sourceTree = "<group>"; };
 		ED6901FF968591280E6CB988 /* Pods-PacketTunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.release.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -542,8 +542,8 @@
 		D38E5852232F888800D99A90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D38E5849232F72CE00D99A90 /* TranscationModel.swift */,
-				D3063934233A04980006CC7C /* payModel.swift */,
+				D39D52CD234C894500A3CEEB /* payModel.swift */,
+				D39D52CC234C894500A3CEEB /* TranscationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -822,13 +822,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */,
 				D3204B5523261E5D002ECB69 /* AccountSetTableViewCell.swift in Sources */,
 				D3204B5A232626DD002ECB69 /* BaseViewContrller.swift in Sources */,
 				85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */,
 				D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */,
-				D38E584A232F72CE00D99A90 /* TranscationModel.swift in Sources */,
 				D3204B5C232635FB002ECB69 /* UIButton+Extension.swift in Sources */,
 				D30639322339F7F50006CC7C /* PayWayTableViewCell.swift in Sources */,
+				D39D52CF234C894500A3CEEB /* payModel.swift in Sources */,
 				D316BC2023224D86008C8FD3 /* ChoseCountryViewController.swift in Sources */,
 				D34378F423289126000F1F69 /* FWBottomPopView.swift in Sources */,
 				D3063937233A108D0006CC7C /* FWPayPopView.swift in Sources */,
@@ -839,7 +840,6 @@
 				852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */,
 				D34378F72328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift in Sources */,
 				18E9141D2266C7B4005E6027 /* AppDelegate.swift in Sources */,
-				D3063935233A04980006CC7C /* payModel.swift in Sources */,
 				D316BC2823224F24008C8FD3 /* CountryTableViewCell.swift in Sources */,
 				D306393A233A12100006CC7C /* payConfirmTableViewCell.swift in Sources */,
 				8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */,
