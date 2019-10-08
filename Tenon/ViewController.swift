@@ -418,7 +418,7 @@ class ViewController: BaseViewController {
 
         UNUserNotificationCenter.current().getNotificationSettings { set in
 //            if set.authorizationStatus == UNAuthorizationStatus.authorized{
-                print("推送允许")
+//                print("推送允许")
                 DispatchQueue.main.sync {
                     if VpnManager.shared.vpnStatus == .off {
                         if self.choosed_country != nil{

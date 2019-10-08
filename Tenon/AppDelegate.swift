@@ -16,22 +16,21 @@ import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegate ,WXApiDelegate {
 
-    var bgTask:UIBackgroundTaskIdentifier!
+    var bgTask:UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     var window: UIWindow?
     var badgeTimer:DispatchSourceTimer!
     var backTask:UIBackgroundTaskIdentifier!
     var appleLocationManager:CLLocationManager!
     var player:AVAudioPlayer!
-//    var count:Int!
+    var count:Int = 0
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // MARK:角标设置用于后台持续状态测试
-//        UIApplication.shared.applicationIconBadgeNumber = 0
+        UIApplication.shared.applicationIconBadgeNumber = 0
 //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound], completionHandler: { (success, error) in
 //            print("授权" + (success ? "成功" : "失败"))
 //        })
-//        count = 0
         IQKeyboardManager.shared.enable = true
         // MARK:微信支付初始化
 //        WXApi.registerApp(WX_ID, universalLink: "TenonVPN")
@@ -106,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
             DispatchQueue.main.async {
                 self?.player.play()
 //                self?.count += 10
-//                UIApplication.shared.applicationIconBadgeNumber += 10
+//                UIApplication.shared.applicationIconBadgeNumber += 1
 //                self?.appleLocationManager = CLLocationManager()
 //                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
 //                self?.appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
