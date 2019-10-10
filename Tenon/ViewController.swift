@@ -117,6 +117,7 @@ class ViewController: BaseViewController {
     @IBOutlet weak var imgCountryIcon: UIImageView!
     @IBOutlet weak var lbNodes: UILabel!
     @IBOutlet weak var smartRoute: UISwitch!
+    @IBOutlet weak var btnUpgrade: UIButton!
     
     
 //    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
@@ -132,6 +133,7 @@ class ViewController: BaseViewController {
     var Dolor:Double!
     
     var popBottomView:FWBottomPopView!
+    var popUpgradeView:FWUpgradeView!
     var popBottomPayWayView:FWPayPopView!
     var popPKPopView:FWOperPKView!
     
@@ -175,6 +177,8 @@ class ViewController: BaseViewController {
         self.vwCircleBack.layer.masksToBounds = true
         self.vwCircleBack.layer.cornerRadius = self.vwCircleBack.width/2
         
+        btnUpgrade.layer.masksToBounds = true
+        btnUpgrade.layer.cornerRadius = 20
         let url = URL(string:"https://www.baidu.com");
         URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
             (data, rsp, error) in
@@ -393,6 +397,30 @@ class ViewController: BaseViewController {
         }
         
         self.isClick = !self.isClick
+    }
+    @IBAction func clickUpgrade(_ sender: Any) {
+        if btnUpgrade.isUserInteractionEnabled == true {
+            popUpgradeView = FWUpgradeView.init(frame: CGRect(x: 0, y: SCREEN_HEIGHT - 150, width: SCREEN_WIDTH, height: 150))
+            self.popUpgradeView.clickBlck = {(idx) in
+                if idx == -1{
+                    UIView.animate(withDuration: 0.4, animations: {
+                        self.popUpgradeView.top = SCREEN_HEIGHT
+                    }, completion: { (Bool) in
+                        self.popUpgradeView.removeFromSuperview()
+                    })
+                }
+//                self.btnUpgrade.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+            }
+            self.popUpgradeView.top = self.popUpgradeView.height
+            self.view.addSubview(popUpgradeView)
+            UIView.animate(withDuration: 0.4, animations: {
+                self.popUpgradeView.top = 0
+            }, completion: { (Bool) in
+//                self.btnUpgrade.isUserInteractionEnabled = !self.btnUpgrade.isUserInteractionEnabled
+            })
+        }else{
+            
+        }
     }
     
     @IBAction func clickAccountSetting(_ sender: Any) {

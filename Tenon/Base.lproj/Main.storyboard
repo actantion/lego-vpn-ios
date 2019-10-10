@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OK-ia-4Gi">
-                                <rect key="frame" x="16" y="583" width="343" height="40"/>
+                                <rect key="frame" x="16" y="583" width="163.5" height="40"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Odo-2O-x16"/>
@@ -191,6 +191,19 @@
                                 </constraints>
                                 <state key="normal" image="course_btn_shopping"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZ5-du-5ut">
+                                <rect key="frame" x="195.5" y="583" width="163.5" height="40"/>
+                                <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="q99-AK-hhw"/>
+                                </constraints>
+                                <state key="normal" title="UPGRADE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickUpgrade:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HFs-fx-Fkz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -201,11 +214,13 @@
                             <constraint firstItem="uaT-WF-3iG" firstAttribute="centerX" secondItem="smd-Wo-Ltm" secondAttribute="centerX" id="64o-u9-Scc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="R7l-lE-cST" secondAttribute="trailing" constant="20" id="69F-h5-Ver"/>
                             <constraint firstItem="YHl-J3-WAI" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="6P7-Eb-da3"/>
+                            <constraint firstItem="DZ5-du-5ut" firstAttribute="width" secondItem="4OK-ia-4Gi" secondAttribute="width" id="7X9-1C-W4M"/>
                             <constraint firstItem="C0t-OL-mqm" firstAttribute="leading" secondItem="DR5-wC-YXE" secondAttribute="trailing" constant="8" id="8Pb-D9-OtD"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="951-TG-0Ip"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="17" id="9Iv-SZ-m7e"/>
                             <constraint firstItem="DR5-wC-YXE" firstAttribute="height" secondItem="smd-Wo-Ltm" secondAttribute="height" id="BQq-LX-8YH"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerX" secondItem="cUP-wN-Y58" secondAttribute="centerX" id="BwB-1J-fYF"/>
+                            <constraint firstItem="DZ5-du-5ut" firstAttribute="centerY" secondItem="4OK-ia-4Gi" secondAttribute="centerY" id="BwD-WK-U2l"/>
                             <constraint firstItem="R7l-lE-cST" firstAttribute="leading" secondItem="XmI-eh-EA5" secondAttribute="trailing" constant="7.5" id="DsB-OJ-sbZ"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="top" secondItem="mLz-mT-Jxf" secondAttribute="bottom" constant="8" id="Ezp-ab-tgP"/>
                             <constraint firstItem="G86-7R-Ma8" firstAttribute="leading" secondItem="uaT-WF-3iG" secondAttribute="trailing" constant="-1" id="FFs-PQ-7nt"/>
@@ -222,6 +237,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4OK-ia-4Gi" secondAttribute="bottom" constant="44" id="NO7-H7-fPm"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerY" secondItem="cUP-wN-Y58" secondAttribute="centerY" id="NxG-16-Lvv"/>
                             <constraint firstItem="DR5-wC-YXE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gpq-ms-GJd" secondAttribute="trailing" constant="8" id="OR5-YN-W0d"/>
+                            <constraint firstItem="DZ5-du-5ut" firstAttribute="leading" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="16" id="QDK-hD-au3"/>
                             <constraint firstItem="uaT-WF-3iG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QL8-3D-BN6"/>
                             <constraint firstItem="C0t-OL-mqm" firstAttribute="leading" secondItem="DR5-wC-YXE" secondAttribute="trailing" constant="8" id="RV4-RW-nvL"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="Svm-PB-PEy"/>
@@ -240,6 +256,7 @@
                             <constraint firstItem="wu3-k5-dkf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="74" id="bIG-dZ-Em1"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="c7u-w6-fm6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="16" id="dej-Ps-Pnm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DZ5-du-5ut" secondAttribute="trailing" constant="16" id="eMF-gG-ICP"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="width" constant="10" id="f3Y-zC-U8R"/>
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="fIM-7J-0p5"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="fmU-Ts-bhc"/>
@@ -266,17 +283,19 @@
                                 <exclude reference="MH2-3m-Lb0"/>
                                 <exclude reference="ZIO-Mx-Zp8"/>
                                 <exclude reference="ZYh-Sw-22V"/>
+                                <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
                                 <exclude reference="QL8-3D-BN6"/>
-                                <exclude reference="WAr-xy-Th3"/>
-                                <exclude reference="g3j-iY-fET"/>
-                                <exclude reference="GU0-VX-f4b"/>
-                                <exclude reference="WpM-yU-ZN8"/>
-                                <exclude reference="s8l-UD-U7h"/>
                                 <exclude reference="4es-lb-ddJ"/>
                                 <exclude reference="DsB-OJ-sbZ"/>
                                 <exclude reference="Zpd-Xm-sFd"/>
                                 <exclude reference="ySE-Rg-jpb"/>
+                                <exclude reference="WAr-xy-Th3"/>
+                                <exclude reference="g3j-iY-fET"/>
+                                <exclude reference="951-TG-0Ip"/>
+                                <exclude reference="GU0-VX-f4b"/>
+                                <exclude reference="WpM-yU-ZN8"/>
+                                <exclude reference="s8l-UD-U7h"/>
                                 <exclude reference="8Pb-D9-OtD"/>
                             </mask>
                         </variation>
@@ -288,6 +307,7 @@
                         <outlet property="btnAccount" destination="4OK-ia-4Gi" id="dQz-q7-Abm"/>
                         <outlet property="btnChoseCountry" destination="wu3-k5-dkf" id="Gjh-ES-6Qy"/>
                         <outlet property="btnConnect" destination="WMm-5y-Hlt" id="rH5-iU-oaX"/>
+                        <outlet property="btnUpgrade" destination="DZ5-du-5ut" id="AWc-a0-Xe5"/>
                         <outlet property="imgConnect" destination="mLz-mT-Jxf" id="B3H-cY-BrE"/>
                         <outlet property="imgCountryIcon" destination="iJn-z8-UcN" id="2U2-z5-Ami"/>
                         <outlet property="lbAccountAddress" destination="smd-Wo-Ltm" id="xcs-Tt-4OK"/>

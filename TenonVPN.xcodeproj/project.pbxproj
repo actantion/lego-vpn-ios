@@ -106,6 +106,7 @@
 		D38E5857232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
 		D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D52CC234C894500A3CEEB /* TranscationModel.swift */; };
 		D39D52CF234C894500A3CEEB /* payModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D52CD234C894500A3CEEB /* payModel.swift */; };
+		D3BC34D9234F0DB000588FA5 /* FWUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */; };
 		DB56AE96686C8BBBDFD30356 /* Pods_TenonVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */; };
 		FAF27737A01FDB61323194AC /* Pods_freeWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */; };
 /* End PBXBuildFile section */
@@ -253,6 +254,7 @@
 		D38E5855232F8C0B00D99A90 /* VpnManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnManager.swift; path = Tenon/VpnManager.swift; sourceTree = SOURCE_ROOT; };
 		D39D52CC234C894500A3CEEB /* TranscationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscationModel.swift; sourceTree = "<group>"; };
 		D39D52CD234C894500A3CEEB /* payModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = payModel.swift; sourceTree = "<group>"; };
+		D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWUpgradeView.swift; sourceTree = "<group>"; };
 		ED6901FF968591280E6CB988 /* Pods-PacketTunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.release.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -457,6 +459,7 @@
 				D34378F323289126000F1F69 /* FWBottomPopView.swift */,
 				D3063936233A108D0006CC7C /* FWPayPopView.swift */,
 				D3063964233B65410006CC7C /* FWOperPKView.swift */,
+				D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */,
 			);
 			path = FWPopMenu;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				D39D52CF234C894500A3CEEB /* payModel.swift in Sources */,
 				D316BC2023224D86008C8FD3 /* ChoseCountryViewController.swift in Sources */,
 				D34378F423289126000F1F69 /* FWBottomPopView.swift in Sources */,
+				D3BC34D9234F0DB000588FA5 /* FWUpgradeView.swift in Sources */,
 				D3063937233A108D0006CC7C /* FWPayPopView.swift in Sources */,
 				D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */,
 				18E9141F2266C7B4005E6027 /* ViewController.swift in Sources */,
