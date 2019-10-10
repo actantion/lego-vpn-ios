@@ -20,7 +20,7 @@
 //                    requestProduct = pro
 //                }
 //            }
-//            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)
+//            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)t
 //            payment.applicationUsername = local_account_id+productId
 //            SKPaymentQueue.default().add(payment)
 //        }

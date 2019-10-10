@@ -89,7 +89,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="597 lego" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DR5-wC-YXE">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="597 lego" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DR5-wC-YXE">
                                 <rect key="frame" x="227" y="542" width="49.5" height="21"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -102,7 +102,7 @@
                                 <color key="textColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.19$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0t-OL-mqm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1.19$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0t-OL-mqm">
                                 <rect key="frame" x="284.5" y="545" width="29.5" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.58082699780000002" green="0.1872656345" blue="0.15837582950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -150,66 +150,41 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRn-Kv-WZi">
-                                        <rect key="frame" x="8" y="25" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="8vS-Hg-wkC"/>
-                                            <constraint firstAttribute="width" constant="70" id="M2o-nc-pcs"/>
-                                            <constraint firstAttribute="height" constant="40" id="acU-1s-eFb"/>
-                                            <constraint firstAttribute="height" constant="30" id="z3t-Xl-fdm"/>
-                                        </constraints>
-                                        <state key="normal" title=" " backgroundImage="nav_ic_calendar"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="M2o-nc-pcs"/>
-                                                <exclude reference="acU-1s-eFb"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="clickPKPop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jc2-xJ-Tq3"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TenonVPN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwq-jt-YtR">
-                                        <rect key="frame" x="46" y="31" width="72" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
                                         <rect key="frame" x="318" y="24.5" width="51" height="31"/>
                                         <connections>
                                             <action selector="clickSmartRoute:" destination="BYZ-38-t0r" eventType="valueChanged" id="8kO-gX-XLw"/>
                                         </connections>
                                     </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="TenonVPN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwq-jt-YtR">
+                                        <rect key="frame" x="8" y="28" width="94" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="44X-VY-8FV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qwq-jt-YtR" secondAttribute="trailing" constant="8" symbolic="YES" id="1vO-7m-6pp"/>
-                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="centerX" secondItem="qwq-jt-YtR" secondAttribute="centerX" id="BKt-FL-Aev"/>
-                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="centerY" secondItem="qwq-jt-YtR" secondAttribute="centerY" id="JCd-N2-kl9"/>
                                     <constraint firstItem="Lhd-zF-ibB" firstAttribute="centerY" secondItem="44X-VY-8FV" secondAttribute="centerY" id="Qx5-Hr-gKL"/>
-                                    <constraint firstItem="qwq-jt-YtR" firstAttribute="leading" secondItem="GRn-Kv-WZi" secondAttribute="trailing" constant="8" id="T1W-Ng-gKO"/>
                                     <constraint firstAttribute="bottom" secondItem="44X-VY-8FV" secondAttribute="bottom" constant="11" id="dRQ-MT-nYH"/>
                                     <constraint firstItem="qwq-jt-YtR" firstAttribute="leading" secondItem="JAj-3M-U9V" secondAttribute="leading" constant="8" id="f7l-e5-vR9"/>
-                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="width" secondItem="qwq-jt-YtR" secondAttribute="width" id="gJV-tN-cdq"/>
                                     <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="12" id="jhR-Ua-m8V"/>
                                     <constraint firstAttribute="trailing" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="120" id="pIc-1b-T7H"/>
                                     <constraint firstAttribute="trailing" secondItem="Lhd-zF-ibB" secondAttribute="trailing" constant="8" id="q0p-ue-sh0"/>
                                     <constraint firstAttribute="height" constant="60" id="rWC-nR-g5I"/>
-                                    <constraint firstItem="GRn-Kv-WZi" firstAttribute="leading" secondItem="JAj-3M-U9V" secondAttribute="leading" constant="8" id="sqT-e8-Oca"/>
                                     <constraint firstAttribute="bottom" secondItem="qwq-jt-YtR" secondAttribute="bottom" constant="11" id="tMk-hb-mkn"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="BKt-FL-Aev"/>
-                                        <exclude reference="gJV-tN-cdq"/>
                                         <exclude reference="f7l-e5-vR9"/>
+                                        <exclude reference="1vO-7m-6pp"/>
                                         <exclude reference="pIc-1b-T7H"/>
                                     </mask>
                                 </variation>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-lE-cST">
-                                <rect key="frame" x="314" y="519" width="41" height="43"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-lE-cST">
+                                <rect key="frame" x="251" y="464" width="41" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="FQ7-GX-Fi8"/>
                                     <constraint firstAttribute="height" constant="43" id="nB6-Ux-dBI"/>
@@ -298,6 +273,7 @@
                                 <exclude reference="GU0-VX-f4b"/>
                                 <exclude reference="WpM-yU-ZN8"/>
                                 <exclude reference="s8l-UD-U7h"/>
+                                <exclude reference="4es-lb-ddJ"/>
                                 <exclude reference="DsB-OJ-sbZ"/>
                                 <exclude reference="Zpd-Xm-sFd"/>
                                 <exclude reference="ySE-Rg-jpb"/>
@@ -310,7 +286,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btnAccount" destination="4OK-ia-4Gi" id="dQz-q7-Abm"/>
-                        <outlet property="btnChangePK" destination="GRn-Kv-WZi" id="Kwl-TA-OAN"/>
                         <outlet property="btnChoseCountry" destination="wu3-k5-dkf" id="Gjh-ES-6Qy"/>
                         <outlet property="btnConnect" destination="WMm-5y-Hlt" id="rH5-iU-oaX"/>
                         <outlet property="imgConnect" destination="mLz-mT-Jxf" id="B3H-cY-BrE"/>
@@ -350,6 +325,5 @@
         <image name="arrow_left_icon" width="100" height="100"/>
         <image name="connect" width="173" height="174"/>
         <image name="course_btn_shopping" width="100" height="100"/>
-        <image name="nav_ic_calendar" width="100" height="100"/>
     </resources>
 </document>
