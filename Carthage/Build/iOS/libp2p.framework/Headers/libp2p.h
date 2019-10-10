@@ -37,5 +37,5 @@ FOUNDATION_EXPORT const unsigned char libp2pVersionString[];
 +(NSString*) getPublicKeyEx;
 + (NSString *)HexDecode:(NSString *)hexString;
 + (NSString *)HexEncode:(NSData *)data;
-
++ (NSString *)CheckVersion;
 @end

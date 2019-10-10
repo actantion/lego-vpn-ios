@@ -12,7 +12,7 @@
 		8525775823290A1800BF8AF8 /* libp2p.h in Headers */ = {isa = PBXBuildFile; fileRef = 8525774A23290A1800BF8AF8 /* libp2p.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8525776223290B0500BF8AF8 /* libp2p.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8525776123290B0500BF8AF8 /* libp2p.mm */; };
 		85257768232919E000BF8AF8 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 85257767232919E000BF8AF8 /* lib */; };
-		8525776A232919EA00BF8AF8 /* vpn_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 85257769232919EA00BF8AF8 /* vpn_client.h */; };
+		85B6725E234F46AF0080162E /* vpn_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 85B6725D234F46AF0080162E /* vpn_client.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,7 @@
 		8525775723290A1800BF8AF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8525776123290B0500BF8AF8 /* libp2p.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = libp2p.mm; sourceTree = "<group>"; };
 		85257767232919E000BF8AF8 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
-		85257769232919EA00BF8AF8 /* vpn_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vpn_client.h; path = include/vpn_client.h; sourceTree = "<group>"; };
+		85B6725D234F46AF0080162E /* vpn_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vpn_client.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,6 @@
 		8525773D23290A1800BF8AF8 = {
 			isa = PBXGroup;
 			children = (
-				85257769232919EA00BF8AF8 /* vpn_client.h */,
 				85257767232919E000BF8AF8 /* lib */,
 				8525774923290A1800BF8AF8 /* libp2p */,
 				8525775423290A1800BF8AF8 /* libp2pTests */,
@@ -79,6 +78,7 @@
 		8525774923290A1800BF8AF8 /* libp2p */ = {
 			isa = PBXGroup;
 			children = (
+				85B6725D234F46AF0080162E /* vpn_client.h */,
 				8525774A23290A1800BF8AF8 /* libp2p.h */,
 				8525774B23290A1800BF8AF8 /* Info.plist */,
 				8525776123290B0500BF8AF8 /* libp2p.mm */,
@@ -102,7 +102,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8525776A232919EA00BF8AF8 /* vpn_client.h in Headers */,
+				85B6725E234F46AF0080162E /* vpn_client.h in Headers */,
 				8525775823290A1800BF8AF8 /* libp2p.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -21,6 +21,10 @@ namespace transport {
     }
 }  // namespace transport
 
+namespace common {
+	class Tick;
+}
+
 namespace dht {
     class Node;
     typedef std::shared_ptr<Node> NodePtr;
@@ -30,8 +34,6 @@ namespace dht {
 
 namespace client {
 
-class ClientUniversalDht;
-typedef std::shared_ptr<ClientUniversalDht> ClientUniversalDhtPtr;
 namespace protobuf {
     class Block;
     typedef std::shared_ptr<Block> BlockPtr;
@@ -128,6 +130,7 @@ public:
             const std::vector<std::string>& route_vec,
             std::string& login_gid);
     int VpnLogout();
+	std::string CheckVersion();
 
 private:
     VpnClient();
@@ -160,6 +163,7 @@ private:
     void DumpBootstrapNodes();
     void GetNetworkNodes(const std::vector<std::string>& country_vec, uint32_t network_id);
     void InitRouteAndVpnServer();
+	void GetVpnVersion();
 
     static const uint32_t kDefaultUdpSendBufferSize = 10u * 1024u * 1024u;
     static const uint32_t kDefaultUdpRecvBufferSize = 10u * 1024u * 1024u;
@@ -172,7 +176,6 @@ private:
     transport::TransportPtr transport_{ nullptr };
     bool inited_{ false };
     std::mutex init_mutex_;
-    ClientUniversalDhtPtr root_dht_{ nullptr };
     bool root_dht_joined_{ false };
     bool client_mode_{ true };
     uint32_t send_buff_size_{ kDefaultUdpSendBufferSize };
@@ -183,14 +186,20 @@ private:
     std::string config_path_;
     std::map<uint64_t, std::string> hight_block_map_;
     std::mutex hight_block_map_mutex_;
-    std::set<uint64_t> height_set_;
+	std::set<uint64_t> local_account_height_set_;
+	uint64_t vpn_version_last_height_;
+	std::string vpn_download_url_;
     std::mutex height_set_mutex_;
     uint32_t check_times_{ 0 };
-    bool got_block_{ false };
     std::map<std::string, std::deque<VpnServerNodePtr>> vpn_nodes_map_;
     std::mutex vpn_nodes_map_mutex_;
     std::map<std::string, std::deque<VpnServerNodePtr>> route_nodes_map_;
     std::mutex route_nodes_map_mutex_;
+
+	std::shared_ptr<common::Tick> check_tx_tick_{ nullptr };
+	std::shared_ptr<common::Tick>  vpn_nodes_tick_{ nullptr };
+	std::shared_ptr<common::Tick>  dump_config_tick_{ nullptr };
+	std::shared_ptr<common::Tick>  dump_bootstrap_tick_{ nullptr };
 };
 
 }  // namespace client

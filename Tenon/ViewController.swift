@@ -147,6 +147,8 @@ class ViewController: BaseViewController {
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
     
+    let kCurrentVersion = "1.0.3"
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -168,7 +170,7 @@ class ViewController: BaseViewController {
         self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
         
         self.btnAccount.layer.masksToBounds = true
-        self.btnAccount.layer.cornerRadius = 20
+        self.btnAccount.layer.cornerRadius = 4
         self.btnChoseCountry.layer.masksToBounds = true
         self.btnChoseCountry.layer.cornerRadius = 4
         self.vwBackHub.proEndgress = 0.0
@@ -178,7 +180,7 @@ class ViewController: BaseViewController {
         self.vwCircleBack.layer.cornerRadius = self.vwCircleBack.width/2
         
         btnUpgrade.layer.masksToBounds = true
-        btnUpgrade.layer.cornerRadius = 20
+        btnUpgrade.layer.cornerRadius = 4
         let url = URL(string:"https://www.baidu.com");
         URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
             (data, rsp, error) in
@@ -400,7 +402,21 @@ class ViewController: BaseViewController {
     }
     @IBAction func clickUpgrade(_ sender: Any) {
         if btnUpgrade.isUserInteractionEnabled == true {
+            let version_str = TenonP2pLib.sharedInstance.CheckVersion()
+            let plats = version_str.split(separator: ",")
+            var down_url: String = "";
+            for item in plats {
+                let item_split = item.split(separator: ";")
+                if (item_split[0] == "ios") {
+                    if (item_split[1] != kCurrentVersion) {
+                        down_url = String(item_split[2])
+                    }
+                    break
+                }
+            }
+            
             popUpgradeView = FWUpgradeView.init(frame: CGRect(x: 0, y: SCREEN_HEIGHT - 150, width: SCREEN_WIDTH, height: 150))
+            popUpgradeView.Show(download_url: down_url)
             self.popUpgradeView.clickBlck = {(idx) in
                 if idx == -1{
                     UIView.animate(withDuration: 0.4, animations: {

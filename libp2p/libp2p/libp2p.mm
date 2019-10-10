@@ -148,4 +148,10 @@ NSString* public_key_ = @"000000000000000000000000000000000";
     return res_str;
 }
 
++ (NSString *)CheckVersion {
+    std::string res = lego::client::VpnClient::Instance()->CheckVersion();
+    NSString *res_str = [NSString stringWithCString:res.c_str() encoding:[NSString defaultCStringEncoding]];
+    return res_str;
+}
+
 @end

@@ -14,6 +14,7 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
     var clickBlck: clickCellRow?
     var btnUpgrade:UIButton!
     var lbTitle:UILabel!
+    var down_url: String!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -26,15 +27,14 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
         self.topView = UIView(frame: CGRect(x: 0, y: -SCREEN_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT*2-frame.height))
         self.topView.backgroundColor = UIColor.black
         self.topView.alpha = 0
-        
-        lbTitle = UILabel(frame: CGRect(x: 0, y: 20, width: SCREEN_WIDTH, height: 20))
+        lbTitle = UILabel(frame: CGRect(x: 0, y: 20, width: SCREEN_WIDTH - 50, height: 20))
         lbTitle.text = "there is a new version, click to upgrade page."
         lbTitle.font = UIFont.systemFont(ofSize: 16)
         lbTitle.textColor = APP_COLOR
         lbTitle.textAlignment = NSTextAlignment.center
         self.bottomView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT - frame.height, width: SCREEN_WIDTH, height: frame.height))
         self.bottomView.backgroundColor = UIColor.white
-        self.btnUpgrade = UIButton(frame: CGRect(x: 30, y: lbTitle.bottom + 30, width: SCREEN_WIDTH - 60, height: 50))
+        self.btnUpgrade = UIButton(frame: CGRect(x: 30, y: lbTitle.bottom + 30, width: SCREEN_WIDTH - 60, height: 30))
         self.btnUpgrade.setTitle("UPGRADE", for: UIControl.State.normal)
         
         self.btnUpgrade.backgroundColor = APP_COLOR
@@ -53,9 +53,20 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
             
         }
     }
+    
+    public func Show(download_url: String) {
+        if (download_url.isEmpty) {
+            lbTitle.text = "Already is the latest version."
+            self.btnUpgrade.isHidden = true
+        } else {
+            lbTitle.text = "there is a new version, click to upgrade page."
+            self.btnUpgrade.isHidden = false
+            down_url = download_url
+        }
+    }
+    
     @objc func clickUpgrade(){
-        print("点击更新按钮")
-        UIApplication.shared.open(URL(string: "https://www.baidu.com")!, options: [:]) { (ret) in
+        UIApplication.shared.open(URL(string: down_url)!, options: [:]) { (ret) in
             print("成功")
         }
     }

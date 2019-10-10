@@ -67,6 +67,11 @@ class TenonP2pLib {
         let res = LibP2P.getPublicKey()as String
         return res
     }
+    
+    func CheckVersion() -> String {
+        let res = LibP2P.checkVersion() as String
+        return res
+    }
     /*
     func getIFAddresses() -> [String] {
         var addresses = [String]()
