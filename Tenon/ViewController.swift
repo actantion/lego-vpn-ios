@@ -147,7 +147,7 @@ class ViewController: BaseViewController {
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
     
-    let kCurrentVersion = "1.0.3"
+    let kCurrentVersion = "1.0.4"
     
     
     override var prefersStatusBarHidden: Bool {
@@ -300,9 +300,9 @@ class ViewController: BaseViewController {
                 DispatchQueue.main.sync {
                     if VpnManager.shared.vpnStatus == .off {
                         if self.choosed_country != nil{
-                            var route_node = super.getOneRouteNode(country: self.choosed_country)
+                            var route_node = super.getOneRouteNode(country: self.local_country)
                             if (route_node.ip.isEmpty) {
-                                route_node = super.getOneRouteNode(country: self.local_country)
+                                route_node = super.getOneRouteNode(country: self.choosed_country)
                                 if (route_node.ip.isEmpty) {
                                     for country in self.iCon {
                                         route_node = super.getOneRouteNode(country: country)

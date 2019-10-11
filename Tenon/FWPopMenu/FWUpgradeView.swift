@@ -27,19 +27,19 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
         self.topView = UIView(frame: CGRect(x: 0, y: -SCREEN_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT*2-frame.height))
         self.topView.backgroundColor = UIColor.black
         self.topView.alpha = 0
-        lbTitle = UILabel(frame: CGRect(x: 0, y: 20, width: SCREEN_WIDTH - 50, height: 20))
+        lbTitle = UILabel(frame: CGRect(x: 0, y: 20, width: SCREEN_WIDTH - 20, height: 20))
         lbTitle.text = "there is a new version, click to upgrade page."
-        lbTitle.font = UIFont.systemFont(ofSize: 16)
+        lbTitle.font = UIFont.systemFont(ofSize: 13)
         lbTitle.textColor = APP_COLOR
         lbTitle.textAlignment = NSTextAlignment.center
         self.bottomView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT - frame.height, width: SCREEN_WIDTH, height: frame.height))
         self.bottomView.backgroundColor = UIColor.white
-        self.btnUpgrade = UIButton(frame: CGRect(x: 30, y: lbTitle.bottom + 30, width: SCREEN_WIDTH - 60, height: 30))
+        self.btnUpgrade = UIButton(frame: CGRect(x: SCREEN_WIDTH / 4, y: lbTitle.bottom + 30, width: SCREEN_WIDTH / 2, height: 30))
         self.btnUpgrade.setTitle("UPGRADE", for: UIControl.State.normal)
         
         self.btnUpgrade.backgroundColor = APP_COLOR
         self.btnUpgrade.layer.masksToBounds = true
-        self.btnUpgrade.layer.cornerRadius = 20
+        self.btnUpgrade.layer.cornerRadius = 4
         self.btnUpgrade.addTarget(self, action: #selector(clickUpgrade), for: UIControl.Event.touchUpInside)
         self.TapGestureRecognizer()
         lbTitle.centerX = self.bottomView.centerX
@@ -56,7 +56,7 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
     
     public func Show(download_url: String) {
         if (download_url.isEmpty) {
-            lbTitle.text = "Already is the latest version."
+            lbTitle.text = "Already the latest version."
             self.btnUpgrade.isHidden = true
         } else {
             lbTitle.text = "there is a new version, click to upgrade page."
