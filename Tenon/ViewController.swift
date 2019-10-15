@@ -147,7 +147,7 @@ class ViewController: BaseViewController {
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
     
-    let kCurrentVersion = "1.0.4"
+    let kCurrentVersion = "1.0.5"
     
     
     override var prefersStatusBarHidden: Bool {
