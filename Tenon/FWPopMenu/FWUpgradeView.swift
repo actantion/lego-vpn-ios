@@ -66,9 +66,7 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
     }
     
     @objc func clickUpgrade(){
-        UIApplication.shared.open(URL(string: down_url)!, options: [:]) { (ret) in
-            print("成功")
-        }
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
