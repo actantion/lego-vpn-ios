@@ -19,28 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>WechatPay</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wx07c27247016e81a5</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>Alipay</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>TenonAlipay</string>
-			</array>
-		</dict>
-	</array>
+	<array/>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -53,7 +53,7 @@
 //            }
 //        }
 //    }
-//    func completeTransaction(transaction:SKPaymentTransaction) {
+//    func  (transaction:SKPaymentTransaction) {
 //        let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
 //        let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
 //        let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
@@ -295,8 +295,8 @@ class ViewController: BaseViewController {
     @IBAction func clickConnect(_ sender: Any) {
 
         UNUserNotificationCenter.current().getNotificationSettings { set in
-//            if set.authorizationStatus == UNAuthorizationStatus.authorized{
-//                print("推送允许")
+            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+                print("推送允许")
                 DispatchQueue.main.sync {
                     if VpnManager.shared.vpnStatus == .off {
                         if self.choosed_country != nil{
@@ -361,10 +361,10 @@ class ViewController: BaseViewController {
                         VpnManager.shared.disconnect()
                     }
                 }
-//            }
-//            else{
-//                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
-//            }
+            }
+            else{
+                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
+            }
         }
     }
     @IBAction func clickChoseCountry(_ sender: Any) {
