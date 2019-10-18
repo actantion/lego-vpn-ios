@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OK-ia-4Gi">
-                                <rect key="frame" x="16" y="583" width="329" height="40"/>
+                                <rect key="frame" x="30" y="583" width="315" height="40"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Odo-2O-x16"/>
@@ -191,8 +191,10 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rd-Xn-E4P">
-                                        <rect key="frame" x="15" y="45" width="352" height="497"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CeV-Ek-Je0">
+                                        <rect key="frame" x="17" y="37" width="341" height="530"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <mutableString key="text">By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
 In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
 Given your use of the app, we are committed to providing you with the best VPN services, including the best privacy protection and the shortest downtime possible.
@@ -213,23 +215,24 @@ We will not use our services to send spam, threatening emails, unsolicited text 
 We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
 If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
 We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="4rd-Xn-E4P" firstAttribute="top" secondItem="fpJ-NE-c1x" secondAttribute="bottom" constant="16" id="2dH-qr-tJl"/>
+                                    <constraint firstItem="CeV-Ek-Je0" firstAttribute="top" secondItem="fpJ-NE-c1x" secondAttribute="bottom" constant="8" id="2Bs-uO-GO1"/>
                                     <constraint firstAttribute="bottom" secondItem="9vF-2m-DD0" secondAttribute="bottom" constant="18" id="BH7-ao-85s"/>
-                                    <constraint firstAttribute="trailing" secondItem="4rd-Xn-E4P" secondAttribute="trailing" constant="15" id="IBd-Z8-Xj1"/>
                                     <constraint firstItem="fpJ-NE-c1x" firstAttribute="centerX" secondItem="R05-IF-E3g" secondAttribute="centerX" id="PG5-Dn-81l"/>
-                                    <constraint firstItem="4rd-Xn-E4P" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" constant="15" id="T40-d1-vX9"/>
+                                    <constraint firstItem="9vF-2m-DD0" firstAttribute="top" secondItem="CeV-Ek-Je0" secondAttribute="bottom" constant="8" id="U1O-1g-Df2"/>
                                     <constraint firstAttribute="trailing" secondItem="QXa-ET-uff" secondAttribute="trailing" id="Z87-Gw-czj"/>
                                     <constraint firstItem="9vF-2m-DD0" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" id="c4q-R5-Mee"/>
                                     <constraint firstAttribute="bottom" secondItem="QXa-ET-uff" secondAttribute="bottom" constant="18" id="g1q-gV-5nO"/>
+                                    <constraint firstAttribute="trailing" secondItem="CeV-Ek-Je0" secondAttribute="trailing" constant="17" id="gOc-Q2-8f0"/>
                                     <constraint firstItem="fpJ-NE-c1x" firstAttribute="top" secondItem="R05-IF-E3g" secondAttribute="top" constant="8" id="iqM-77-WiO"/>
                                     <constraint firstItem="QXa-ET-uff" firstAttribute="width" secondItem="9vF-2m-DD0" secondAttribute="width" id="nF1-St-h5s"/>
+                                    <constraint firstItem="CeV-Ek-Je0" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" constant="17" id="ueG-62-NE5"/>
                                     <constraint firstItem="QXa-ET-uff" firstAttribute="leading" secondItem="9vF-2m-DD0" secondAttribute="trailing" id="uvl-dy-dLC"/>
                                 </constraints>
                             </view>
@@ -273,9 +276,10 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="fIM-7J-0p5"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="fmU-Ts-bhc"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="height" secondItem="WMm-5y-Hlt" secondAttribute="height" constant="10" id="hQH-44-w7T"/>
-                            <constraint firstItem="4OK-ia-4Gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hTJ-zd-SIG"/>
+                            <constraint firstItem="4OK-ia-4Gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="hTJ-zd-SIG"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ha2-Js-Szn"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kMb-d7-6J5"/>
+                            <constraint firstItem="smd-Wo-Ltm" firstAttribute="width" secondItem="4OK-ia-4Gi" secondAttribute="width" id="qKG-TQ-Guf"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" constant="-70" id="rg0-FB-CFl"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" id="s0c-vd-M5O"/>
                             <constraint firstItem="JAj-3M-U9V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sf3-R9-4ql"/>
@@ -288,11 +292,13 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="Aj9-rj-9zv"/>
                                 <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
-                                <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="64o-u9-Scc"/>
                                 <exclude reference="QL8-3D-BN6"/>
+                                <exclude reference="9Iv-SZ-m7e"/>
+                                <exclude reference="ha2-Js-Szn"/>
                                 <exclude reference="a5Q-ff-4BF"/>
                                 <exclude reference="951-TG-0Ip"/>
                             </mask>
@@ -312,6 +318,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                         <outlet property="lbConnect" destination="IOC-E8-nzj" id="UNo-Pf-WPT"/>
                         <outlet property="lbNodes" destination="hb3-hP-Gvn" id="NaH-Ab-E5L"/>
                         <outlet property="smartRoute" destination="Lhd-zF-ibB" id="dot-jT-3zW"/>
+                        <outlet property="tvInstruction" destination="CeV-Ek-Je0" id="TB8-qr-Gb4"/>
                         <outlet property="vwBackHub" destination="cUP-wN-Y58" id="X6y-tr-4Fl"/>
                         <outlet property="vwCircleBack" destination="XmI-eh-EA5" id="XtT-Jc-RVc"/>
                     </connections>

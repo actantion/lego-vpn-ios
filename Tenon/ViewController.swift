@@ -104,6 +104,7 @@ import UserNotifications
 
 class ViewController: BaseViewController {
 //    @IBOutlet weak var btnChangePK: UIButton!
+    @IBOutlet weak var tvInstruction: UITextView!
     @IBOutlet weak var vwCircleBack: CircleProgress!
     @IBOutlet weak var lbAccountAddress: UILabel!
 //    @IBOutlet weak var lbLego: UILabel!
@@ -220,12 +221,13 @@ class ViewController: BaseViewController {
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
 
         requestData()
-        if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
+//        if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
             print("yes")
+        tvInstruction.backgroundColor = UIColor.white
             instructionView.isHidden = false
-        }else{
+//        }else{
             
-        }
+//        }
         
     }
     @IBAction func clickAgree(_ sender: Any) {
