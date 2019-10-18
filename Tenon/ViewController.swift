@@ -221,13 +221,13 @@ class ViewController: BaseViewController {
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
 
         requestData()
-//        if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
+        if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
             print("yes")
-        tvInstruction.backgroundColor = UIColor.white
+            tvInstruction.backgroundColor = UIColor.white
             instructionView.isHidden = false
-//        }else{
+        }else{
             
-//        }
+        }
         
     }
     @IBAction func clickAgree(_ sender: Any) {
