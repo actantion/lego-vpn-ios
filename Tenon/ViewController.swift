@@ -117,7 +117,8 @@ class ViewController: BaseViewController {
     @IBOutlet weak var imgCountryIcon: UIImageView!
     @IBOutlet weak var lbNodes: UILabel!
     @IBOutlet weak var smartRoute: UISwitch!
-//    @IBOutlet weak var btnUpgrade: UIButton!
+    @IBOutlet weak var instructionView: UIView!
+    //    @IBOutlet weak var btnUpgrade: UIButton!
     
     
 //    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
@@ -134,7 +135,6 @@ class ViewController: BaseViewController {
     
     var popBottomView:FWBottomPopView!
     var popUpgradeView:FWUpgradeView!
-    var popBottomPayWayView:FWPayPopView!
     var popPKPopView:FWOperPKView!
     
     var local_country: String = ""
@@ -220,6 +220,17 @@ class ViewController: BaseViewController {
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
 
         requestData()
+        if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
+            print("yes")
+            instructionView.isHidden = false
+        }else{
+            
+        }
+        
+    }
+    @IBAction func clickAgree(_ sender: Any) {
+        UserDefaults.standard.set(true, forKey: "FirstEnter")
+        instructionView.isHidden = true
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -295,8 +306,8 @@ class ViewController: BaseViewController {
     @IBAction func clickConnect(_ sender: Any) {
 
         UNUserNotificationCenter.current().getNotificationSettings { set in
-            if set.authorizationStatus == UNAuthorizationStatus.authorized{
-                print("推送允许")
+//            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+//                print("推送允许")
                 DispatchQueue.main.sync {
                     if VpnManager.shared.vpnStatus == .off {
                         if self.choosed_country != nil{
@@ -361,10 +372,10 @@ class ViewController: BaseViewController {
                         VpnManager.shared.disconnect()
                     }
                 }
-            }
-            else{
-                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
-            }
+//            }
+//            else{
+//                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
+//            }
         }
     }
     @IBAction func clickChoseCountry(_ sender: Any) {

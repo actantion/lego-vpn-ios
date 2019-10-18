@@ -14,7 +14,7 @@ import AVFoundation
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegate ,WXApiDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegate {
 
     var bgTask:UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     var window: UIWindow?
