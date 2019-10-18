@@ -73,14 +73,8 @@
                                     <constraint firstAttribute="height" constant="40" id="eLR-o8-RAG"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G86-7R-Ma8">
-                                <rect key="frame" x="188" y="522" width="187" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A56468954ASDQWE321654A6S5DAS45" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smd-Wo-Ltm">
-                                <rect key="frame" x="30" y="542" width="149" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A56468954ASDQWE321654A6S5DAS45" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smd-Wo-Ltm">
+                                <rect key="frame" x="30" y="542" width="315" height="21"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Xsn-Iw-LMH"/>
@@ -89,23 +83,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="597 lego" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DR5-wC-YXE">
-                                <rect key="frame" x="196" y="542" width="81" height="21"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaT-WF-3iG">
-                                <rect key="frame" x="7" y="522" width="182" height="17"/>
+                                <rect key="frame" x="161" y="522" width="53" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1.19$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0t-OL-mqm">
-                                <rect key="frame" x="285" y="545" width="61" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.58082699780000002" green="0.1872656345" blue="0.15837582950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iJn-z8-UcN">
@@ -183,14 +164,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-lE-cST">
-                                <rect key="frame" x="251" y="464" width="41" height="43"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="41" id="FQ7-GX-Fi8"/>
-                                    <constraint firstAttribute="height" constant="43" id="nB6-Ux-dBI"/>
-                                </constraints>
-                                <state key="normal" image="course_btn_shopping"/>
-                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R05-IF-E3g">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
@@ -220,11 +193,11 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rd-Xn-E4P">
                                         <rect key="frame" x="15" y="45" width="345" height="351"/>
-                                        <mutableString key="text">The construction of Tenon VPN service network is divided into two parts, one is routing network, the other is VPN proxy service network. In Tenon VPN, all communication perspectives are conducted through account address, including the communication between P2P network nodes. Each business node has its own account address, which is completely anonymous in Tenon.
+                                        <string key="text">The construction of Tenon VPN service network is divided into two parts, one is routing network, the other is VPN proxy service network. In Tenon VPN, all communication perspectives are conducted through account address, including the communication between P2P network nodes. Each business node has its own account address, which is completely anonymous in Tenon.
 
 
 
-At the same time, in order to ensure that the IP address is not exposed, Lego VPN adds a routing network. After the user's request packets are encrypted, they will be randomly transferred through the routing network for many times before arriving at the VPN service network. Then, by randomly selecting the VPN service node, the VPN service node will access the Internet, encrypt the returned data, return to the routing network and return to the user node after random routing.</mutableString>
+At the same time, in order to ensure that the IP address is not exposed, Lego VPN adds a routing network. After the user's request packets are encrypted, they will be randomly transferred through the routing network for many times before arriving at the VPN service network. Then, by randomly selecting the VPN service node, the VPN service node will access the Internet, encrypt the returned data, return to the routing network and return to the user node after random routing.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -251,94 +224,62 @@ At the same time, in order to ensure that the IP address is not exposed, Lego VP
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="bottom" secondItem="wu3-k5-dkf" secondAttribute="bottom" constant="-8" id="04v-lf-QkP"/>
                             <constraint firstItem="WMm-5y-Hlt" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="1In-S0-x4I"/>
                             <constraint firstItem="mLz-mT-Jxf" firstAttribute="centerX" secondItem="IOC-E8-nzj" secondAttribute="centerX" id="3GA-Z2-cL9"/>
-                            <constraint firstItem="R7l-lE-cST" firstAttribute="leading" secondItem="C0t-OL-mqm" secondAttribute="trailing" id="4es-lb-ddJ"/>
+                            <constraint firstItem="smd-Wo-Ltm" firstAttribute="centerX" secondItem="uaT-WF-3iG" secondAttribute="centerX" id="3gc-0k-Wr5"/>
                             <constraint firstItem="uaT-WF-3iG" firstAttribute="centerX" secondItem="smd-Wo-Ltm" secondAttribute="centerX" id="64o-u9-Scc"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="R7l-lE-cST" secondAttribute="trailing" constant="20" id="69F-h5-Ver"/>
                             <constraint firstItem="YHl-J3-WAI" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="6P7-Eb-da3"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="7fP-Fh-KfF"/>
-                            <constraint firstItem="C0t-OL-mqm" firstAttribute="leading" secondItem="DR5-wC-YXE" secondAttribute="trailing" constant="8" id="8Pb-D9-OtD"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="951-TG-0Ip"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="17" id="9Iv-SZ-m7e"/>
-                            <constraint firstItem="DR5-wC-YXE" firstAttribute="height" secondItem="smd-Wo-Ltm" secondAttribute="height" id="BQq-LX-8YH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="30" id="Aj9-rj-9zv"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerX" secondItem="cUP-wN-Y58" secondAttribute="centerX" id="BwB-1J-fYF"/>
-                            <constraint firstItem="R7l-lE-cST" firstAttribute="leading" secondItem="XmI-eh-EA5" secondAttribute="trailing" constant="7.5" id="DsB-OJ-sbZ"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="top" secondItem="mLz-mT-Jxf" secondAttribute="bottom" constant="8" id="Ezp-ab-tgP"/>
-                            <constraint firstItem="G86-7R-Ma8" firstAttribute="leading" secondItem="uaT-WF-3iG" secondAttribute="trailing" constant="-1" id="FFs-PQ-7nt"/>
                             <constraint firstItem="JAj-3M-U9V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-20" id="GST-zM-1IF"/>
-                            <constraint firstItem="DR5-wC-YXE" firstAttribute="centerX" secondItem="G86-7R-Ma8" secondAttribute="centerX" constant="-25" id="GU0-VX-f4b"/>
-                            <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="DR5-wC-YXE" secondAttribute="bottom" constant="20" id="HAg-z0-Hqo"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" constant="30" id="JTp-qY-AwP"/>
-                            <constraint firstItem="C0t-OL-mqm" firstAttribute="centerY" secondItem="DR5-wC-YXE" secondAttribute="centerY" id="Jwd-ba-TQz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="30" id="KN9-7L-Kd0"/>
                             <constraint firstItem="WMm-5y-Hlt" firstAttribute="top" secondItem="wu3-k5-dkf" secondAttribute="bottom" constant="40" id="L3y-zI-2sF"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LRB-On-fyZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wu3-k5-dkf" secondAttribute="trailing" constant="30" id="LdK-GK-LCO"/>
                             <constraint firstItem="YHl-J3-WAI" firstAttribute="trailing" secondItem="wu3-k5-dkf" secondAttribute="trailing" constant="-8" id="Leh-Nh-K5O"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DR5-wC-YXE" secondAttribute="trailing" constant="20" id="MH2-3m-Lb0"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="Gpq-ms-GJd" secondAttribute="bottom" constant="20" id="Mr3-EJ-5ZI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4OK-ia-4Gi" secondAttribute="bottom" constant="44" id="NO7-H7-fPm"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerY" secondItem="cUP-wN-Y58" secondAttribute="centerY" id="NxG-16-Lvv"/>
-                            <constraint firstItem="DR5-wC-YXE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gpq-ms-GJd" secondAttribute="trailing" constant="8" id="OR5-YN-W0d"/>
                             <constraint firstItem="uaT-WF-3iG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QL8-3D-BN6"/>
-                            <constraint firstItem="C0t-OL-mqm" firstAttribute="leading" secondItem="DR5-wC-YXE" secondAttribute="trailing" constant="8" id="RV4-RW-nvL"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="Svm-PB-PEy"/>
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" id="UFr-Bp-8SC"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="WAQ-zD-mAL"/>
-                            <constraint firstItem="G86-7R-Ma8" firstAttribute="centerY" secondItem="DR5-wC-YXE" secondAttribute="centerY" id="WAr-xy-Th3"/>
-                            <constraint firstItem="DR5-wC-YXE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gpq-ms-GJd" secondAttribute="trailing" constant="8" id="WpM-yU-ZN8"/>
-                            <constraint firstItem="G86-7R-Ma8" firstAttribute="leading" secondItem="Gpq-ms-GJd" secondAttribute="trailing" id="Wt0-eu-7d9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="G86-7R-Ma8" secondAttribute="trailing" id="XH3-AV-GYE"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="height" secondItem="cUP-wN-Y58" secondAttribute="height" id="XWr-Z1-Kb3"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="width" secondItem="cUP-wN-Y58" secondAttribute="width" id="YKQ-01-b5V"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="C0t-OL-mqm" secondAttribute="trailing" constant="20" id="ZIO-Mx-Zp8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="R7l-lE-cST" secondAttribute="trailing" constant="7" id="ZYh-Sw-22V"/>
-                            <constraint firstItem="R7l-lE-cST" firstAttribute="leading" secondItem="C0t-OL-mqm" secondAttribute="trailing" id="Zpd-Xm-sFd"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="leading" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="8" id="a5Q-ff-4BF"/>
                             <constraint firstItem="wu3-k5-dkf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="74" id="bIG-dZ-Em1"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="c7u-w6-fm6"/>
+                            <constraint firstItem="uaT-WF-3iG" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ciE-YX-ypz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="16" id="dej-Ps-Pnm"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="width" constant="10" id="f3Y-zC-U8R"/>
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="fIM-7J-0p5"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="fmU-Ts-bhc"/>
-                            <constraint firstItem="G86-7R-Ma8" firstAttribute="centerX" secondItem="DR5-wC-YXE" secondAttribute="centerX" id="g3j-iY-fET"/>
-                            <constraint firstItem="DR5-wC-YXE" firstAttribute="top" secondItem="G86-7R-Ma8" secondAttribute="bottom" constant="3" id="hMw-tK-swI"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="height" secondItem="WMm-5y-Hlt" secondAttribute="height" constant="10" id="hQH-44-w7T"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hTJ-zd-SIG"/>
-                            <constraint firstItem="R7l-lE-cST" firstAttribute="centerY" secondItem="G86-7R-Ma8" secondAttribute="centerY" constant="10" id="ig9-3P-S5M"/>
+                            <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ha2-Js-Szn"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kMb-d7-6J5"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" constant="-70" id="rg0-FB-CFl"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" id="s0c-vd-M5O"/>
-                            <constraint firstItem="DR5-wC-YXE" firstAttribute="leading" secondItem="Gpq-ms-GJd" secondAttribute="trailing" constant="8" id="s8l-UD-U7h"/>
                             <constraint firstItem="JAj-3M-U9V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sf3-R9-4ql"/>
                             <constraint firstItem="wu3-k5-dkf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="srU-aB-XNv"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tc0-nC-hfY"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="uKH-6I-ke7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JAj-3M-U9V" secondAttribute="trailing" id="w2P-go-rdh"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="top" secondItem="uaT-WF-3iG" secondAttribute="bottom" constant="3" id="xA5-K3-OtN"/>
-                            <constraint firstItem="R7l-lE-cST" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" id="ySE-Rg-jpb"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="R7l-lE-cST" secondAttribute="trailing" constant="20" id="zv6-Ki-Asg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="69F-h5-Ver"/>
-                                <exclude reference="MH2-3m-Lb0"/>
-                                <exclude reference="ZIO-Mx-Zp8"/>
-                                <exclude reference="ZYh-Sw-22V"/>
                                 <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
+                                <exclude reference="64o-u9-Scc"/>
                                 <exclude reference="QL8-3D-BN6"/>
-                                <exclude reference="4es-lb-ddJ"/>
-                                <exclude reference="DsB-OJ-sbZ"/>
-                                <exclude reference="Zpd-Xm-sFd"/>
-                                <exclude reference="ySE-Rg-jpb"/>
-                                <exclude reference="WAr-xy-Th3"/>
-                                <exclude reference="g3j-iY-fET"/>
-                                <exclude reference="GU0-VX-f4b"/>
-                                <exclude reference="WpM-yU-ZN8"/>
-                                <exclude reference="s8l-UD-U7h"/>
+                                <exclude reference="9Iv-SZ-m7e"/>
+                                <exclude reference="a5Q-ff-4BF"/>
                                 <exclude reference="951-TG-0Ip"/>
-                                <exclude reference="8Pb-D9-OtD"/>
                             </mask>
                         </variation>
                     </view>
@@ -354,8 +295,6 @@ At the same time, in order to ensure that the IP address is not exposed, Lego VP
                         <outlet property="instructionView" destination="R05-IF-E3g" id="oq5-97-XbJ"/>
                         <outlet property="lbAccountAddress" destination="smd-Wo-Ltm" id="xcs-Tt-4OK"/>
                         <outlet property="lbConnect" destination="IOC-E8-nzj" id="UNo-Pf-WPT"/>
-                        <outlet property="lbDolor" destination="C0t-OL-mqm" id="vD9-rh-pXS"/>
-                        <outlet property="lbLego" destination="DR5-wC-YXE" id="xs7-qO-n1q"/>
                         <outlet property="lbNodes" destination="hb3-hP-Gvn" id="NaH-Ab-E5L"/>
                         <outlet property="smartRoute" destination="Lhd-zF-ibB" id="dot-jT-3zW"/>
                         <outlet property="vwBackHub" destination="cUP-wN-Y58" id="X6y-tr-4Fl"/>
@@ -386,6 +325,5 @@ At the same time, in order to ensure that the IP address is not exposed, Lego VP
     <resources>
         <image name="arrow_left_icon" width="100" height="100"/>
         <image name="connect" width="173" height="174"/>
-        <image name="course_btn_shopping" width="100" height="100"/>
     </resources>
 </document>

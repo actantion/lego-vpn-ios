@@ -32,6 +32,7 @@ class FWBottomPopView: UIView,UITableViewDelegate,UITableViewDataSource,UIGestur
         
 //        self.backgroundColor = UIColor.clear
         self.tableView = UITableView(frame: frame)
+//        self.tableView.isHidden = true
         self.tableView.delegate = self
         //        self.tableView.showsVerticalScrollIndicator = false
         self.tableView.showsHorizontalScrollIndicator = false

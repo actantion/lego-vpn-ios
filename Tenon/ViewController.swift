@@ -103,11 +103,11 @@ import SwiftyJSON
 import UserNotifications
 
 class ViewController: BaseViewController {
-    @IBOutlet weak var btnChangePK: UIButton!
+//    @IBOutlet weak var btnChangePK: UIButton!
     @IBOutlet weak var vwCircleBack: CircleProgress!
     @IBOutlet weak var lbAccountAddress: UILabel!
-    @IBOutlet weak var lbLego: UILabel!
-    @IBOutlet weak var lbDolor: UILabel!
+//    @IBOutlet weak var lbLego: UILabel!
+//    @IBOutlet weak var lbDolor: UILabel!
     @IBOutlet weak var imgConnect: UIImageView!
     @IBOutlet weak var lbConnect: UILabel!
     @IBOutlet weak var vwBackHub: CircleProgress!
@@ -241,36 +241,36 @@ class ViewController: BaseViewController {
         }
     }
     @IBAction func clickPKPop(_ sender: Any) {
-        self.btnChangePK.isUserInteractionEnabled = false
-        self.popPKPopView = FWOperPKView.init(frame:CGRect(x: Int(AUTOSIZE_HEIGHT(value: 60.0)),
-                                                           y: Int(SCREEN_HEIGHT/2.0 - AUTOSIZE_HEIGHT(value: 300)/2),
-                                                           width: Int(SCREEN_WIDTH - AUTOSIZE_HEIGHT(value: 60.0)*2),
-                                                           height: Int(AUTOSIZE_HEIGHT(value: 300))))
-        self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
-        self.popPKPopView.privateKey = self.local_private_key
-        self.popPKPopView.clickBlck = {(value) in
-            UIView.animate(withDuration: 0.2, animations: {
-                self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
-            }) { (Bool) in
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
-                    self.popPKPopView.alpha = 0
-                }) { (Bool) in
-                    self.popPKPopView.removeFromSuperview()
-                    self.btnChangePK.isUserInteractionEnabled = true
-                }
-            }
-        }
-        self.view.addSubview(self.popPKPopView)
-        UIView.animate(withDuration: 0.2, animations: {
-            self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
-        }) { (Bool) in
-            UIView.animate(withDuration: 0.3, animations: {
-                self.popPKPopView.transform = CGAffineTransform.identity
-            }) { (Bool) in
-                
-            }
-        }
+//        self.btnChangePK.isUserInteractionEnabled = false
+//        self.popPKPopView = FWOperPKView.init(frame:CGRect(x: Int(AUTOSIZE_HEIGHT(value: 60.0)),
+//                                                           y: Int(SCREEN_HEIGHT/2.0 - AUTOSIZE_HEIGHT(value: 300)/2),
+//                                                           width: Int(SCREEN_WIDTH - AUTOSIZE_HEIGHT(value: 60.0)*2),
+//                                                           height: Int(AUTOSIZE_HEIGHT(value: 300))))
+//        self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
+//        self.popPKPopView.privateKey = self.local_private_key
+//        self.popPKPopView.clickBlck = {(value) in
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
+//            }) { (Bool) in
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
+//                    self.popPKPopView.alpha = 0
+//                }) { (Bool) in
+//                    self.popPKPopView.removeFromSuperview()
+//                    self.btnChangePK.isUserInteractionEnabled = true
+//                }
+//            }
+//        }
+//        self.view.addSubview(self.popPKPopView)
+//        UIView.animate(withDuration: 0.2, animations: {
+//            self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
+//        }) { (Bool) in
+//            UIView.animate(withDuration: 0.3, animations: {
+//                self.popPKPopView.transform = CGAffineTransform.identity
+//            }) { (Bool) in
+//
+//            }
+//        }
         
     }
 
@@ -282,8 +282,8 @@ class ViewController: BaseViewController {
         }
         self.Dolor = Double(balance)*0.002
         
-        self.lbLego.text = String(balance) + " Tenon"
-        self.lbDolor.text = String(format:"%.2f $",Dolor)
+//        self.lbLego.text = String(balance) + " Tenon"
+//        self.lbDolor.text = String(format:"%.2f $",Dolor)
         
         let trascationValue:String = TenonP2pLib.sharedInstance.GetTransactions()
         let dataArray = trascationValue.components(separatedBy: ";")
@@ -452,7 +452,7 @@ class ViewController: BaseViewController {
     
     @IBAction func clickAccountSetting(_ sender: Any) {
         if self.btnAccount.isUserInteractionEnabled == true{
-            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - (SCREEN_HEIGHT/3*2), width: SCREEN_WIDTH, height: SCREEN_HEIGHT/3*2))
+            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 200, width: SCREEN_WIDTH, height: 200))
             self.popBottomView.loadCell("AccountSetTableViewCell","AccountSetHeaderTableViewCell", self.transcationList.count)
             self.popBottomView.callBackBlk = {(cell,indexPath) in
                 if indexPath.section == 0 {
@@ -466,6 +466,7 @@ class ViewController: BaseViewController {
                 }
                 else{
                     let tempCell:AccountSetTableViewCell = cell as! AccountSetTableViewCell
+                    tempCell.isHidden = true
                     tempCell.layer.masksToBounds = true
                     tempCell.layer.cornerRadius = 8
                     let model:TranscationModel = self.transcationList[indexPath.row]
