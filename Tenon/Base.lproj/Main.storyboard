@@ -191,14 +191,29 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rd-Xn-E4P">
-                                        <rect key="frame" x="15" y="45" width="345" height="351"/>
-                                        <string key="text">The construction of Tenon VPN service network is divided into two parts, one is routing network, the other is VPN proxy service network. In Tenon VPN, all communication perspectives are conducted through account address, including the communication between P2P network nodes. Each business node has its own account address, which is completely anonymous in Tenon.
-
-
-
-At the same time, in order to ensure that the IP address is not exposed, Lego VPN adds a routing network. After the user's request packets are encrypted, they will be randomly transferred through the routing network for many times before arriving at the VPN service network. Then, by randomly selecting the VPN service node, the VPN service node will access the Internet, encrypt the returned data, return to the routing network and return to the user node after random routing.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rd-Xn-E4P">
+                                        <rect key="frame" x="15" y="45" width="352" height="497"/>
+                                        <mutableString key="text">By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
+In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
+Given your use of the app, we are committed to providing you with the best VPN services, including the best privacy protection and the shortest downtime possible.
+TenonVPN respects the privacy of its customers. Therefore, when you enter the tenon VPN network and payment, all information you voluntarily provide will not be disclosed to third parties unless you violate TenonVPN.org's Terms of Use and Privacy Policy or violate local laws or international law. Anyone, including the TenonVPN.org management team, is not able to access these details or share them with others.
+You are solely responsible for all activities involving your account. At the same time, you must respect and accept all risks of breach of entrustment, local, state, national or international law.
+You agree not to share your account with others. However, you can use your account to log in on multiple devices, but not both.
+You agree to receive advertisements and news from TenonVPN.
+You agree that we do not have any guarantees about the services provided. We are not responsible for any loss, direct or indirect, incidental or inconvenience, or loss of profits that may result from the use of our services. TenonVPN.org will not refund any fees paid or payable.
+We cannot guarantee the speed of your network connection. At the same time, we cannot guarantee that network service interruptions caused by your network service provider will not occur. Because we can't control the network operations in your location.
+We are not responsible for any (realized or unrealized) losses arising from the use, or during use, or the use of TenonVPN networked user services. In short, TenonVPN.org will never be liable for economic losses other than payment by users to TenonVPN.org. You agree to:
+We will not use our services to illegally invade or attack any computer, device, server or network.
+We will not use our services to scan (port scan) or break into a computer, device, server or network.
+We will not use our services to distribute viruses, trojans, worms and other malware or unwanted software.
+We will not use our services to promote or promote criminal activities.
+We will not use our services to promote or promote terrorist activities.
+Will not use our services to trade, sell or distribute child pornography or distribute illegal information
+We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
+We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
+If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -275,9 +290,9 @@ At the same time, in order to ensure that the IP address is not exposed, Lego VP
                             <mask key="constraints">
                                 <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
+                                <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="64o-u9-Scc"/>
                                 <exclude reference="QL8-3D-BN6"/>
-                                <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="a5Q-ff-4BF"/>
                                 <exclude reference="951-TG-0Ip"/>
                             </mask>
