@@ -46,6 +46,8 @@ extension ShadowsocksAdapter {
 
         var buffer = Buffer(capacity: 0)
 
+        var get_cryptor_times = 0
+        
         lazy var writeIV: Data = {
             [unowned self] in
             CryptoHelper.getIV(self.algorithm)
@@ -71,17 +73,17 @@ extension ShadowsocksAdapter {
                 choose_vpn_ip: UInt32,
                 choose_vpn_port: UInt16,
                 use_smart_route: Bool) {
-            self.key = key
+            //self.key = key
             self.algorithm = algorithm
             self.local_public_key = pubkey
             self.method = method
             self.choose_vpn_node_int_ip = choose_vpn_ip
             self.choose_vpn_node_port = choose_vpn_port
             self.use_smart_route = use_smart_route
+            self.key = key
         }
 
         func changeLocalPublicKey(local_pubkey: String) {
-            assert(false, "fuck you!")
             local_public_key = local_pubkey;
         }
         
@@ -91,6 +93,7 @@ extension ShadowsocksAdapter {
 
         func decrypt(data: inout Data) {
             return decryptor.update(&data)
+            // return decryptor.update(&data)
         }
 
         public func input(data: Data) throws {
@@ -110,6 +113,16 @@ extension ShadowsocksAdapter {
 
             decrypt(data: &data)
             try inputStreamProcessor!.input(data: data)
+        }
+        
+        private func StrIpToUint32(ip: String) -> UInt32 {
+            var addr = in_addr()
+            if inet_pton(AF_INET, ip, &addr) == 1 {
+                let ipAddress = addr.s_addr
+                return ipAddress
+            } else {
+                return 0
+            }
         }
 
         private func relayData(withData data: Data) -> Data {

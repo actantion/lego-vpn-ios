@@ -148,7 +148,13 @@ class ViewController: BaseViewController {
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
     
+    private var old_vpn_ip: String = ""
+    
     let kCurrentVersion = "1.0.5"
+    
+    private var now_connect_status = 0
+    
+    private var user_started_vpn: Bool = false
     
     
     override var prefersStatusBarHidden: Bool {
@@ -192,10 +198,26 @@ class ViewController: BaseViewController {
         // test for p2p library
         
         let res = TenonP2pLib.sharedInstance.InitP2pNetwork("0.0.0.0", 7981)
+        if (res.local_country.isEmpty) {
+            let alertController = UIAlertController(title: "error",
+                            message: "Network invalid, please check!", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "cansel", style: .cancel, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: .default, handler: {
+                action in
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+            return
+        }
+        
+        setRouteInfo()
         
         local_country = res.local_country as String
         local_private_key = res.prikey as String
         local_account_id = res.account_id as String
+        VpnManager.shared.local_country = local_country
         print("account id:" + local_account_id)
         self.lbAccountAddress.text = local_account_id
 
@@ -219,7 +241,8 @@ class ViewController: BaseViewController {
         self.imgCountryIcon.image = UIImage(named:self.iCon[0])
         self.lbNodes.text = self.countryNodes[0]
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
-
+        VpnManager.shared.choosed_country = self.choosed_country
+        
         requestData()
         if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
             print("yes")
@@ -241,7 +264,10 @@ class ViewController: BaseViewController {
         if VpnManager.shared.vpnStatus == .on {
             clickConnect(sender)
         }
+        
+        VpnManager.shared.use_smart_route = smartRoute.isOn
     }
+    
     @IBAction func clickPKPop(_ sender: Any) {
 //        self.btnChangePK.isUserInteractionEnabled = false
 //        self.popPKPopView = FWOperPKView.init(frame:CGRect(x: Int(AUTOSIZE_HEIGHT(value: 60.0)),
@@ -276,6 +302,47 @@ class ViewController: BaseViewController {
         
     }
 
+    func setRouteInfo() {
+        let iCon:[String] = ["US", "SG", "BR","DE","FR","KR", "JP", "CA","AU","HK", "IN", "GB","CN"]
+                         
+         var route_str: String = ""
+         for country in iCon {
+             let res_str = TenonP2pLib.sharedInstance.GetVpnNodes(country, true) as String
+             if (res_str.isEmpty) {
+                 continue
+             }
+             
+             if (route_str.isEmpty) {
+                 route_str = country + ";" + res_str;
+             } else {
+                 route_str += "`" + country + ";" + res_str;
+             }
+             
+             
+         }
+        
+         
+         var vpn_str: String = ""
+         for country in iCon {
+
+             let res_str = TenonP2pLib.sharedInstance.GetVpnNodes(country, false) as String
+             if (res_str.isEmpty) {
+                 continue
+             }
+             
+             if (vpn_str.isEmpty) {
+                 vpn_str = country + ";" + res_str;
+             } else {
+                 vpn_str += "`" + country + ";" + res_str;
+             }
+             
+             
+         }
+
+         VpnManager.shared.SetRouteNodes(nodes_str: route_str)
+         VpnManager.shared.SetVpnNodes(nodes_str: vpn_str)
+    }
+    
     @objc func requestData(){
         transcationList.removeAll()
         self.balance = TenonP2pLib.sharedInstance.GetBalance()
@@ -301,83 +368,93 @@ class ViewController: BaseViewController {
             model.amount = dataDetailArray[3]
             transcationList.append(model)
         }
+        
+        
+        setRouteInfo()
+        
         self.perform(#selector(requestData), afterDelay: 3)
     }
     
-    
-    @IBAction func clickConnect(_ sender: Any) {
-
-        UNUserNotificationCenter.current().getNotificationSettings { set in
-//            if set.authorizationStatus == UNAuthorizationStatus.authorized{
-//                print("推送允许")
-                DispatchQueue.main.sync {
-                    if VpnManager.shared.vpnStatus == .off {
-                        if self.choosed_country != nil{
-                            var route_node = super.getOneRouteNode(country: self.local_country)
-                            if (route_node.ip.isEmpty) {
-                                route_node = super.getOneRouteNode(country: self.choosed_country)
-                                if (route_node.ip.isEmpty) {
-                                    for country in self.iCon {
-                                        route_node = super.getOneRouteNode(country: country)
-                                        if (!route_node.ip.isEmpty) {
-                                            break
-                                        }
-                                    }
-                                }
-                                VpnManager.shared.disconnect()}
-                            
-                            var vpn_node = super.getOneVpnNode(country: self.choosed_country)
-                            if (vpn_node.ip.isEmpty) {
-                                for country in self.iCon {
-                                    vpn_node = super.getOneVpnNode(country: country)
-                                    if (!vpn_node.ip.isEmpty) {
-                                        break
-                                    }
-                                }
-                            }
-                            
-                            if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
-                                self.vwBackHub.proEndgress = 0.0
-                                self.vwBackHub.proStartgress = 0.0
-                                self.playAnimotion()
-                                
-                                if (self.smartRoute.isOn) {
-                                    VpnManager.shared.ip_address = route_node.ip
-                                    VpnManager.shared.port = Int(route_node.port)!
-                                } else {
-                                    VpnManager.shared.ip_address = vpn_node.ip
-                                    VpnManager.shared.port = Int(vpn_node.port)!
-                                }
-                                
-                                print("rotue: \(route_node.ip):\(route_node.port)")
-                                print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
-                                let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
-                                VpnManager.shared.public_key = LibP2P.getPublicKey() as String
-                                
-                                VpnManager.shared.enc_method = (
-                                    "aes-128-cfb," + String(vpn_ip_int) + "," +
-                                        vpn_node.port + "," + String(self.smartRoute.isOn))
-                                VpnManager.shared.password = vpn_node.passwd
-                                VpnManager.shared.algorithm = "aes-128-cfb"
-                                VpnManager.shared.connect()
-                            }else{
-                                CBToast.showToastAction(message: "first use, wairting for search nodes...")
-                            }
-                        }else{
-                            CBToast.showToastAction(message: "please chose a country")
+    func ConnectVpn() {
+        if self.choosed_country != nil{
+            var route_node = super.getOneRouteNode(country: self.local_country)
+            if (route_node.ip.isEmpty) {
+                route_node = super.getOneRouteNode(country: self.choosed_country)
+                if (route_node.ip.isEmpty) {
+                    for country in self.iCon {
+                        route_node = super.getOneRouteNode(country: country)
+                        if (!route_node.ip.isEmpty) {
+                            break
                         }
-                        
-                    } else {
-                        self.vwBackHub.proEndgress = 0.0
-                        self.vwBackHub.proStartgress = 0.0
-                        self.playAnimotion()
-                        VpnManager.shared.disconnect()
                     }
                 }
-//            }
-//            else{
-//                CBToast.showToastAction(message: "Please Open Notification in Setting-TenonVPN")
-//            }
+                VpnManager.shared.disconnect()
+            }
+            
+            var vpn_node = super.getOneVpnNode(country: self.choosed_country)
+            if (old_vpn_ip == vpn_node.ip) {
+                for _ in 0...10 {
+                    vpn_node = super.getOneVpnNode(country: self.choosed_country)
+                    if (old_vpn_ip != vpn_node.ip) {
+                        break
+                    }
+                }
+            }
+            if (vpn_node.ip.isEmpty) {
+                for country in self.iCon {
+                    vpn_node = super.getOneVpnNode(country: country)
+                    if (!vpn_node.ip.isEmpty) {
+                        break
+                    }
+                }
+            }
+            
+            if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
+                self.vwBackHub.proEndgress = 0.0
+                self.vwBackHub.proStartgress = 0.0
+                self.playAnimotion()
+                
+                if (self.smartRoute.isOn) {
+                    VpnManager.shared.ip_address = route_node.ip
+                    VpnManager.shared.port = Int(route_node.port)!
+                } else {
+                    VpnManager.shared.ip_address = vpn_node.ip
+                    VpnManager.shared.port = Int(vpn_node.port)!
+                }
+                
+                print("rotue: \(route_node.ip):\(route_node.port)")
+                print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
+                let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
+                VpnManager.shared.public_key = LibP2P.getPublicKey() as String
+                
+                VpnManager.shared.enc_method = (
+                    "aes-128-cfb," + String(vpn_ip_int) + "," +
+                        vpn_node.port + "," + String(self.smartRoute.isOn))
+                VpnManager.shared.password = vpn_node.passwd
+                VpnManager.shared.algorithm = "aes-128-cfb"
+                self.now_connect_status = 1
+                VpnManager.shared.connect()
+                old_vpn_ip = vpn_node.ip
+            }else{
+                CBToast.showToastAction(message: "first use, wairting for search nodes...")
+            }
+        }else{
+            CBToast.showToastAction(message: "please chose a country")
+        }
+    }
+    @IBAction func clickConnect(_ sender: Any) {
+        self.user_started_vpn = false
+        UNUserNotificationCenter.current().getNotificationSettings { set in
+            DispatchQueue.main.sync {
+                if VpnManager.shared.vpnStatus == .off {
+                    self.ConnectVpn()
+                } else {
+                    self.vwBackHub.proEndgress = 0.0
+                    self.vwBackHub.proStartgress = 0.0
+                    self.playAnimotion()
+                    VpnManager.shared.disconnect()
+                }
+            }
         }
     }
     @IBAction func clickChoseCountry(_ sender: Any) {
@@ -400,6 +477,7 @@ class ViewController: BaseViewController {
                     self.imgCountryIcon.image = UIImage(named:self.iCon[idx])
                     self.lbNodes.text = self.countryNodes[idx]
                     self.choosed_country = super.getCountryShort(countryCode: self.countryCode[idx])
+                    VpnManager.shared.choosed_country = self.choosed_country
                     if VpnManager.shared.vpnStatus == .on{
                         self.clickConnect(self.btnConnect as Any)
                     }
@@ -508,7 +586,16 @@ class ViewController: BaseViewController {
             self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xA1FDEE))
             imgConnect.image = UIImage(named: "connected")
             lbConnect.text = "Connected"
+            self.user_started_vpn = true
+            self.now_connect_status = 0
         }else{
+            if (self.user_started_vpn) {
+                if (self.now_connect_status == 1) {
+                    return
+                }
+                ConnectVpn()
+                return
+            }
             self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
             self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
             self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))

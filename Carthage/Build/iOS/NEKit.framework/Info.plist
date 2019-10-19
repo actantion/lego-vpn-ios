@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>7e98063914717f2d8f2a20e613cc94abc9777aa7</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -25,7 +25,7 @@
 		<string>iPhoneOS</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>59</string>
+	<string>83</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>

@@ -23,7 +23,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     
     var started:Bool = false
     
+    let queue = DispatchQueue(label: "update_route_and_vpn_nodes1")
+    var stop_queue = false;
+    
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
+        stop_queue = false
         DDLog.removeAllLoggers()
         DDLog.add(DDOSLogger.sharedInstance, with: DDLogLevel.info)
         ObserverFactory.currentFactory = DebugObserverFactory()
@@ -45,9 +49,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let password = conf["ss_password"] as!String
         let pubkey = conf["ss_pubkey"] as! String
         let method1 = conf["ss_method1"] as! String
+        let local_country = conf["local_country"] as! String
+        let choosed_country = conf["choosed_country"] as! String
+        let use_smart_route = conf["use_smart_route"] as! Bool
+        let route_nodes = conf["route_nodes"] as! String
+        let vpn_nodes = conf["vpn_nodes"] as! String
         // Proxy Adapter
-        
-        
         // SSR Httpsimple
         //        let obfuscater = ShadowsocksAdapter.ProtocolObfuscater.HTTPProtocolObfuscater.Factory(hosts:["intl.aliyun.com","cdn.aliyun.com"], customHeader:nil)
         
@@ -68,10 +75,40 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         default:
             fatalError("Undefined algorithm!")
         }
+
+        ShadowsocksAdapter.SetLocalCountry(l_c: local_country)
+        ShadowsocksAdapter.SetChoosedCountry(c_c: choosed_country)
+        ShadowsocksAdapter.SetUseSmartRoute(smart: use_smart_route)
+        ShadowsocksAdapter.SetRouteNodes(tmp_route_nodes: route_nodes)
+        ShadowsocksAdapter.SetVpnNodes(tmp_vpn_nodes: vpn_nodes)
+        ShadowsocksAdapter.SetPublicKey(pubkey: pubkey)
+        ShadowsocksAdapter.ChooseVpnNode()
         
         let cryptor = ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm)
         let ssAdapterFactory = ShadowsocksAdapterFactory(serverHost: ss_adder, serverPort: ss_port, pk: pubkey, m: method1, protocolObfuscaterFactory:obfuscater, cryptorFactory: cryptor, streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
-
+        
+        self.queue.async {
+            
+            while (!self.stop_queue) {
+                guard let conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else{
+                    NSLog("[ERROR] No ProtocolConfiguration Found")
+                    exit(EXIT_FAILURE)
+                }
+                
+                if conf["route_nodes"] != nil {
+                    let route_str = conf["route_nodes"] as! String
+                    ShadowsocksAdapter.SetRouteNodes(tmp_route_nodes: route_str)
+                }
+                
+                if conf["vpn_nodes"] != nil {
+                    let vpn_str = conf["vpn_nodes"] as! String
+                    ShadowsocksAdapter.SetVpnNodes(tmp_vpn_nodes: vpn_str)
+                }
+                
+                Thread.sleep(forTimeInterval: 3)
+            }
+        }
+        
         let directAdapterFactory = DirectAdapterFactory()
         
         //Get lists from conf
@@ -228,6 +265,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
+        self.stop_queue = true;
         if enablePacketProcessing {
             interface.stop()
             interface = nil

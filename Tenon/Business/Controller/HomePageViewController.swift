@@ -23,6 +23,7 @@ class HomePageViewController: UIViewController {
 
 
     @IBAction func clickConnect(_ sender: Any) {
+        exit(0)
 //        VpnManager.shared.ip_address = "162.245.239.74"//self.tfIpAddress.text ?? ""
 //        VpnManager.shared.port = 23459//Int(self.tfPort.text ?? "0")!
 //        VpnManager.shared.password = "dongtaiwang.com"//self.tfPassword.text ?? ""
