@@ -251,10 +251,13 @@ class ViewController: BaseViewController {
         }else{
             
         }
-        
     }
     @IBAction func clickAgree(_ sender: Any) {
-        UserDefaults.standard.set(true, forKey: "FirstEnter")
+        if UserDefaults.standard.bool(forKey: "FirstEnter") == false{
+            UserDefaults.standard.set(true, forKey: "FirstEnter")
+        }else{
+            UserDefaults.standard.set(true, forKey: "FirstConnect")
+        }
         instructionView.isHidden = true
     }
     deinit {
@@ -443,6 +446,11 @@ class ViewController: BaseViewController {
         }
     }
     @IBAction func clickConnect(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: "FirstConnect") == false {
+            tvInstruction.backgroundColor = UIColor.white
+            instructionView.isHidden = false
+            return
+        }
         self.user_started_vpn = false
         UNUserNotificationCenter.current().getNotificationSettings { set in
             DispatchQueue.main.sync {
