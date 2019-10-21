@@ -262,6 +262,7 @@ class ViewController: BaseViewController {
             UserDefaults.standard.set(true, forKey: "FirstEnter")
         }else{
             UserDefaults.standard.set(true, forKey: "FirstConnect")
+            clickConnect(btnConnect as Any)
         }
         instructionView.isHidden = true
     }
