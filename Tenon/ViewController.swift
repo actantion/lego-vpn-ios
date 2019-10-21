@@ -351,7 +351,7 @@ class ViewController: BaseViewController {
         }
         self.Dolor = Double(balance)*0.002
         
-//        self.lbLego.text = String(balance) + " Tenon"
+//        self.lbLego.text = String(balance) + " Tenon" 
 //        self.lbDolor.text = String(format:"%.2f $",Dolor)
         
         let trascationValue:String = TenonP2pLib.sharedInstance.GetTransactions()
