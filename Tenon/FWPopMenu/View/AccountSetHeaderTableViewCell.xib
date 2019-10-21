@@ -143,7 +143,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="6qL-6x-QlW"/>
                         </constraints>
-                        <state key="normal" title="User data security notice">
+                        <state key="normal" title="Privacy policy">
                             <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
