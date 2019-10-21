@@ -103,7 +103,9 @@ import SwiftyJSON
 import UserNotifications
 
 class ViewController: BaseViewController {
-//    @IBOutlet weak var btnChangePK: UIButton!
+    @IBOutlet weak var vwSettingDesc: UIView!
+    @IBOutlet weak var tvSetting: UITextView!
+    //    @IBOutlet weak var btnChangePK: UIButton!
     @IBOutlet weak var tvInstruction: UITextView!
     @IBOutlet weak var vwCircleBack: CircleProgress!
     @IBOutlet weak var lbAccountAddress: UILabel!
@@ -251,6 +253,9 @@ class ViewController: BaseViewController {
         }else{
             
         }
+    }
+    @IBAction func clickSettingConfirm(_ sender: Any) {
+        vwSettingDesc.isHidden = true
     }
     @IBAction func clickAgree(_ sender: Any) {
         if UserDefaults.standard.bool(forKey: "FirstEnter") == false{
@@ -550,6 +555,17 @@ class ViewController: BaseViewController {
                     
                     tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
                     tempCell.lbBalanceCost.text = String(format:"%.2f $",self.Dolor)
+                    tempCell.clickNoticeBtn = {
+                        
+                        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+                        UIView.animate(withDuration: 0.4, animations: {
+                            self.popBottomView.top = SCREEN_HEIGHT
+                        }, completion: { (Bool) in
+                            self.popBottomView.removeFromSuperview()
+                            self.tvSetting.backgroundColor = UIColor.white
+                            self.vwSettingDesc.isHidden = false
+                        })
+                    }
                     return tempCell
                 }
                 else{

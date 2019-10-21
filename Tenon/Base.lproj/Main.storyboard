@@ -195,7 +195,7 @@
                                         <rect key="frame" x="17" y="37" width="341" height="530"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <mutableString key="text">By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
+                                        <string key="text">By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
 In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
 Given your use of the app, we are committed to providing you with the best VPN services, including the best privacy protection and the shortest downtime possible.
 TenonVPN respects the privacy of its customers. Therefore, when you enter the tenon VPN network and payment, all information you voluntarily provide will not be disclosed to third parties unless you violate TenonVPN.org's Terms of Use and Privacy Policy or violate local laws or international law. Anyone, including the TenonVPN.org management team, is not able to access these details or share them with others.
@@ -214,7 +214,7 @@ Will not use our services to trade, sell or distribute child pornography or dist
 We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
 We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
 If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
-We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</string>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -236,6 +236,67 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                                     <constraint firstItem="QXa-ET-uff" firstAttribute="leading" secondItem="9vF-2m-DD0" secondAttribute="trailing" id="uvl-dy-dLC"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPp-6y-HcR">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iu9-wa-rEe">
+                                        <rect key="frame" x="0.0" y="619" width="375" height="30"/>
+                                        <state key="normal" title="Confirm">
+                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickAgree:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xWS-7U-fwr"/>
+                                            <action selector="clickSettingConfirm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bZL-4R-qaV"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VPN data instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7S-J3-PhU">
+                                        <rect key="frame" x="104" y="8" width="167" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Ev-R0-7DQ">
+                                        <rect key="frame" x="17" y="37" width="341" height="574"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
+In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
+Given your use of the app, we are committed to providing you with the best VPN services, including the best privacy protection and the shortest downtime possible.
+TenonVPN respects the privacy of its customers. Therefore, when you enter the tenon VPN network and payment, all information you voluntarily provide will not be disclosed to third parties unless you violate TenonVPN.org's Terms of Use and Privacy Policy or violate local laws or international law. Anyone, including the TenonVPN.org management team, is not able to access these details or share them with others.
+You are solely responsible for all activities involving your account. At the same time, you must respect and accept all risks of breach of entrustment, local, state, national or international law.
+You agree not to share your account with others. However, you can use your account to log in on multiple devices, but not both.
+You agree to receive advertisements and news from TenonVPN.
+You agree that we do not have any guarantees about the services provided. We are not responsible for any loss, direct or indirect, incidental or inconvenience, or loss of profits that may result from the use of our services. TenonVPN.org will not refund any fees paid or payable.
+We cannot guarantee the speed of your network connection. At the same time, we cannot guarantee that network service interruptions caused by your network service provider will not occur. Because we can't control the network operations in your location.
+We are not responsible for any (realized or unrealized) losses arising from the use, or during use, or the use of TenonVPN networked user services. In short, TenonVPN.org will never be liable for economic losses other than payment by users to TenonVPN.org. You agree to:
+We will not use our services to illegally invade or attack any computer, device, server or network.
+We will not use our services to scan (port scan) or break into a computer, device, server or network.
+We will not use our services to distribute viruses, trojans, worms and other malware or unwanted software.
+We will not use our services to promote or promote criminal activities.
+We will not use our services to promote or promote terrorist activities.
+Will not use our services to trade, sell or distribute child pornography or distribute illegal information
+We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
+We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
+If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</string>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Iu9-wa-rEe" secondAttribute="bottom" constant="18" id="1bO-m4-OOz"/>
+                                    <constraint firstItem="Iu9-wa-rEe" firstAttribute="leading" secondItem="yPp-6y-HcR" secondAttribute="leading" id="KQK-qY-qRt"/>
+                                    <constraint firstItem="1Ev-R0-7DQ" firstAttribute="top" secondItem="A7S-J3-PhU" secondAttribute="bottom" constant="8" id="YrY-vI-zgn"/>
+                                    <constraint firstItem="Iu9-wa-rEe" firstAttribute="top" secondItem="1Ev-R0-7DQ" secondAttribute="bottom" constant="8" id="cW2-6c-HXt"/>
+                                    <constraint firstItem="1Ev-R0-7DQ" firstAttribute="leading" secondItem="yPp-6y-HcR" secondAttribute="leading" constant="17" id="gYq-s4-on4"/>
+                                    <constraint firstAttribute="trailing" secondItem="Iu9-wa-rEe" secondAttribute="trailing" id="jhn-i7-niA"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Ev-R0-7DQ" secondAttribute="trailing" constant="17" id="jnk-fN-9WV"/>
+                                    <constraint firstItem="A7S-J3-PhU" firstAttribute="centerX" secondItem="yPp-6y-HcR" secondAttribute="centerX" id="oSf-eS-GTF"/>
+                                    <constraint firstItem="A7S-J3-PhU" firstAttribute="top" secondItem="yPp-6y-HcR" secondAttribute="top" constant="8" id="uhB-FY-svW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -250,6 +311,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="17" id="9Iv-SZ-m7e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="30" id="Aj9-rj-9zv"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerX" secondItem="cUP-wN-Y58" secondAttribute="centerX" id="BwB-1J-fYF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yPp-6y-HcR" secondAttribute="bottom" id="CDe-AC-Nku"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="top" secondItem="mLz-mT-Jxf" secondAttribute="bottom" constant="8" id="Ezp-ab-tgP"/>
                             <constraint firstItem="JAj-3M-U9V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-20" id="GST-zM-1IF"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" constant="30" id="JTp-qY-AwP"/>
@@ -278,7 +340,9 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="height" secondItem="WMm-5y-Hlt" secondAttribute="height" constant="10" id="hQH-44-w7T"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="hTJ-zd-SIG"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ha2-Js-Szn"/>
+                            <constraint firstItem="yPp-6y-HcR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iiU-ix-d8b"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kMb-d7-6J5"/>
+                            <constraint firstItem="yPp-6y-HcR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="p53-nx-G7U"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="width" secondItem="4OK-ia-4Gi" secondAttribute="width" id="qKG-TQ-Guf"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" constant="-70" id="rg0-FB-CFl"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" id="s0c-vd-M5O"/>
@@ -287,6 +351,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="R05-IF-E3g" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tc0-nC-hfY"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="uKH-6I-ke7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JAj-3M-U9V" secondAttribute="trailing" id="w2P-go-rdh"/>
+                            <constraint firstItem="yPp-6y-HcR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="wMT-ph-qSg"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="top" secondItem="uaT-WF-3iG" secondAttribute="bottom" constant="3" id="xA5-K3-OtN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -295,10 +360,10 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                                 <exclude reference="Aj9-rj-9zv"/>
                                 <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
-                                <exclude reference="64o-u9-Scc"/>
-                                <exclude reference="QL8-3D-BN6"/>
                                 <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="ha2-Js-Szn"/>
+                                <exclude reference="64o-u9-Scc"/>
+                                <exclude reference="QL8-3D-BN6"/>
                                 <exclude reference="a5Q-ff-4BF"/>
                                 <exclude reference="951-TG-0Ip"/>
                             </mask>
@@ -319,8 +384,10 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                         <outlet property="lbNodes" destination="hb3-hP-Gvn" id="NaH-Ab-E5L"/>
                         <outlet property="smartRoute" destination="Lhd-zF-ibB" id="dot-jT-3zW"/>
                         <outlet property="tvInstruction" destination="CeV-Ek-Je0" id="TB8-qr-Gb4"/>
+                        <outlet property="tvSetting" destination="1Ev-R0-7DQ" id="umU-JJ-DYs"/>
                         <outlet property="vwBackHub" destination="cUP-wN-Y58" id="X6y-tr-4Fl"/>
                         <outlet property="vwCircleBack" destination="XmI-eh-EA5" id="XtT-Jc-RVc"/>
+                        <outlet property="vwSettingDesc" destination="yPp-6y-HcR" id="ACV-o0-0b9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

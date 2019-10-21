@@ -138,9 +138,22 @@
                             </mask>
                         </variation>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1s-xb-Ta0">
+                        <rect key="frame" x="15" y="123" width="345" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="6qL-6x-QlW"/>
+                        </constraints>
+                        <state key="normal" title="User data security notice">
+                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="clickNotice:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bNs-PF-LNC"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="E1s-xb-Ta0" firstAttribute="top" secondItem="uRd-BO-NW2" secondAttribute="bottom" constant="8" id="1ZX-kQ-U1B"/>
                     <constraint firstItem="niP-rV-F6Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="6Fo-ha-mMu"/>
                     <constraint firstItem="jCV-ZC-kGz" firstAttribute="top" secondItem="7pT-s6-eUW" secondAttribute="bottom" constant="8" id="6yF-oJ-Nqu"/>
                     <constraint firstItem="bVk-nX-Af5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="HS5-b9-rnc"/>
@@ -156,8 +169,10 @@
                     <constraint firstItem="bVk-nX-Af5" firstAttribute="top" secondItem="uRd-BO-NW2" secondAttribute="bottom" constant="16" id="cfQ-dy-ckn"/>
                     <constraint firstAttribute="trailing" secondItem="uRd-BO-NW2" secondAttribute="trailing" constant="16" id="dRe-rv-isv"/>
                     <constraint firstItem="eX7-dK-dFP" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="eRq-3z-fF3"/>
+                    <constraint firstItem="E1s-xb-Ta0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hjR-c0-geM"/>
                     <constraint firstAttribute="bottom" secondItem="jCV-ZC-kGz" secondAttribute="bottom" id="i72-0X-6aE"/>
                     <constraint firstItem="jCV-ZC-kGz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="jda-cj-B4u"/>
+                    <constraint firstAttribute="trailing" secondItem="E1s-xb-Ta0" secondAttribute="trailing" constant="15" id="jos-ph-75X"/>
                     <constraint firstItem="9vY-hr-Uei" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="kBk-ee-nBb"/>
                     <constraint firstAttribute="trailing" secondItem="jjV-fd-KBw" secondAttribute="trailing" constant="16" id="lmr-CA-WPG"/>
                     <constraint firstItem="7pT-s6-eUW" firstAttribute="top" secondItem="bVk-nX-Af5" secondAttribute="bottom" constant="16" id="mLO-f2-O1V"/>
@@ -169,6 +184,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnNotice" destination="E1s-xb-Ta0" id="Yc6-dh-9sT"/>
                 <outlet property="lbAccountAddress" destination="uRd-BO-NW2" id="uBd-Yy-C4t"/>
                 <outlet property="lbBalanceCost" destination="jjV-fd-KBw" id="8b3-Ug-1AR"/>
                 <outlet property="lbBalanceLego" destination="9vY-hr-Uei" id="HlE-zN-08M"/>
