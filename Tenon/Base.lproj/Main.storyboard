@@ -73,18 +73,24 @@
                                     <constraint firstAttribute="height" constant="40" id="eLR-o8-RAG"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A56468954ASDQWE321654A6S5DAS45" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smd-Wo-Ltm">
-                                <rect key="frame" x="30" y="542" width="315" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smd-Wo-Ltm">
+                                <rect key="frame" x="30" y="477" width="315" height="86"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Xsn-Iw-LMH"/>
                                 </constraints>
+                                <mutableString key="text">Intelligent routing will hide your real IP. Each session you access the network will randomly select multiple intermediate nodes for forwarding, and then go to the node of the VPN service provider. Therefore, neither the carrier nor the VPN service provider can track your data flow.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Xsn-Iw-LMH"/>
+                                    </mask>
+                                </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaT-WF-3iG">
-                                <rect key="frame" x="161" y="522" width="53" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaT-WF-3iG">
+                                <rect key="frame" x="187.5" y="474" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -122,23 +128,23 @@
                                     <constraint firstAttribute="height" constant="60" id="Q3k-q5-Xue"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
+                                <rect key="frame" x="114.5" y="449" width="86" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
+                                <rect key="frame" x="208.5" y="442.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="clickSmartRoute:" destination="BYZ-38-t0r" eventType="valueChanged" id="8kO-gX-XLw"/>
+                                </connections>
+                            </switch>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAj-3M-U9V">
                                 <rect key="frame" x="0.0" y="24" width="375" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
-                                        <rect key="frame" x="220" y="31" width="86" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
-                                        <rect key="frame" x="318" y="24.5" width="51" height="31"/>
-                                        <connections>
-                                            <action selector="clickSmartRoute:" destination="BYZ-38-t0r" eventType="valueChanged" id="8kO-gX-XLw"/>
-                                        </connections>
-                                    </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="TenonVPN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwq-jt-YtR">
-                                        <rect key="frame" x="23" y="27.5" width="94" height="21.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TenonVPN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwq-jt-YtR">
+                                        <rect key="frame" x="23" y="27.5" width="84.5" height="21.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -146,21 +152,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="44X-VY-8FV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qwq-jt-YtR" secondAttribute="trailing" constant="8" symbolic="YES" id="1vO-7m-6pp"/>
-                                    <constraint firstItem="Lhd-zF-ibB" firstAttribute="centerY" secondItem="44X-VY-8FV" secondAttribute="centerY" id="Qx5-Hr-gKL"/>
-                                    <constraint firstAttribute="bottom" secondItem="44X-VY-8FV" secondAttribute="bottom" constant="11" id="dRQ-MT-nYH"/>
+                                    <constraint firstItem="qwq-jt-YtR" firstAttribute="leading" secondItem="JAj-3M-U9V" secondAttribute="leading" constant="23" id="7QY-Si-1Lv"/>
                                     <constraint firstItem="qwq-jt-YtR" firstAttribute="leading" secondItem="JAj-3M-U9V" secondAttribute="leading" constant="8" id="f7l-e5-vR9"/>
-                                    <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="12" id="jhR-Ua-m8V"/>
-                                    <constraint firstAttribute="trailing" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="120" id="pIc-1b-T7H"/>
-                                    <constraint firstAttribute="trailing" secondItem="Lhd-zF-ibB" secondAttribute="trailing" constant="8" id="q0p-ue-sh0"/>
                                     <constraint firstAttribute="height" constant="60" id="rWC-nR-g5I"/>
                                     <constraint firstAttribute="bottom" secondItem="qwq-jt-YtR" secondAttribute="bottom" constant="11" id="tMk-hb-mkn"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qwq-jt-YtR" secondAttribute="trailing" constant="20" symbolic="YES" id="vSm-Ll-uYT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="f7l-e5-vR9"/>
-                                        <exclude reference="1vO-7m-6pp"/>
-                                        <exclude reference="pIc-1b-T7H"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -195,7 +195,7 @@
                                         <rect key="frame" x="17" y="37" width="341" height="530"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <mutableString key="text">
+                                        <string key="text">
 In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
 
 All of our policies regarding data and its storage
@@ -267,7 +267,7 @@ support@tenonvpn.org
 To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
 
 Updates
-This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</mutableString>
+This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -311,7 +311,7 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                         <rect key="frame" x="17" y="37" width="341" height="574"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <mutableString key="text">
+                                        <string key="text">
 In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
 
 All of our policies regarding data and its storage
@@ -383,7 +383,7 @@ support@tenonvpn.org
 To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
 
 Updates
-This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</mutableString>
+This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -417,10 +417,12 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="30" id="Aj9-rj-9zv"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerX" secondItem="cUP-wN-Y58" secondAttribute="centerX" id="BwB-1J-fYF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yPp-6y-HcR" secondAttribute="bottom" id="CDe-AC-Nku"/>
+                            <constraint firstItem="44X-VY-8FV" firstAttribute="leading" secondItem="Lhd-zF-ibB" secondAttribute="trailing" id="Edl-Uc-z5w"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="top" secondItem="mLz-mT-Jxf" secondAttribute="bottom" constant="8" id="Ezp-ab-tgP"/>
                             <constraint firstItem="JAj-3M-U9V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-20" id="GST-zM-1IF"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" constant="30" id="JTp-qY-AwP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="30" id="KN9-7L-Kd0"/>
+                            <constraint firstItem="44X-VY-8FV" firstAttribute="centerX" secondItem="smd-Wo-Ltm" secondAttribute="centerX" constant="-30" id="KbZ-W8-Fmf"/>
                             <constraint firstItem="WMm-5y-Hlt" firstAttribute="top" secondItem="wu3-k5-dkf" secondAttribute="bottom" constant="40" id="L3y-zI-2sF"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LRB-On-fyZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wu3-k5-dkf" secondAttribute="trailing" constant="30" id="LdK-GK-LCO"/>
@@ -432,6 +434,7 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="Svm-PB-PEy"/>
                             <constraint firstItem="hb3-hP-Gvn" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" id="UFr-Bp-8SC"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerY" secondItem="wu3-k5-dkf" secondAttribute="centerY" id="WAQ-zD-mAL"/>
+                            <constraint firstItem="smd-Wo-Ltm" firstAttribute="top" secondItem="44X-VY-8FV" secondAttribute="bottom" constant="10" id="WOp-oR-qaH"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="height" secondItem="cUP-wN-Y58" secondAttribute="height" id="XWr-Z1-Kb3"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="width" secondItem="cUP-wN-Y58" secondAttribute="width" id="YKQ-01-b5V"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="leading" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="8" id="a5Q-ff-4BF"/>
@@ -447,7 +450,9 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ha2-Js-Szn"/>
                             <constraint firstItem="yPp-6y-HcR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iiU-ix-d8b"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kMb-d7-6J5"/>
+                            <constraint firstItem="Lhd-zF-ibB" firstAttribute="centerY" secondItem="44X-VY-8FV" secondAttribute="centerY" id="nV1-kV-Mix"/>
                             <constraint firstItem="yPp-6y-HcR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="p53-nx-G7U"/>
+                            <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="8" id="pNo-V8-bBY"/>
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="width" secondItem="4OK-ia-4Gi" secondAttribute="width" id="qKG-TQ-Guf"/>
                             <constraint firstItem="iJn-z8-UcN" firstAttribute="centerX" secondItem="wu3-k5-dkf" secondAttribute="centerX" constant="-70" id="rg0-FB-CFl"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" id="s0c-vd-M5O"/>
@@ -465,6 +470,7 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                 <exclude reference="Aj9-rj-9zv"/>
                                 <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
+                                <exclude reference="Edl-Uc-z5w"/>
                                 <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="ha2-Js-Szn"/>
                                 <exclude reference="64o-u9-Scc"/>

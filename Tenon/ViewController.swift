@@ -221,7 +221,7 @@ class ViewController: BaseViewController {
         local_account_id = res.account_id as String
         VpnManager.shared.local_country = local_country
         print("account id:" + local_account_id)
-        self.lbAccountAddress.text = local_account_id
+//        self.lbAccountAddress.text = local_account_id
 
         print("local country:" + res.local_country)
         print("private key:" + res.prikey)
