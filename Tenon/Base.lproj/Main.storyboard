@@ -79,7 +79,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Xsn-Iw-LMH"/>
                                 </constraints>
-                                <mutableString key="text">Intelligent routing will hide your real IP. Each session you access the network will randomly select multiple intermediate nodes for forwarding, and then go to the node of the VPN service provider. Therefore, neither the carrier nor the VPN service provider can track your data flow.</mutableString>
+                                <string key="text">Intelligent routing will hide your real IP. Each session you access the network will randomly select multiple intermediate nodes for forwarding, and then go to the node of the VPN service provider. Therefore, neither the carrier nor the VPN service provider can track your data flow.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -417,9 +417,11 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="30" id="Aj9-rj-9zv"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerX" secondItem="cUP-wN-Y58" secondAttribute="centerX" id="BwB-1J-fYF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yPp-6y-HcR" secondAttribute="bottom" id="CDe-AC-Nku"/>
+                            <constraint firstItem="44X-VY-8FV" firstAttribute="top" secondItem="WMm-5y-Hlt" secondAttribute="bottom" constant="31" id="CEN-yG-jwx"/>
                             <constraint firstItem="44X-VY-8FV" firstAttribute="leading" secondItem="Lhd-zF-ibB" secondAttribute="trailing" id="Edl-Uc-z5w"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="top" secondItem="mLz-mT-Jxf" secondAttribute="bottom" constant="8" id="Ezp-ab-tgP"/>
                             <constraint firstItem="JAj-3M-U9V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-20" id="GST-zM-1IF"/>
+                            <constraint firstItem="Lhd-zF-ibB" firstAttribute="top" secondItem="WMm-5y-Hlt" secondAttribute="bottom" constant="24.5" id="HPk-FL-UFl"/>
                             <constraint firstItem="IOC-E8-nzj" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" constant="30" id="JTp-qY-AwP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="30" id="KN9-7L-Kd0"/>
                             <constraint firstItem="44X-VY-8FV" firstAttribute="centerX" secondItem="smd-Wo-Ltm" secondAttribute="centerX" constant="-30" id="KbZ-W8-Fmf"/>
