@@ -165,6 +165,7 @@ class ViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //        SKPaymentQueue.default().add(self)
+        self.btnConnect.layer.cornerRadius = self.btnConnect.frame.width/2
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
