@@ -143,9 +143,9 @@ class ViewController: BaseViewController {
     var local_country: String = ""
     var local_private_key: String = ""
     var local_account_id: String = ""
-    var countryCode:[String] = ["America", "Singapore", "Brazil","Germany","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "England"]
+    var countryCode:[String] = ["United States", "Singapore", "Germany","France","South Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
     var countryNodes:[String] = []
-    var iCon:[String] = ["us", "sg", "br","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
+    var iCon:[String] = ["us", "sg","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
@@ -241,7 +241,7 @@ class ViewController: BaseViewController {
             countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
         }
         
-        self.btnChoseCountry.setTitle("America", for: UIControl.State.normal)
+        self.btnChoseCountry.setTitle("United States", for: UIControl.State.normal)
         self.imgCountryIcon.image = UIImage(named:self.iCon[0])
         self.lbNodes.text = self.countryNodes[0]
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
