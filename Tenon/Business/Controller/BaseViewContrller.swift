@@ -181,8 +181,8 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return "IN"
         case "England":
             return "GB"
-        case "China":
-            return "CN"
+//        case "China":
+//            return "CN"
         default:
             return ""
         }
