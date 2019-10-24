@@ -157,7 +157,7 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
     }
     func getCountryShort(countryCode:String) -> String {
         switch countryCode {
-        case "America":
+        case "United States":
             return "US"
         case "Singapore":
             return "SG"
@@ -167,7 +167,7 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return "DE"
         case "France":
             return "FR"
-        case "Korea":
+        case "South Korea":
             return "KR"
         case "Japan":
             return "JP"
@@ -179,7 +179,7 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return "HK"
         case "India":
             return "IN"
-        case "England":
+        case "United Kingdom":
             return "GB"
 //        case "China":
 //            return "CN"

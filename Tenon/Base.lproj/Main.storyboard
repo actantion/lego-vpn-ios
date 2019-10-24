@@ -326,79 +326,28 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                         <rect key="frame" x="17" y="37" width="341" height="574"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">
-In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
-
-All of our policies regarding data and its storage
-
-Policy overview
-Our underlying policy is that we want you to remain anonymous when using our service. It is therefore our policy to never store any activity logs or metadata and to have as minimal data retention as possible. However, in some situations we might process your personal data if you, for example, are making payments by a bank wire, PayPal, Swish, Stripe or are sending an e-mail or reporting a problem. In those cases, we might process your personal data and the General Data Protection Regulation (“GDPR”) and other data protection laws may apply to the processing.
-
-The purpose and legal basis for each processing
-Payments
-Payment information are processed for the purpose of providing you with the service we offer, to pay out refunds and for accounting purposes. The processing of payment data for the first two purposes are based on a legitimate interest where our rights to process the data for such interest overrides your rights to your personal data. Payment information processed for accounting purposes are necessary for the compliance of a legal obligation to which we are subject.
-
-Support and problem report
-Processing of e-mails and problem reports via our app/client are made for the purpose of answering questions, resolve problems, and provide general support to customers. The processing is necessary for the purpose of the legitimate interests where such interest overrides your rights to your personal data.
-
-Categories of personal data
-We are processing the following categories of personal data. TenonVPN can access the personal data below through our payment service providers but that does not necessarily mean that TenonVPN are storing the data anywhere else than in the service.
-
-Payments
-Bank wire: sender name, address, bank account number and Tenon account number
-PayPal: transaction-ID, sender name, origin country and e-mail address
-Swish: Swish-ID, name and phone number
-Stripe: Stripe charge ID, expire date, last 4 digits of the card, card type and origin country
-Please avoid making payments through bank wire if you do not want your TenonVPN account to be traceable to you. When making such payments, the TenonVPN account number will exist in the "message" field of the transaction.
-
-Support and problem report
-Support by e-mail: your e-mail address and other information which you have written in the e-mail.
-Problem reported by the app/client: (program logs, email, IP-addresses and sensitive path are removed). Please refrain from entering any personal data when reporting a problem by the app/client.
-How long is the personal data saved?
-The time periods for which the personal data will be saved are the following.
-
-PayPal payment data
-Since we support 30-day refunds and because we encounter certain transaction issues from PayPal (for example, double payments and subscription problems), we need to be able to track payments in order to give customers the service we offer. We only duplicate the information since PayPal already has it. Transaction id and e-mail are permanently deleted after six months.
-
-General payment data
-Certain payment data must be kept for the statutory retention period described in applicable local laws such as the Swedish Accounting Act (some information must be stored for seven years from the end of the fiscal year). If not required by law or stated above, the data will be stored for no longer than necessary for the purpose. After the statutory retention periods, the data will be permanently deleted.
-
-Support and problem report
-After "solving" or "closing" a support case/problem report, all related emails/problem reports are archived (removed from the inbox). After six months, all emails/problem reports sent to our support address are automatically, permanently erased (from inbox, deleted items, sent items, trash, and archives).
-
-Third-party recipients
-Your personal data will only be shared with third party suppliers who are performing services on our behalf and for the purposes stated above. The categories of such recipients are e-mail service providers and payment solution suppliers (which are subject to confidentiality).
-
-Is any transfer made to a third country?
-No. We only stores your personal data within the EU/EEA. If transfer to a third country occurs in exceptional cases, we will ensure that there is a legal basies for such a transfer and provide you with necessary information.
-
-Automated decision making
-No automated decision making (including profiling) takes place.
-
-The rights of individuals
-You have the right, in certain situations, to request us to correct or delete incorrect personal data regarding you and/or limit the processing. You also have the right to request for a copy of your personal data and a registry extract. However, we cannot give out payment data since the purpose of the processing of the payment data do not require identification of the data subject and would require disproportionate effort for us to further acquire or process additional information to identify the data subject (article 11 in the GDPR).
-
-The registry extract and the copy of personal data will be provided to the data subject (if the personal data are not subject to article 11 in the GDPR) without undue delay and in any event within one month of receipt of the request. If the request is particularly complex or if we receive number of the requests, the period may be extended where necessary. In this event we will inform the data subject of any such extension within one month of receipt the request together with the reason for the delay.
-
-Where the legal basis for the processing is based on a weighing of interests you are as a data subject entitled to object at any time to the processing of your data.
-
-If you are displeased with our processing of your personal data, please contact us or submit a complaint to the supervisory authority (The Swedish Data Protection Authority, www.datainspektionen.se).
-
-If you would like to exercise your rights, please contact support@tenonvpn.org for more information.
-
-Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
-
-Data controller contact information
-Reg. no. +8613735484728
-Box SAN PO KONG
-Rm 1604 Perfect Indl Building
-Hong Kong
-support@tenonvpn.org
-
-To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
-
-Updates
-This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
+                                        <mutableString key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
+At the same time, the server does not store any user data, and the vpn server itself only performs data forwarding and does not store the data.
+By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
+In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
+Given your use of the app, we are committed to providing you with the best VPN services, including the best privacy protection and the shortest downtime possible.
+TenonVPN respects the privacy of its customers. Therefore, when you enter the tenon VPN network and payment, all information you voluntarily provide will not be disclosed to third parties unless you violate TenonVPN.org's Terms of Use and Privacy Policy or violate local laws or international law. Anyone, including the TenonVPN.org management team, is not able to access these details or share them with others.
+You are solely responsible for all activities involving your account. At the same time, you must respect and accept all risks of breach of entrustment, local, state, national or international law.
+You agree not to share your account with others. However, you can use your account to log in on multiple devices, but not both.
+You agree to receive advertisements and news from TenonVPN.
+You agree that we do not have any guarantees about the services provided. We are not responsible for any loss, direct or indirect, incidental or inconvenience, or loss of profits that may result from the use of our services. TenonVPN.org will not refund any fees paid or payable.
+We cannot guarantee the speed of your network connection. At the same time, we cannot guarantee that network service interruptions caused by your network service provider will not occur. Because we can't control the network operations in your location.
+We are not responsible for any (realized or unrealized) losses arising from the use, or during use, or the use of TenonVPN networked user services. In short, TenonVPN.org will never be liable for economic losses other than payment by users to TenonVPN.org.  You agree to:
+We will not use our services to illegally invade or attack any computer, device, server or network.
+We will not use our services to scan (port scan) or break into a computer, device, server or network.
+We will not use our services to distribute viruses, trojans, worms and other malware or unwanted software.
+We will not use our services to promote or promote criminal activities.
+We will not use our services to promote or promote terrorist activities.
+Will not use our services to trade, sell or distribute child pornography or distribute illegal information
+We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
+We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
+If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
