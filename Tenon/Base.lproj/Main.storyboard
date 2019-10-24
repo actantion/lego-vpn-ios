@@ -16,244 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R05-IF-E3g">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vF-2m-DD0">
-                                        <rect key="frame" x="0.0" y="575" width="187.5" height="30"/>
-                                        <state key="normal" title="agree">
-                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="clickAgree:" destination="BYZ-38-t0r" eventType="touchUpInside" id="joN-Rb-tID"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXa-ET-uff">
-                                        <rect key="frame" x="187.5" y="575" width="187.5" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="jI8-7c-dSL"/>
-                                        </constraints>
-                                        <state key="normal" title="Disagree">
-                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpJ-NE-c1x">
-                                        <rect key="frame" x="135" y="8" width="105.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CeV-Ek-Je0">
-                                        <rect key="frame" x="17" y="37" width="341" height="530"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">
-In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
-
-All of our policies regarding data and its storage
-
-Policy overview
-Our underlying policy is that we want you to remain anonymous when using our service. It is therefore our policy to never store any activity logs or metadata and to have as minimal data retention as possible. However, in some situations we might process your personal data if you, for example, are making payments by a bank wire, PayPal, Swish, Stripe or are sending an e-mail or reporting a problem. In those cases, we might process your personal data and the General Data Protection Regulation (“GDPR”) and other data protection laws may apply to the processing.
-
-The purpose and legal basis for each processing
-Payments
-Payment information are processed for the purpose of providing you with the service we offer, to pay out refunds and for accounting purposes. The processing of payment data for the first two purposes are based on a legitimate interest where our rights to process the data for such interest overrides your rights to your personal data. Payment information processed for accounting purposes are necessary for the compliance of a legal obligation to which we are subject.
-
-Support and problem report
-Processing of e-mails and problem reports via our app/client are made for the purpose of answering questions, resolve problems, and provide general support to customers. The processing is necessary for the purpose of the legitimate interests where such interest overrides your rights to your personal data.
-
-Categories of personal data
-We are processing the following categories of personal data. TenonVPN can access the personal data below through our payment service providers but that does not necessarily mean that TenonVPN are storing the data anywhere else than in the service.
-
-Payments
-Bank wire: sender name, address, bank account number and Tenon account number
-PayPal: transaction-ID, sender name, origin country and e-mail address
-Swish: Swish-ID, name and phone number
-Stripe: Stripe charge ID, expire date, last 4 digits of the card, card type and origin country
-Please avoid making payments through bank wire if you do not want your TenonVPN account to be traceable to you. When making such payments, the TenonVPN account number will exist in the "message" field of the transaction.
-
-Support and problem report
-Support by e-mail: your e-mail address and other information which you have written in the e-mail.
-Problem reported by the app/client: (program logs, email, IP-addresses and sensitive path are removed). Please refrain from entering any personal data when reporting a problem by the app/client.
-How long is the personal data saved?
-The time periods for which the personal data will be saved are the following.
-
-PayPal payment data
-Since we support 30-day refunds and because we encounter certain transaction issues from PayPal (for example, double payments and subscription problems), we need to be able to track payments in order to give customers the service we offer. We only duplicate the information since PayPal already has it. Transaction id and e-mail are permanently deleted after six months.
-
-General payment data
-Certain payment data must be kept for the statutory retention period described in applicable local laws such as the Swedish Accounting Act (some information must be stored for seven years from the end of the fiscal year). If not required by law or stated above, the data will be stored for no longer than necessary for the purpose. After the statutory retention periods, the data will be permanently deleted.
-
-Support and problem report
-After "solving" or "closing" a support case/problem report, all related emails/problem reports are archived (removed from the inbox). After six months, all emails/problem reports sent to our support address are automatically, permanently erased (from inbox, deleted items, sent items, trash, and archives).
-
-Third-party recipients
-Your personal data will only be shared with third party suppliers who are performing services on our behalf and for the purposes stated above. The categories of such recipients are e-mail service providers and payment solution suppliers (which are subject to confidentiality).
-
-Is any transfer made to a third country?
-No. We only stores your personal data within the EU/EEA. If transfer to a third country occurs in exceptional cases, we will ensure that there is a legal basies for such a transfer and provide you with necessary information.
-
-Automated decision making
-No automated decision making (including profiling) takes place.
-
-The rights of individuals
-You have the right, in certain situations, to request us to correct or delete incorrect personal data regarding you and/or limit the processing. You also have the right to request for a copy of your personal data and a registry extract. However, we cannot give out payment data since the purpose of the processing of the payment data do not require identification of the data subject and would require disproportionate effort for us to further acquire or process additional information to identify the data subject (article 11 in the GDPR).
-
-The registry extract and the copy of personal data will be provided to the data subject (if the personal data are not subject to article 11 in the GDPR) without undue delay and in any event within one month of receipt of the request. If the request is particularly complex or if we receive number of the requests, the period may be extended where necessary. In this event we will inform the data subject of any such extension within one month of receipt the request together with the reason for the delay.
-
-Where the legal basis for the processing is based on a weighing of interests you are as a data subject entitled to object at any time to the processing of your data.
-
-If you are displeased with our processing of your personal data, please contact us or submit a complaint to the supervisory authority (The Swedish Data Protection Authority, www.datainspektionen.se).
-
-If you would like to exercise your rights, please contact support@tenonvpn.org for more information.
-
-Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
-
-Data controller contact information
-Reg. no. +8613735484728
-Box SAN PO KONG
-Rm 1604 Perfect Indl Building
-Hong Kong
-support@tenonvpn.org
-
-To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
-
-Updates
-This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="CeV-Ek-Je0" firstAttribute="top" secondItem="fpJ-NE-c1x" secondAttribute="bottom" constant="8" id="2Bs-uO-GO1"/>
-                                    <constraint firstAttribute="bottom" secondItem="9vF-2m-DD0" secondAttribute="bottom" constant="18" id="BH7-ao-85s"/>
-                                    <constraint firstItem="fpJ-NE-c1x" firstAttribute="centerX" secondItem="R05-IF-E3g" secondAttribute="centerX" id="PG5-Dn-81l"/>
-                                    <constraint firstItem="9vF-2m-DD0" firstAttribute="top" secondItem="CeV-Ek-Je0" secondAttribute="bottom" constant="8" id="U1O-1g-Df2"/>
-                                    <constraint firstAttribute="trailing" secondItem="QXa-ET-uff" secondAttribute="trailing" id="Z87-Gw-czj"/>
-                                    <constraint firstItem="9vF-2m-DD0" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" id="c4q-R5-Mee"/>
-                                    <constraint firstAttribute="bottom" secondItem="QXa-ET-uff" secondAttribute="bottom" constant="18" id="g1q-gV-5nO"/>
-                                    <constraint firstAttribute="trailing" secondItem="CeV-Ek-Je0" secondAttribute="trailing" constant="17" id="gOc-Q2-8f0"/>
-                                    <constraint firstItem="fpJ-NE-c1x" firstAttribute="top" secondItem="R05-IF-E3g" secondAttribute="top" constant="8" id="iqM-77-WiO"/>
-                                    <constraint firstItem="QXa-ET-uff" firstAttribute="width" secondItem="9vF-2m-DD0" secondAttribute="width" id="nF1-St-h5s"/>
-                                    <constraint firstItem="CeV-Ek-Je0" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" constant="17" id="ueG-62-NE5"/>
-                                    <constraint firstItem="QXa-ET-uff" firstAttribute="leading" secondItem="9vF-2m-DD0" secondAttribute="trailing" id="uvl-dy-dLC"/>
-                                </constraints>
-                            </view>
-                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPp-6y-HcR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iu9-wa-rEe">
-                                        <rect key="frame" x="0.0" y="619" width="375" height="30"/>
-                                        <state key="normal" title="Confirm">
-                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="clickSettingConfirm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bZL-4R-qaV"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7S-J3-PhU">
-                                        <rect key="frame" x="135" y="8" width="105.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Ev-R0-7DQ">
-                                        <rect key="frame" x="17" y="37" width="341" height="574"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">
-In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
-
-All of our policies regarding data and its storage
-
-Policy overview
-Our underlying policy is that we want you to remain anonymous when using our service. It is therefore our policy to never store any activity logs or metadata and to have as minimal data retention as possible. However, in some situations we might process your personal data if you, for example, are making payments by a bank wire, PayPal, Swish, Stripe or are sending an e-mail or reporting a problem. In those cases, we might process your personal data and the General Data Protection Regulation (“GDPR”) and other data protection laws may apply to the processing.
-
-The purpose and legal basis for each processing
-Payments
-Payment information are processed for the purpose of providing you with the service we offer, to pay out refunds and for accounting purposes. The processing of payment data for the first two purposes are based on a legitimate interest where our rights to process the data for such interest overrides your rights to your personal data. Payment information processed for accounting purposes are necessary for the compliance of a legal obligation to which we are subject.
-
-Support and problem report
-Processing of e-mails and problem reports via our app/client are made for the purpose of answering questions, resolve problems, and provide general support to customers. The processing is necessary for the purpose of the legitimate interests where such interest overrides your rights to your personal data.
-
-Categories of personal data
-We are processing the following categories of personal data. TenonVPN can access the personal data below through our payment service providers but that does not necessarily mean that TenonVPN are storing the data anywhere else than in the service.
-
-Payments
-Bank wire: sender name, address, bank account number and Tenon account number
-PayPal: transaction-ID, sender name, origin country and e-mail address
-Swish: Swish-ID, name and phone number
-Stripe: Stripe charge ID, expire date, last 4 digits of the card, card type and origin country
-Please avoid making payments through bank wire if you do not want your TenonVPN account to be traceable to you. When making such payments, the TenonVPN account number will exist in the "message" field of the transaction.
-
-Support and problem report
-Support by e-mail: your e-mail address and other information which you have written in the e-mail.
-Problem reported by the app/client: (program logs, email, IP-addresses and sensitive path are removed). Please refrain from entering any personal data when reporting a problem by the app/client.
-How long is the personal data saved?
-The time periods for which the personal data will be saved are the following.
-
-PayPal payment data
-Since we support 30-day refunds and because we encounter certain transaction issues from PayPal (for example, double payments and subscription problems), we need to be able to track payments in order to give customers the service we offer. We only duplicate the information since PayPal already has it. Transaction id and e-mail are permanently deleted after six months.
-
-General payment data
-Certain payment data must be kept for the statutory retention period described in applicable local laws such as the Swedish Accounting Act (some information must be stored for seven years from the end of the fiscal year). If not required by law or stated above, the data will be stored for no longer than necessary for the purpose. After the statutory retention periods, the data will be permanently deleted.
-
-Support and problem report
-After "solving" or "closing" a support case/problem report, all related emails/problem reports are archived (removed from the inbox). After six months, all emails/problem reports sent to our support address are automatically, permanently erased (from inbox, deleted items, sent items, trash, and archives).
-
-Third-party recipients
-Your personal data will only be shared with third party suppliers who are performing services on our behalf and for the purposes stated above. The categories of such recipients are e-mail service providers and payment solution suppliers (which are subject to confidentiality).
-
-Is any transfer made to a third country?
-No. We only stores your personal data within the EU/EEA. If transfer to a third country occurs in exceptional cases, we will ensure that there is a legal basies for such a transfer and provide you with necessary information.
-
-Automated decision making
-No automated decision making (including profiling) takes place.
-
-The rights of individuals
-You have the right, in certain situations, to request us to correct or delete incorrect personal data regarding you and/or limit the processing. You also have the right to request for a copy of your personal data and a registry extract. However, we cannot give out payment data since the purpose of the processing of the payment data do not require identification of the data subject and would require disproportionate effort for us to further acquire or process additional information to identify the data subject (article 11 in the GDPR).
-
-The registry extract and the copy of personal data will be provided to the data subject (if the personal data are not subject to article 11 in the GDPR) without undue delay and in any event within one month of receipt of the request. If the request is particularly complex or if we receive number of the requests, the period may be extended where necessary. In this event we will inform the data subject of any such extension within one month of receipt the request together with the reason for the delay.
-
-Where the legal basis for the processing is based on a weighing of interests you are as a data subject entitled to object at any time to the processing of your data.
-
-If you are displeased with our processing of your personal data, please contact us or submit a complaint to the supervisory authority (The Swedish Data Protection Authority, www.datainspektionen.se).
-
-If you would like to exercise your rights, please contact support@tenonvpn.org for more information.
-
-Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
-
-Data controller contact information
-Reg. no. +8613735484728
-Box SAN PO KONG
-Rm 1604 Perfect Indl Building
-Hong Kong
-support@tenonvpn.org
-
-To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
-
-Updates
-This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Iu9-wa-rEe" secondAttribute="bottom" constant="18" id="1bO-m4-OOz"/>
-                                    <constraint firstItem="Iu9-wa-rEe" firstAttribute="leading" secondItem="yPp-6y-HcR" secondAttribute="leading" id="KQK-qY-qRt"/>
-                                    <constraint firstItem="1Ev-R0-7DQ" firstAttribute="top" secondItem="A7S-J3-PhU" secondAttribute="bottom" constant="8" id="YrY-vI-zgn"/>
-                                    <constraint firstItem="Iu9-wa-rEe" firstAttribute="top" secondItem="1Ev-R0-7DQ" secondAttribute="bottom" constant="8" id="cW2-6c-HXt"/>
-                                    <constraint firstItem="1Ev-R0-7DQ" firstAttribute="leading" secondItem="yPp-6y-HcR" secondAttribute="leading" constant="17" id="gYq-s4-on4"/>
-                                    <constraint firstAttribute="trailing" secondItem="Iu9-wa-rEe" secondAttribute="trailing" id="jhn-i7-niA"/>
-                                    <constraint firstAttribute="trailing" secondItem="1Ev-R0-7DQ" secondAttribute="trailing" constant="17" id="jnk-fN-9WV"/>
-                                    <constraint firstItem="A7S-J3-PhU" firstAttribute="centerX" secondItem="yPp-6y-HcR" secondAttribute="centerX" id="oSf-eS-GTF"/>
-                                    <constraint firstItem="A7S-J3-PhU" firstAttribute="top" secondItem="yPp-6y-HcR" secondAttribute="top" constant="8" id="uhB-FY-svW"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OK-ia-4Gi">
                                 <rect key="frame" x="30" y="583" width="315" height="40"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -417,6 +179,244 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                     </mask>
                                 </variation>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R05-IF-E3g">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vF-2m-DD0">
+                                        <rect key="frame" x="0.0" y="575" width="187.5" height="30"/>
+                                        <state key="normal" title="agree">
+                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickAgree:" destination="BYZ-38-t0r" eventType="touchUpInside" id="joN-Rb-tID"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXa-ET-uff">
+                                        <rect key="frame" x="187.5" y="575" width="187.5" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="jI8-7c-dSL"/>
+                                        </constraints>
+                                        <state key="normal" title="Disagree">
+                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpJ-NE-c1x">
+                                        <rect key="frame" x="135" y="8" width="105.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CeV-Ek-Je0">
+                                        <rect key="frame" x="17" y="37" width="341" height="530"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">
+In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
+
+All of our policies regarding data and its storage
+
+Policy overview
+Our underlying policy is that we want you to remain anonymous when using our service. It is therefore our policy to never store any activity logs or metadata and to have as minimal data retention as possible. However, in some situations we might process your personal data if you, for example, are making payments by a bank wire, PayPal, Swish, Stripe or are sending an e-mail or reporting a problem. In those cases, we might process your personal data and the General Data Protection Regulation (“GDPR”) and other data protection laws may apply to the processing.
+
+The purpose and legal basis for each processing
+Payments
+Payment information are processed for the purpose of providing you with the service we offer, to pay out refunds and for accounting purposes. The processing of payment data for the first two purposes are based on a legitimate interest where our rights to process the data for such interest overrides your rights to your personal data. Payment information processed for accounting purposes are necessary for the compliance of a legal obligation to which we are subject.
+
+Support and problem report
+Processing of e-mails and problem reports via our app/client are made for the purpose of answering questions, resolve problems, and provide general support to customers. The processing is necessary for the purpose of the legitimate interests where such interest overrides your rights to your personal data.
+
+Categories of personal data
+We are processing the following categories of personal data. TenonVPN can access the personal data below through our payment service providers but that does not necessarily mean that TenonVPN are storing the data anywhere else than in the service.
+
+Payments
+Bank wire: sender name, address, bank account number and Tenon account number
+PayPal: transaction-ID, sender name, origin country and e-mail address
+Swish: Swish-ID, name and phone number
+Stripe: Stripe charge ID, expire date, last 4 digits of the card, card type and origin country
+Please avoid making payments through bank wire if you do not want your TenonVPN account to be traceable to you. When making such payments, the TenonVPN account number will exist in the "message" field of the transaction.
+
+Support and problem report
+Support by e-mail: your e-mail address and other information which you have written in the e-mail.
+Problem reported by the app/client: (program logs, email, IP-addresses and sensitive path are removed). Please refrain from entering any personal data when reporting a problem by the app/client.
+How long is the personal data saved?
+The time periods for which the personal data will be saved are the following.
+
+PayPal payment data
+Since we support 30-day refunds and because we encounter certain transaction issues from PayPal (for example, double payments and subscription problems), we need to be able to track payments in order to give customers the service we offer. We only duplicate the information since PayPal already has it. Transaction id and e-mail are permanently deleted after six months.
+
+General payment data
+Certain payment data must be kept for the statutory retention period described in applicable local laws such as the Swedish Accounting Act (some information must be stored for seven years from the end of the fiscal year). If not required by law or stated above, the data will be stored for no longer than necessary for the purpose. After the statutory retention periods, the data will be permanently deleted.
+
+Support and problem report
+After "solving" or "closing" a support case/problem report, all related emails/problem reports are archived (removed from the inbox). After six months, all emails/problem reports sent to our support address are automatically, permanently erased (from inbox, deleted items, sent items, trash, and archives).
+
+Third-party recipients
+Your personal data will only be shared with third party suppliers who are performing services on our behalf and for the purposes stated above. The categories of such recipients are e-mail service providers and payment solution suppliers (which are subject to confidentiality).
+
+Is any transfer made to a third country?
+No. We only stores your personal data within the EU/EEA. If transfer to a third country occurs in exceptional cases, we will ensure that there is a legal basies for such a transfer and provide you with necessary information.
+
+Automated decision making
+No automated decision making (including profiling) takes place.
+
+The rights of individuals
+You have the right, in certain situations, to request us to correct or delete incorrect personal data regarding you and/or limit the processing. You also have the right to request for a copy of your personal data and a registry extract. However, we cannot give out payment data since the purpose of the processing of the payment data do not require identification of the data subject and would require disproportionate effort for us to further acquire or process additional information to identify the data subject (article 11 in the GDPR).
+
+The registry extract and the copy of personal data will be provided to the data subject (if the personal data are not subject to article 11 in the GDPR) without undue delay and in any event within one month of receipt of the request. If the request is particularly complex or if we receive number of the requests, the period may be extended where necessary. In this event we will inform the data subject of any such extension within one month of receipt the request together with the reason for the delay.
+
+Where the legal basis for the processing is based on a weighing of interests you are as a data subject entitled to object at any time to the processing of your data.
+
+If you are displeased with our processing of your personal data, please contact us or submit a complaint to the supervisory authority (The Swedish Data Protection Authority, www.datainspektionen.se).
+
+If you would like to exercise your rights, please contact support@tenonvpn.org for more information.
+
+Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
+
+Data controller contact information
+Reg. no. +8613735484728
+Box SAN PO KONG
+Rm 1604 Perfect Indl Building
+Hong Kong
+support@tenonvpn.org
+
+To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
+
+Updates
+This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="CeV-Ek-Je0" firstAttribute="top" secondItem="fpJ-NE-c1x" secondAttribute="bottom" constant="8" id="2Bs-uO-GO1"/>
+                                    <constraint firstAttribute="bottom" secondItem="9vF-2m-DD0" secondAttribute="bottom" constant="18" id="BH7-ao-85s"/>
+                                    <constraint firstItem="fpJ-NE-c1x" firstAttribute="centerX" secondItem="R05-IF-E3g" secondAttribute="centerX" id="PG5-Dn-81l"/>
+                                    <constraint firstItem="9vF-2m-DD0" firstAttribute="top" secondItem="CeV-Ek-Je0" secondAttribute="bottom" constant="8" id="U1O-1g-Df2"/>
+                                    <constraint firstAttribute="trailing" secondItem="QXa-ET-uff" secondAttribute="trailing" id="Z87-Gw-czj"/>
+                                    <constraint firstItem="9vF-2m-DD0" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" id="c4q-R5-Mee"/>
+                                    <constraint firstAttribute="bottom" secondItem="QXa-ET-uff" secondAttribute="bottom" constant="18" id="g1q-gV-5nO"/>
+                                    <constraint firstAttribute="trailing" secondItem="CeV-Ek-Je0" secondAttribute="trailing" constant="17" id="gOc-Q2-8f0"/>
+                                    <constraint firstItem="fpJ-NE-c1x" firstAttribute="top" secondItem="R05-IF-E3g" secondAttribute="top" constant="8" id="iqM-77-WiO"/>
+                                    <constraint firstItem="QXa-ET-uff" firstAttribute="width" secondItem="9vF-2m-DD0" secondAttribute="width" id="nF1-St-h5s"/>
+                                    <constraint firstItem="CeV-Ek-Je0" firstAttribute="leading" secondItem="R05-IF-E3g" secondAttribute="leading" constant="17" id="ueG-62-NE5"/>
+                                    <constraint firstItem="QXa-ET-uff" firstAttribute="leading" secondItem="9vF-2m-DD0" secondAttribute="trailing" id="uvl-dy-dLC"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPp-6y-HcR">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iu9-wa-rEe">
+                                        <rect key="frame" x="0.0" y="619" width="375" height="30"/>
+                                        <state key="normal" title="Confirm">
+                                            <color key="titleColor" red="0.015686274510000001" green="0.80000000000000004" blue="0.74579733609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickSettingConfirm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bZL-4R-qaV"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7S-J3-PhU">
+                                        <rect key="frame" x="135" y="8" width="105.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Ev-R0-7DQ">
+                                        <rect key="frame" x="17" y="37" width="341" height="574"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">
+In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
+
+All of our policies regarding data and its storage
+
+Policy overview
+Our underlying policy is that we want you to remain anonymous when using our service. It is therefore our policy to never store any activity logs or metadata and to have as minimal data retention as possible. However, in some situations we might process your personal data if you, for example, are making payments by a bank wire, PayPal, Swish, Stripe or are sending an e-mail or reporting a problem. In those cases, we might process your personal data and the General Data Protection Regulation (“GDPR”) and other data protection laws may apply to the processing.
+
+The purpose and legal basis for each processing
+Payments
+Payment information are processed for the purpose of providing you with the service we offer, to pay out refunds and for accounting purposes. The processing of payment data for the first two purposes are based on a legitimate interest where our rights to process the data for such interest overrides your rights to your personal data. Payment information processed for accounting purposes are necessary for the compliance of a legal obligation to which we are subject.
+
+Support and problem report
+Processing of e-mails and problem reports via our app/client are made for the purpose of answering questions, resolve problems, and provide general support to customers. The processing is necessary for the purpose of the legitimate interests where such interest overrides your rights to your personal data.
+
+Categories of personal data
+We are processing the following categories of personal data. TenonVPN can access the personal data below through our payment service providers but that does not necessarily mean that TenonVPN are storing the data anywhere else than in the service.
+
+Payments
+Bank wire: sender name, address, bank account number and Tenon account number
+PayPal: transaction-ID, sender name, origin country and e-mail address
+Swish: Swish-ID, name and phone number
+Stripe: Stripe charge ID, expire date, last 4 digits of the card, card type and origin country
+Please avoid making payments through bank wire if you do not want your TenonVPN account to be traceable to you. When making such payments, the TenonVPN account number will exist in the "message" field of the transaction.
+
+Support and problem report
+Support by e-mail: your e-mail address and other information which you have written in the e-mail.
+Problem reported by the app/client: (program logs, email, IP-addresses and sensitive path are removed). Please refrain from entering any personal data when reporting a problem by the app/client.
+How long is the personal data saved?
+The time periods for which the personal data will be saved are the following.
+
+PayPal payment data
+Since we support 30-day refunds and because we encounter certain transaction issues from PayPal (for example, double payments and subscription problems), we need to be able to track payments in order to give customers the service we offer. We only duplicate the information since PayPal already has it. Transaction id and e-mail are permanently deleted after six months.
+
+General payment data
+Certain payment data must be kept for the statutory retention period described in applicable local laws such as the Swedish Accounting Act (some information must be stored for seven years from the end of the fiscal year). If not required by law or stated above, the data will be stored for no longer than necessary for the purpose. After the statutory retention periods, the data will be permanently deleted.
+
+Support and problem report
+After "solving" or "closing" a support case/problem report, all related emails/problem reports are archived (removed from the inbox). After six months, all emails/problem reports sent to our support address are automatically, permanently erased (from inbox, deleted items, sent items, trash, and archives).
+
+Third-party recipients
+Your personal data will only be shared with third party suppliers who are performing services on our behalf and for the purposes stated above. The categories of such recipients are e-mail service providers and payment solution suppliers (which are subject to confidentiality).
+
+Is any transfer made to a third country?
+No. We only stores your personal data within the EU/EEA. If transfer to a third country occurs in exceptional cases, we will ensure that there is a legal basies for such a transfer and provide you with necessary information.
+
+Automated decision making
+No automated decision making (including profiling) takes place.
+
+The rights of individuals
+You have the right, in certain situations, to request us to correct or delete incorrect personal data regarding you and/or limit the processing. You also have the right to request for a copy of your personal data and a registry extract. However, we cannot give out payment data since the purpose of the processing of the payment data do not require identification of the data subject and would require disproportionate effort for us to further acquire or process additional information to identify the data subject (article 11 in the GDPR).
+
+The registry extract and the copy of personal data will be provided to the data subject (if the personal data are not subject to article 11 in the GDPR) without undue delay and in any event within one month of receipt of the request. If the request is particularly complex or if we receive number of the requests, the period may be extended where necessary. In this event we will inform the data subject of any such extension within one month of receipt the request together with the reason for the delay.
+
+Where the legal basis for the processing is based on a weighing of interests you are as a data subject entitled to object at any time to the processing of your data.
+
+If you are displeased with our processing of your personal data, please contact us or submit a complaint to the supervisory authority (The Swedish Data Protection Authority, www.datainspektionen.se).
+
+If you would like to exercise your rights, please contact support@tenonvpn.org for more information.
+
+Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
+
+Data controller contact information
+Reg. no. +8613735484728
+Box SAN PO KONG
+Rm 1604 Perfect Indl Building
+Hong Kong
+support@tenonvpn.org
+
+To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
+
+Updates
+This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Iu9-wa-rEe" secondAttribute="bottom" constant="18" id="1bO-m4-OOz"/>
+                                    <constraint firstItem="Iu9-wa-rEe" firstAttribute="leading" secondItem="yPp-6y-HcR" secondAttribute="leading" id="KQK-qY-qRt"/>
+                                    <constraint firstItem="1Ev-R0-7DQ" firstAttribute="top" secondItem="A7S-J3-PhU" secondAttribute="bottom" constant="8" id="YrY-vI-zgn"/>
+                                    <constraint firstItem="Iu9-wa-rEe" firstAttribute="top" secondItem="1Ev-R0-7DQ" secondAttribute="bottom" constant="8" id="cW2-6c-HXt"/>
+                                    <constraint firstItem="1Ev-R0-7DQ" firstAttribute="leading" secondItem="yPp-6y-HcR" secondAttribute="leading" constant="17" id="gYq-s4-on4"/>
+                                    <constraint firstAttribute="trailing" secondItem="Iu9-wa-rEe" secondAttribute="trailing" id="jhn-i7-niA"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Ev-R0-7DQ" secondAttribute="trailing" constant="17" id="jnk-fN-9WV"/>
+                                    <constraint firstItem="A7S-J3-PhU" firstAttribute="centerX" secondItem="yPp-6y-HcR" secondAttribute="centerX" id="oSf-eS-GTF"/>
+                                    <constraint firstItem="A7S-J3-PhU" firstAttribute="top" secondItem="yPp-6y-HcR" secondAttribute="top" constant="8" id="uhB-FY-svW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -495,9 +495,9 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                 <exclude reference="Edl-Uc-z5w"/>
                                 <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="ha2-Js-Szn"/>
-                                <exclude reference="HPk-FL-UFl"/>
                                 <exclude reference="64o-u9-Scc"/>
                                 <exclude reference="QL8-3D-BN6"/>
+                                <exclude reference="HPk-FL-UFl"/>
                                 <exclude reference="a5Q-ff-4BF"/>
                                 <exclude reference="951-TG-0Ip"/>
                             </mask>
