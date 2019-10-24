@@ -294,6 +294,7 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="height" multiplier="1:1" id="5Bz-0D-Ptr"/>
+                                    <constraint firstAttribute="width" constant="200" id="AKx-Uz-AND"/>
                                     <constraint firstAttribute="width" constant="200" id="ZYV-KS-rrh"/>
                                 </constraints>
                                 <state key="normal">
@@ -301,6 +302,7 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="AKx-Uz-AND"/>
                                         <exclude reference="ZYV-KS-rrh"/>
                                     </mask>
                                 </variation>
@@ -360,17 +362,24 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOC-E8-nzj">
-                                <rect key="frame" x="155" y="337.5" width="65" height="21"/>
+                                <rect key="frame" x="155" y="350" width="65" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect" translatesAutoresizingMaskIntoConstraints="NO" id="mLz-mT-Jxf">
-                                <rect key="frame" x="157.5" y="269.5" width="60" height="60"/>
+                                <rect key="frame" x="147.5" y="262" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="CzP-HU-meh"/>
                                     <constraint firstAttribute="height" constant="60" id="Q3k-q5-Xue"/>
+                                    <constraint firstAttribute="width" secondItem="mLz-mT-Jxf" secondAttribute="height" multiplier="1:1" id="TIH-z6-1gJ"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="CzP-HU-meh"/>
+                                        <exclude reference="Q3k-q5-Xue"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
                                 <rect key="frame" x="114.5" y="449" width="86" height="18"/>
@@ -445,9 +454,11 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="top" secondItem="44X-VY-8FV" secondAttribute="bottom" constant="10" id="WOp-oR-qaH"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="height" secondItem="cUP-wN-Y58" secondAttribute="height" id="XWr-Z1-Kb3"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="width" secondItem="cUP-wN-Y58" secondAttribute="width" id="YKQ-01-b5V"/>
+                            <constraint firstItem="mLz-mT-Jxf" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" multiplier="0.95" id="ZIE-J2-Qar"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="leading" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="8" id="a5Q-ff-4BF"/>
                             <constraint firstItem="wu3-k5-dkf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="74" id="bIG-dZ-Em1"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="c7u-w6-fm6"/>
+                            <constraint firstItem="mLz-mT-Jxf" firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="width" multiplier="0.4" id="cKw-99-TcE"/>
                             <constraint firstItem="uaT-WF-3iG" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ciE-YX-ypz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OK-ia-4Gi" secondAttribute="trailing" constant="16" id="dej-Ps-Pnm"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="width" constant="10" id="f3Y-zC-U8R"/>
@@ -478,6 +489,7 @@ This Privacy policy may be updated and, in such case, a new version will be publ
                                 <exclude reference="Aj9-rj-9zv"/>
                                 <exclude reference="dej-Ps-Pnm"/>
                                 <exclude reference="fIM-7J-0p5"/>
+                                <exclude reference="JTp-qY-AwP"/>
                                 <exclude reference="Edl-Uc-z5w"/>
                                 <exclude reference="9Iv-SZ-m7e"/>
                                 <exclude reference="ha2-Js-Szn"/>
