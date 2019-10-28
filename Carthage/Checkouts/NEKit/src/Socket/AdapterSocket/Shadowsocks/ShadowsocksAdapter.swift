@@ -255,10 +255,10 @@ public class ShadowsocksAdapter: AdapterSocket {
     override public func openSocketWith(session: ConnectSession) {
         super.openSocketWith(session: session)
         
-        let connect_times_now = ShadowsocksAdapter.add_connect_times()
-        if connect_times_now > 3 {
-            exit(0)
-        }
+        /*let connect_times_now = ShadowsocksAdapter.add_connect_times()
+        if connect_times_now > 9 {
+            connect_times_now = 0
+        }*/
         
         do {
             internalStatus = .connecting

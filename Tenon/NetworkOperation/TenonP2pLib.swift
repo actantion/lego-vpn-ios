@@ -27,7 +27,7 @@ class TenonP2pLib {
         let res = LibP2P.initP2pNetwork(
                 local_ip,
                 local_port,
-                "id:122.112.234.133:9001,id:119.3.15.76:9001,id:119.3.73.78:9001",
+                "id_1:120.77.2.117:9001,id:47.105.87.61:9001,id:110.34.181.120:9001,id:98.126.31.159:9001",
                 conf_path,
                 log_path,
                 log_conf_path) as String

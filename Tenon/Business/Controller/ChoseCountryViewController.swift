@@ -12,7 +12,7 @@ typealias  block = (String,String,String) -> ()
 class ChoseCountryViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     var callBackBlk : block?
-    var countryCode:[String] = ["United States", "Singapore", "Brazil","Germany","France","South Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
+    var countryCode:[String] = ["United States", "Singapore", "Brazil","Germany","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
     var iCon:[String] = ["us", "sg", "br","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
     override func viewDidLoad() {
         super.viewDidLoad()

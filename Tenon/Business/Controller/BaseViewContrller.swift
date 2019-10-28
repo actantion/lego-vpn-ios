@@ -167,7 +167,7 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return "DE"
         case "France":
             return "FR"
-        case "South Korea":
+        case "Korea":
             return "KR"
         case "Japan":
             return "JP"

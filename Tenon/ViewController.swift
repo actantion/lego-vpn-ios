@@ -143,7 +143,7 @@ class ViewController: BaseViewController {
     var local_country: String = ""
     var local_private_key: String = ""
     var local_account_id: String = ""
-    var countryCode:[String] = ["United States", "Singapore", "Germany","France","South Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
+    var countryCode:[String] = ["United States", "Singapore", "Germany","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
     var countryNodes:[String] = []
     var iCon:[String] = ["us", "sg","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
@@ -192,7 +192,7 @@ class ViewController: BaseViewController {
         
 //        btnUpgrade.layer.masksToBounds = true
 //        btnUpgrade.layer.cornerRadius = 4
-        let url = URL(string:"https://www.baidu.com");
+        let url = URL(string:"https://www.google.com");
         URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
             (data, rsp, error) in
             //do some thing
@@ -202,17 +202,19 @@ class ViewController: BaseViewController {
         // test for p2p library
         
         let res = TenonP2pLib.sharedInstance.InitP2pNetwork("0.0.0.0", 7981)
+        //print("init network res: \(res)")
         if (res.local_country.isEmpty) {
             let alertController = UIAlertController(title: "error",
                             message: "Network invalid, please check!", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "cansel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "cansel", style: .cancel, handler: {
+                action in _exit(0)
+            })
             let okAction = UIAlertAction(title: "ok", style: .default, handler: {
-                action in
+                action in _exit(0)
             })
             alertController.addAction(cancelAction)
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
-            
             return
         }
         
@@ -222,12 +224,6 @@ class ViewController: BaseViewController {
         local_private_key = res.prikey as String
         local_account_id = res.account_id as String
         VpnManager.shared.local_country = local_country
-        print("account id:" + local_account_id)
-//        self.lbAccountAddress.text = local_account_id
-
-        print("local country:" + res.local_country)
-        print("private key:" + res.prikey)
-        print("account id:" + res.account_id)
         
         if VpnManager.shared.vpnStatus == .connecting {
             self.btnConnect.backgroundColor = APP_COLOR
@@ -433,11 +429,11 @@ class ViewController: BaseViewController {
                     VpnManager.shared.port = Int(vpn_node.port)!
                 }
                 
-                print("rotue: \(route_node.ip):\(route_node.port)")
-                print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                 let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
                 VpnManager.shared.public_key = LibP2P.getPublicKey() as String
                 
+                //print("rotue: \(route_node.ip):\(route_node.port)")
+                //print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                 VpnManager.shared.enc_method = (
                     "aes-128-cfb," + String(vpn_ip_int) + "," +
                         vpn_node.port + "," + String(self.smartRoute.isOn))
