@@ -202,7 +202,7 @@ class ViewController: BaseViewController {
         // test for p2p library
         
         let res = TenonP2pLib.sharedInstance.InitP2pNetwork("0.0.0.0", 7981)
-        //print("init network res: \(res)")
+        print("init network res: \(res)")
         if (res.local_country.isEmpty) {
             let alertController = UIAlertController(title: "error",
                             message: "Network invalid, please check!", preferredStyle: .alert)
@@ -416,6 +416,9 @@ class ViewController: BaseViewController {
                 }
             }
             
+            print("rotue 1 : \(route_node.ip):\(route_node.port)")
+            print("vpn 1: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
+            
             if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
                 self.vwBackHub.proEndgress = 0.0
                 self.vwBackHub.proStartgress = 0.0
@@ -432,8 +435,8 @@ class ViewController: BaseViewController {
                 let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
                 VpnManager.shared.public_key = LibP2P.getPublicKey() as String
                 
-                //print("rotue: \(route_node.ip):\(route_node.port)")
-                //print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
+                print("rotue: \(route_node.ip):\(route_node.port)")
+                print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                 VpnManager.shared.enc_method = (
                     "aes-128-cfb," + String(vpn_ip_int) + "," +
                         vpn_node.port + "," + String(self.smartRoute.isOn))

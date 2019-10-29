@@ -19,6 +19,8 @@ class ChoseCountryViewController: BaseViewController,UITableViewDataSource,UITab
         // Do any additional setup after loading the view.
         self.addNavigationView()
         self.tableView.delegate = self
+        
+        
         self.tableView.dataSource = self
         self.tableView.loadCell("CountryTableViewCell")
     }
