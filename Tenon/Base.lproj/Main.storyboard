@@ -56,18 +56,12 @@
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="height" multiplier="1:1" id="5Bz-0D-Ptr"/>
-                                    <constraint firstAttribute="width" constant="200" id="AKx-Uz-AND"/>
-                                    <constraint firstAttribute="width" constant="200" id="ZYV-KS-rrh"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="AKx-Uz-AND"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="ZYV-KS-rrh"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="AKx-Uz-AND"/>
-                                        <exclude reference="ZYV-KS-rrh"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <action selector="clickConnect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zfk-ap-ZtV"/>
                                 </connections>
@@ -210,7 +204,7 @@
                                         <rect key="frame" x="17" y="37" width="341" height="530"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <mutableString key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
+                                        <string key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
 At the same time, the server does not store any user data, and the vpn server itself only performs data forwarding and does not store the data.
 By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
 In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
@@ -231,7 +225,7 @@ Will not use our services to trade, sell or distribute child pornography or dist
 We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
 We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
 If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
-We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</string>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
