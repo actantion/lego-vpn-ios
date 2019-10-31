@@ -41,19 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 //        appleLocationManager.startUpdatingLocation()
 //        startBgTask()
         
-        startBgTask()
-        do{
-            self.player = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "click.mp3", withExtension: nil)!)
-            self.player.prepareToPlay()
-            self.player.numberOfLoops = 1
-            let session:AVAudioSession = AVAudioSession.sharedInstance()
-            try session.setCategory(AVAudioSession.Category.playback)
-            try session.setActive(true, options: AVAudioSession.SetActiveOptions.init())
-            self.player.volume = 0
-//            self.player.play()
-        }catch let error as NSError {
-            print(error.description)
-        }
+//        startBgTask()
+//        do{
+//            self.player = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "click.mp3", withExtension: nil)!)
+//            self.player.prepareToPlay()
+//            self.player.numberOfLoops = 1
+//            let session:AVAudioSession = AVAudioSession.sharedInstance()
+//            try session.setCategory(AVAudioSession.Category.playback)
+//            try session.setActive(true, options: AVAudioSession.SetActiveOptions.init())
+//            self.player.volume = 0
+////            self.player.play()
+//        }catch let error as NSError {
+//            print(error.description)
+//        }
         
         return true
     }
@@ -70,19 +70,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 //        stratBadgeNumberCount()
 //        startBgTask()
      
-        UNUserNotificationCenter.current().getNotificationSettings { set in
-//            if set.authorizationStatus == UNAuthorizationStatus.authorized{
-                DispatchQueue.main.sync {
-                    self.stratBadgeNumberCount()
-                    self.startBgTask()
-                }
-//            }
-//            else{
-//                if VpnManager.shared.vpnStatus == .on{
-//                    VpnManager.shared.disconnect()
+//        UNUserNotificationCenter.current().getNotificationSettings { set in
+////            if set.authorizationStatus == UNAuthorizationStatus.authorized{
+//                DispatchQueue.main.sync {
+//                    self.stratBadgeNumberCount()
+//                    self.startBgTask()
 //                }
-//            }
-        }
+////            }
+////            else{
+////                if VpnManager.shared.vpnStatus == .on{
+////                    VpnManager.shared.disconnect()
+////                }
+////            }
+//        }
     }
 
     
@@ -95,31 +95,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 //        appleLocationManager.stopUpdatingLocation()
 //        appleLocationManager = nil
 //    }
-    func stratBadgeNumberCount() {
-        self.badgeTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-        self.badgeTimer?.schedule(wallDeadline: DispatchWallTime.now(), repeating: DispatchTimeInterval.seconds(10), leeway: DispatchTimeInterval.seconds(0))
-        self.badgeTimer?.setEventHandler(handler: { [weak self] in
-            DispatchQueue.main.async {
-                self?.player.play()
-//                self?.count += 10
-//                UIApplication.shared.applicationIconBadgeNumber += 1
-//                self?.appleLocationManager = CLLocationManager()
-//                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
-//                self?.appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-//                self?.appleLocationManager.delegate = self
-//                self?.appleLocationManager.requestAlwaysAuthorization()
-//                self?.appleLocationManager.startUpdatingLocation()
-            }
-        })
-        self.badgeTimer?.resume()
-    }
-//
-    func startBgTask() {
-        self.bgTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
-            UIApplication.shared.endBackgroundTask(self.bgTask)
-            print("application.backgroundTimeRemaining = %d",UIApplication.shared.backgroundTimeRemaining)
-        })
-    }
+//    func stratBadgeNumberCount() {
+//        self.badgeTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+//        self.badgeTimer?.schedule(wallDeadline: DispatchWallTime.now(), repeating: DispatchTimeInterval.seconds(10), leeway: DispatchTimeInterval.seconds(0))
+//        self.badgeTimer?.setEventHandler(handler: { [weak self] in
+//            DispatchQueue.main.async {
+//                self?.player.play()
+////                self?.count += 10
+////                UIApplication.shared.applicationIconBadgeNumber += 1
+////                self?.appleLocationManager = CLLocationManager()
+////                self?.appleLocationManager.allowsBackgroundLocationUpdates = true
+////                self?.appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+////                self?.appleLocationManager.delegate = self
+////                self?.appleLocationManager.requestAlwaysAuthorization()
+////                self?.appleLocationManager.startUpdatingLocation()
+//            }
+//        })
+//        self.badgeTimer?.resume()
+//    }
+////
+//    func startBgTask() {
+//        self.bgTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+//            UIApplication.shared.endBackgroundTask(self.bgTask)
+//            print("application.backgroundTimeRemaining = %d",UIApplication.shared.backgroundTimeRemaining)
+//        })
+//    }
 //
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.

@@ -5,92 +5,6 @@
 //  Created by zly on 2019/4/17.
 //  Copyright © 2019 zly. All rights reserved.
 //
-
-
-//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-//        let product:[SKProduct] = response.products
-//        if product.count == 0 {
-//            print("no item")
-//            CBToast.hiddenToastAction()
-//            CBToast.showToastAction(message: "no item")
-//        }else{
-//            var requestProduct:SKProduct!
-//            for pro:SKProduct in product{
-//                if pro.productIdentifier == productId{
-//                    requestProduct = pro
-//                }
-//            }
-//            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)t
-//            payment.applicationUsername = local_account_id+productId
-//            SKPaymentQueue.default().add(payment)
-//        }
-//    }
-//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-//        for tran:SKPaymentTransaction in transactions{
-//            switch tran.transactionState{
-//            case .purchased:do {
-//                print("deal done")
-//                CBToast.hiddenToastAction()
-//                SKPaymentQueue.default().finishTransaction(tran)
-//                completeTransaction(transaction: tran)
-//            }
-//            case .purchasing:do {
-//                print("added")
-//            }
-//            case .failed:do {
-//                CBToast.hiddenToastAction()
-//                CBToast.showToastAction(message: "failed")
-//                SKPaymentQueue.default().finishTransaction(tran)
-//            }
-//            case .restored:do {
-//                print("purchased")
-//            }
-//            case .deferred:do {
-//                print("delay")
-//            }
-//            @unknown default:
-//                print("unknown error")
-//            }
-//        }
-//    }
-//    func  (transaction:SKPaymentTransaction) {
-//        let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
-//        let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
-//        let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
-//        let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
-//        AF.request(URL_SERVER + INTERFACE_API ,parameters:reqDic).responseJSON {
-//            (response)   in
-//            let result:Bool = response.value as! Bool
-//            if result == true{
-//                CBToast.showToastAction(message: "server success")
-//            }else{
-//                CBToast.showToastAction(message: "server verify error")
-//            }
-//        }
-
-
-//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
-//        urlRequest.HTTPMethod = @"POST";
-//        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//        _receipt = encodeStr;
-//        NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
-//        NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
-//        urlRequest.HTTPBody = payloadData;
-//
-//        NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
-//
-//        if (result == nil) {
-//            NSLog(@"verify error.");
-//            return;
-//        }
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-//        NSLog(@"success data:%@",dic);
-
-//
-//        NSString *productId = transaction.payment.productIdentifier;
-//        NSString *applicationUsername = transaction.payment.applicationUsername;
-//    }
-
 import UIKit
 import NetworkExtension
 import Eureka
@@ -101,7 +15,9 @@ import Alamofire
 import SwiftyJSON
 import UserNotifications
 
-class ViewController: BaseViewController {
+class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver{
+
+    
     @IBOutlet weak var vwSettingDesc: UIView!
     @IBOutlet weak var tvSetting: UITextView!
     //    @IBOutlet weak var btnChangePK: UIButton!
@@ -125,7 +41,7 @@ class ViewController: BaseViewController {
     //    @IBOutlet weak var btnUpgrade: UIButton!
     
     
-//    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
+    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
     var payWay:Int = 0
     var payAmount:Int!
     var isHub:Bool = false
@@ -168,13 +84,13 @@ class ViewController: BaseViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().add(self)
         self.btnConnect.layer.cornerRadius = self.btnConnect.frame.width/2
         self.vwCircleBack.layer.cornerRadius = self.vwCircleBack.width/2
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //        SKPaymentQueue.default().remove(self)
+        SKPaymentQueue.default().remove(self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -587,9 +503,21 @@ class ViewController: BaseViewController {
 //        }
     }
     
+    @IBAction func clickBuyTenon(_ sender: Any) {
+        if SKPaymentQueue.canMakePayments() {
+            let product:NSArray = NSArray.init(object: productId)
+            let nsset:NSSet = NSSet.init(array: product as! [Any])
+            
+            let request:SKProductsRequest = SKProductsRequest.init(productIdentifiers: nsset as! Set<String>)
+            request.delegate = self
+            request.start()
+        }else{
+            CBToast.showToastAction(message: "your telephone not support IAP")
+        }
+    }
     @IBAction func clickAccountSetting(_ sender: Any) {
         if self.btnAccount.isUserInteractionEnabled == true{
-            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 200, width: SCREEN_WIDTH, height: 200))
+            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 500, width: SCREEN_WIDTH, height: 500))
             self.popBottomView.loadCell("AccountSetTableViewCell","AccountSetHeaderTableViewCell", self.transcationList.count)
             self.popBottomView.callBackBlk = {(cell,indexPath) in
                 if indexPath.section == 0 {
@@ -600,7 +528,6 @@ class ViewController: BaseViewController {
                     tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
                     tempCell.lbBalanceCost.text = String(format:"%.2f $",self.Dolor)
                     tempCell.clickNoticeBtn = {
-                        
                         self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
                         UIView.animate(withDuration: 0.4, animations: {
                             self.popBottomView.top = SCREEN_HEIGHT
@@ -614,7 +541,6 @@ class ViewController: BaseViewController {
                 }
                 else{
                     let tempCell:AccountSetTableViewCell = cell as! AccountSetTableViewCell
-                    tempCell.isHidden = true
                     tempCell.layer.masksToBounds = true
                     tempCell.layer.cornerRadius = 8
                     let model:TranscationModel = self.transcationList[indexPath.row]
@@ -707,5 +633,88 @@ class ViewController: BaseViewController {
                 }
             }
         }
+    }
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        let product:[SKProduct] = response.products
+        if product.count == 0 {
+            CBToast.hiddenToastAction()
+            CBToast.showToastAction(message: "no item")
+        }else{
+            var requestProduct:SKProduct!
+            for pro:SKProduct in product{
+                if pro.productIdentifier == productId{
+                    requestProduct = pro
+                }
+            }
+            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)
+            payment.applicationUsername = local_account_id+productId
+            SKPaymentQueue.default().add(payment)
+        }
+    }
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for tran:SKPaymentTransaction in transactions{
+            switch tran.transactionState{
+            case .purchased:do {
+                print("deal done")
+                CBToast.hiddenToastAction()
+                SKPaymentQueue.default().finishTransaction(tran)
+                completeTransaction(transaction: tran)
+            }
+            case .purchasing:do {
+                print("added")
+            }
+            case .failed:do {
+                CBToast.hiddenToastAction()
+                CBToast.showToastAction(message: "failed")
+                SKPaymentQueue.default().finishTransaction(tran)
+            }
+            case .restored:do {
+                print("purchased")
+            }
+            case .deferred:do {
+                print("delay")
+            }
+            @unknown default:
+                print("unknown error")
+            }
+        }
+    }
+    
+    func  completeTransaction(transaction:SKPaymentTransaction) {
+        let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
+        let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
+        let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
+        let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
+        AF.request("https://192.168.1.20/appleIAPAuth" ,parameters:reqDic).responseJSON {
+            (response)   in
+            let result:Bool = response.value as! Bool
+            if result == true{
+                CBToast.showToastAction(message: "server success")
+            }else{
+                CBToast.showToastAction(message: "server verify error")
+            }
+        }
+
+
+//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
+//        urlRequest.HTTPMethod = @"POST";
+//        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//        _receipt = encodeStr;
+//        NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
+//        NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
+//        urlRequest.HTTPBody = payloadData;
+//
+//        NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
+//
+//        if (result == nil) {
+//            NSLog(@"verify error.");
+//            return;
+//        }
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
+//        NSLog(@"success data:%@",dic);
+//
+//
+//        NSString *productId = transaction.payment.productIdentifier;
+//        NSString *applicationUsername = transaction.payment.applicationUsername;
     }
 }
