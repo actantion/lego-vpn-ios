@@ -290,7 +290,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 }else{
                     NSLog("received network change notifcation")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                        // 延迟1s确保系统就绪
                         guard let strongSelf = self else { return }
                         strongSelf.startTunnel(options: nil){ _ in }
                     }

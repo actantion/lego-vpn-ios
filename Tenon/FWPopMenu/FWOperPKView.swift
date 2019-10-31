@@ -18,7 +18,7 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
             
             let tap = UILongPressGestureRecognizer.init(target: self, action: #selector(longTapRecognizer))
             tap.minimumPressDuration = 1.0
-            // 长按手势需要的同时敲击触碰数（手指数）
+            
             tap.numberOfTouchesRequired = 1
             self.lbPrivateKeyValue.isUserInteractionEnabled = true
             self.lbPrivateKeyValue.addGestureRecognizer(tap)
@@ -115,8 +115,8 @@ class FWOperPKView: UIView , UIGestureRecognizerDelegate{
     }
     func TapGestureRecognizer() -> Void {
         let tap:UITapGestureRecognizer = UITapGestureRecognizer.init()
-        tap.numberOfTapsRequired = 1 //轻点次数
-        tap.numberOfTouchesRequired = 1 //手指个数
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
         tap.delegate = self
         tap.addTarget(self, action: #selector(tapAction(action:)))
         self.addGestureRecognizer(tap)

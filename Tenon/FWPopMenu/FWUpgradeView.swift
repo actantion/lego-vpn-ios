@@ -73,8 +73,8 @@ class FWUpgradeView: UIView ,UIGestureRecognizerDelegate{
     }
     func TapGestureRecognizer() -> Void {
         let tap:UITapGestureRecognizer = UITapGestureRecognizer.init()
-        tap.numberOfTapsRequired = 1 //轻点次数
-        tap.numberOfTouchesRequired = 1 //手指个数
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1 
         tap.delegate = self
         tap.addTarget(self, action: #selector(tapAction(action:)))
         self.topView.addGestureRecognizer(tap)

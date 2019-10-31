@@ -2813,7 +2813,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
      paste:                                 Paste
      delete:                                Delete
      _promptForReplace:                     Replace...
-     _transliterateChinese:                 简⇄繁
+     _transliterateChinese:
      _showTextStyleOptions:                 𝐁𝐼𝐔
      _define:                               Define
      _addShortcut:                          Add...

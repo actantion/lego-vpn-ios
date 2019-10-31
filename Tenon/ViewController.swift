@@ -10,9 +10,9 @@
 //    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
 //        let product:[SKProduct] = response.products
 //        if product.count == 0 {
-//            print("没有该商品")
+//            print("no item")
 //            CBToast.hiddenToastAction()
-//            CBToast.showToastAction(message: "没有该商品")
+//            CBToast.showToastAction(message: "no item")
 //        }else{
 //            var requestProduct:SKProduct!
 //            for pro:SKProduct in product{
@@ -29,27 +29,27 @@
 //        for tran:SKPaymentTransaction in transactions{
 //            switch tran.transactionState{
 //            case .purchased:do {
-//                print("交易完成")
+//                print("deal done")
 //                CBToast.hiddenToastAction()
 //                SKPaymentQueue.default().finishTransaction(tran)
 //                completeTransaction(transaction: tran)
 //            }
 //            case .purchasing:do {
-//                print("商品添加进列表")
+//                print("added")
 //            }
 //            case .failed:do {
 //                CBToast.hiddenToastAction()
-//                CBToast.showToastAction(message: "购买失败")
+//                CBToast.showToastAction(message: "failed")
 //                SKPaymentQueue.default().finishTransaction(tran)
 //            }
 //            case .restored:do {
-//                print("已经购买过商品")
+//                print("purchased")
 //            }
 //            case .deferred:do {
-//                print("延迟购买")
+//                print("delay")
 //            }
 //            @unknown default:
-//                print("未知错误")
+//                print("unknown error")
 //            }
 //        }
 //    }
@@ -62,9 +62,9 @@
 //            (response)   in
 //            let result:Bool = response.value as! Bool
 //            if result == true{
-//                CBToast.showToastAction(message: "服务端验证通过")
+//                CBToast.showToastAction(message: "server success")
 //            }else{
-//                CBToast.showToastAction(message: "服务端验证未通过")
+//                CBToast.showToastAction(message: "server verify error")
 //            }
 //        }
 
@@ -80,13 +80,12 @@
 //        NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
 //
 //        if (result == nil) {
-//            NSLog(@"验证失败");
+//            NSLog(@"verify error.");
 //            return;
 //        }
 //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-//        NSLog(@"请求成功后的数据:%@",dic);
-//        //这里可以通过判断 state == 0 验证凭据成功，然后进入自己服务器二次验证，,也可以直接进行服务器逻辑的判断。
-//        //本地服务器验证成功之后别忘了 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+//        NSLog(@"success data:%@",dic);
+
 //
 //        NSString *productId = transaction.payment.productIdentifier;
 //        NSString *applicationUsername = transaction.payment.applicationUsername;
@@ -121,6 +120,8 @@ class ViewController: BaseViewController {
     @IBOutlet weak var lbNodes: UILabel!
     @IBOutlet weak var smartRoute: UISwitch!
     @IBOutlet weak var instructionView: UIView!
+    @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet var exitBtn: UIButton!
     //    @IBOutlet weak var btnUpgrade: UIButton!
     
     
@@ -146,9 +147,11 @@ class ViewController: BaseViewController {
     var countryCode:[String] = ["United States", "Singapore", "Germany","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
     var countryNodes:[String] = []
     var iCon:[String] = ["us", "sg","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
+    var defaultCountry:[String] = ["US", "IN","SG","DE","GB"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
+    var clickToExit = false
     
     private var old_vpn_ip: String = ""
     
@@ -157,6 +160,7 @@ class ViewController: BaseViewController {
     private var now_connect_status = 0
     
     private var user_started_vpn: Bool = false
+    private var sleepBacked = false;
     
     
     override var prefersStatusBarHidden: Bool {
@@ -174,6 +178,13 @@ class ViewController: BaseViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
+        
         self.title = "TenonVPN"
         self.navigationController?.navigationBar.isHidden = true
         self.btnConnect.layer.masksToBounds = true
@@ -252,6 +263,38 @@ class ViewController: BaseViewController {
             
         }
     }
+    
+    @IBAction func downToExit(_ sender: Any) {
+        print("click to exit")
+        clickToExit = true
+        if VpnManager.shared.vpnStatus == .on {
+            clickConnect(sender)
+        } else {
+            _exit(1)
+        }
+    }
+
+    
+    @objc func applicationWillResignActive(){
+        print("home and background.")
+        sleepBacked = true
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 25) {
+            if (self.sleepBacked) {
+                print("exit now")
+                _exit(0)
+            }
+        }
+    }
+    
+    @objc func applicationDidBecomeActive(){
+        print("active now.")
+        sleepBacked = false
+    }
+    
+    @objc func applicationWillTerminate(){
+        _exit(0)
+    }
+    
     @IBAction func clickSettingConfirm(_ sender: Any) {
         vwSettingDesc.isHidden = true
     }
@@ -388,7 +431,7 @@ class ViewController: BaseViewController {
             if (route_node.ip.isEmpty) {
                 route_node = super.getOneRouteNode(country: self.choosed_country)
                 if (route_node.ip.isEmpty) {
-                    for country in self.iCon {
+                    for country in self.defaultCountry {
                         route_node = super.getOneRouteNode(country: country)
                         if (!route_node.ip.isEmpty) {
                             break
@@ -408,7 +451,7 @@ class ViewController: BaseViewController {
                 }
             }
             if (vpn_node.ip.isEmpty) {
-                for country in self.iCon {
+                for country in self.defaultCountry {
                     vpn_node = super.getOneVpnNode(country: country)
                     if (!vpn_node.ip.isEmpty) {
                         break
@@ -466,7 +509,6 @@ class ViewController: BaseViewController {
                 } else {
                     self.vwBackHub.proEndgress = 0.0
                     self.vwBackHub.proStartgress = 0.0
-                    self.playAnimotion()
                     VpnManager.shared.disconnect()
                 }
             }
@@ -615,6 +657,9 @@ class ViewController: BaseViewController {
             self.user_started_vpn = true
             self.now_connect_status = 0
         }else{
+            if (clickToExit) {
+                _exit(0)
+            }
             if (self.user_started_vpn) {
                 if (self.now_connect_status == 1) {
                     return

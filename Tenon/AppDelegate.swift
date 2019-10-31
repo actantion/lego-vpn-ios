@@ -26,13 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // MARK:角标设置用于后台持续状态测试
+        
 //        UIApplication.shared.applicationIconBadgeNumber = 0
 //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound], completionHandler: { (success, error) in
-//            print("授权" + (success ? "成功" : "失败"))
+
 //        })
         IQKeyboardManager.shared.enable = true
-        // MARK:位置更新初始化-用于后台保持
+        
 //        appleLocationManager = CLLocationManager()
 //        appleLocationManager.allowsBackgroundLocationUpdates = true
 //        appleLocationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
 //        appleLocationManager.startUpdatingLocation()
 //        startBgTask()
         
-        // MARK:后台声音播放-用户后台保持
         startBgTask()
         do{
             self.player = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "click.mp3", withExtension: nil)!)
@@ -67,10 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        // MARK:位置更新启动条件-用于后台保持
+      
 //        stratBadgeNumberCount()
 //        startBgTask()
-        // MARK:后台播放声音条件-用于后台保持
+     
         UNUserNotificationCenter.current().getNotificationSettings { set in
 //            if set.authorizationStatus == UNAuthorizationStatus.authorized{
                 DispatchQueue.main.sync {

@@ -23,11 +23,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         let str = "IP    ：\(VpnManager.shared.ip_address)\nPort：\(String(VpnManager.shared.port))"
-        //通过富文本来设置行间距
+
         let paraph = NSMutableParagraphStyle()
-        //将行间距设置为15
+
         paraph.lineSpacing = 15
-        //样式属性集合
+   
         let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15),
                           NSAttributedString.Key.paragraphStyle: paraph]
         self.ipLabel.attributedText = NSAttributedString(string: str, attributes: attributes)

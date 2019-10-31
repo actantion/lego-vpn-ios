@@ -34,10 +34,10 @@ class CircleProgress: UIView {
     func addLayer() -> CAShapeLayer {
         let layer = CAShapeLayer()
         layer.frame = self.bounds
-        layer.lineWidth = 10 // 圆弧的宽度
-        layer.fillColor = nil // 填充颜色为空
-        layer.strokeColor = UIColor(rgb: 0xE4E2E3).cgColor // 描边颜色
-        let b = UIBezierPath(ovalIn: self.bounds.insetBy(dx: 6, dy: 6)) // 贝塞尔路径
+        layer.lineWidth = 10
+        layer.fillColor = nil
+        layer.strokeColor = UIColor(rgb: 0xE4E2E3).cgColor
+        let b = UIBezierPath(ovalIn: self.bounds.insetBy(dx: 6, dy: 6))
         b.apply(CGAffineTransform(translationX: -self.bounds.width / 2, y: -self.bounds.height / 2))
         b.apply(CGAffineTransform(rotationAngle: -.pi/2.0))
         b.apply(CGAffineTransform(translationX: self.bounds.width / 2, y: self.bounds.height / 2))
@@ -45,7 +45,7 @@ class CircleProgress: UIView {
         layer.path = b.cgPath
         layer.zPosition = -1
         layer.strokeStart = 0
-        layer.strokeEnd = 0 // 使用这个模拟进度
+        layer.strokeEnd = 0 
         self.layer.addSublayer(layer)
         return layer
     }

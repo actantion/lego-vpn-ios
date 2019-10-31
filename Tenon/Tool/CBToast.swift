@@ -13,7 +13,6 @@ let main_height = UIScreen.main.bounds.size.height
 
 class CBToast: NSObject {
     
-    //显示菊花
     class func showToastAction() {
         if Thread.main.isMainThread {
             toastView = self.currentToastView()
@@ -34,7 +33,6 @@ class CBToast: NSObject {
         }
     }
     
-    //隐藏菊花
     class func hiddenToastAction() {
         if toastView != nil {
             let indicatorView = toastView?.viewWithTag(10) as! UIActivityIndicatorView
@@ -45,13 +43,10 @@ class CBToast: NSObject {
     }
     
     
-    
-    //默认显示消息-->center
     class func showToastAction(message : NSString) {
         self.showToast(message: message, aLocationStr: "center", aShowTime: 2.0)
     }
  
-    //显示消息
     class func showToast(message : NSString?, aLocationStr : NSString?, aShowTime : TimeInterval) {
         if Thread.current.isMainThread {
             toastLabel = self.currentToastLabel()
@@ -94,13 +89,10 @@ class CBToast: NSObject {
     
     
     
-    //显示(带菊花的消息)-->default center
     class func showIndicatorToastAction(message : NSString) {
         self.showIndicatorToast(message: message, aLocationStr: "center", aShowTime: 2.0)
     }
     
-    
-    //显示(带菊花的消息)
     class func showIndicatorToast(message : NSString?, aLocationStr : NSString?, aShowTime : TimeInterval) {
         if Thread.current.isMainThread {
             toastViewLabel = self.currentToastViewLabel()
@@ -144,7 +136,6 @@ class CBToast: NSObject {
         }
     }
     
-    //隐藏(带菊花的消息)
     class func hiddenIndicatorToastAction() {
         if toastViewLabel != nil {
             let indicatorView = toastViewLabel?.viewWithTag(10) as! UIActivityIndicatorView
@@ -236,7 +227,6 @@ extension CBToast {
 //MARK: config
 extension CBToast {
     
-    //根据字符串长度获取对应的宽度或者高度
     class func stringText(aText : NSString?, aFont : CGFloat, isHeightFixed : Bool, fixedValue : CGFloat) -> CGFloat {
         var size = CGSize.zero
         if isHeightFixed == true {
@@ -244,12 +234,11 @@ extension CBToast {
         }else{
             size = CGSize.init(width: fixedValue, height: CGFloat(MAXFLOAT))
         }
-        //返回计算出的size
         let resultSize = aText?.boundingRect(with: size, options: (NSStringDrawingOptions(rawValue: NSStringDrawingOptions.usesLineFragmentOrigin.rawValue | NSStringDrawingOptions.usesFontLeading.rawValue | NSStringDrawingOptions.truncatesLastVisibleLine.rawValue)), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: aFont)], context: nil).size
         if isHeightFixed == true {
-            return resultSize!.width + 20 //增加左右20间隔
+            return resultSize!.width + 20
         } else {
-            return resultSize!.height + 20 //增加上下20间隔
+            return resultSize!.height + 20
         }
     }
 }

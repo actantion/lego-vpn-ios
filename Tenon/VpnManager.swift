@@ -159,7 +159,7 @@ extension VpnManager{
                     var conf = [String:AnyObject]()
                     conf["ss_address"] = self.ip_address as AnyObject?
                     conf["ss_port"] = self.port as AnyObject?
-                    conf["ss_method"] = self.algorithm as AnyObject? // 大写 没有横杠 看Extension中的枚举类设定 否则引发fatal error
+                    conf["ss_method"] = self.algorithm as AnyObject?
                     conf["ss_password"] = self.password as AnyObject?
                     conf["ss_pubkey"] = self.public_key as AnyObject?
                     conf["ss_method1"] = self.enc_method as AnyObject?
@@ -245,6 +245,7 @@ extension VpnManager{
             $0?.connection.stopVPNTunnel()
         }
     }
+    
 }
 
 // Generate and Load ConfigFile
@@ -260,7 +261,7 @@ extension VpnManager{
         var conf = [String:AnyObject]()
         conf["ss_address"] = ip_address as AnyObject?
         conf["ss_port"] = port as AnyObject?
-        conf["ss_method"] = algorithm as AnyObject? // 大写 没有横杠 看Extension中的枚举类设定 否则引发fatal error
+        conf["ss_method"] = algorithm as AnyObject? 
         conf["ss_password"] = password as AnyObject?
         conf["ss_pubkey"] = public_key as AnyObject?
         conf["ss_method1"] = enc_method as AnyObject?
