@@ -685,7 +685,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
         let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
         let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
-        AF.request("https://192.168.1.20/appleIAPAuth" ,parameters:reqDic).responseJSON {
+        AF.request("https://98.126.31.159/appleIAPAuth" ,parameters:reqDic).responseJSON {
             (response)   in
             let result:Bool = response.value as! Bool
             if result == true{
