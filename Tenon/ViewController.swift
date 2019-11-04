@@ -38,6 +38,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     @IBOutlet weak var instructionView: UIView!
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet var exitBtn: UIButton!
+    @IBOutlet weak var btnBuyTenon: UIButton!
     //    @IBOutlet weak var btnUpgrade: UIButton!
     
     
@@ -194,12 +195,12 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     @objc func applicationWillResignActive(){
         print("home and background.")
         sleepBacked = true
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 25) {
-            if (self.sleepBacked) {
-                print("exit now")
-                _exit(0)
-            }
-        }
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 25) {
+//            if (self.sleepBacked) {
+//                print("exit now")
+//                _exit(0)
+//            }
+//        }
     }
     
     @objc func applicationDidBecomeActive(){
@@ -505,6 +506,8 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     
     @IBAction func clickBuyTenon(_ sender: Any) {
         if SKPaymentQueue.canMakePayments() {
+            CBToast.showToastAction(message: "submit order please wait...")
+            btnBuyTenon.isUserInteractionEnabled = false;
             let product:NSArray = NSArray.init(object: productId)
             let nsset:NSSet = NSSet.init(array: product as! [Any])
             
@@ -684,10 +687,11 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
         let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
         let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
-        let reqDic:[String:String] = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
-        AF.request("http://98.126.31.159:8080/appleIAPAuth" ,parameters:reqDic).responseJSON {
+        let reqDic:Dictionary<String, String> = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
+        AF.request("http://98.126.31.159:80/appleIAPAuth" ,parameters:reqDic).responseJSON {
             (response)   in
             let result:Bool = response.value as! Bool
+            self.btnBuyTenon.isUserInteractionEnabled = true
             if result == true{
                 CBToast.showToastAction(message: "server success")
             }else{

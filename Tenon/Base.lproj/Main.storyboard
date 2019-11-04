@@ -415,6 +415,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                     </navigationItem>
                     <connections>
                         <outlet property="btnAccount" destination="4OK-ia-4Gi" id="dQz-q7-Abm"/>
+                        <outlet property="btnBuyTenon" destination="VhZ-Qd-2Lc" id="eHT-Fc-KCP"/>
                         <outlet property="btnChoseCountry" destination="wu3-k5-dkf" id="Gjh-ES-6Qy"/>
                         <outlet property="btnConnect" destination="WMm-5y-Hlt" id="rH5-iU-oaX"/>
                         <outlet property="imgConnect" destination="mLz-mT-Jxf" id="B3H-cY-BrE"/>
