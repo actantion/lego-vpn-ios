@@ -519,7 +519,8 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         }
     }
     @IBAction func clickAccountSetting(_ sender: Any) {
-        if self.btnAccount.isUserInteractionEnabled == true{
+        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+        if self.btnAccount.isUserInteractionEnabled == false{
             self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 500, width: SCREEN_WIDTH, height: 500))
             self.popBottomView.loadCell("AccountSetTableViewCell","AccountSetHeaderTableViewCell", self.transcationList.count)
             self.popBottomView.callBackBlk = {(cell,indexPath) in
@@ -570,7 +571,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             UIView.animate(withDuration: 0.4, animations: {
                 self.popBottomView.top = 0
             }, completion: { (Bool) in
-                self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+//                self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
             })
         }
     }
