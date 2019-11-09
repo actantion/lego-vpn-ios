@@ -151,6 +151,19 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         local_country = res.local_country as String
         local_private_key = res.prikey as String
         local_account_id = res.account_id as String
+        
+        let routes = res.def_route.split(separator: ";")
+        for item in routes {
+            let item_split = item.split(separator: ":");
+            if item_split.count != 2 {
+                continue
+            }
+            
+            if item_split[0] == local_country {
+                local_country = String(item_split[1])
+            }
+        }
+        
         VpnManager.shared.local_country = local_country
         
         if VpnManager.shared.vpnStatus == .connecting {

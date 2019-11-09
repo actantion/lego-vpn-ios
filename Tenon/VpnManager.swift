@@ -39,6 +39,7 @@ class VpnManager{
     public var local_country: String = ""
     public var choosed_country: String = ""
     public var use_smart_route: Bool = true
+    public var default_routing_map: Dictionary<String, String> = [:]
     
     private var nodes_lock = NSLock()
     

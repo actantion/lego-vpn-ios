@@ -15,7 +15,7 @@ class TenonP2pLib {
     
     func InitP2pNetwork (
             _ local_ip: String,
-            _ local_port: Int) -> (local_country: String, prikey: String, account_id: String) {
+            _ local_port: Int) -> (local_country: String, prikey: String, account_id: String, def_route: String) {
         let file = NSSearchPathForDirectoriesInDomains(
             FileManager.SearchPathDirectory.documentDirectory,
             FileManager.SearchPathDomainMask.userDomainMask,
@@ -33,11 +33,11 @@ class TenonP2pLib {
                 log_conf_path) as String
 
         let array : Array = res.components(separatedBy: ",")
-        if (array.count != 3) {
-            return ("", "", "")
+        if (array.count < 4) {
+            return ("", "", "", "")
         }
         
-        return (array[0], array[2], array[1])
+        return (array[0], array[2], array[1], array[3])
     }
     
     func GetSocketId() -> Int {
