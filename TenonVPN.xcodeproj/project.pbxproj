@@ -1067,6 +1067,7 @@
 					"-luuid",
 					"-lcrypto",
 					"-lssl",
+					"-lcontract",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1161,6 +1162,7 @@
 					"-luuid",
 					"-lcrypto",
 					"-lssl",
+					"-lcontract",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
