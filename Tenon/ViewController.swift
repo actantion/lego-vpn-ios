@@ -682,17 +682,20 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             }
             case .failed:do {
                 CBToast.hiddenToastAction()
-                CBToast.showToastAction(message: "failed")
+                self.view.isUserInteractionEnabled = true
                 SKPaymentQueue.default().finishTransaction(tran)
             }
             case .restored:do {
                 print("purchased")
+                self.view.isUserInteractionEnabled = true
             }
             case .deferred:do {
                 print("delay")
+                self.view.isUserInteractionEnabled = true
             }
             @unknown default:
                 print("unknown error")
+                self.view.isUserInteractionEnabled = true
             }
         }
     }
