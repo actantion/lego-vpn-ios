@@ -519,8 +519,8 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     
     @IBAction func clickBuyTenon(_ sender: Any) {
         if SKPaymentQueue.canMakePayments() {
-            CBToast.showToastAction(message: "submit order please wait...")
-            btnBuyTenon.isUserInteractionEnabled = false;
+            CBToast.showToastAction()
+            self.view.isUserInteractionEnabled = false;
             let product:NSArray = NSArray.init(object: productId)
             let nsset:NSSet = NSSet.init(array: product as! [Any])
             
@@ -705,7 +705,8 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         AF.request("http://98.126.31.159:80/appleIAPAuth" ,parameters:reqDic).responseJSON {
             (response)   in
             let result:Bool = response.value as! Bool
-            self.btnBuyTenon.isUserInteractionEnabled = true
+            CBToast.hiddenToastAction()
+            self.view.isUserInteractionEnabled = true
             if result == true{
                 CBToast.showToastAction(message: "server success")
             }else{
