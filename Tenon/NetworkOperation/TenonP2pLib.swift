@@ -24,19 +24,26 @@ class TenonP2pLib {
         let conf_path = path + "/lego.conf"
         let log_path = path + "/lego.log"
         let log_conf_path = path + "/log4cpp.properties"
+        let local_prikey: String = UserDefaults.standard.string(forKey: "private_key") ?? ""
+        print("get local private key \(local_prikey)")
         let res = LibP2P.initP2pNetwork(
                 local_ip,
                 local_port,
                 "id_1:120.77.2.117:9001,id:47.105.87.61:9001,id:110.34.181.120:9001,id:98.126.31.159:9001",
                 conf_path,
                 log_path,
-                log_conf_path) as String
+                log_conf_path,
+                local_prikey) as String
 
         let array : Array = res.components(separatedBy: ",")
         if (array.count < 4) {
             return ("", "", "", "")
         }
         
+        if (local_prikey.isEmpty) {
+            UserDefaults.standard.set(array[2], forKey: "private_key")
+            print("set local private key \(array[2])")
+        }
         return (array[0], array[2], array[1], array[3])
     }
     
