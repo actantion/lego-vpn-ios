@@ -539,7 +539,11 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             self.popBottomView.callBackBlk = {(cell,indexPath) in
                 if indexPath.section == 0 {
                     let tempCell:AccountSetHeaderTableViewCell = cell as! AccountSetHeaderTableViewCell
-                    tempCell.lbPrivateKeyValue.text = self.local_private_key
+                    tempCell.tvPrivateKeyValue.text = self.local_private_key
+                    tempCell.pkBlock = { (str) in
+                        self.local_private_key = str
+                        print("set private key :",self.local_private_key)
+                    }
                     tempCell.lbAccountAddress.text = self.local_account_id
                     
                     tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
@@ -711,7 +715,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             CBToast.hiddenToastAction()
             self.view.isUserInteractionEnabled = true
             if result == true{
-                CBToast.showToastAction(message: "server success")
+                CBToast.showToastAction(message: "Please record the privitekey")
             }else{
                 CBToast.showToastAction(message: "server verify error")
             }
