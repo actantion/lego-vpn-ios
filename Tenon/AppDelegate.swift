@@ -11,10 +11,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    var bgTask:UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+    var badgeTimer:DispatchSourceTimer!
+    var backTask:UIBackgroundTaskIdentifier!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         return true
     }
 
@@ -26,6 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        UNUserNotificationCenter.current().getNotificationSettings { set in
+            DispatchQueue.main.sync {
+                self.stratBadgeNumberCount()
+                self.startBgTask()
+            }
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -39,6 +48,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func stratBadgeNumberCount() {
+        self.badgeTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+        self.badgeTimer?.schedule(wallDeadline: DispatchWallTime.now(), repeating: DispatchTimeInterval.seconds(3), leeway: DispatchTimeInterval.seconds(0))
+        self.badgeTimer?.setEventHandler(handler: { [weak self] in
+            DispatchQueue.main.async {
+                // exec code
+                NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: self, userInfo:nil)
+            }
+        })
+        self.badgeTimer?.resume()
+    }
+    
+    func startBgTask() {
+        self.bgTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            UIApplication.shared.endBackgroundTask(self.bgTask)
+            print("application.backgroundTimeRemaining = %d",UIApplication.shared.backgroundTimeRemaining)
+        })
+    }
 }

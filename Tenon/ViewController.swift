@@ -96,6 +96,9 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.DidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
        
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -215,10 +218,14 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
 //            }
 //        }
     }
-    
     @objc func applicationDidBecomeActive(){
         print("active now.")
         sleepBacked = false
+    }
+    
+    @objc func DidEnterBackground(){
+        print("DidEnterBackground")
+        requestData()
     }
     
     @objc func applicationWillTerminate(){
