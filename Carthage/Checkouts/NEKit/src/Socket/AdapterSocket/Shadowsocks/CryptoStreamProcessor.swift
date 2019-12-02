@@ -40,6 +40,7 @@ extension ShadowsocksAdapter {
         var sendKey = false
         var local_public_key = "555555555555555555555555555555555"
         var method = "aes-256-cfb"
+        
         var choose_vpn_node_int_ip: UInt32 = 0
         var choose_vpn_node_port: UInt16 = 0
         var use_smart_route: Bool = false
@@ -93,12 +94,19 @@ extension ShadowsocksAdapter {
 
         func decrypt(data: inout Data) {
             return decryptor.update(&data)
-            // return decryptor.update(&data)
         }
 
         public func input(data: Data) throws {
             var data = data
-
+            if data.count == 3 {
+                let tmp_data = String(data: data, encoding: String.Encoding.utf8) as String?
+                if tmp_data == "bwo" || tmp_data == "cni" || tmp_data == "oul" {
+                    let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+                    userDefaults?.set(tmp_data, forKey: "vpnsvr_status")
+                    _exit(1)
+                }
+            }
+          
             if readIV == nil {
                 buffer.append(data: data)
                 readIV = buffer.get(length: ivLength)
@@ -126,7 +134,7 @@ extension ShadowsocksAdapter {
         }
 
         private func relayData(withData data: Data) -> Data {
-            let method = self.method
+            let method = "ios"
             var start_pos = 0
             if (self.use_smart_route) {
                 start_pos = 6

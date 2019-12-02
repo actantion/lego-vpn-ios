@@ -15,5 +15,9 @@
 	<array>
 		<string>allow-vpn</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.tenon.tenonvpn.groups</string>
+	</array>
 </dict>
 </plist>

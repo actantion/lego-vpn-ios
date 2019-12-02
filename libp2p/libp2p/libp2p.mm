@@ -81,19 +81,17 @@ NSString* public_key_ = @"000000000000000000000000000000000";
     NSLog(@"hello framework world.");
 }
 
-+(NSString*) InitP2pNetwork:(NSString*) local_ip : (NSInteger)local_port : (NSString*)bootstrap : (NSString*)conf_path : (NSString*)log_path : (NSString*) log_conf_path : (NSString*) pri_key{
++(NSString*) InitP2pNetwork:(NSString*) local_ip : (NSInteger)local_port : (NSString*)bootstrap : (NSString*)conf_path : (NSString*)version : (NSString*) pri_key{
     std::string tmp_local_ip = std::string([local_ip UTF8String]);
     uint16_t tmp_local_port = (uint16_t)local_port;
     std::string tmp_bootstarp = std::string([bootstrap UTF8String]);
     std::string tmp_conf_path = std::string([conf_path UTF8String]);
-    std::string tmp_log_path = std::string([log_path UTF8String]);
-    std::string tmp_log_conf_path = std::string([log_conf_path UTF8String]);
+    std::string tmp_version = std::string([version UTF8String]);
     std::string private_key = std::string([pri_key UTF8String]);
     
-    std::string res = lego::client::VpnClient::Instance()->Init(tmp_local_ip, tmp_local_port, tmp_bootstarp, tmp_conf_path, tmp_log_path, tmp_log_conf_path, private_key);
+    std::string res = lego::client::VpnClient::Instance()->Init(tmp_local_ip, tmp_local_port, tmp_bootstarp, tmp_conf_path, tmp_version, private_key);
     if (res == "ERROR") {
         std::cout << "p2p network init res: " << res << std::endl;
-        std::cout << "tmp_log_path: " << tmp_log_path << std::endl;
         NSString *res_str = [NSString stringWithCString:"" encoding:[NSString defaultCStringEncoding]];
         return res_str;
     }
@@ -151,6 +149,37 @@ NSString* public_key_ = @"000000000000000000000000000000000";
 
 + (NSString *)CheckVersion {
     std::string res = lego::client::VpnClient::Instance()->CheckVersion();
+    NSString *res_str = [NSString stringWithCString:res.c_str() encoding:[NSString defaultCStringEncoding]];
+    return res_str;
+}
+
++ (NSString *)PayforVpn: (NSString*)to: (NSString*)gid: (NSInteger)amount {
+    std::string to_acc = std::string([to UTF8String]);
+    std::string tmp_gid = std::string([gid UTF8String]);
+    std::string res = lego::client::VpnClient::Instance()->PayForVPN(to_acc, tmp_gid, amount);
+    NSString *res_str = [NSString stringWithCString:res.c_str() encoding:[NSString defaultCStringEncoding]];
+    return res_str;
+}
+
++ (NSString *)CheckVip {
+    std::string res = lego::client::VpnClient::Instance()->CheckVip();
+    NSString *res_str = [NSString stringWithCString:res.c_str() encoding:[NSString defaultCStringEncoding]];
+    return res_str;
+}
+
++ (NSString *)GetUsedBandwidth {
+    std::string res = lego::client::VpnClient::Instance()->CheckFreeBandwidth();
+    NSString *res_str = [NSString stringWithCString:res.c_str() encoding:[NSString defaultCStringEncoding]];
+    return res_str;
+}
+
++ (void)Destroy {
+    //lego::client::VpnClient::Instance()->Destroy();
+}
+
++ (NSString *)ResetPrivateKey:(NSString *)prikey {
+    std::string tmp_prikey = std::string([prikey UTF8String]);
+    std::string res = lego::client::VpnClient::Instance()->ResetPrivateKey(tmp_prikey);
     NSString *res_str = [NSString stringWithCString:res.c_str() encoding:[NSString defaultCStringEncoding]];
     return res_str;
 }

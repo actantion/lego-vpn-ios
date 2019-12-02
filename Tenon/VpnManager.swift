@@ -88,6 +88,8 @@ class VpnManager{
                 self.observerAdded = true
                 NotificationCenter.default.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: manager.connection, queue: OperationQueue.main, using: { [unowned self] (notification) -> Void in
                     self.updateVPNStatus(manager)
+                    
+                    print("notification get vpn status changed: ")
                     })
             }
         }
@@ -107,7 +109,7 @@ class VpnManager{
         @unknown default: break
             
         }
-        print(self.vpnStatus)
+        print("get vpn status changed: \(self.vpnStatus)")
     }
 }
 
@@ -273,6 +275,7 @@ extension VpnManager{
         let orignConf = manager.protocolConfiguration as! NETunnelProviderProtocol
         conf["route_nodes"] = self.route_nodes as AnyObject?
         conf["vpn_nodes"] = self.vpn_nodes as AnyObject?
+                
         orignConf.providerConfiguration = conf
         manager.protocolConfiguration = orignConf
         print(ip_address,port,algorithm,password)

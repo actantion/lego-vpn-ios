@@ -84,6 +84,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         ShadowsocksAdapter.SetPublicKey(pubkey: pubkey)
         ShadowsocksAdapter.ChooseVpnNode()
         
+        
         let cryptor = ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm)
         let ssAdapterFactory = ShadowsocksAdapterFactory(serverHost: ss_adder, serverPort: ss_port, pk: pubkey, m: method1, protocolObfuscaterFactory:obfuscater, cryptorFactory: cryptor, streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
         

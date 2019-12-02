@@ -195,6 +195,9 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         }else{
             
         }
+        
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        userDefaults?.set("ok", forKey: "vpnsvr_status")
     }
     
     @IBAction func downToExit(_ sender: Any) {
@@ -224,8 +227,6 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     }
     
     @objc func DidEnterBackground(){
-        print("DidEnterBackground")
-        requestData()
     }
     
     @objc func applicationWillTerminate(){
@@ -331,16 +332,20 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     }
     
     @objc func requestData(){
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
+            if messages == "bwo" || messages == "cni" || messages == "oul" {
+                VpnManager.shared.disconnect()
+            }
+        }
+
         transcationList.removeAll()
         self.balance = TenonP2pLib.sharedInstance.GetBalance()
         if balance == UInt64.max {
             self.balance = 0
         }
+        
         self.Dolor = Double(balance)*0.002
-        
-//        self.lbLego.text = String(balance) + " Tenon" 
-//        self.lbDolor.text = String(format:"%.2f $",Dolor)
-        
         let trascationValue:String = TenonP2pLib.sharedInstance.GetTransactions()
         let dataArray = trascationValue.components(separatedBy: ";")
         for value in dataArray{
@@ -356,13 +361,38 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             transcationList.append(model)
         }
         
-        
         setRouteInfo()
-        
         self.perform(#selector(requestData), afterDelay: 3)
     }
     
     func ConnectVpn() {
+        if balance < 2000 {
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+            if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
+                if messages == "bwo" {
+                    CBToast.showToast(message: "today free 100m used up. \nbuy tenon or use tomorrow.", aLocationStr: "center", aShowTime: 10.0)
+                    VpnManager.shared.disconnect()
+                    return
+                }
+                
+                if messages == "cni" {
+                    CBToast.showToast(message: "Agent service is not supported \nin your country or region.", aLocationStr: "center", aShowTime: 10.0)
+                    VpnManager.shared.disconnect()
+                    return
+                }
+                
+                if messages == "oul" {
+                    CBToast.showToast(message: "Your account is logged in elsewhere.", aLocationStr: "center", aShowTime: 10.0)
+                    VpnManager.shared.disconnect()
+                    return
+                }
+            }
+        } else {
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+            userDefaults?.set("ok", forKey: "vpnsvr_status")
+        }
+        
+        print("now connect vpn called")
         if self.choosed_country != nil{
             var route_node = super.getOneRouteNode(country: self.local_country)
             if (route_node.ip.isEmpty) {
@@ -375,7 +405,6 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                         }
                     }
                 }
-                VpnManager.shared.disconnect()
             }
             
             var vpn_node = super.getOneVpnNode(country: self.choosed_country)
@@ -432,6 +461,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             CBToast.showToastAction(message: "please chose a country")
         }
     }
+    
     @IBAction func clickConnect(_ sender: Any) {
         if UserDefaults.standard.bool(forKey: "FirstConnect") == false {
             tvInstruction.backgroundColor = UIColor.white
@@ -451,6 +481,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             }
         }
     }
+    
     @IBAction func clickChoseCountry(_ sender: Any) {
         if self.isClick == true {
             self.popMenu.removeFromSuperview()
@@ -611,16 +642,20 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             self.user_started_vpn = true
             self.now_connect_status = 0
         }else{
-            if (clickToExit) {
-                _exit(0)
-            }
-            if (self.user_started_vpn) {
-                if (self.now_connect_status == 1) {
-                    return
-                }
-                ConnectVpn()
-                return
-            }
+//            if (self.user_started_vpn) {
+//                if (self.now_connect_status == 1) {
+//                    return
+//                }
+//
+//                let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+//                if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
+//                    if messages == "ok" {
+//                        ConnectVpn()
+//                        print("reconnect now. \(messages)")
+//                        return
+//                    }
+//                }
+//            }
             self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
             self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
             self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))

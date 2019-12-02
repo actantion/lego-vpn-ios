@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -136,7 +136,7 @@
                             <action selector="clickNotice:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bNs-PF-LNC"/>
                         </connections>
                     </button>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="d0ea9abdd1480f8bdcceeb3e05392617875200f37520f7faeef4e04dd5a0b5e0" translatesAutoresizingMaskIntoConstraints="NO" id="6jv-aQ-Ost">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="d0ea9abdd1480f8bdcceeb3e05392617875200f37520f7faeef4e04dd5a0b5e0" translatesAutoresizingMaskIntoConstraints="NO" id="6jv-aQ-Ost">
                         <rect key="frame" x="15" y="35" width="345" height="40"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -146,6 +146,39 @@
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-QU-LPQ">
+                        <rect key="frame" x="258" y="11" width="34" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="copy">
+                            <color key="titleColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="clickCopyPrikey:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yQC-gN-1Xi"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vyc-5I-b08">
+                        <rect key="frame" x="305" y="11" width="38" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="paste">
+                            <color key="titleColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="clickPastePrikey:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3Sa-ZS-jzh"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nb3-NO-BsX">
+                        <rect key="frame" x="309" y="63" width="34" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="copy">
+                            <color key="titleColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="clickCopyAccount:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CQg-lz-or3"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -160,11 +193,15 @@
                     <constraint firstItem="jjV-fd-KBw" firstAttribute="centerY" secondItem="bVk-nX-Af5" secondAttribute="centerY" id="QxS-4P-lD8"/>
                     <constraint firstItem="7pT-s6-eUW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="SF5-Oo-p7t"/>
                     <constraint firstItem="6jv-aQ-Ost" firstAttribute="top" secondItem="niP-rV-F6Q" secondAttribute="bottom" constant="-2" id="T1h-Vz-YkG"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Vyc-5I-b08" secondAttribute="trailing" constant="17" id="VBR-q9-fG4"/>
+                    <constraint firstItem="WPU-QU-LPQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Wlc-D4-vSw"/>
                     <constraint firstItem="6jv-aQ-Ost" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="X6r-US-Zi4"/>
                     <constraint firstItem="9vY-hr-Uei" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bVk-nX-Af5" secondAttribute="trailing" constant="8" id="XO3-Lb-tLa"/>
                     <constraint firstItem="9vY-hr-Uei" firstAttribute="centerY" secondItem="bVk-nX-Af5" secondAttribute="centerY" id="YhE-9M-G3z"/>
                     <constraint firstItem="bVk-nX-Af5" firstAttribute="top" secondItem="uRd-BO-NW2" secondAttribute="bottom" constant="16" id="cfQ-dy-ckn"/>
                     <constraint firstAttribute="trailing" secondItem="uRd-BO-NW2" secondAttribute="trailing" constant="16" id="dRe-rv-isv"/>
+                    <constraint firstItem="Nb3-NO-BsX" firstAttribute="top" secondItem="Vyc-5I-b08" secondAttribute="bottom" constant="22" id="f3C-UJ-Pou"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Nb3-NO-BsX" secondAttribute="trailing" constant="17" id="hav-0D-fcL"/>
                     <constraint firstItem="E1s-xb-Ta0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hjR-c0-geM"/>
                     <constraint firstAttribute="bottom" secondItem="jCV-ZC-kGz" secondAttribute="bottom" id="i72-0X-6aE"/>
                     <constraint firstItem="jCV-ZC-kGz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="jda-cj-B4u"/>
@@ -176,6 +213,8 @@
                     <constraint firstAttribute="trailing" secondItem="jCV-ZC-kGz" secondAttribute="trailing" constant="16" id="oB1-zj-lZI"/>
                     <constraint firstItem="uRd-BO-NW2" firstAttribute="top" secondItem="IYR-hl-h05" secondAttribute="bottom" constant="8" id="oNa-qj-TKg"/>
                     <constraint firstItem="jjV-fd-KBw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9vY-hr-Uei" secondAttribute="trailing" constant="8" id="rhd-AS-8HQ"/>
+                    <constraint firstItem="Vyc-5I-b08" firstAttribute="leading" secondItem="WPU-QU-LPQ" secondAttribute="trailing" constant="13" id="vpk-A0-bX5"/>
+                    <constraint firstItem="Vyc-5I-b08" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="zbg-Ml-Lgs"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

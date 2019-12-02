@@ -119,15 +119,6 @@ public class ShadowsocksAdapter: AdapterSocket {
         return use_smart_route
     }
     
-    public static func GetRemoteNode() -> (String, Int) {
-        if (use_smart_route) {
-            exit(0)
-            return GetRouteNode()
-        } else {
-            return GetVpnNode()
-        }
-    }
-    
     public static func GetRouteNode() -> (String, Int) {
         var res = GetOneRouteNode(country: local_country)
         if res.0.isEmpty || res.1 <= 0 {
