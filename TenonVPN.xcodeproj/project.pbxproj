@@ -26,6 +26,7 @@
 		852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852577722329ECD800BF8AF8 /* TenonP2pLib.swift */; };
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
+		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
 		D3063956233B3D8D0006CC7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */; };
 		D3063958233B3D990006CC7C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063957233B3D990006CC7C /* libz.tbd */; };
 		D306395A233B3DA30006CC7C /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */; };
@@ -182,6 +183,7 @@
 		852577722329ECD800BF8AF8 /* TenonP2pLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenonP2pLib.swift; sourceTree = "<group>"; };
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
+		858B90662396A0FF00359F92 /* TenonGetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonGetView.swift; sourceTree = "<group>"; };
 		86B2E4FEE8C0A80DF8D4AED2 /* Pods-TenonVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenonVPN.debug.xcconfig"; path = "Target Support Files/Pods-TenonVPN/Pods-TenonVPN.debug.xcconfig"; sourceTree = "<group>"; };
 		891426C526BC0510EF259CE2 /* Pods-TenonVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenonVPN.release.xcconfig"; path = "Target Support Files/Pods-TenonVPN/Pods-TenonVPN.release.xcconfig"; sourceTree = "<group>"; };
 		9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freeWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -424,6 +426,7 @@
 				D34378F323289126000F1F69 /* FWBottomPopView.swift */,
 				D3063964233B65410006CC7C /* FWOperPKView.swift */,
 				D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */,
+				858B90662396A0FF00359F92 /* TenonGetView.swift */,
 			);
 			path = FWPopMenu;
 			sourceTree = "<group>";
@@ -783,6 +786,7 @@
 				D3204B5523261E5D002ECB69 /* AccountSetTableViewCell.swift in Sources */,
 				D3204B5A232626DD002ECB69 /* BaseViewContrller.swift in Sources */,
 				85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */,
+				858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */,
 				D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */,
 				D3204B5C232635FB002ECB69 /* UIButton+Extension.swift in Sources */,
 				D39D52CF234C894500A3CEEB /* payModel.swift in Sources */,
@@ -992,7 +996,7 @@
 				CODE_SIGN_ENTITLEMENTS = TenonVPN.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.1.1;
+				CURRENT_PROJECT_VERSION = 3.1.4;
 				DEVELOPMENT_TEAM = V442MA2B5Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1015,7 +1019,7 @@
 					"$(PROJECT_DIR)/Tenon/WechatPay",
 					"$(PROJECT_DIR)/Tenon/WeChatSDK1.8.6.1",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1087,7 +1091,7 @@
 				CODE_SIGN_ENTITLEMENTS = TenonVPN.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.1.1;
+				CURRENT_PROJECT_VERSION = 3.1.4;
 				DEVELOPMENT_TEAM = V442MA2B5Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1110,7 +1114,7 @@
 					"$(PROJECT_DIR)/Tenon/WechatPay",
 					"$(PROJECT_DIR)/Tenon/WeChatSDK1.8.6.1",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

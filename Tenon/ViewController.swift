@@ -54,9 +54,10 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     var balance:UInt64!
     var Dolor:Double!
     
-    var popBottomView:FWBottomPopView!
+    var getTenonView:TenonGetView!
     var popUpgradeView:FWUpgradeView!
     var popPKPopView:FWOperPKView!
+    var popBottomView:FWBottomPopView!
     
     var local_country: String = ""
     var local_private_key: String = ""
@@ -331,6 +332,33 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
          VpnManager.shared.SetVpnNodes(nodes_str: vpn_str)
     }
     
+    func OpenGet() {
+      
+        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+                if self.btnAccount.isUserInteractionEnabled == false{
+                    self.getTenonView = TenonGetView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 150, width: SCREEN_WIDTH, height: 150))
+                    
+                    
+                    self.getTenonView.clickBlck = {(idx) in
+                        if idx == -1{
+                            self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+                            UIView.animate(withDuration: 0.4, animations: {
+                                self.getTenonView.top = SCREEN_HEIGHT
+                            }, completion: { (Bool) in
+                                self.getTenonView.removeFromSuperview()
+                            })
+                        }
+                    }
+                    self.getTenonView.top = self.getTenonView.height
+                    self.view.addSubview(self.getTenonView)
+                    UIView.animate(withDuration: 0.4, animations: {
+                        self.getTenonView.top = 0
+                    }, completion: { (Bool) in
+        //                self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+                    })
+                }
+    }
+    
     @objc func requestData(){
         let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
         if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
@@ -370,8 +398,11 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
             if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
                 if messages == "bwo" {
-                    CBToast.showToast(message: "today free 100m used up. \nbuy tenon or use tomorrow.", aLocationStr: "center", aShowTime: 10.0)
                     VpnManager.shared.disconnect()
+                    
+                    OpenGet()
+                    userDefaults?.set("ok", forKey: "vpnsvr_status")
+                    
                     return
                 }
                 
@@ -463,6 +494,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     }
     
     @IBAction func clickConnect(_ sender: Any) {
+
         if UserDefaults.standard.bool(forKey: "FirstConnect") == false {
             tvInstruction.backgroundColor = UIColor.white
             instructionView.isHidden = false
@@ -572,7 +604,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     @IBAction func clickAccountSetting(_ sender: Any) {
         self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
         if self.btnAccount.isUserInteractionEnabled == false{
-            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 500, width: SCREEN_WIDTH, height: 500))
+            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 200, width: SCREEN_WIDTH, height: 200))
             self.popBottomView.loadCell("AccountSetTableViewCell","AccountSetHeaderTableViewCell", self.transcationList.count)
             self.popBottomView.callBackBlk = {(cell,indexPath) in
                 if indexPath.section == 0 {
@@ -583,7 +615,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                         print("set private key :",self.local_private_key)
                     }
                     tempCell.lbAccountAddress.text = self.local_account_id
-                    
+
                     tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
                     tempCell.lbBalanceCost.text = String(format:"%.2f $",self.Dolor)
                     tempCell.clickNoticeBtn = {
@@ -610,7 +642,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                     return tempCell
                 }
             }
-            
+
             self.popBottomView.clickBlck = {(idx) in
                 if idx == -1{
                     self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled

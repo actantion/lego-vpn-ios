@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KGV-Ay-2BC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KGV-Ay-2BC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -132,7 +132,7 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
-                                <rect key="frame" x="30" y="432.5" width="120" height="20.5"/>
+                                <rect key="frame" x="60" y="432.5" width="120" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="8zP-zZ-4QZ"/>
                                 </constraints>
@@ -141,12 +141,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
-                                <rect key="frame" x="150" y="427.5" width="51" height="31"/>
+                                <rect key="frame" x="230" y="427.5" width="47" height="31"/>
                                 <connections>
                                     <action selector="clickSmartRoute:" destination="BYZ-38-t0r" eventType="valueChanged" id="8kO-gX-XLw"/>
                                 </connections>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhZ-Qd-2Lc">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhZ-Qd-2Lc">
                                 <rect key="frame" x="295" y="418" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="hnf-4s-WM7"/>
@@ -346,7 +346,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="Gpq-ms-GJd" secondAttribute="bottom" constant="20" id="Mr3-EJ-5ZI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4OK-ia-4Gi" secondAttribute="bottom" constant="44" id="NO7-H7-fPm"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerY" secondItem="cUP-wN-Y58" secondAttribute="centerY" id="NxG-16-Lvv"/>
-                            <constraint firstItem="44X-VY-8FV" firstAttribute="leading" secondItem="wu3-k5-dkf" secondAttribute="leading" id="OrL-sb-HMQ"/>
+                            <constraint firstItem="44X-VY-8FV" firstAttribute="leading" secondItem="wu3-k5-dkf" secondAttribute="leading" constant="30" id="OrL-sb-HMQ"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="SHR-xb-VHv"/>
                             <constraint firstItem="cUP-wN-Y58" firstAttribute="centerX" secondItem="WMm-5y-Hlt" secondAttribute="centerX" id="Svm-PB-PEy"/>
                             <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" id="TIO-9g-xa6"/>
@@ -357,7 +357,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="width" secondItem="cUP-wN-Y58" secondAttribute="width" id="YKQ-01-b5V"/>
                             <constraint firstItem="44X-VY-8FV" firstAttribute="leading" secondItem="wu3-k5-dkf" secondAttribute="leading" id="ZFI-Ew-rIL"/>
                             <constraint firstItem="mLz-mT-Jxf" firstAttribute="centerY" secondItem="WMm-5y-Hlt" secondAttribute="centerY" multiplier="0.95" id="ZIE-J2-Qar"/>
-                            <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" id="ZeO-Ei-T49"/>
+                            <constraint firstItem="Lhd-zF-ibB" firstAttribute="leading" secondItem="44X-VY-8FV" secondAttribute="trailing" constant="50" id="ZeO-Ei-T49"/>
                             <constraint firstItem="Gpq-ms-GJd" firstAttribute="leading" secondItem="smd-Wo-Ltm" secondAttribute="trailing" constant="8" id="a5Q-ff-4BF"/>
                             <constraint firstItem="wu3-k5-dkf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="74" id="bIG-dZ-Em1"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="c7u-w6-fm6"/>
@@ -372,6 +372,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="smd-Wo-Ltm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ha2-Js-Szn"/>
                             <constraint firstItem="VhZ-Qd-2Lc" firstAttribute="trailing" secondItem="wu3-k5-dkf" secondAttribute="trailing" id="i0Y-7H-W5C"/>
                             <constraint firstItem="yPp-6y-HcR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iiU-ix-d8b"/>
+                            <constraint firstItem="VhZ-Qd-2Lc" firstAttribute="leading" secondItem="Lhd-zF-ibB" secondAttribute="trailing" constant="20" id="jpl-wi-0wC"/>
                             <constraint firstItem="R05-IF-E3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kMb-d7-6J5"/>
                             <constraint firstItem="Lhd-zF-ibB" firstAttribute="centerY" secondItem="44X-VY-8FV" secondAttribute="centerY" id="nV1-kV-Mix"/>
                             <constraint firstItem="yPp-6y-HcR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="p53-nx-G7U"/>
