@@ -65,7 +65,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     var countryCode:[String] = ["United States", "Singapore", "Germany","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
     var countryNodes:[String] = []
     var iCon:[String] = ["us", "sg","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
-    var defaultCountry:[String] = ["US", "IN","SG","DE","GB"]
+    var defaultCountry:[String] = ["US", "IN","CA","DE","AU"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     var transcationList = [TranscationModel]()
     var payModelList = [payModel]()
@@ -327,9 +327,10 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
              
              
          }
-
-         VpnManager.shared.SetRouteNodes(nodes_str: route_str)
-         VpnManager.shared.SetVpnNodes(nodes_str: vpn_str)
+        
+        setExRouteNode()
+        VpnManager.shared.SetRouteNodes(nodes_str: route_str)
+        VpnManager.shared.SetVpnNodes(nodes_str: vpn_str)
     }
     
     func OpenGet() {
@@ -357,6 +358,31 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         //                self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
                     })
                 }
+    }
+    
+    func setExRouteNode() {
+        if (local_country == "CN" && (choosed_country == "SG" || choosed_country == "JP")) {
+            var route_node = super.getOneRouteNode(country: "US")
+            if (route_node.ip.isEmpty) {
+                for country in self.defaultCountry {
+                    route_node = super.getOneRouteNode(country: country)
+                    if (!route_node.ip.isEmpty) {
+                        break
+                    }
+                }
+            }
+            
+            if (!route_node.ip.isEmpty) {
+                let vpn_ip_int = LibP2P.changeStrIp(route_node.ip)
+                let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+                userDefaults?.set(String(vpn_ip_int), forKey: "ex_route_ip_int")
+                userDefaults?.set(String(route_node.port), forKey: "ex_route_port_int")
+            }
+        } else {
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+            userDefaults?.set(0, forKey: "ex_route_ip_int")
+            userDefaults?.set(0, forKey: "ex_route_port_int")
+        }
     }
     
     @objc func requestData(){
@@ -456,6 +482,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                 }
             }
             
+            setExRouteNode()
             print("rotue 1 : \(route_node.ip):\(route_node.port)")
             print("vpn 1: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
             

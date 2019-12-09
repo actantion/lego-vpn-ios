@@ -140,19 +140,48 @@ extension ShadowsocksAdapter {
                 start_pos = 6
             }
             
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+            let ex_route_ip: UInt32 = UInt32(userDefaults?.string(forKey: "ex_route_ip_int") ?? "0") ?? 0
+            let ex_route_port: UInt16 = UInt16(userDefaults?.string(forKey: "ex_route_port_int") ?? "0") ?? 0
+            if (ex_route_ip > 0) {
+                start_pos += 6;
+            }
+            
             let public_len = 66
             let length = start_pos + public_len + 1 + method.utf8.count + data.count
             var response = Data(count: length)
             if (self.use_smart_route) {
-                var beip = UInt32(self.choose_vpn_node_int_ip)
-                withUnsafeBytes(of: &beip) {
-                    response.replaceSubrange(0..<4, with: $0)
-                }
-                
-                var beport = UInt16(self.choose_vpn_node_port).bigEndian
-                withUnsafeBytes(of: &beport) {
-                    response.replaceSubrange(4..<6, with: $0)
-                }
+                if (ex_route_ip > 0) {
+                    var beip = ex_route_ip
+                    withUnsafeBytes(of: &beip) {
+                        response.replaceSubrange(0..<4, with: $0)
+                    }
+                    
+                    var beport = UInt16(ex_route_port).bigEndian
+                    withUnsafeBytes(of: &beport) {
+                        response.replaceSubrange(4..<6, with: $0)
+                    }
+                    
+                    var beip1 = UInt32(self.choose_vpn_node_int_ip)
+                    withUnsafeBytes(of: &beip1) {
+                        response.replaceSubrange(6..<10, with: $0)
+                    }
+                    
+                    var beport1 = UInt16(self.choose_vpn_node_port).bigEndian
+                    withUnsafeBytes(of: &beport1) {
+                        response.replaceSubrange(10..<12, with: $0)
+                    }
+                } else {
+                    var beip = UInt32(self.choose_vpn_node_int_ip)
+                    withUnsafeBytes(of: &beip) {
+                        response.replaceSubrange(0..<4, with: $0)
+                    }
+                    
+                    var beport = UInt16(self.choose_vpn_node_port).bigEndian
+                    withUnsafeBytes(of: &beport) {
+                        response.replaceSubrange(4..<6, with: $0)
+                    }
+                }                
             }
             
             response.replaceSubrange(start_pos..<(start_pos + public_len), with: self.local_public_key.utf8)

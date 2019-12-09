@@ -35,6 +35,7 @@ class VpnManager{
     public var public_key: String = "public_key"
     public var enc_method: String = "enc_method"
     public var route_nodes: String = ""
+    public var ex_route_nodes: String = ""
     public var vpn_nodes: String = ""
     public var local_country: String = ""
     public var choosed_country: String = ""
@@ -70,6 +71,12 @@ class VpnManager{
     func SetRouteNodes(nodes_str: String) {
         nodes_lock.lock()
         route_nodes = nodes_str
+        nodes_lock.unlock()
+    }
+    
+    func SetExRouteNodes(nodes_str: String) {
+        nodes_lock.lock()
+        ex_route_nodes = nodes_str
         nodes_lock.unlock()
     }
     
@@ -174,6 +181,7 @@ extension VpnManager{
                         self.nodes_lock.lock()
                         conf["route_nodes"] = self.route_nodes as AnyObject?
                         conf["vpn_nodes"] = self.vpn_nodes as AnyObject?
+                        conf["ex_route_nodes"] = self.ex_route_nodes as AnyObject?
                         self.nodes_lock.unlock()
                     }
                     
@@ -275,6 +283,7 @@ extension VpnManager{
         let orignConf = manager.protocolConfiguration as! NETunnelProviderProtocol
         conf["route_nodes"] = self.route_nodes as AnyObject?
         conf["vpn_nodes"] = self.vpn_nodes as AnyObject?
+        conf["ex_route_nodes"] = self.ex_route_nodes as AnyObject?
                 
         orignConf.providerConfiguration = conf
         manager.protocolConfiguration = orignConf

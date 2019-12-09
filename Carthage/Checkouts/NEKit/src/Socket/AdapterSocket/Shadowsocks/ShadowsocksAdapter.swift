@@ -28,6 +28,7 @@ public class ShadowsocksAdapter: AdapterSocket {
     private static var route_nodes: String?
     private static var vpn_nodes: String?
     private static var route_nodes_lock = NSLock()
+    private static var ex_route_nodes_lock = NSLock()
     private static var vpn_nodes_lock = NSLock()
     
     private static var local_country: String = "CN"
@@ -203,7 +204,6 @@ public class ShadowsocksAdapter: AdapterSocket {
         }
         route_nodes_lock.unlock()
     }
-    
     
     public static func SetVpnNodes(tmp_vpn_nodes: String) {
         vpn_nodes_lock.lock()
