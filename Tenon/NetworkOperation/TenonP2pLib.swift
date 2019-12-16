@@ -37,6 +37,7 @@ class TenonP2pLib {
     public var today_used_bandwidth: Int = -1;
     public var account_id: String = ""
     public var private_key: String = ""
+
     var payfor_gid: String = ""
     var min_payfor_vpn_tenon: Int64 = 1900
     var is_vip: Bool = false
