@@ -13,7 +13,7 @@ import Yaml
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
     var interface: TUNInterface!
-    var enablePacketProcessing = false
+    var enablePacketProcessing = true
     
     var proxyPort: Int!
     
@@ -89,23 +89,23 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let ssAdapterFactory = ShadowsocksAdapterFactory(serverHost: ss_adder, serverPort: ss_port, pk: pubkey, m: method1, protocolObfuscaterFactory:obfuscater, cryptorFactory: cryptor, streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
         
         self.queue.async {
-            
+
             while (!self.stop_queue) {
                 guard let conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else{
                     NSLog("[ERROR] No ProtocolConfiguration Found")
                     exit(EXIT_FAILURE)
                 }
-                
+
                 if conf["route_nodes"] != nil {
                     let route_str = conf["route_nodes"] as! String
                     ShadowsocksAdapter.SetRouteNodes(tmp_route_nodes: route_str)
                 }
-                
+
                 if conf["vpn_nodes"] != nil {
                     let vpn_str = conf["vpn_nodes"] as! String
                     ShadowsocksAdapter.SetVpnNodes(tmp_vpn_nodes: vpn_str)
                 }
-                
+
                 Thread.sleep(forTimeInterval: 3)
             }
         }
@@ -118,46 +118,46 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
         var UserRules:[NEKit.Rule] = []
         
-        for each in (value["rule"].array! ){
-            let adapter:NEKit.AdapterFactory
-            if each["adapter"].string! == "direct"{
-                adapter = directAdapterFactory
-            }else{
-                adapter = ssAdapterFactory
-            }
-            
-            let ruleType = each["type"].string!
-            switch ruleType {
-            case "domainlist":
-                var rule_array : [NEKit.DomainListRule.MatchCriterion] = []
-                for dom in each["criteria"].array!{
-                    let raw_dom = dom.string!
-                    let index = raw_dom.index(raw_dom.startIndex, offsetBy: 1)
-                    let index2 = raw_dom.index(raw_dom.startIndex, offsetBy: 2)
-                    let typeStr = raw_dom[...index]
-                    let url = raw_dom[index2...]
-                    
-                    if typeStr == "s"{
-                        rule_array.append(DomainListRule.MatchCriterion.suffix(String(url)))
-                    }else if typeStr == "k"{
-                        rule_array.append(DomainListRule.MatchCriterion.keyword(String(url)))
-                    }else if typeStr == "p"{
-                        rule_array.append(DomainListRule.MatchCriterion.prefix(String(url)))
-                    }else if typeStr == "r"{
-                        // ToDo:
-                        // shoud be complete
-                    }
-                }
-                UserRules.append(DomainListRule(adapterFactory: adapter, criteria: rule_array))
-                
-                
-            case "iplist":
-                let ipArray = each["criteria"].array!.map{$0.string!}
-                UserRules.append(try! IPRangeListRule(adapterFactory: adapter, ranges: ipArray))
-            default:
-                break
-            }
-        }
+//        for each in (value["rule"].array! ){
+//            let adapter:NEKit.AdapterFactory
+//            if each["adapter"].string! == "direct"       {
+//                adapter = directAdapterFactory
+//            }else{
+//                adapter = ssAdapterFactory
+//            }
+//
+//            let ruleType = each["type"].string!
+//            switch ruleType {
+//            case "domainlist":
+//                var rule_array : [NEKit.DomainListRule.MatchCriterion] = []
+//                for dom in each["criteria"].array!{
+//                    let raw_dom = dom.string!
+//                    let index = raw_dom.index(raw_dom.startIndex, offsetBy: 1)
+//                    let index2 = raw_dom.index(raw_dom.startIndex, offsetBy: 2)
+//                    let typeStr = raw_dom[...index]
+//                    let url = raw_dom[index2...]
+//
+//                    if typeStr == "s"{
+//                        rule_array.append(DomainListRule.MatchCriterion.suffix(String(url)))
+//                    }else if typeStr == "k"{
+//                        rule_array.append(DomainListRule.MatchCriterion.keyword(String(url)))
+//                    }else if typeStr == "p"{
+//                        rule_array.append(DomainListRule.MatchCriterion.prefix(String(url)))
+//                    }else if typeStr == "r"{
+//                        // ToDo:
+//                        // shoud be complete
+//                    }
+//                }
+//                UserRules.append(DomainListRule(adapterFactory: adapter, criteria: rule_array))
+//
+//
+//            case "iplist":
+//                let ipArray = each["criteria"].array!.map{$0.string!}
+//                UserRules.append(try! IPRangeListRule(adapterFactory: adapter, ranges: ipArray))
+//            default:
+//                break
+//            }
+//        }
         
         
         // Rules
@@ -167,12 +167,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let dnsFailRule = DNSFailRule(adapterFactory: ssAdapterFactory)
         
         let allRule = AllRule(adapterFactory: ssAdapterFactory)
-        UserRules.append(contentsOf: [chinaRule,unKnowLoc,dnsFailRule,allRule])
+        UserRules.append(contentsOf: [chinaRule, unKnowLoc, dnsFailRule, allRule])
         
-        let manager = RuleManager(fromRules: UserRules, appendDirect: true)
+        let manager = RuleManager(fromRules: UserRules, appendDirect: false)
         
         RuleManager.currentManager = manager
-        proxyPort =  9090
+        proxyPort = 9090
         
         // the `tunnelRemoteAddress` is meaningless because we are not creating a tunnel.
         let networkSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "8.8.8.8")
@@ -202,7 +202,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         proxySettings.excludeSimpleHostnames = true
         // This will match all domains
         proxySettings.matchDomains = [""]
-        proxySettings.exceptionList = ["api.smoot.apple.com","configuration.apple.com","xp.apple.com","smp-device-content.apple.com","guzzoni.apple.com","captive.apple.com","*.ess.apple.com","*.push.apple.com","*.push-apple.com.akadns.net"]
+        proxySettings.exceptionList = []
         networkSettings.proxySettings = proxySettings
         
         if enablePacketProcessing {
@@ -241,18 +241,18 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 self.interface = TUNInterface(packetFlow: self.packetFlow)
                 
                 
-                let fakeIPPool = try! IPPool(range: IPRange(startIP: IPAddress(fromString: "198.168.1.1")!, endIP: IPAddress(fromString: "198.168.255.255")!))
+//                let fakeIPPool = try! IPPool(range: IPRange(startIP: IPAddress(fromString: "198.168.1.1")!, endIP: IPAddress(fromString: "198.168.255.255")!))
                 
-                
-                let dnsServer = DNSServer(address: IPAddress(fromString: "8.8.8.8")!, port: NEKit.Port(port: 53), fakeIPPool: fakeIPPool)
-                let resolver = UDPDNSResolver(address: IPAddress(fromString: "114.114.114.114")!, port: NEKit.Port(port: 53))
-                dnsServer.registerResolver(resolver)
-                self.interface.register(stack: dnsServer)
-                
-                DNSServer.currentServer = dnsServer
-                
-                let udpStack = UDPDirectStack()
-                self.interface.register(stack: udpStack)
+//
+//                let dnsServer = DNSServer(address: IPAddress(fromString: "8.8.8.8")!, port: NEKit.Port(port: 53), fakeIPPool: fakeIPPool)
+//                let resolver = UDPDNSResolver(address: IPAddress(fromString: "114.114.114.114")!, port: NEKit.Port(port: 53))
+//                dnsServer.registerResolver(resolver)
+//                self.interface.register(stack: dnsServer)
+//
+//                DNSServer.currentServer = dnsServer
+//
+//                let udpStack = UDPDirectStack()
+//                self.interface.register(stack: udpStack)
                 let tcpStack = TCPStack.stack
                 tcpStack.proxyServer = self.proxyServer
                 self.interface.register(stack:tcpStack)

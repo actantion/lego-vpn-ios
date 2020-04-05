@@ -279,7 +279,7 @@ public class ShadowsocksAdapter: AdapterSocket {
 
     override public func didRead(data: Data, from socket: RawTCPSocketProtocol) {
         super.didRead(data: data, from: socket)
-
+        
         do {
             try protocolObfuscater.input(data: data)
             ShadowsocksAdapter.reset_connect_times()

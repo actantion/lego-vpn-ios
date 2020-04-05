@@ -166,41 +166,44 @@ extension VpnManager{
             
             self.queue.async {
                 while (!self.stop_queue) {
-                    var conf = [String:AnyObject]()
-                    conf["ss_address"] = self.ip_address as AnyObject?
-                    conf["ss_port"] = self.port as AnyObject?
-                    conf["ss_method"] = self.algorithm as AnyObject?
-                    conf["ss_password"] = self.password as AnyObject?
-                    conf["ss_pubkey"] = self.public_key as AnyObject?
-                    conf["ss_method1"] = self.enc_method as AnyObject?
-                    conf["ymal_conf"] = self.getRuleConf() as AnyObject?
-                    conf["local_country"] = self.local_country as AnyObject?
-                    conf["choosed_country"] = self.choosed_country as AnyObject?
-                    conf["use_smart_route"] = self.use_smart_route as AnyObject?
-                    do {
-                        self.nodes_lock.lock()
-                        conf["route_nodes"] = self.route_nodes as AnyObject?
-                        conf["vpn_nodes"] = self.vpn_nodes as AnyObject?
-                        conf["ex_route_nodes"] = self.ex_route_nodes as AnyObject?
-                        self.nodes_lock.unlock()
-                    }
-                    
-                    let orignConf = manager.protocolConfiguration as! NETunnelProviderProtocol
-                    orignConf.providerConfiguration = conf
-                    manager.protocolConfiguration = orignConf
-                    manager.saveToPreferences{
-                        if ($0 != nil){
-        //                    complete(nil);
-        //                    return;
+                    if VpnManager.shared.vpnStatus == .on {
+                        var conf = [String:AnyObject]()
+                        conf["ss_address"] = self.ip_address as AnyObject?
+                        conf["ss_port"] = self.port as AnyObject?
+                        conf["ss_method"] = self.algorithm as AnyObject?
+                        conf["ss_password"] = self.password as AnyObject?
+                        conf["ss_pubkey"] = self.public_key as AnyObject?
+                        conf["ss_method1"] = self.enc_method as AnyObject?
+                        conf["ymal_conf"] = self.getRuleConf() as AnyObject?
+                        conf["local_country"] = self.local_country as AnyObject?
+                        conf["choosed_country"] = self.choosed_country as AnyObject?
+                        conf["use_smart_route"] = self.use_smart_route as AnyObject?
+                        do {
+                            self.nodes_lock.lock()
+                            conf["route_nodes"] = self.route_nodes as AnyObject?
+                            conf["vpn_nodes"] = self.vpn_nodes as AnyObject?
+                            conf["ex_route_nodes"] = self.ex_route_nodes as AnyObject?
+                            self.nodes_lock.unlock()
                         }
-                        manager.loadFromPreferences{
-                            if $0 != nil{
-                                print($0.debugDescription)
-                                complete(nil);return;
+                        
+                        let orignConf = manager.protocolConfiguration as! NETunnelProviderProtocol
+                        orignConf.providerConfiguration = conf
+                        manager.protocolConfiguration = orignConf
+                        manager.saveToPreferences{
+                            if ($0 != nil){
+            //                    complete(nil);
+            //                    return;
                             }
-                            self.addVPNStatusObserver()
-                            complete(manager)
+                            manager.loadFromPreferences{
+                                if $0 != nil{
+                                    print($0.debugDescription)
+                                    complete(nil);return;
+                                }
+                                self.addVPNStatusObserver()
+                                complete(manager)
+                            }
                         }
+                                    
                     }
                     
                     sleep(3)

@@ -72,6 +72,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     var clickToExit = false
     
     private var old_vpn_ip: String = ""
+    private var check_vip_times: Int = 0
     
     let kCurrentVersion = "1.0.5"
     
@@ -96,12 +97,16 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+
+            self.vwBackHub.proEndgress = 0.0
+            self.vwBackHub.proStartgress = 0.0
+            VpnManager.shared.disconnect()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.DidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-       
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
@@ -137,14 +142,11 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         print("init network res: \(res)")
         if (res.local_country.isEmpty) {
             let alertController = UIAlertController(title: "error",
-                            message: "Network invalid, please check!", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "cansel", style: .cancel, handler: {
+                            message: "Network invalid, please retry!", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: {
                 action in _exit(0)
             })
-            let okAction = UIAlertAction(title: "ok", style: .default, handler: {
-                action in _exit(0)
-            })
-            alertController.addAction(cancelAction)
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
             return
@@ -250,11 +252,11 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         NotificationCenter.default.removeObserver(self)
     }
     @IBAction func clickSmartRoute(_ sender: Any) {
-        if VpnManager.shared.vpnStatus == .on {
-            clickConnect(sender)
-        }
-        
-        VpnManager.shared.use_smart_route = smartRoute.isOn
+//        if VpnManager.shared.vpnStatus == .on {
+//            clickConnect(sender)
+//        }
+//        
+//        VpnManager.shared.use_smart_route = smartRoute.isOn
     }
     
     @IBAction func clickPKPop(_ sender: Any) {
@@ -393,30 +395,43 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             }
         }
 
-        transcationList.removeAll()
-        self.balance = TenonP2pLib.sharedInstance.GetBalance()
-        if balance == UInt64.max {
-            self.balance = 0
+        balance = TenonP2pLib.sharedInstance.GetBalance()
+        if balance != UInt64.max {
+            TenonP2pLib.sharedInstance.now_balance = Int64(balance)
         }
         
-        self.Dolor = Double(balance)*0.002
-        let trascationValue:String = TenonP2pLib.sharedInstance.GetTransactions()
-        let dataArray = trascationValue.components(separatedBy: ";")
-        for value in dataArray{
-            if value == ""{
-                continue
+        if check_vip_times < 1 {
+            let tm = TenonP2pLib.sharedInstance.CheckVip()
+            if TenonP2pLib.sharedInstance.payfor_timestamp == 0 || tm != Int64.max {
+                if tm != Int64.max && tm != 0 {
+                    check_vip_times = 11
+                }
+                
+                TenonP2pLib.sharedInstance.payfor_timestamp = tm
             }
-            let model = TranscationModel()
-            let dataDetailArray = value.components(separatedBy: ",")
-            model.dateTime = dataDetailArray[0]
-            model.type = dataDetailArray[1]
-            model.acount = dataDetailArray[2]
-            model.amount = dataDetailArray[3]
-            transcationList.append(model)
+            check_vip_times += 1
+        } else {
+            TenonP2pLib.sharedInstance.PayforVpn()
         }
-        
+//
+//        self.Dolor = Double(balance)*0.002
+//        let trascationValue:String = TenonP2pLib.sharedInstance.GetTransactions()
+//        let dataArray = trascationValue.components(separatedBy: ";")
+//        for value in dataArray{
+//            if value == ""{
+//                continue
+//            }
+//            let model = TranscationModel()
+//            let dataDetailArray = value.components(separatedBy: ",")
+//            model.dateTime = dataDetailArray[0]
+//            model.type = dataDetailArray[1]
+//            model.acount = dataDetailArray[2]
+//            model.amount = dataDetailArray[3]
+//            transcationList.append(model)
+//        }
+//
         setRouteInfo()
-        self.perform(#selector(requestData), afterDelay: 3)
+        self.perform(#selector(requestData), afterDelay: 1)
     }
     
     func ConnectVpn() {
@@ -643,18 +658,18 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                     }
                     tempCell.lbAccountAddress.text = self.local_account_id
 
-                    tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
-                    tempCell.lbBalanceCost.text = String(format:"%.2f $",self.Dolor)
-                    tempCell.clickNoticeBtn = {
-                        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-                        UIView.animate(withDuration: 0.4, animations: {
-                            self.popBottomView.top = SCREEN_HEIGHT
-                        }, completion: { (Bool) in
-                            self.popBottomView.removeFromSuperview()
-                            self.tvSetting.backgroundColor = UIColor.white
-                            self.vwSettingDesc.isHidden = false
-                        })
-                    }
+//                    tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
+//                    tempCell.lbBalanceCost.text = String(format:"%.2f $",self.Dolor)
+//                    tempCell.clickNoticeBtn = {
+//                        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
+//                        UIView.animate(withDuration: 0.4, animations: {
+//                            self.popBottomView.top = SCREEN_HEIGHT
+//                        }, completion: { (Bool) in
+//                            self.popBottomView.removeFromSuperview()
+//                            self.tvSetting.backgroundColor = UIColor.white
+//                            self.vwSettingDesc.isHidden = false
+//                        })
+//                    }
                     return tempCell
                 }
                 else{
@@ -665,7 +680,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                     tempCell.lbDateTime.text = model.dateTime
                     tempCell.lbType.text = model.type
                     tempCell.lbAccount.text = model.acount
-                    tempCell.lbAmount.text = model.amount
+                    //tetempCell.lbAmount.text = model.amount
                     return tempCell
                 }
             }

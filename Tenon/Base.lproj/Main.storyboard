@@ -277,9 +277,11 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                                         <rect key="frame" x="17" y="37" width="341" height="574"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
+                                        <mutableString key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
 At the same time, the server does not store any user data, and the vpn server itself only performs data forwarding and does not store the data.
+
 By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
+
 In this Agreement, “you” means the customer of the TenonVPN service, the customer of the TenonVPN application. "We" or "our" refers to the service itself of TenonVPN.org.
 Given your use of the app, we are committed to providing you with the best VPN services, including the best privacy protection and the shortest downtime possible.
 TenonVPN respects the privacy of its customers. Therefore, when you enter the tenon VPN network and payment, all information you voluntarily provide will not be disclosed to third parties unless you violate TenonVPN.org's Terms of Use and Privacy Policy or violate local laws or international law. Anyone, including the TenonVPN.org management team, is not able to access these details or share them with others.
@@ -298,7 +300,7 @@ Will not use our services to trade, sell or distribute child pornography or dist
 We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
 We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
 If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
-We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</string>
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -400,11 +402,11 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                                 <exclude reference="KbZ-W8-Fmf"/>
                                 <exclude reference="ZFI-Ew-rIL"/>
                                 <exclude reference="t1K-pm-7ha"/>
+                                <exclude reference="9Iv-SZ-m7e"/>
+                                <exclude reference="ha2-Js-Szn"/>
                                 <exclude reference="HPk-FL-UFl"/>
                                 <exclude reference="TIO-9g-xa6"/>
                                 <exclude reference="pNo-V8-bBY"/>
-                                <exclude reference="9Iv-SZ-m7e"/>
-                                <exclude reference="ha2-Js-Szn"/>
                                 <exclude reference="1g3-9F-BRT"/>
                                 <exclude reference="a5Q-ff-4BF"/>
                                 <exclude reference="951-TG-0Ip"/>

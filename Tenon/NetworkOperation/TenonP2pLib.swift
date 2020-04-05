@@ -20,8 +20,7 @@ extension Date {
 
 class TenonP2pLib {
     static let sharedInstance = TenonP2pLib()
-    public var now_balance: Int64 = 0
-    var pay_to_account:[String] = [
+    var payfor_vpn_accounts_arr:[String] = [
         "dc161d9ab9cd5a031d6c5de29c26247b6fde6eb36ed3963c446c1a993a088262",
         "5595b040cdd20984a3ad3805e07bad73d7bf2c31e4dc4b0a34bc781f53c3dff7",
         "25530e0f5a561f759a8eb8c2aeba957303a8bb53a54da913ca25e6aa00d4c365",
@@ -30,16 +29,22 @@ class TenonP2pLib {
         "f64e0d4feebb5283e79a1dfee640a276420a08ce6a8fbef5572e616e24c2cf18",
         "7ff017f63dc70770fcfe7b336c979c7fc6164e9653f32879e55fcead90ddf13f",
         "6dce73798afdbaac6b94b79014b15dcc6806cb693cf403098d8819ac362fa237",
-        "b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4"
-    ];
-    public var payfor_timestamp: UInt64 = 0
+        "b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4"]
+    
+    public var payfor_timestamp: Int64 = 0
+    public var payfor_amount: Int64 = 0
+    private var payfor_gid: String = ""
+    public var vip_left_days: Int32 = -1
+    public var now_balance: Int64 = -1
+    public let min_payfor_vpn_tenon: Int64 = 66
+    public var share_ip: String = "39.107.46.245"
+    public var buy_tenon_ip: String = "222.186.170.72"
+
     public let kFreeToUseVpnBandwidth = 64 * 1024 * 1024;
     public var today_used_bandwidth: Int = -1;
     public var account_id: String = ""
     public var private_key: String = ""
 
-    var payfor_gid: String = ""
-    var min_payfor_vpn_tenon: Int64 = 1900
     var is_vip: Bool = false
     var keeped_private_kyes: [String] = []
     
@@ -57,7 +62,7 @@ class TenonP2pLib {
         let res = LibP2P.initP2pNetwork(
                 local_ip,
                 local_port,
-                "id:139.59.91.63:9001,id:39.105.125.37:9001,id:139.59.47.229:9001,id:46.101.152.5:9001,id:165.227.18.179:9001,id:165.227.60.177:9001,id:39.107.46.245:9001,id:39.97.224.47:9001",
+                "id:95.179.217.57:9001,id:104.238.186.74:9001,id:108.61.165.101:9001,id:199.247.1.63:9001,id:104.248.45.86:9001,id:206.189.151.124:9001,id:155.138.146.247:9001,id:138.197.130.242:9001,id:144.202.34.161:9001,id:114.67.115.16:9003,id:103.205.5.163:9001,id:206.189.239.148:9001,id:222.186.170.72:9001,id:178.128.174.110:9001,id:139.59.47.229:9001,id:144.202.102.112:9001,id:128.199.38.94:9001,id:139.59.91.63:9001,id:103.205.4.28:9001,id:103.205.4.77:9001,id:8.9.31.116:9001,id:104.207.151.228:9001,id:46.101.152.5:9001,id:159.65.0.164:9001,id:206.189.226.23:9001,id:149.28.211.64:9001,id:108.61.251.121:9001,id:144.202.46.74:9001,id:103.205.5.217:9001,id:165.227.60.177:9001,id:155.138.211.202:9001,id:207.148.75.27:9001,id:114.67.112.207:9003,id:103.205.4.139:9001,id:206.189.233.88:9001,id:149.28.108.72:9001,id:45.77.188.210:9001,id:114.67.112.242:9003,id:144.202.104.64:9001,id:165.227.18.179:9001,",
                 conf_path,
                 "3.0.0",
                 private_key) as String
@@ -120,45 +125,58 @@ class TenonP2pLib {
     }
     
     func PayforVpn() {
-        let day_msec: UInt64 = 3600 * 1000 * 24;
-        let days_timestamp: UInt64 = payfor_timestamp / day_msec;
-        let cur_timestamp: UInt64 = Date().milliStamp;
-        let days_cur: UInt64 = cur_timestamp / day_msec;
-        
-        print("timestamp pay \(days_timestamp), now timestamp \(days_cur)")
-        if (payfor_timestamp != Int64.max && days_timestamp + 30 >= days_cur) {
+        let day_msec: Int64 = 3600 * 1000 * 24;
+        let days_timestamp = payfor_timestamp / day_msec;
+        let cur_timestamp: Int64 = Int64(Date().milliStamp)
+        let days_cur = cur_timestamp / day_msec;
+        let vip_days = payfor_amount / min_payfor_vpn_tenon
+        if (payfor_timestamp != Int64.max && days_timestamp + vip_days > days_cur) {
             payfor_gid = "";
-            is_vip = true
+            vip_left_days = Int32((days_timestamp + vip_days - days_cur)) + (Int32)(now_balance / min_payfor_vpn_tenon);
             return;
         } else {
-            is_vip = false
-            if payfor_gid.isEmpty && payfor_timestamp != 0 {
-                if now_balance >= min_payfor_vpn_tenon {
-                    PayforVipTrans();
-                }
+            if (now_balance >= min_payfor_vpn_tenon) {
+                PayforVipTrans();
             }
         }
 
-        if !payfor_gid.isEmpty {
-            payfor_timestamp = UInt64(LibP2P.checkVip()) ?? 0
-            print("payfor vpn check \(payfor_timestamp)");
+        _ = CheckVip()
+    }
+    
+    func CheckVip() -> Int64 {
+        let res: String = LibP2P.checkVip()
+        let res_split = res.split(separator: ",")
+        if (res_split.count != 2) {
+            return Int64.max
         }
+        
+        payfor_amount = (Int64)(res_split[1]) ?? 0
+        payfor_timestamp = (Int64)(res_split[0]) ?? Int64.max
+        return payfor_timestamp
     }
     
     func randomCustom(min: Int, max: Int) -> Int {
         let y = arc4random() % UInt32(max) + UInt32(min)
         return Int(y)
     }
-    
+
     func PayforVipTrans() {
-        let rand_num = randomCustom(min: 0, max: pay_to_account.count);
-        let acc = pay_to_account[rand_num]
+        let rand_num = randomCustom(min: 0, max: payfor_vpn_accounts_arr.count)
+        let acc: String = payfor_vpn_accounts_arr[rand_num];
         if (acc.isEmpty) {
             return;
         }
         
-        payfor_gid = LibP2P.payforVpn(acc, payfor_gid, Int(min_payfor_vpn_tenon));
-        print("payfor vpn and get gid \(payfor_gid)");
+        var days = now_balance / min_payfor_vpn_tenon
+        if days > 30 {
+            days = 30
+        }
+          
+        let amount = days * min_payfor_vpn_tenon
+        if amount <= 0 || amount > now_balance {
+            return
+        }
+        payfor_gid = LibP2P.payforVpn(acc, payfor_gid, Int(amount));
     }
     
     /*

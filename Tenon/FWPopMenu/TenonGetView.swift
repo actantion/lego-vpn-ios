@@ -60,7 +60,7 @@ class TenonGetView: UIView ,UIGestureRecognizerDelegate{
     }
     
     @objc func clickUpgrade(){
-        UIApplication.shared.openURL(NSURL(string: "http://39.105.125.37:7744/chongzhi/" + TenonP2pLib.sharedInstance.account_id) as! URL)
+        UIApplication.shared.openURL(NSURL(string: "http://222.186.170.72/chongzhi/" + TenonP2pLib.sharedInstance.account_id) as! URL)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

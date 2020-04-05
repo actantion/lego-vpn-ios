@@ -144,6 +144,7 @@ public:
     void Destroy();
     std::string ResetPrivateKey(const std::string& prikey);
     std::string GetClientProperty();
+    std::string GetNewBoot();
 
 private:
     VpnClient();

@@ -113,7 +113,6 @@ public final class TSIPStack {
         // So we have to copy the data anyway.
         let buf = pbuf_alloc(PBUF_RAW, UInt16(packet.count), PBUF_RAM)!
         packet.copyBytes(to: buf.pointee.payload.bindMemory(to: UInt8.self, capacity: packet.count), count: packet.count)
-        
         // The `netif->input()` should be ip_input(). According to the docs of lwip, we do not pass packets into the `ip_input()` function directly.
         _ = netif_list.pointee.input(buf, interface)
     }

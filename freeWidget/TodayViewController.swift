@@ -42,12 +42,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     @IBAction func switchAction(_ sender: UISwitch) {
-        exit(0)
-        if (sender.isOn) {
-            VpnManager.shared.connect()
-        } else {
-            VpnManager.shared.disconnect()
-        }
+//        exit(0)
+//        if (sender.isOn) {
+//            VpnManager.shared.connect()
+//        } else {
+//            VpnManager.shared.disconnect()
+//        }
     }
 }
 
