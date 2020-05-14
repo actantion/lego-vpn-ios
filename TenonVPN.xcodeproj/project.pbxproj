@@ -996,7 +996,7 @@
 				CODE_SIGN_ENTITLEMENTS = TenonVPN.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.2.3;
+				CURRENT_PROJECT_VERSION = 3.2.5;
 				DEVELOPMENT_TEAM = V442MA2B5Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1019,7 +1019,7 @@
 					"$(PROJECT_DIR)/Tenon/WechatPay",
 					"$(PROJECT_DIR)/Tenon/WeChatSDK1.8.6.1",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.2.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1091,7 +1091,7 @@
 				CODE_SIGN_ENTITLEMENTS = TenonVPN.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.2.3;
+				CURRENT_PROJECT_VERSION = 3.2.5;
 				DEVELOPMENT_TEAM = V442MA2B5Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1114,7 +1114,7 @@
 					"$(PROJECT_DIR)/Tenon/WechatPay",
 					"$(PROJECT_DIR)/Tenon/WeChatSDK1.8.6.1",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.2.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

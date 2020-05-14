@@ -118,46 +118,46 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
         var UserRules:[NEKit.Rule] = []
         
-//        for each in (value["rule"].array! ){
-//            let adapter:NEKit.AdapterFactory
-//            if each["adapter"].string! == "direct"       {
-//                adapter = directAdapterFactory
-//            }else{
-//                adapter = ssAdapterFactory
-//            }
-//
-//            let ruleType = each["type"].string!
-//            switch ruleType {
-//            case "domainlist":
-//                var rule_array : [NEKit.DomainListRule.MatchCriterion] = []
-//                for dom in each["criteria"].array!{
-//                    let raw_dom = dom.string!
-//                    let index = raw_dom.index(raw_dom.startIndex, offsetBy: 1)
-//                    let index2 = raw_dom.index(raw_dom.startIndex, offsetBy: 2)
-//                    let typeStr = raw_dom[...index]
-//                    let url = raw_dom[index2...]
-//
-//                    if typeStr == "s"{
-//                        rule_array.append(DomainListRule.MatchCriterion.suffix(String(url)))
-//                    }else if typeStr == "k"{
-//                        rule_array.append(DomainListRule.MatchCriterion.keyword(String(url)))
-//                    }else if typeStr == "p"{
-//                        rule_array.append(DomainListRule.MatchCriterion.prefix(String(url)))
-//                    }else if typeStr == "r"{
-//                        // ToDo:
-//                        // shoud be complete
-//                    }
-//                }
-//                UserRules.append(DomainListRule(adapterFactory: adapter, criteria: rule_array))
-//
-//
-//            case "iplist":
-//                let ipArray = each["criteria"].array!.map{$0.string!}
-//                UserRules.append(try! IPRangeListRule(adapterFactory: adapter, ranges: ipArray))
-//            default:
-//                break
-//            }
-//        }
+        for each in (value["rule"].array! ){
+            let adapter:NEKit.AdapterFactory
+            if each["adapter"].string! == "direct"{
+                adapter = directAdapterFactory
+            }else{
+                adapter = ssAdapterFactory
+            }
+
+            let ruleType = each["type"].string!
+            switch ruleType {
+            case "domainlist":
+                var rule_array : [NEKit.DomainListRule.MatchCriterion] = []
+                for dom in each["criteria"].array!{
+                    let raw_dom = dom.string!
+                    let index = raw_dom.index(raw_dom.startIndex, offsetBy: 1)
+                    let index2 = raw_dom.index(raw_dom.startIndex, offsetBy: 2)
+                    let typeStr = raw_dom[...index]
+                    let url = raw_dom[index2...]
+
+                    if typeStr == "s"{
+                        rule_array.append(DomainListRule.MatchCriterion.suffix(String(url)))
+                    }else if typeStr == "k"{
+                        rule_array.append(DomainListRule.MatchCriterion.keyword(String(url)))
+                    }else if typeStr == "p"{
+                        rule_array.append(DomainListRule.MatchCriterion.prefix(String(url)))
+                    }else if typeStr == "r"{
+                        // ToDo:
+                        // shoud be complete
+                    }
+                }
+                UserRules.append(DomainListRule(adapterFactory: adapter, criteria: rule_array))
+
+
+            case "iplist":
+                let ipArray = each["criteria"].array!.map{$0.string!}
+                UserRules.append(try! IPRangeListRule(adapterFactory: adapter, ranges: ipArray))
+            default:
+                break
+            }
+        }
         
         
         // Rules
