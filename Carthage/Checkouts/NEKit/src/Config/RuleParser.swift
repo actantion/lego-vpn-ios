@@ -13,6 +13,8 @@ struct RuleParser {
             rules.append(try parseRule(ruleConfig, adapterFactoryManager: adapterFactoryManager))
         }
         return RuleManager(fromRules: rules, appendDirect: true)
+
+//        return RuleManager(fromRules: rules, ssRule: DirectRule(), appendDirect: true)
     }
 
     static func parseRule(_ config: Yaml, adapterFactoryManager: AdapterFactoryManager) throws -> Rule {

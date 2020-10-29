@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OK-ia-4Gi">
-                                <rect key="frame" x="30" y="583" width="315" height="40"/>
+                                <rect key="frame" x="30" y="563" width="315" height="40"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Odo-2O-x16"/>
@@ -44,15 +44,15 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmI-eh-EA5" customClass="CircleProgress" customModule="TenonVPN" customModuleProvider="target">
-                                <rect key="frame" x="91" y="213" width="193.5" height="193.5"/>
+                                <rect key="frame" x="101" y="213" width="173.5" height="173.5"/>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cUP-wN-Y58" customClass="CircleProgress" customModule="TenonVPN" customModuleProvider="target">
-                                <rect key="frame" x="91" y="213" width="193.5" height="193.5"/>
+                                <rect key="frame" x="101" y="213" width="173.5" height="173.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMm-5y-Hlt">
-                                <rect key="frame" x="96" y="218" width="183.5" height="183.5"/>
+                                <rect key="frame" x="106" y="218" width="163.5" height="163.5"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.87058823529999996" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WMm-5y-Hlt" secondAttribute="height" multiplier="1:1" id="5Bz-0D-Ptr"/>
@@ -67,7 +67,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gpq-ms-GJd">
-                                <rect key="frame" x="187" y="523" width="1" height="40"/>
+                                <rect key="frame" x="187" y="503" width="1" height="40"/>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="N78-nz-It0"/>
@@ -75,7 +75,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smd-Wo-Ltm">
-                                <rect key="frame" x="30" y="463" width="315" height="100"/>
+                                <rect key="frame" x="30" y="443" width="315" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Xsn-Iw-LMH"/>
@@ -112,13 +112,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOC-E8-nzj">
-                                <rect key="frame" x="155" y="339" width="65" height="21"/>
+                                <rect key="frame" x="155" y="325.5" width="65" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect" translatesAutoresizingMaskIntoConstraints="NO" id="mLz-mT-Jxf">
-                                <rect key="frame" x="151" y="257.5" width="73" height="73.5"/>
+                                <rect key="frame" x="155" y="252" width="65" height="65.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="CzP-HU-meh"/>
                                     <constraint firstAttribute="height" constant="60" id="Q3k-q5-Xue"/>
@@ -131,8 +131,8 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
-                                <rect key="frame" x="60" y="432.5" width="120" height="20.5"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44X-VY-8FV">
+                                <rect key="frame" x="60" y="412.5" width="120" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="8zP-zZ-4QZ"/>
                                 </constraints>
@@ -140,14 +140,14 @@
                                 <color key="textColor" red="0.058213774340000003" green="0.73569057640000002" blue="0.55026902119999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
-                                <rect key="frame" x="230" y="427.5" width="47" height="31"/>
+                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-zF-ibB">
+                                <rect key="frame" x="230" y="407.5" width="47" height="31"/>
                                 <connections>
                                     <action selector="clickSmartRoute:" destination="BYZ-38-t0r" eventType="valueChanged" id="8kO-gX-XLw"/>
                                 </connections>
                             </switch>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhZ-Qd-2Lc">
-                                <rect key="frame" x="295" y="418" width="50" height="50"/>
+                                <rect key="frame" x="295" y="398" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="hnf-4s-WM7"/>
                                     <constraint firstAttribute="width" constant="50" id="z6P-fg-SNp"/>
@@ -277,7 +277,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                                         <rect key="frame" x="17" y="37" width="341" height="574"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <mutableString key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
+                                        <string key="text">TenonVPN is decentralized, first of all, we will not ask the user to fill in any personal information, including email, phone, and any other user-related information. We only use the app to generate a random 256-bit address to identify the user.
 At the same time, the server does not store any user data, and the vpn server itself only performs data forwarding and does not store the data.
 
 By using the TenonVPN anonymous Internet service "VPN", you understand, accept and agree to the following terms of use:
@@ -300,7 +300,7 @@ Will not use our services to trade, sell or distribute child pornography or dist
 We will not use our services to send spam, threatening emails, unsolicited text messages or related scams.
 We reserve the right to terminate your account without notice or refund when we receive a complaint from an Internet Service Provider, company or user about illegal activities on your account.
 If we receive a report from a network provider, company or other user regarding the illegal activities of your account, we have the right to cancel your account without prior notice or refund.
-We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</mutableString>
+We reserve the right to terminate the service two weeks in advance. If the service has been purchased, the refund will be made according to the service termination date.</string>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -346,7 +346,7 @@ We reserve the right to terminate the service two weeks in advance. If the servi
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wu3-k5-dkf" secondAttribute="trailing" constant="30" id="LdK-GK-LCO"/>
                             <constraint firstItem="YHl-J3-WAI" firstAttribute="trailing" secondItem="wu3-k5-dkf" secondAttribute="trailing" constant="-8" id="Leh-Nh-K5O"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="Gpq-ms-GJd" secondAttribute="bottom" constant="20" id="Mr3-EJ-5ZI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4OK-ia-4Gi" secondAttribute="bottom" constant="44" id="NO7-H7-fPm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4OK-ia-4Gi" secondAttribute="bottom" constant="64" id="NO7-H7-fPm"/>
                             <constraint firstItem="XmI-eh-EA5" firstAttribute="centerY" secondItem="cUP-wN-Y58" secondAttribute="centerY" id="NxG-16-Lvv"/>
                             <constraint firstItem="44X-VY-8FV" firstAttribute="leading" secondItem="wu3-k5-dkf" secondAttribute="leading" constant="30" id="OrL-sb-HMQ"/>
                             <constraint firstItem="4OK-ia-4Gi" firstAttribute="top" secondItem="smd-Wo-Ltm" secondAttribute="bottom" constant="20" id="SHR-xb-VHv"/>

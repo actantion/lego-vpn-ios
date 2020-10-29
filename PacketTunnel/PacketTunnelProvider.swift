@@ -162,8 +162,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
         // Rules
         
-        let chinaRule = CountryRule(countryCode: "CN", match: true, adapterFactory: directAdapterFactory)
-        let unKnowLoc = CountryRule(countryCode: "--", match: true, adapterFactory: directAdapterFactory)
+        let chinaRule = CountryRule(countryCode: "CN", match: true, adapterFactory: ssAdapterFactory)
+        let unKnowLoc = CountryRule(countryCode: "--", match: true, adapterFactory: ssAdapterFactory)
         let dnsFailRule = DNSFailRule(adapterFactory: ssAdapterFactory)
         
         let allRule = AllRule(adapterFactory: ssAdapterFactory)

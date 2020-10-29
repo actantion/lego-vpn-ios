@@ -24,4 +24,5 @@ target 'TenonVPN' do
   pod 'IQKeyboardManagerSwift'
 #   Pods for TenonVPN
   pod 'YYKit'
+  pod 'Google-Mobile-Ads-SDK'
 end

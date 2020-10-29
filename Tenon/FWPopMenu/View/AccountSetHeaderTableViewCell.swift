@@ -49,6 +49,9 @@ class AccountSetHeaderTableViewCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var lbBalanceLego: UILabel!
     @IBOutlet weak var lbBalanceCost: UILabel!
     @IBOutlet weak var vwBottom: UIView!
+    @IBOutlet var globalModeSwitch: UISwitch!
+    
+    
     var pkBlock:PKChangeBlock!
     var clickNoticeBtn:clickBtn!
     
@@ -64,13 +67,28 @@ class AccountSetHeaderTableViewCell: UITableViewCell,UITextViewDelegate {
         btnNotice.layer.cornerRadius = 4
         btnNotice.layer.borderColor = APP_COLOR.cgColor
         btnNotice.layer.borderWidth = 1
-        
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let global_mode: UInt32 = UInt32(userDefaults?.string(forKey: "global_mode") ?? "0") ?? 0
+        if (global_mode == 1) {
+            globalModeSwitch.isOn = true
+        } else {
+            globalModeSwitch.isOn = false
+        }
         tvPrivateKeyValue.delegate = self
     }
     @IBAction func clickNotice(_ sender: Any) {
         clickNoticeBtn()
     }
     
+    @IBAction func GlobalModeChanged(_ sender: Any) {
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        
+        if (globalModeSwitch.isOn) {
+            userDefaults?.set(String("1"), forKey: "global_mode")
+        } else {
+            userDefaults?.set(String("0"), forKey: "global_mode")
+        }
+    }
     @IBAction func clickCopyAccount(_ sender: Any) {
         UIPasteboard.general.string = TenonP2pLib.sharedInstance.account_id
         CBToast.showToast(message: "copy account address success.", aLocationStr: "center", aShowTime: 3.0)

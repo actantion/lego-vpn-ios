@@ -14,6 +14,7 @@ import StoreKit
 import Alamofire
 import SwiftyJSON
 import UserNotifications
+import GoogleMobileAds
 
 class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver{
 
@@ -62,9 +63,9 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     var local_country: String = ""
     var local_private_key: String = ""
     var local_account_id: String = ""
-    var countryCode:[String] = ["United States", "Singapore", "Germany","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom"]
+    var countryCode:[String] = ["United States", "Singapore", "Germany","France", "Netherlands", "Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom", "China"]
     var countryNodes:[String] = []
-    var iCon:[String] = ["us", "sg","de","fr","kr", "jp", "ca","au","hk", "in", "gb"]
+    var iCon:[String] = ["us", "sg","de","fr", "nl", "kr", "jp", "ca","au","hk", "in", "gb", "cn"]
     var defaultCountry:[String] = ["US", "IN","CA","DE","AU"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     var transcationList = [TranscationModel]()
@@ -81,6 +82,8 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     private var user_started_vpn: Bool = false
     private var sleepBacked = false;
     
+    var bannerView: GADBannerView!
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -95,13 +98,34 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         super.viewDidDisappear(animated)
         SKPaymentQueue.default().remove(self)
     }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+     bannerView.translatesAutoresizingMaskIntoConstraints = false
+     view.addSubview(bannerView)
+     view.addConstraints(
+       [NSLayoutConstraint(item: bannerView,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: bottomLayoutGuide,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 0),
+        NSLayoutConstraint(item: bannerView,
+                           attribute: .centerX,
+                           relatedBy: .equal,
+                           toItem: view,
+                           attribute: .centerX,
+                           multiplier: 1,
+                           constant: 0)
+       ])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-            self.vwBackHub.proEndgress = 0.0
-            self.vwBackHub.proStartgress = 0.0
-            VpnManager.shared.disconnect()
+//            self.vwBackHub.proEndgress = 0.0
+//            self.vwBackHub.proStartgress = 0.0
+//            VpnManager.shared.disconnect()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.DidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
@@ -202,7 +226,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
         userDefaults?.set("ok", forKey: "vpnsvr_status")
     }
-    
+
     @IBAction func downToExit(_ sender: Any) {
         print("click to exit")
         clickToExit = true
@@ -294,7 +318,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     }
 
     func setRouteInfo() {
-        let iCon:[String] = ["US", "SG", "BR","DE","FR","KR", "JP", "CA","AU","HK", "IN", "GB","CN"]
+        let iCon:[String] = ["US", "SG", "BR","DE","FR", "NL", "KR", "JP", "CA","AU","HK", "IN", "GB","CN"]
                          
          var route_str: String = ""
          for country in iCon {
@@ -363,28 +387,24 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     }
     
     func setExRouteNode() {
-        if (local_country == "CN" && (choosed_country == "SG" || choosed_country == "JP")) {
-            var route_node = super.getOneRouteNode(country: "US")
-            if (route_node.ip.isEmpty) {
-                for country in self.defaultCountry {
-                    route_node = super.getOneRouteNode(country: country)
-                    if (!route_node.ip.isEmpty) {
-                        break
-                    }
+        
+        var route_node = super.getOneRouteNode(country: "US")
+        if (route_node.ip.isEmpty) {
+            for country in self.defaultCountry {
+                route_node = super.getOneRouteNode(country: country)
+                if (!route_node.ip.isEmpty) {
+                    break
                 }
             }
-            
-            if (!route_node.ip.isEmpty) {
-                let vpn_ip_int = LibP2P.changeStrIp(route_node.ip)
-                let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
-                userDefaults?.set(String(vpn_ip_int), forKey: "ex_route_ip_int")
-                userDefaults?.set(String(route_node.port), forKey: "ex_route_port_int")
-            }
-        } else {
-            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
-            userDefaults?.set(0, forKey: "ex_route_ip_int")
-            userDefaults?.set(0, forKey: "ex_route_port_int")
         }
+        
+        if (!route_node.ip.isEmpty) {
+            let vpn_ip_int = LibP2P.changeStrIp(route_node.ip)
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+            userDefaults?.set(String(vpn_ip_int), forKey: "ex_route_ip_int")
+            userDefaults?.set(String(route_node.port), forKey: "ex_route_port_int")
+        }
+        
     }
     
     @objc func requestData(){
@@ -646,7 +666,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     @IBAction func clickAccountSetting(_ sender: Any) {
         self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
         if self.btnAccount.isUserInteractionEnabled == false{
-            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 200, width: SCREEN_WIDTH, height: 200))
+            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 300, width: SCREEN_WIDTH, height: 300))
             self.popBottomView.loadCell("AccountSetTableViewCell","AccountSetHeaderTableViewCell", self.transcationList.count)
             self.popBottomView.callBackBlk = {(cell,indexPath) in
                 if indexPath.section == 0 {
@@ -705,6 +725,18 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         }
     }
     
+    @objc func threadOne() {
+        let url = URL(string:"https://www.google.com");
+        for _ in 0...200 {
+            URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
+                (data, rsp, error) in
+                //do some thing
+                print("visit network ok");
+            }).resume()
+            usleep(50000)
+        }
+    }
+    
     @objc func onVPNStatusChanged(){
         isNetChange = true
         if VpnManager.shared.vpnStatus == .on{
@@ -715,6 +747,14 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             lbConnect.text = "Connected"
             self.user_started_vpn = true
             self.now_connect_status = 0
+            
+            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+            addBannerViewToView(bannerView)
+            bannerView.adUnitID = "ca-app-pub-1878869478486684/7948441541"
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+//            let newThread = Thread.init(target: self, selector: #selector(threadOne), object: nil)
+//            newThread.start()
         }else{
 //            if (self.user_started_vpn) {
 //                if (self.now_connect_status == 1) {

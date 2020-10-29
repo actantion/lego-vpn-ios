@@ -8,7 +8,7 @@
 
 import UIKit
 import YYKit
-import PassKit
+//import PassKit
 import libp2p
 
 let SCREEN_WIDTH = (UIScreen.main.bounds.size.width)
@@ -20,11 +20,12 @@ let WX_BUSINESS_ID = "123"
 //let IS_IN_CN = false
 //let URL_SERVER = "http://192.168.1.90:8080/"
 //let INTERFACE_API = "appleIAPAuth"
-class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerDelegate {
+//class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerDelegate {
+class BaseViewController: UIViewController {
     var btnBack:EXButton!
     var vwNavigation:UIView!
-    var shippingMethods:[PKShippingMethod]!
-    var summaryItems:[PKPaymentSummaryItem]!
+//    var shippingMethods:[PKShippingMethod]!
+//    var summaryItems:[PKPaymentSummaryItem]!
     
     func hiddenBackBtn(bHidden:Bool){
         self.btnBack.isHidden = bHidden;
@@ -79,76 +80,76 @@ class BaseViewController: UIViewController,PKPaymentAuthorizationViewControllerD
             return false
         }
     }
-
-    func applePayInit(_ amount:Int) {
-        if !PKPaymentAuthorizationViewController.canMakePayments(){
-            print("not support ApplePay，please upgrade to ios 9.0 and iPhone6 or newer")
-        }
-        let supportedNetworks:NSArray = [PKPaymentNetwork.amex, PKPaymentNetwork.masterCard,PKPaymentNetwork.visa,PKPaymentNetwork.chinaUnionPay];
-        if !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedNetworks as! [PKPaymentNetwork]) {
-            print("no card");
-            return;
-        }
-
-        let payRequest:PKPaymentRequest = PKPaymentRequest()
-        payRequest.countryCode = "CN"
-        payRequest.currencyCode = "CNY"
-        payRequest.merchantIdentifier = "merchant.TenonVpn.TenonCoin"
-        payRequest.supportedNetworks = supportedNetworks as! [PKPaymentNetwork]
-        payRequest.merchantCapabilities = PKMerchantCapability(rawValue: PKMerchantCapability.capability3DS.rawValue | PKMerchantCapability.capabilityEMV.rawValue)
-        
-        //    payRequest.requiredBillingAddressFields = PKAddressFieldEmail;
-
-        //        payRequest.requiredShippingAddressFields = PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName;
-
-        //        let freeShipping:PKShippingMethod = PKShippingMethod(label: "", amount: NSDecimalNumber.zero)
-        //        freeShipping.identifier = "freeshipping"
-        //        freeShipping.detail = "1 day"
-
-        //        let expressShipping:PKShippingMethod = PKShippingMethod(label: "", amount: NSDecimalNumber.init(decimal:10.00) )
-        //        expressShipping.identifier = "expressshipping"
-        //        expressShipping.detail = "2-3 hours"
-
-        //        shippingMethods = [freeShipping]
-        //        payRequest.shippingMethods = shippingMethods
-
-        let subtotalAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: Decimal(amount))
-        let subtotal:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "item:" + String(amount*500) + " Tenon", amount: subtotalAmount)
-
-        //        let discountAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: 1000)
-        //        let discount:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "receive Tenon", amount: discountAmount)
-        //
-        //        let methodsAmount:NSDecimalNumber = NSDecimalNumber.zero
-        //        let methods:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "", amount: methodsAmount)
-
-        var totalAmount:NSDecimalNumber = NSDecimalNumber.zero
-        totalAmount = totalAmount.adding(subtotalAmount)
-        //        totalAmount = totalAmount.adding(discountAmount)
-        //        totalAmount = totalAmount.adding(methodsAmount)
-
-        let total:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "xielei", amount: totalAmount)
-
-        summaryItems = [subtotal,total] // , discount, methods, total
-        payRequest.paymentSummaryItems = summaryItems
-
-        let view:PKPaymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: payRequest)!
-        view.delegate = self
-        self.present(view, animated: true, completion: nil)
-    }
-
-    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        //        PKPaymentToken *payToken = payment.token;
-        //
-        //        PKContact *billingContact = payment.billingContact;
-        //        PKContact *shippingContact = payment.shippingContact;
-        //        PKContact *shippingMethod = payment.shippingMethod;
-        //        print("payment.token = %@",payment.token)
-        print("paymentAuthorizationViewController")
-        completion(PKPaymentAuthorizationStatus.success);
-    }
+//
+//    func applePayInit(_ amount:Int) {
+//        if !PKPaymentAuthorizationViewController.canMakePayments(){
+//            print("not support ApplePay，please upgrade to ios 9.0 and iPhone6 or newer")
+//        }
+//        let supportedNetworks:NSArray = [PKPaymentNetwork.amex, PKPaymentNetwork.masterCard,PKPaymentNetwork.visa,PKPaymentNetwork.chinaUnionPay];
+//        if !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedNetworks as! [PKPaymentNetwork]) {
+//            print("no card");
+//            return;
+//        }
+//
+//        let payRequest:PKPaymentRequest = PKPaymentRequest()
+//        payRequest.countryCode = "CN"
+//        payRequest.currencyCode = "CNY"
+//        payRequest.merchantIdentifier = "merchant.TenonVpn.TenonCoin"
+//        payRequest.supportedNetworks = supportedNetworks as! [PKPaymentNetwork]
+//        payRequest.merchantCapabilities = PKMerchantCapability(rawValue: PKMerchantCapability.capability3DS.rawValue | PKMerchantCapability.capabilityEMV.rawValue)
+//
+//        //    payRequest.requiredBillingAddressFields = PKAddressFieldEmail;
+//
+//        //        payRequest.requiredShippingAddressFields = PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName;
+//
+//        //        let freeShipping:PKShippingMethod = PKShippingMethod(label: "", amount: NSDecimalNumber.zero)
+//        //        freeShipping.identifier = "freeshipping"
+//        //        freeShipping.detail = "1 day"
+//
+//        //        let expressShipping:PKShippingMethod = PKShippingMethod(label: "", amount: NSDecimalNumber.init(decimal:10.00) )
+//        //        expressShipping.identifier = "expressshipping"
+//        //        expressShipping.detail = "2-3 hours"
+//
+//        //        shippingMethods = [freeShipping]
+//        //        payRequest.shippingMethods = shippingMethods
+//
+//        let subtotalAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: Decimal(amount))
+//        let subtotal:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "item:" + String(amount*500) + " Tenon", amount: subtotalAmount)
+//
+//        //        let discountAmount:NSDecimalNumber = NSDecimalNumber.init(decimal: 1000)
+//        //        let discount:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "receive Tenon", amount: discountAmount)
+//        //
+//        //        let methodsAmount:NSDecimalNumber = NSDecimalNumber.zero
+//        //        let methods:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "", amount: methodsAmount)
+//
+//        var totalAmount:NSDecimalNumber = NSDecimalNumber.zero
+//        totalAmount = totalAmount.adding(subtotalAmount)
+//        //        totalAmount = totalAmount.adding(discountAmount)
+//        //        totalAmount = totalAmount.adding(methodsAmount)
+//
+//        let total:PKPaymentSummaryItem = PKPaymentSummaryItem(label: "xielei", amount: totalAmount)
+//
+//        summaryItems = [subtotal,total] // , discount, methods, total
+//        payRequest.paymentSummaryItems = summaryItems
+//
+//        let view:PKPaymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: payRequest)!
+//        view.delegate = self
+//        self.present(view, animated: true, completion: nil)
+//    }
+//
+//    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+//        controller.dismiss(animated: true, completion: nil)
+//    }
+//    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
+//        //        PKPaymentToken *payToken = payment.token;
+//        //
+//        //        PKContact *billingContact = payment.billingContact;
+//        //        PKContact *shippingContact = payment.shippingContact;
+//        //        PKContact *shippingMethod = payment.shippingMethod;
+//        //        print("payment.token = %@",payment.token)
+//        print("paymentAuthorizationViewController")
+//        completion(PKPaymentAuthorizationStatus.success);
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -5,10 +5,12 @@ open class RuleManager {
     /// The current used `RuleManager`, there is only one manager should be used at a time.
     ///
     /// - note: This should be set before any DNS or connect sessions.
+//    public static var currentManager: RuleManager = RuleManager(fromRules: [], ssRule: DirectRule(), appendDirect: true)
     public static var currentManager: RuleManager = RuleManager(fromRules: [], appendDirect: true)
 
     /// The rule list.
     var rules: [Rule] = []
+    var ssRule: Rule? = nil
 
     open var observer: Observer<RuleMatchEvent>?
 
@@ -18,10 +20,10 @@ open class RuleManager {
      - parameter rules:        The rules.
      - parameter appendDirect: Whether to append a `DirectRule` at the end of the list so any request does not match with any rule go directly.
      */
+//    public init(fromRules rules: [Rule], ssRule: Rule, appendDirect: Bool = false) {
     public init(fromRules rules: [Rule], appendDirect: Bool = false) {
         self.rules = rules
-
-        if appendDirect || self.rules.count == 0 {
+        if appendDirect ||  self.rules.count == 0 {
             self.rules.append(DirectRule())
         }
 
@@ -60,6 +62,14 @@ open class RuleManager {
      - returns: The matched configured adapter.
      */
     func match(_ session: ConnectSession) -> AdapterFactory! {
+//        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+//        let global_mode: UInt32 = UInt32(userDefaults?.string(forKey: "global_mode") ?? "0") ?? 0
+//        if (global_mode == 1) {
+//            session.matchedRule = self.ssRule
+//            observer?.signal(.ruleMatched(session, rule: session.matchedRule!))
+//            return session.matchedRule!.match(session)
+//        }
+//
         if session.matchedRule != nil {
             observer?.signal(.ruleMatched(session, rule: session.matchedRule!))
             return session.matchedRule!.match(session)
