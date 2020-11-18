@@ -16,9 +16,9 @@ class RowsExampleViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        URLRow.defaultCellUpdate = { cell, row in cell.textField.textColor = .blue }
-        LabelRow.defaultCellUpdate = { cell, row in cell.detailTextLabel?.textColor = .orange  }
-        CheckRow.defaultCellSetup = { cell, row in cell.tintColor = .orange }
+        URLRow.defaultCellUpdate = { cell, row in cell.textField.textColor = .systemBlue }
+        LabelRow.defaultCellUpdate = { cell, row in cell.detailTextLabel?.textColor = .systemOrange  }
+        CheckRow.defaultCellSetup = { cell, row in cell.tintColor = .systemOrange }
         DateRow.defaultRowInitializer = { row in row.minimumDate = Date() }
 
         form +++
@@ -36,6 +36,8 @@ class RowsExampleViewController: FormViewController {
 
             <<< DateRow() { $0.value = Date(); $0.title = "DateRow" }
 
+            <<< CountDownInlineRow() { $0.value = Date(); $0.title = "CountDownInlineRow" }
+            
             <<< CheckRow() {
                 $0.title = "CheckRow"
                 $0.value = true
@@ -57,7 +59,10 @@ class RowsExampleViewController: FormViewController {
             <<< StepperRow() {
                 $0.title = "StepperRow"
                 $0.value = 1.0
-            }
+              }.cellSetup({ (cell, row) in
+                cell.imageView?.image = #imageLiteral(resourceName: "selectedRectangle")
+              })
+          
 
             +++ Section("SegmentedRow examples")
 
@@ -205,7 +210,7 @@ class RowsExampleViewController: FormViewController {
         section
             <<< LocationRow(){
                 $0.title = "LocationRow"
-                $0.value = CLLocation(latitude: -34.91, longitude: -56.1646)
+                $0.value = CLLocation(latitude: -34.9124, longitude: -56.1594)
             }
 
             <<< ImageRow(){
@@ -345,6 +350,7 @@ class RowsExampleViewController: FormViewController {
                 $0.title = "ZipCodeRow"
                 $0.placeholder = "90210"
         }
+
     }
 
     @objc func multipleSelectorDone(_ item:UIBarButtonItem) {

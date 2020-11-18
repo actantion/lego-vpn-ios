@@ -37,8 +37,8 @@ open class DatePickerCell: Cell<Date>, CellType {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.contentView.addSubview(self.datePicker)
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[picker]-0-|", options: [], metrics: nil, views: ["picker": self.datePicker]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[picker]-0-|", options: [], metrics: nil, views: ["picker": self.datePicker]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[picker]-0-|", options: [], metrics: nil, views: ["picker": self.datePicker!]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[picker]-0-|", options: [], metrics: nil, views: ["picker": self.datePicker!]))
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -53,6 +53,20 @@ open class DatePickerCell: Cell<Date>, CellType {
         height = { UITableView.automaticDimension }
         datePicker.datePickerMode = datePickerMode()
         datePicker.addTarget(self, action: #selector(DatePickerCell.datePickerValueChanged(_:)), for: .valueChanged)
+
+        if datePicker.datePickerMode != .countDownTimer {
+            #if swift(>=5.2)
+                if #available(iOS 14.0, *) {
+                    #if swift(>=5.3) && !(os(OSX) || (os(iOS) && targetEnvironment(macCatalyst)))
+                        datePicker.preferredDatePickerStyle = .inline
+                    #else
+                        datePicker.preferredDatePickerStyle = .wheels
+                    #endif
+                } else if #available(iOS 13.4, *) {
+                    datePicker.preferredDatePickerStyle = .wheels
+                }
+             #endif
+        }
     }
 
     deinit {
