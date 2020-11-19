@@ -999,7 +999,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3.3.9;
-				DEVELOPMENT_TEAM = V442MA2B5Z;
+				DEVELOPMENT_TEAM = 6F3LP697WK;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1075,7 +1075,7 @@
 					"-lssl",
 					"-lcontract",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1094,7 +1094,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3.3.9;
-				DEVELOPMENT_TEAM = V442MA2B5Z;
+				DEVELOPMENT_TEAM = 6F3LP697WK;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1170,7 +1170,7 @@
 					"-lssl",
 					"-lcontract",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1187,7 +1187,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0.2;
-				DEVELOPMENT_TEAM = V442MA2B5Z;
+				DEVELOPMENT_TEAM = 6F3LP697WK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1201,7 +1201,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.PacketTunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1217,7 +1217,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0.2;
-				DEVELOPMENT_TEAM = V442MA2B5Z;
+				DEVELOPMENT_TEAM = 6F3LP697WK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1231,7 +1231,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.PacketTunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1247,7 +1247,7 @@
 				CODE_SIGN_ENTITLEMENTS = freeWidget/freeWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0.2;
-				DEVELOPMENT_TEAM = V442MA2B5Z;
+				DEVELOPMENT_TEAM = 6F3LP697WK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1262,7 +1262,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libp2p/lib";
 				MARKETING_VERSION = 2;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.freeWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.freeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1279,7 +1279,7 @@
 				CODE_SIGN_ENTITLEMENTS = freeWidget/freeWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0.2;
-				DEVELOPMENT_TEAM = V442MA2B5Z;
+				DEVELOPMENT_TEAM = 6F3LP697WK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1294,7 +1294,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libp2p/lib";
 				MARKETING_VERSION = 2;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.freeWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.freeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
