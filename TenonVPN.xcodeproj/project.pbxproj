@@ -21,19 +21,10 @@
 		18F3C64C2293D7F800D79C4A /* freeWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 18F3C6412293D7F800D79C4A /* freeWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		18F3C6522293E40400D79C4A /* NEKitRule.conf in Resources */ = {isa = PBXBuildFile; fileRef = 18E9149B2267220B005E6027 /* NEKitRule.conf */; };
 		5DA1BE6BD0C526BF119CCCE7 /* Pods_PacketTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */; };
-		8525776D2329DBF600BF8AF8 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8525776C2329DBF600BF8AF8 /* libc++.1.tbd */; };
-		8525776F2329DC0B00BF8AF8 /* libz.1.2.11.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8525776E2329DC0A00BF8AF8 /* libz.1.2.11.tbd */; };
 		852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852577722329ECD800BF8AF8 /* TenonP2pLib.swift */; };
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
 		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
-		D3063956233B3D8D0006CC7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */; };
-		D3063958233B3D990006CC7C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063957233B3D990006CC7C /* libz.tbd */; };
-		D306395A233B3DA30006CC7C /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */; };
-		D306395C233B3DAB0006CC7C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395B233B3DAB0006CC7C /* CoreTelephony.framework */; };
-		D306395E233B3DBB0006CC7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395D233B3DBB0006CC7C /* QuartzCore.framework */; };
-		D3063960233B401C0006CC7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D306395F233B401C0006CC7C /* CoreGraphics.framework */; };
-		D3063962233B40860006CC7C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3063961233B40860006CC7C /* WebKit.framework */; };
 		D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063964233B65410006CC7C /* FWOperPKView.swift */; };
 		D3063B3B23403D520006CC7C /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D3063B3A23403D520006CC7C /* click.mp3 */; };
 		D30B567323277953003E87EE /* FWPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B567223277953003E87EE /* FWPopMenu.swift */; };
@@ -178,8 +169,6 @@
 		2F2DE645899F3ED7E129742A /* Pods-PacketTunnel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.debug.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.debug.xcconfig"; sourceTree = "<group>"; };
 		4B0BC1E9EDCB1216E4A46B87 /* Pods-freeWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.release.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.release.xcconfig"; sourceTree = "<group>"; };
 		807D47F7956E953C8F94626F /* Pods-freeWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.debug.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.debug.xcconfig"; sourceTree = "<group>"; };
-		8525776C2329DBF600BF8AF8 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
-		8525776E2329DC0A00BF8AF8 /* libz.1.2.11.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.11.tbd; path = usr/lib/libz.1.2.11.tbd; sourceTree = SDKROOT; };
 		852577722329ECD800BF8AF8 /* TenonP2pLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenonP2pLib.swift; sourceTree = "<group>"; };
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
@@ -189,14 +178,6 @@
 		9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freeWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PacketTunnel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenonVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3063953233B3D560006CC7C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		D3063957233B3D990006CC7C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		D306395B233B3DAB0006CC7C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		D306395D233B3DBB0006CC7C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D306395F233B401C0006CC7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D3063961233B40860006CC7C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D3063963233B40EA0006CC7C /* TenonVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		D3063964233B65410006CC7C /* FWOperPKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWOperPKView.swift; sourceTree = "<group>"; };
 		D3063B3A23403D520006CC7C /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
@@ -244,16 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3063962233B40860006CC7C /* WebKit.framework in Frameworks */,
-				D3063960233B401C0006CC7C /* CoreGraphics.framework in Frameworks */,
-				D306395E233B3DBB0006CC7C /* QuartzCore.framework in Frameworks */,
-				D306395C233B3DAB0006CC7C /* CoreTelephony.framework in Frameworks */,
-				D306395A233B3DA30006CC7C /* libsqlite3.0.tbd in Frameworks */,
-				D3063958233B3D990006CC7C /* libz.tbd in Frameworks */,
-				D3063956233B3D8D0006CC7C /* SystemConfiguration.framework in Frameworks */,
-				8525776F2329DC0B00BF8AF8 /* libz.1.2.11.tbd in Frameworks */,
 				D35BBDDB2330C37B0043E340 /* libp2p.framework in Frameworks */,
-				8525776D2329DBF600BF8AF8 /* libc++.1.tbd in Frameworks */,
 				D33FB664231F8AB2004ECA2A /* CocoaAsyncSocket.framework in Frameworks */,
 				D33FB676231F8B07004ECA2A /* NEKit.framework in Frameworks */,
 				D33FB679231F8B0F004ECA2A /* Resolver.framework in Frameworks */,
@@ -386,17 +358,7 @@
 		AE2E93114404A35E87606173 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D3063961233B40860006CC7C /* WebKit.framework */,
-				D306395F233B401C0006CC7C /* CoreGraphics.framework */,
-				D306395D233B3DBB0006CC7C /* QuartzCore.framework */,
-				D306395B233B3DAB0006CC7C /* CoreTelephony.framework */,
-				D3063959233B3DA30006CC7C /* libsqlite3.0.tbd */,
-				D3063957233B3D990006CC7C /* libz.tbd */,
-				D3063955233B3D8D0006CC7C /* SystemConfiguration.framework */,
-				D3063953233B3D560006CC7C /* libc++.tbd */,
 				D35BBDDA2330C37B0043E340 /* libp2p.framework */,
-				8525776E2329DC0A00BF8AF8 /* libz.1.2.11.tbd */,
-				8525776C2329DBF600BF8AF8 /* libc++.1.tbd */,
 				D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */,
 				D34378FB2328F226000F1F69 /* NetworkExtension.framework */,
 				D33FB684231F8F03004ECA2A /* Eureka.framework */,
