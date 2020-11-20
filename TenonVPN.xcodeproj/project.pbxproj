@@ -59,8 +59,6 @@
 		D33FB67D231F8B15004ECA2A /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB67B231F8B15004ECA2A /* Sodium.framework */; };
 		D33FB67F231F8B1B004ECA2A /* tun2socks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB67E231F8B1B004ECA2A /* tun2socks.framework */; };
 		D33FB680231F8B1B004ECA2A /* tun2socks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB67E231F8B1B004ECA2A /* tun2socks.framework */; };
-		D33FB682231F8B23004ECA2A /* Yaml.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB681231F8B23004ECA2A /* Yaml.framework */; };
-		D33FB683231F8B23004ECA2A /* Yaml.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB681231F8B23004ECA2A /* Yaml.framework */; };
 		D33FB685231F8F03004ECA2A /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB684231F8F03004ECA2A /* Eureka.framework */; };
 		D33FB686231F8F03004ECA2A /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB684231F8F03004ECA2A /* Eureka.framework */; };
 		D33FB687231F8F03004ECA2A /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FB684231F8F03004ECA2A /* Eureka.framework */; };
@@ -74,7 +72,6 @@
 		D33FB692231F94AF004ECA2A /* MMDB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D33FB672231F8AFF004ECA2A /* MMDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D33FB693231F94AF004ECA2A /* Sodium.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D33FB67B231F8B15004ECA2A /* Sodium.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D33FB694231F94AF004ECA2A /* tun2socks.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D33FB67E231F8B1B004ECA2A /* tun2socks.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D33FB695231F94AF004ECA2A /* Yaml.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D33FB681231F8B23004ECA2A /* Yaml.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D34378F423289126000F1F69 /* FWBottomPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34378F323289126000F1F69 /* FWBottomPopView.swift */; };
 		D34378F72328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34378F52328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift */; };
 		D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34378F62328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib */; };
@@ -138,7 +135,6 @@
 				D33FB692231F94AF004ECA2A /* MMDB.framework in CopyFiles */,
 				D33FB693231F94AF004ECA2A /* Sodium.framework in CopyFiles */,
 				D33FB694231F94AF004ECA2A /* tun2socks.framework in CopyFiles */,
-				D33FB695231F94AF004ECA2A /* Yaml.framework in CopyFiles */,
 				D33FB68B231F94A7004ECA2A /* Resolver.framework in CopyFiles */,
 				D33FB68A231F9499004ECA2A /* NEKit.framework in CopyFiles */,
 				D33FB689231F9483004ECA2A /* CocoaAsyncSocket.framework in CopyFiles */,
@@ -204,7 +200,6 @@
 		D33FB678231F8B0E004ECA2A /* Resolver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Resolver.framework; path = Carthage/Build/iOS/Resolver.framework; sourceTree = "<group>"; };
 		D33FB67B231F8B15004ECA2A /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		D33FB67E231F8B1B004ECA2A /* tun2socks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tun2socks.framework; path = Carthage/Build/iOS/tun2socks.framework; sourceTree = "<group>"; };
-		D33FB681231F8B23004ECA2A /* Yaml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yaml.framework; path = Carthage/Build/iOS/Yaml.framework; sourceTree = "<group>"; };
 		D33FB684231F8F03004ECA2A /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
 		D34378F323289126000F1F69 /* FWBottomPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBottomPopView.swift; sourceTree = "<group>"; };
 		D34378F52328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -232,7 +227,6 @@
 				D33FB670231F8AF9004ECA2A /* lwip.framework in Frameworks */,
 				D33FB67C231F8B15004ECA2A /* Sodium.framework in Frameworks */,
 				D33FB67F231F8B1B004ECA2A /* tun2socks.framework in Frameworks */,
-				D33FB682231F8B23004ECA2A /* Yaml.framework in Frameworks */,
 				D33FB66D231F8AE6004ECA2A /* CommonCrypto.framework in Frameworks */,
 				D33FB685231F8F03004ECA2A /* Eureka.framework in Frameworks */,
 				D35BBDDE2330C4840043E340 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -253,7 +247,6 @@
 				D33FB671231F8AF9004ECA2A /* lwip.framework in Frameworks */,
 				D33FB67D231F8B15004ECA2A /* Sodium.framework in Frameworks */,
 				D33FB680231F8B1B004ECA2A /* tun2socks.framework in Frameworks */,
-				D33FB683231F8B23004ECA2A /* Yaml.framework in Frameworks */,
 				D33FB66E231F8AE6004ECA2A /* CommonCrypto.framework in Frameworks */,
 				D33FB686231F8F03004ECA2A /* Eureka.framework in Frameworks */,
 				D33FB674231F8AFF004ECA2A /* MMDB.framework in Frameworks */,
@@ -371,7 +364,6 @@
 				D33FB678231F8B0E004ECA2A /* Resolver.framework */,
 				D33FB67B231F8B15004ECA2A /* Sodium.framework */,
 				D33FB67E231F8B1B004ECA2A /* tun2socks.framework */,
-				D33FB681231F8B23004ECA2A /* Yaml.framework */,
 				18F3C62D2293D7BB00D79C4A /* NotificationCenter.framework */,
 				B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */,
 				C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */,
