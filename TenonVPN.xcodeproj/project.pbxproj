@@ -26,7 +26,6 @@
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
 		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
 		D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063964233B65410006CC7C /* FWOperPKView.swift */; };
-		D3063B3B23403D520006CC7C /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D3063B3A23403D520006CC7C /* click.mp3 */; };
 		D30B567323277953003E87EE /* FWPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B567223277953003E87EE /* FWPopMenu.swift */; };
 		D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316BB72232210C5008C8FD3 /* HomePageViewController.swift */; };
 		D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D316BB73232210C5008C8FD3 /* HomePageViewController.xib */; };
@@ -174,9 +173,7 @@
 		9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freeWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PacketTunnel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66080489694AD4A941C1BB3 /* Pods_TenonVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenonVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3063963233B40EA0006CC7C /* TenonVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		D3063964233B65410006CC7C /* FWOperPKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWOperPKView.swift; sourceTree = "<group>"; };
-		D3063B3A23403D520006CC7C /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		D30B567223277953003E87EE /* FWPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPopMenu.swift; sourceTree = "<group>"; };
 		D316BB72232210C5008C8FD3 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		D316BB73232210C5008C8FD3 /* HomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageViewController.xib; sourceTree = "<group>"; };
@@ -213,6 +210,7 @@
 		D39D52CD234C894500A3CEEB /* payModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = payModel.swift; sourceTree = "<group>"; };
 		D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWUpgradeView.swift; sourceTree = "<group>"; };
 		ED6901FF968591280E6CB988 /* Pods-PacketTunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.release.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.release.xcconfig"; sourceTree = "<group>"; };
+		F632E44825681F50003E0538 /* TenonVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,11 +302,10 @@
 				D30B5671232778F9003E87EE /* FWPopMenu */,
 				18E9141C2266C7B4005E6027 /* AppDelegate.swift */,
 				18E9141E2266C7B4005E6027 /* ViewController.swift */,
-				D3063B3A23403D520006CC7C /* click.mp3 */,
+				F632E44825681F50003E0538 /* TenonVPN-Bridging-Header.h */,
 				18E914202266C7B4005E6027 /* Main.storyboard */,
 				18E914232266C7B5005E6027 /* Assets.xcassets */,
 				18E914252266C7B5005E6027 /* LaunchScreen.storyboard */,
-				D3063963233B40EA0006CC7C /* TenonVPN-Bridging-Header.h */,
 				18E914282266C7B5005E6027 /* Info.plist */,
 			);
 			path = Tenon;
@@ -618,7 +615,6 @@
 				D316BC2123224D86008C8FD3 /* ChoseCountryViewController.xib in Resources */,
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
 				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
-				D3063B3B23403D520006CC7C /* click.mp3 in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
 				18E9149C2267220B005E6027 /* NEKitRule.conf in Resources */,
 				18E914242266C7B5005E6027 /* Assets.xcassets in Resources */,
@@ -1031,7 +1027,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/TenonVPN-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Tenon/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64e armv7s arm64";
@@ -1126,7 +1122,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/TenonVPN-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Tenon/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64e armv7s arm64";
