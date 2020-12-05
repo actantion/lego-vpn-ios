@@ -16,7 +16,7 @@ import SwiftyJSON
 import UserNotifications
 import GoogleMobileAds
 
-class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver{
+@objc class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver{
 
     
     @IBOutlet weak var vwSettingDesc: UIView!
@@ -120,6 +120,74 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
        ])
     }
     
+    @objc func InitP2p() -> Int {
+        let url = URL(string:"https://www.google.com");
+        URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
+            (data, rsp, error) in
+            //do some thing
+            print("visit network ok");
+        }).resume()
+        
+        // test for p2p library
+        
+        let res = TenonP2pLib.sharedInstance.InitP2pNetwork("0.0.0.0", 7981)
+        print("init network res: \(res)")
+        if (res.local_country.isEmpty) {
+            let alertController = UIAlertController(title: "error",
+                            message: "Network invalid, please retry!", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: {
+                action in _exit(0)
+            })
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            return -1
+        }
+        
+        setRouteInfo()
+        
+        local_country = res.local_country as String
+        local_private_key = res.prikey as String
+        local_account_id = res.account_id as String
+        
+        let routes = res.def_route.split(separator: ";")
+        for item in routes {
+            let item_split = item.split(separator: ":");
+            if item_split.count != 2 {
+                continue
+            }
+            
+            if item_split[0] == local_country {
+                local_country = String(item_split[1])
+            }
+        }
+        
+        VpnManager.shared.local_country = local_country
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
+        for _ in countryCode {
+            countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
+        }
+        
+//        self.lbNodes.text = self.countryNodes[0]
+        self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
+        VpnManager.shared.choosed_country = self.choosed_country
+        
+        requestData()
+        if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
+            print("yes")
+//            tvInstruction.backgroundColor = UIColor.white
+//            instructionView.isHidden = false
+        }else{
+            
+        }
+        
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        userDefaults?.set("ok", forKey: "vpnsvr_status")
+        return 0
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -454,7 +522,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
         self.perform(#selector(requestData), afterDelay: 1)
     }
     
-    func ConnectVpn() {
+    @objc func ConnectVpn() {
         if balance < 2000 {
             let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
             if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
@@ -522,17 +590,17 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             print("vpn 1: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
             
             if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
-                self.vwBackHub.proEndgress = 0.0
-                self.vwBackHub.proStartgress = 0.0
-                self.playAnimotion()
+//                self.vwBackHub.proEndgress = 0.0
+//                self.vwBackHub.proStartgress = 0.0
+//                self.playAnimotion()
                 
-                if (self.smartRoute.isOn) {
+//                if (self.smartRoute.isOn) {
                     VpnManager.shared.ip_address = route_node.ip
                     VpnManager.shared.port = Int(route_node.port)!
-                } else {
-                    VpnManager.shared.ip_address = vpn_node.ip
-                    VpnManager.shared.port = Int(vpn_node.port)!
-                }
+//                } else {
+//                    VpnManager.shared.ip_address = vpn_node.ip
+//                    VpnManager.shared.port = Int(vpn_node.port)!
+//                }
                 
                 let vpn_ip_int = LibP2P.changeStrIp(vpn_node.ip)
                 VpnManager.shared.public_key = LibP2P.getPublicKey() as String
@@ -541,7 +609,7 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
                 print("vpn: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
                 VpnManager.shared.enc_method = (
                     "aes-128-cfb," + String(vpn_ip_int) + "," +
-                        vpn_node.port + "," + String(self.smartRoute.isOn))
+                        vpn_node.port + "," + String(true))
                 VpnManager.shared.password = vpn_node.passwd
                 VpnManager.shared.algorithm = "aes-128-cfb"
                 self.now_connect_status = 1
@@ -552,6 +620,26 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
             }
         }else{
             CBToast.showToastAction(message: "please chose a country")
+        }
+    }
+    
+    @objc func DoClickConnect() {
+//        if UserDefaults.standard.bool(forKey: "FirstConnect") == false {
+//            tvInstruction.backgroundColor = UIColor.white
+//            instructionView.isHidden = false
+//            return
+//        }
+        self.user_started_vpn = false
+        UNUserNotificationCenter.current().getNotificationSettings { set in
+            DispatchQueue.main.sync {
+                if VpnManager.shared.vpnStatus == .off {
+                    self.ConnectVpn()
+                } else {
+//                    self.vwBackHub.proEndgress = 0.0
+//                    self.vwBackHub.proStartgress = 0.0
+                    VpnManager.shared.disconnect()
+                }
+            }
         }
     }
     
@@ -740,19 +828,19 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
     @objc func onVPNStatusChanged(){
         isNetChange = true
         if VpnManager.shared.vpnStatus == .on{
-            self.btnConnect.backgroundColor = APP_COLOR
-            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
-            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xA1FDEE))
-            imgConnect.image = UIImage(named: "connected")
-            lbConnect.text = "Connected"
+//            self.btnConnect.backgroundColor = APP_COLOR
+//            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
+//            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xA1FDEE))
+//            imgConnect.image = UIImage(named: "connected")
+//            lbConnect.text = "Connected"
             self.user_started_vpn = true
             self.now_connect_status = 0
             
-            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-            addBannerViewToView(bannerView)
-            bannerView.adUnitID = "ca-app-pub-1878869478486684/7948441541"
-            bannerView.rootViewController = self
-            bannerView.load(GADRequest())
+//            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+//            addBannerViewToView(bannerView)
+//            bannerView.adUnitID = "ca-app-pub-1878869478486684/7948441541"
+//            bannerView.rootViewController = self
+//            bannerView.load(GADRequest())
 //            let newThread = Thread.init(target: self, selector: #selector(threadOne), object: nil)
 //            newThread.start()
         }else{
@@ -770,11 +858,11 @@ class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTran
 //                    }
 //                }
 //            }
-            self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
-            self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
-            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))
-            imgConnect.image = UIImage(named: "connect")
-            lbConnect.text = "Connect"
+//            self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
+//            self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
+//            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))
+//            imgConnect.image = UIImage(named: "connect")
+//            lbConnect.text = "Connect"
         }
     }
     

@@ -25,6 +25,22 @@
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
 		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
+		85F197D1257BAF6F00E32107 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197D0257BAF6F00E32107 /* AboutViewController.m */; };
+		85F197DB257BB12600E32107 /* HelpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197D8257BB12500E32107 /* HelpTool.m */; };
+		85F197DC257BB12600E32107 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197DA257BB12500E32107 /* Toast+UIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		85F197E1257BB18600E32107 /* NSBundle+Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197DF257BB18500E32107 /* NSBundle+Language.m */; };
+		85F19845257BFD1D00E32107 /* RBProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19830257BFB1200E32107 /* RBProgressView.m */; };
+		85F19846257BFD1D00E32107 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1982B257BFB0F00E32107 /* RechargeViewController.m */; };
+		85F19847257BFD1D00E32107 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1982F257BFB1200E32107 /* SettingTableViewCell.m */; };
+		85F19848257BFD1D00E32107 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19834257BFB1300E32107 /* SettingViewController.m */; };
+		85F19849257BFD1E00E32107 /* HistoryListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1983A257BFB2800E32107 /* HistoryListTableViewCell.m */; };
+		85F1984A257BFD1E00E32107 /* WithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19831257BFB1300E32107 /* WithdrawViewController.m */; };
+		85F1984B257BFD1E00E32107 /* ADViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1983D257BFB7C00E32107 /* ADViewController.m */; };
+		85F1984C257BFD1E00E32107 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19840257BFB7C00E32107 /* MainViewController.m */; };
+		85F19851257BFDD600E32107 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1984F257BFDC600E32107 /* AppDelegate.m */; };
+		85F19855257C042700E32107 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19854257C042700E32107 /* main.m */; };
+		85F19858257C065100E32107 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85F1982E257BFB1200E32107 /* SettingTableViewCell.xib */; };
+		85F19859257C065100E32107 /* HistoryListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85F19838257BFB2700E32107 /* HistoryListTableViewCell.xib */; };
 		D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3063964233B65410006CC7C /* FWOperPKView.swift */; };
 		D30B567323277953003E87EE /* FWPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30B567223277953003E87EE /* FWPopMenu.swift */; };
 		D316BB74232210C5008C8FD3 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316BB72232210C5008C8FD3 /* HomePageViewController.swift */; };
@@ -168,6 +184,44 @@
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
 		858B90662396A0FF00359F92 /* TenonGetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonGetView.swift; sourceTree = "<group>"; };
+		85F197CF257BAF6C00E32107 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		85F197D0257BAF6F00E32107 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		85F197D4257BB00200E32107 /* My.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = My.pch; sourceTree = "<group>"; };
+		85F197D7257BB12500E32107 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		85F197D8257BB12500E32107 /* HelpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpTool.m; sourceTree = "<group>"; };
+		85F197D9257BB12500E32107 /* HelpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTool.h; sourceTree = "<group>"; };
+		85F197DA257BB12500E32107 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
+		85F197DF257BB18500E32107 /* NSBundle+Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Language.m"; sourceTree = "<group>"; };
+		85F197E0257BB18500E32107 /* NSBundle+Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Language.h"; sourceTree = "<group>"; };
+		85F19825257BFB0D00E32107 /* Toast+UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		85F19826257BFB0E00E32107 /* NSBundle+Language.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Language.m"; sourceTree = "<group>"; };
+		85F19827257BFB0E00E32107 /* TenonVPN-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-Bridging-Header.h"; sourceTree = "<group>"; };
+		85F19828257BFB0E00E32107 /* RBProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBProgressView.h; sourceTree = "<group>"; };
+		85F19829257BFB0F00E32107 /* TenonVPN-PCH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-PCH.h"; sourceTree = "<group>"; };
+		85F1982A257BFB0F00E32107 /* Toast+UIView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
+		85F1982B257BFB0F00E32107 /* RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
+		85F1982C257BFB1000E32107 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		85F1982D257BFB1100E32107 /* RechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
+		85F1982E257BFB1200E32107 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
+		85F1982F257BFB1200E32107 /* SettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
+		85F19830257BFB1200E32107 /* RBProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBProgressView.m; sourceTree = "<group>"; };
+		85F19831257BFB1300E32107 /* WithdrawViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawViewController.m; sourceTree = "<group>"; };
+		85F19832257BFB1300E32107 /* SettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
+		85F19833257BFB1300E32107 /* NSBundle+Language.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Language.h"; sourceTree = "<group>"; };
+		85F19834257BFB1300E32107 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		85F19835257BFB1300E32107 /* WithdrawViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawViewController.h; sourceTree = "<group>"; };
+		85F19836257BFB2700E32107 /* HelpTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpTool.h; sourceTree = "<group>"; };
+		85F19838257BFB2700E32107 /* HistoryListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryListTableViewCell.xib; sourceTree = "<group>"; };
+		85F19839257BFB2800E32107 /* HistoryListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryListTableViewCell.h; sourceTree = "<group>"; };
+		85F1983A257BFB2800E32107 /* HistoryListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryListTableViewCell.m; sourceTree = "<group>"; };
+		85F1983B257BFB2900E32107 /* HelpTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpTool.m; sourceTree = "<group>"; };
+		85F1983D257BFB7C00E32107 /* ADViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADViewController.m; sourceTree = "<group>"; };
+		85F1983E257BFB7C00E32107 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		85F1983F257BFB7C00E32107 /* ADViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADViewController.h; sourceTree = "<group>"; };
+		85F19840257BFB7C00E32107 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		85F1984F257BFDC600E32107 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		85F19850257BFDC700E32107 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		85F19854257C042700E32107 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		86B2E4FEE8C0A80DF8D4AED2 /* Pods-TenonVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenonVPN.debug.xcconfig"; path = "Target Support Files/Pods-TenonVPN/Pods-TenonVPN.debug.xcconfig"; sourceTree = "<group>"; };
 		891426C526BC0510EF259CE2 /* Pods-TenonVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenonVPN.release.xcconfig"; path = "Target Support Files/Pods-TenonVPN/Pods-TenonVPN.release.xcconfig"; sourceTree = "<group>"; };
 		9FE6C7F93AAC67A51C7F68EA /* Pods_freeWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_freeWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,7 +356,45 @@
 				D30B5671232778F9003E87EE /* FWPopMenu */,
 				18E9141C2266C7B4005E6027 /* AppDelegate.swift */,
 				18E9141E2266C7B4005E6027 /* ViewController.swift */,
+				85F19828257BFB0E00E32107 /* RBProgressView.h */,
+				85F19830257BFB1200E32107 /* RBProgressView.m */,
+				85F1982D257BFB1100E32107 /* RechargeViewController.h */,
+				85F1982B257BFB0F00E32107 /* RechargeViewController.m */,
+				85F19832257BFB1300E32107 /* SettingTableViewCell.h */,
+				85F1982F257BFB1200E32107 /* SettingTableViewCell.m */,
+				85F1982E257BFB1200E32107 /* SettingTableViewCell.xib */,
+				85F1982C257BFB1000E32107 /* SettingViewController.h */,
+				85F19834257BFB1300E32107 /* SettingViewController.m */,
 				F632E44825681F50003E0538 /* TenonVPN-Bridging-Header.h */,
+				85F197D0257BAF6F00E32107 /* AboutViewController.m */,
+				85F197CF257BAF6C00E32107 /* AboutViewController.h */,
+				85F197D9257BB12500E32107 /* HelpTool.h */,
+				85F197D8257BB12500E32107 /* HelpTool.m */,
+				85F19836257BFB2700E32107 /* HelpTool.h */,
+				85F1983B257BFB2900E32107 /* HelpTool.m */,
+				85F19839257BFB2800E32107 /* HistoryListTableViewCell.h */,
+				85F1983A257BFB2800E32107 /* HistoryListTableViewCell.m */,
+				85F19838257BFB2700E32107 /* HistoryListTableViewCell.xib */,
+				85F19833257BFB1300E32107 /* NSBundle+Language.h */,
+				85F19826257BFB0E00E32107 /* NSBundle+Language.m */,
+				85F19827257BFB0E00E32107 /* TenonVPN-Bridging-Header.h */,
+				85F19829257BFB0F00E32107 /* TenonVPN-PCH.h */,
+				85F197D7257BB12500E32107 /* Toast+UIView.h */,
+				85F197DA257BB12500E32107 /* Toast+UIView.m */,
+				85F197E0257BB18500E32107 /* NSBundle+Language.h */,
+				85F197DF257BB18500E32107 /* NSBundle+Language.m */,
+				85F19825257BFB0D00E32107 /* Toast+UIView.h */,
+				85F1982A257BFB0F00E32107 /* Toast+UIView.m */,
+				85F19835257BFB1300E32107 /* WithdrawViewController.h */,
+				85F19831257BFB1300E32107 /* WithdrawViewController.m */,
+				85F1983F257BFB7C00E32107 /* ADViewController.h */,
+				85F19854257C042700E32107 /* main.m */,
+				85F19850257BFDC700E32107 /* AppDelegate.h */,
+				85F1984F257BFDC600E32107 /* AppDelegate.m */,
+				85F1983D257BFB7C00E32107 /* ADViewController.m */,
+				85F1983E257BFB7C00E32107 /* MainViewController.h */,
+				85F19840257BFB7C00E32107 /* MainViewController.m */,
+				85F197D4257BB00200E32107 /* My.pch */,
 				18E914202266C7B4005E6027 /* Main.storyboard */,
 				18E914232266C7B5005E6027 /* Assets.xcassets */,
 				18E914252266C7B5005E6027 /* LaunchScreen.storyboard */,
@@ -610,14 +702,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85F19858257C065100E32107 /* SettingTableViewCell.xib in Resources */,
+				85F19859257C065100E32107 /* HistoryListTableViewCell.xib in Resources */,
 				D316BC2923224F24008C8FD3 /* CountryTableViewCell.xib in Resources */,
 				D3204B5623261E5D002ECB69 /* AccountSetTableViewCell.xib in Resources */,
 				D316BC2123224D86008C8FD3 /* ChoseCountryViewController.xib in Resources */,
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
-				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
 				18E9149C2267220B005E6027 /* NEKitRule.conf in Resources */,
 				18E914242266C7B5005E6027 /* Assets.xcassets in Resources */,
+				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
 				D316BC2523224D97008C8FD3 /* AcountSetViewController.xib in Resources */,
 				18E914222266C7B4005E6027 /* Main.storyboard in Resources */,
 			);
@@ -732,7 +826,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85F19851257BFDD600E32107 /* AppDelegate.m in Sources */,
+				85F19845257BFD1D00E32107 /* RBProgressView.m in Sources */,
+				85F19846257BFD1D00E32107 /* RechargeViewController.m in Sources */,
+				85F19847257BFD1D00E32107 /* SettingTableViewCell.m in Sources */,
+				85F19848257BFD1D00E32107 /* SettingViewController.m in Sources */,
+				85F197DB257BB12600E32107 /* HelpTool.m in Sources */,
+				85F19849257BFD1E00E32107 /* HistoryListTableViewCell.m in Sources */,
+				85F197E1257BB18600E32107 /* NSBundle+Language.m in Sources */,
+				85F1984A257BFD1E00E32107 /* WithdrawViewController.m in Sources */,
+				85F1984B257BFD1E00E32107 /* ADViewController.m in Sources */,
+				85F1984C257BFD1E00E32107 /* MainViewController.m in Sources */,
 				D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */,
+				85F197DC257BB12600E32107 /* Toast+UIView.m in Sources */,
 				D3204B5523261E5D002ECB69 /* AccountSetTableViewCell.swift in Sources */,
 				D3204B5A232626DD002ECB69 /* BaseViewContrller.swift in Sources */,
 				85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */,
@@ -754,6 +860,8 @@
 				D30B567323277953003E87EE /* FWPopMenu.swift in Sources */,
 				D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */,
 				D3204B522325EA7A002ECB69 /* UITableView+Extension.swift in Sources */,
+				85F19855257C042700E32107 /* main.m in Sources */,
+				85F197D1257BAF6F00E32107 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -958,6 +1066,7 @@
 					"$(PROJECT_DIR)/libp2p",
 					"$(PROJECT_DIR)/libp2p/Build/Products/Debug-iphoneos",
 				);
+				GCC_PREFIX_HEADER = Tenon/My.pch;
 				INFOPLIST_FILE = Tenon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1053,6 +1162,7 @@
 					"$(PROJECT_DIR)/libp2p",
 					"$(PROJECT_DIR)/libp2p/Build/Products/Debug-iphoneos",
 				);
+				GCC_PREFIX_HEADER = Tenon/My.pch;
 				INFOPLIST_FILE = Tenon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

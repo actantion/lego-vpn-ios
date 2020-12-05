@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMobileAds
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
