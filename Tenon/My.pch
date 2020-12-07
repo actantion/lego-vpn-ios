@@ -12,6 +12,11 @@
 #import <Masonry/Masonry.h>
 #import "HelpTool.h"
 #import "NSBundle+Language.h"
+#import "UIView+Frame.h"
+#import "UIBaseModel.h"
+#import "NSObject+setProperty.h"
+#import "UIColor+Extension.h"
+#import "UITableView+loadCell.h"
 
 #define BOTTOM                  @"bottom"
 #define CENTER                  @"center"

@@ -16,6 +16,7 @@
 #import "TenonVPN-Swift.h"
 #import <Social/Social.h>
 #import "TSShareHelper.h"
+#import "RechargeVC.h"
 
 ViewController *swiftViewController;
 
@@ -50,7 +51,7 @@ ViewController *swiftViewController;
 @property (nonatomic, strong) UITextField *inputTextField;
 
 @property (nonatomic, strong) UIView *ADView;
-
+@property (nonatomic, strong) UIButton* btnBuyTenonCoin;
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIView *loadingAdView;
 @property (nonatomic, strong) RBProgressView *progressView;
@@ -791,9 +792,18 @@ ViewController *swiftViewController;
 {
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
+    
+    _btnBuyTenonCoin = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 60)];
+    _btnBuyTenonCoin.backgroundColor = [UIColor clearColor];
+    [_btnBuyTenonCoin addTarget:self action:@selector(clickRechargeTenonCoin) forControlEvents:UIControlEventTouchUpInside];
+    [_btnBuyTenonCoin setTitle:@"充值Tenon" forState:UIControlStateNormal];
+    [_ADView addSubview:_btnBuyTenonCoin];
     [self.view addSubview:_ADView];
 }
-
+- (void)clickRechargeTenonCoin{
+    RechargeVC* vc = [[RechargeVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
     return kWIDTH;
