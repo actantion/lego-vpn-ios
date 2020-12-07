@@ -61,8 +61,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
         // Origin
         let obfuscater = ShadowsocksAdapter.ProtocolObfuscater.OriginProtocolObfuscater.Factory()
-        
-        
         let algorithm:CryptoAlgorithm
         
         switch method{
@@ -161,7 +159,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
         
         // Rules
-        
+        UserRules.append(try! IPRangeListRule(adapterFactory: directAdapterFactory, ranges: ["113.17.169.103","113.17.169.105","113.17.169.106", "113.17.169.93", "113.17.169.94", "113.17.169.95"]))
         let chinaRule = CountryRule(countryCode: "CN", match: true, adapterFactory: ssAdapterFactory)
         let unKnowLoc = CountryRule(countryCode: "--", match: true, adapterFactory: ssAdapterFactory)
         let dnsFailRule = DNSFailRule(adapterFactory: ssAdapterFactory)

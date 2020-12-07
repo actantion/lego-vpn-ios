@@ -14,6 +14,10 @@
 #import "RBProgressView.h"
 #import "MSWeakTimer.h"
 #import "TenonVPN-Swift.h"
+#import <Social/Social.h>
+#import "TSShareHelper.h"
+
+ViewController *swiftViewController;
 
 @interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
@@ -53,7 +57,8 @@
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger loadingTime;
 
-@property (nonatomic, strong) ViewController *swiftViewController;
+@property(nonatomic, strong) NSMutableArray *shareArray;
+@property(nonatomic, strong) NSMutableArray *functionArray;
 
 @end
 
@@ -136,16 +141,23 @@
     UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, top_H, 40, 40)];
     [settingBtn addTarget:self action:@selector(editBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [navView addSubview:settingBtn];
-    
-    _swiftViewController = [ViewController new];
-    if ([_swiftViewController InitP2p] != 0) {
-        exit(0);
-    }
+
 }
 
 -(void)shareBtnClicked
 {
-    [self.view makeToast:GCLocalizedString(@"分享") duration:2 position:BOTTOM];
+    NSURL* url2 = [NSURL URLWithString:@"https://www.tenonvpn.net"];
+    [TSShareHelper shareWithType:0
+                   andController:self
+                        andItems:@[url2]
+                   andCompletion:^(TSShareHelper *shareHelper, BOOL success) {
+        
+                       if (success) {
+                           NSLog(@"成功的回调");
+                       }else{
+                           NSLog(@"失败的回调");
+                       }
+                   }];
 }
 
 #pragma mark -加载视图
@@ -220,6 +232,10 @@
         make.bottom.equalTo(_ADView.mas_top);
     }];
     
+    if ([swiftViewController IsConnected]) {
+        self.isLink = true;
+        [self refreshLinkView];
+    }
 }
 
 -(void)addADBgView
@@ -229,17 +245,17 @@
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
     
-    _loadingAdView = [[UIView alloc] init];
-    _loadingAdView.backgroundColor = kRBColor(55, 35, 112);
-    _loadingAdView.layer.borderColor = kRBColor(18, 181, 170).CGColor;
-    _loadingAdView.layer.cornerRadius = 4.0f;
-    _loadingAdView.layer.masksToBounds = YES;
-    [_loadingView addSubview:_loadingAdView];
-    [_loadingAdView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(kWIDTH-100);
-        make.height.mas_equalTo(206*kSCALE);
-        make.center.equalTo(_loadingView);
-    }];
+//    _loadingAdView = [[UIView alloc] init];
+//    _loadingAdView.backgroundColor = kRBColor(55, 35, 112);
+//    _loadingAdView.layer.borderColor = kRBColor(18, 181, 170).CGColor;
+//    _loadingAdView.layer.cornerRadius = 4.0f;
+//    _loadingAdView.layer.masksToBounds = YES;
+//    [_loadingView addSubview:_loadingAdView];
+//    [_loadingAdView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(kWIDTH-100);
+//        make.height.mas_equalTo(206*kSCALE);
+//        make.center.equalTo(_loadingView);
+//    }];
     
     //进度条
     RBProgressView *progressView = [[RBProgressView alloc] initWithFrame:CGRectMake(40, kHEIGHT/2+119*kSCALE, kWIDTH-80, 12*kSCALE)];
@@ -619,7 +635,7 @@
 
 -(void)linkBtnClicked:(UIButton *)sender
 {
-    [_swiftViewController DoClickConnect];
+    [swiftViewController DoClickConnect];
     [self addtagBtnClicked];
     sender.enabled = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -870,7 +886,7 @@
     _loadingTime = 5;
     self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"正在为您链接"),(long)_loadingTime];
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
+    self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
     
     [UIView animateWithDuration:_loadingTime animations:^{
         self.progressView.progress = 1;
@@ -883,7 +899,7 @@
 
 -(void)getCodeTime
 {
-    _loadingTime--;
+    _loadingTime -= 0.2;
     if(_loadingTime > 0) {
         self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"正在为您链接"),(long)_loadingTime];
     } else {

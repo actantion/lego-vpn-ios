@@ -6,11 +6,14 @@
 //  Copyright © 2020 Raobin. All rights reserved.
 //
 
+
 #import "AppDelegate.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "MainViewController.h"
 #import "ADViewController.h"
+
 NSString  *GlobalLanguePath;
+
 @interface AppDelegate ()
 @end
 
@@ -29,7 +32,8 @@ NSString  *GlobalLanguePath;
     [self.window makeKeyAndVisible];
     
     [self loadKeyboard];      //设置全局键盘弹出规则
-    [self  configAppLangue];
+    [self configAppLangue];
+
     return YES;
 }
 

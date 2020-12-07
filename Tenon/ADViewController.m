@@ -9,7 +9,9 @@
 #import "ADViewController.h"
 #import "MSWeakTimer.h"
 #import "MainViewController.h"
+#import "TenonVPN-Swift.h"
 
+extern ViewController *swiftViewController;
 @interface ADViewController ()
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger secondNum;
@@ -58,6 +60,12 @@
     
     if([self.FROM isEqualToString:@"AD"]) {
         _getCodeBtn.enabled = NO;
+    }
+    
+    swiftViewController = [ViewController new];
+    if ([swiftViewController InitP2p] != 0) {
+        [self.view makeToast:GCLocalizedString(@"初始化P2P网络失败，请重试！") duration:2 position:BOTTOM];
+        exit(0);
     }
 }
 

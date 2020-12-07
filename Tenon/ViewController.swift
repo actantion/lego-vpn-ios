@@ -17,8 +17,6 @@ import UserNotifications
 import GoogleMobileAds
 
 @objc class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver{
-
-    
     @IBOutlet weak var vwSettingDesc: UIView!
     @IBOutlet weak var tvSetting: UITextView!
     //    @IBOutlet weak var btnChangePK: UIButton!
@@ -163,9 +161,6 @@ import GoogleMobileAds
         }
         
         VpnManager.shared.local_country = local_country
-        
-        
-        
         NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
         for _ in countryCode {
             countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
@@ -188,6 +183,19 @@ import GoogleMobileAds
         userDefaults?.set("ok", forKey: "vpnsvr_status")
         return 0
     }
+    
+    @objc func IsConnected()->Bool {
+        if VpnManager.shared.vpnStatus == .connecting {
+            return true
+        }
+        
+        if VpnManager.shared.vpnStatus == .on {
+            return true
+        }
+        
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

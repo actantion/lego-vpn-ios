@@ -25,6 +25,8 @@
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
 		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
+		85BDF0F2257D243900218280 /* TSShareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 85BDF0F1257D243900218280 /* TSShareHelper.m */; };
+		85BDF103257D2DE600218280 /* share_pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85BDF102257D2DE600218280 /* share_pic.jpg */; };
 		85F197D1257BAF6F00E32107 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197D0257BAF6F00E32107 /* AboutViewController.m */; };
 		85F197DB257BB12600E32107 /* HelpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197D8257BB12500E32107 /* HelpTool.m */; };
 		85F197DC257BB12600E32107 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F197DA257BB12500E32107 /* Toast+UIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -184,6 +186,9 @@
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
 		858B90662396A0FF00359F92 /* TenonGetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonGetView.swift; sourceTree = "<group>"; };
+		85BDF0F0257D243900218280 /* TSShareHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSShareHelper.h; sourceTree = "<group>"; };
+		85BDF0F1257D243900218280 /* TSShareHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSShareHelper.m; sourceTree = "<group>"; };
+		85BDF102257D2DE600218280 /* share_pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = share_pic.jpg; sourceTree = "<group>"; };
 		85F197CF257BAF6C00E32107 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		85F197D0257BAF6F00E32107 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		85F197D4257BB00200E32107 /* My.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = My.pch; sourceTree = "<group>"; };
@@ -355,6 +360,7 @@
 				D38E584B232F87CF00D99A90 /* Tool */,
 				D30B5671232778F9003E87EE /* FWPopMenu */,
 				18E9141C2266C7B4005E6027 /* AppDelegate.swift */,
+				85BDF102257D2DE600218280 /* share_pic.jpg */,
 				18E9141E2266C7B4005E6027 /* ViewController.swift */,
 				85F19828257BFB0E00E32107 /* RBProgressView.h */,
 				85F19830257BFB1200E32107 /* RBProgressView.m */,
@@ -363,6 +369,8 @@
 				85F19832257BFB1300E32107 /* SettingTableViewCell.h */,
 				85F1982F257BFB1200E32107 /* SettingTableViewCell.m */,
 				85F1982E257BFB1200E32107 /* SettingTableViewCell.xib */,
+				85BDF0F0257D243900218280 /* TSShareHelper.h */,
+				85BDF0F1257D243900218280 /* TSShareHelper.m */,
 				85F1982C257BFB1000E32107 /* SettingViewController.h */,
 				85F19834257BFB1300E32107 /* SettingViewController.m */,
 				F632E44825681F50003E0538 /* TenonVPN-Bridging-Header.h */,
@@ -704,6 +712,7 @@
 			files = (
 				85F19858257C065100E32107 /* SettingTableViewCell.xib in Resources */,
 				85F19859257C065100E32107 /* HistoryListTableViewCell.xib in Resources */,
+				85BDF103257D2DE600218280 /* share_pic.jpg in Resources */,
 				D316BC2923224F24008C8FD3 /* CountryTableViewCell.xib in Resources */,
 				D3204B5623261E5D002ECB69 /* AccountSetTableViewCell.xib in Resources */,
 				D316BC2123224D86008C8FD3 /* ChoseCountryViewController.xib in Resources */,
@@ -831,6 +840,7 @@
 				85F19846257BFD1D00E32107 /* RechargeViewController.m in Sources */,
 				85F19847257BFD1D00E32107 /* SettingTableViewCell.m in Sources */,
 				85F19848257BFD1D00E32107 /* SettingViewController.m in Sources */,
+				85BDF0F2257D243900218280 /* TSShareHelper.m in Sources */,
 				85F197DB257BB12600E32107 /* HelpTool.m in Sources */,
 				85F19849257BFD1E00E32107 /* HistoryListTableViewCell.m in Sources */,
 				85F197E1257BB18600E32107 /* NSBundle+Language.m in Sources */,
