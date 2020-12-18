@@ -32,4 +32,5 @@ target 'TenonVPN' do
   #pod 'WebViewJavascriptBridge'     #web相关
   pod 'IQKeyboardManager'           #键盘处理
   pod 'MSWeakTimer',' ~> 1.1.0'     #定时器
+  pod 'MBProgressHUD+DK'#弹出框
 end

@@ -131,16 +131,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(NSString *)getNowTimeTimestamp{
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];
+    NSString*timeString = [NSString stringWithFormat:@"%0.f", a];//转为字符型
+    return timeString;
+    
+}
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UIBaseModel* model = self.dataArray[indexPath.row];
     if([model.type isEqual:@(UIConfirnBtnType)]){
         return [tableView reloadCell:@"UIConfirnBtnCell" withModel:model withBlock:^(id  _Nullable value) {
             NSLog(@"内购");
             if (self.selectAppleGoodsID.length == 0) {
-//                [self showHint:@"请选择充值的金额"];
                 return;
             }
-            [self requestServerOrderInfo];
+            self.applepayProducID = [NSString stringWithFormat:@"%@%@",[TenonP2pLib sharedInstance].account_id,[self getNowTimeTimestamp]];
+            [self orderToApplePay];
         }];
     }else if ([model.type  isEqual: @(UIImageLabelSelectType)]) {
         return [tableView reloadCell:@"UIImageLabelSelectCell" withModel:model withBlock:nil];
@@ -188,41 +195,18 @@
     [super viewDidDisappear:animated];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
-- (void)requestServerOrderInfo {
-    self.view.userInteractionEnabled = NO;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self showHudInView:self.view];
-//    });
-    
-//    [JTNetwork requestPostWithParam:@{@"ys":[UserModelManager shareInstance].userModel.token,
-//                                      @"sb":@"ios",
-//                                      @"sp":self.selectAppleGoodsID,
-//                                      @"rmb":self.money
-//    } url:@"/ping/mei/czd" callback:^(JTBaseReqModel *model) {
-//
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self hideAllHud];
-//        });
-//        if(model.zt == 1){
-//            self.applepayProducID = model.sj;
-//            [self orderToApplePay];
-//        }else{
-//            [self showHint:model.xx];
-//        }
-//
-//    }];
-}
+
 - (void)PaySuccess{
-//    [self showHint:@"pay success" delay:1.3];
+    [DKProgressHUD showInfoWithStatus:@"pay success"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)orderToApplePay{
     //是否允许内购
     if ([SKPaymentQueue canMakePayments]) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self showHudInView:self.view];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DKProgressHUD showLoading];
+        });
         NSArray *product = [[NSArray alloc] initWithObjects:self.selectAppleGoodsID,nil];
         NSSet *nsset = [NSSet setWithArray:product];
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
@@ -247,13 +231,10 @@
         
         //发送购买请求
         SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:requestProduct];
-//        payment.applicationUsername = [NSString stringWithFormat:@"%@%@",[UserModelManager shareInstance].userModel.uid,self.applepayProducID];
+        payment.applicationUsername = self.applepayProducID;
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }else{
-//        [self showHint:@"没有该商品"];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self hideAllHudFromSuperView:self.view];
-//        });
+        [DKProgressHUD showInfoWithStatus:@"没有该商品"];
     }
 }
 #pragma mark - SKRequestDelegate
@@ -261,7 +242,7 @@
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self hideAllHudFromSuperView:self.view];
+        [DKProgressHUD hideHUDForView:self.view animated:NO];
     });
 }
 
@@ -280,8 +261,8 @@
             {
                 NSLog(@"交易完成");
                 dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self hideAllHudFromSuperView:self.view];
-//                    [self showHudInView:self.view];
+                    [DKProgressHUD hideHUDForView:self.view animated:NO];
+                    [DKProgressHUD showLoading];
                 });
                 
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
@@ -292,11 +273,11 @@
             {
                 NSLog(@"交易失败");
                 self.view.userInteractionEnabled = YES;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self hideAllHudFromSuperView:self.view];
-//                });
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [DKProgressHUD hideHUDForView:self.view animated:NO];
+                });
                 
-//                [self showHint:@"购买失败" delay:1.3];
+                [DKProgressHUD showInfoWithStatus:@"购买失败"];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 
             }
@@ -325,17 +306,17 @@
     NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
     if (result == nil) {
         NSLog(@"验证失败");
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self hideAllHudFromSuperView:self.view];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DKProgressHUD hideHUDForView:self.view animated:NO];
+        });
         
         return;
     }
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
     if (dic != nil) {
-//        [JTNetwork requestGetWithParam:@{@"ys":[UserModelManager shareInstance].userModel.token,
+//        [JTNetwork requestGetWithParam:@{@"transactionID":[UserModelManager shareInstance].userModel.token,
 //                                         @"receipt":self.receipt
-//        } url:@"/ping/mei/cz" callback:^(JTBaseReqModel *model) {
+//        } url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
 //
 //            dispatch_async(dispatch_get_main_queue(), ^{
 //                [self hideAllHud];
@@ -351,7 +332,7 @@
 //        }];
     }
     else{
-//        [self hideAllHudFromSuperView:self.view];
+        [DKProgressHUD hideHUDForView:self.view animated:NO];
         [self.navigationController popViewControllerAnimated:YES];
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     }

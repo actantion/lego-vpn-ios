@@ -30,6 +30,7 @@ PODS:
   - IQKeyboardManager (6.5.6)
   - IQKeyboardManagerSwift (6.4.2)
   - Masonry (1.1.0)
+  - "MBProgressHUD+DK (1.1.1)"
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.17)
   - MSWeakTimer (1.1.0)
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - IQKeyboardManagerSwift
   - Masonry (~> 1.0)
+  - "MBProgressHUD+DK"
   - MJExtension (~> 3.0.15.1)
   - MJRefresh (~> 3.1.16)
   - MSWeakTimer (~> 1.1.0)
@@ -72,6 +74,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - IQKeyboardManagerSwift
     - Masonry
+    - "MBProgressHUD+DK"
     - MJExtension
     - MJRefresh
     - MSWeakTimer
@@ -91,6 +94,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   IQKeyboardManagerSwift: 79a3ec200dfb41cb66a89b8575417b5378107c5d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  "MBProgressHUD+DK": 9394614f7106e640784d044bc19512c1167e9e97
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: ee5b68f639775462faba4db0fd243baf4d42c2cf
   MSWeakTimer: 9426150f933b80ed3acf3f6d228e4b61f0e303c8
@@ -101,6 +105,6 @@ SPEC CHECKSUMS:
   Yaml: 52831fc1d9ac2db4ddf6d7562993457127256ca6
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: f23a3f59fa4bae94ca4d8a1e6e75bec68b59f155
+PODFILE CHECKSUM: c1466798a9aa5b31f2f55ee3b3835e042d012eab
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3
