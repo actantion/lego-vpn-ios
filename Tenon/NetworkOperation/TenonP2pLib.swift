@@ -18,7 +18,8 @@ extension Date {
     }
 }
 
-class TenonP2pLib {
+@objcMembers
+class TenonP2pLib : NSObject {
     static let sharedInstance = TenonP2pLib()
     var payfor_vpn_accounts_arr:[String] = [
         "dc161d9ab9cd5a031d6c5de29c26247b6fde6eb36ed3963c446c1a993a088262",
@@ -216,8 +217,9 @@ class TenonP2pLib {
         return addresses
     }
      */
-    private init() {
-        let res = GetPrivateKey();
+    private override init() {
+        super.init()
+        let res = self.GetPrivateKey();
         let res_split = res.split(separator: ",")
         for item in res_split {
             let tmp_item = item.trimmingCharacters(in: [" ", "\n", "\t"])

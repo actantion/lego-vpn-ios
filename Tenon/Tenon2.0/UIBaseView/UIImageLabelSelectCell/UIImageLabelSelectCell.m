@@ -57,5 +57,6 @@
     if (model.leading) {
         self.leading.constant = model.leading.floatValue;
     }
+    self.lbContent.textColor = APP_MAIN_COLOR;
 }
 @end

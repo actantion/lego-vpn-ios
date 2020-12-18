@@ -56,7 +56,7 @@
 
 - (void)addNavigationView{
     self.vwNavigation = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWIDTH, NAVIGATION_HEIGHT + STATUS_BAR_HEIGHT)];
-    self.vwNavigation.backgroundColor = UIColor.whiteColor;
+    self.vwNavigation.backgroundColor = UIColor.blackColor;
     self.vwNavigation.alpha = 1;
     if (self.naviTitle.length == 0) {
         self.naviTitle = @" ";
@@ -66,7 +66,7 @@
     [lbTitle sizeToFit];
     lbTitle.bottom = self.vwNavigation.bottom - 11.f;
     lbTitle.centerX = kWIDTH/2.f;
-    lbTitle.textColor = [UIColor blackColor];
+    lbTitle.textColor = APP_MAIN_COLOR;
     
     self.btnBack = [[UIButton alloc] initWithFrame:CGRectMake(16, 0, 8, 15)];
     [self.btnBack setEnlargeEdgeWithTop:10 right:20 bottom:10 left:20];
@@ -77,7 +77,7 @@
     [self.vwNavigation addSubview:lbTitle];
     
     UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0,self.vwNavigation.height , kWIDTH, 1)];
-    line.backgroundColor = [UIColor colorWithHex:0xf0f0f0];
+    line.backgroundColor = kRBColor(21, 25, 25);
     [self.vwNavigation addSubview:line];
     [self.view addSubview:self.vwNavigation];
 }

@@ -27,5 +27,6 @@
         self.lbContent.text = @"";
     }
     self.lbValue.text = model.subTitle;
+    self.lbValue.textColor = APP_MAIN_COLOR;
 }
 @end

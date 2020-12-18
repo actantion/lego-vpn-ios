@@ -7,7 +7,7 @@
 
 #import "RechargeVC.h"
 #import <StoreKit/StoreKit.h>
-
+#import "TenonVPN-Swift.h"
 @interface RechargeVC ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
 @property (nonatomic, assign)NSInteger selectIdx;
 @property (nonatomic, strong)NSString* selectAppleGoodsID;
@@ -26,18 +26,30 @@
     self.selectAppleGoodsID = @"";
     [self addNavigationView];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    self.tableView.backgroundColor = UIColor.blackColor;
+    
+    
 }
-
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    UIImageView *navImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.vwNavigation.height, kWIDTH, 273)];
+    navImg.image = [UIImage imageNamed:@"black_bg5"];
+    [self.view addSubview:navImg];
+    [self.view sendSubviewToBack:navImg];
+    [UIView animateWithDuration:1 animations:^{
+        self.tableView.backgroundColor = UIColor.clearColor;
+    }];
+}
 - (void)loadUI{
     [self.dataArray removeAllObjects];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILabelContentType),
                                                          BM_title:@"Tenon",
                                                          BM_cellHeight:@(50),
-                                                         BM_subTitle:@"123",
+                                                         BM_subTitle:[NSString stringWithFormat:@"%lld",[TenonP2pLib sharedInstance].now_balance],
                                                          BM_mark:@"余额："}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
-                                                         BM_backColor:[UIColor colorWithHex:0xf8f8f8],
+                                                         BM_backColor:[UIColor clearColor],
                                                          BM_cellHeight:@(10)}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
@@ -98,7 +110,7 @@
                                                          BM_type:@(UIImageLabelSelectType)}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
-                                                         BM_backColor:[UIColor colorWithHex:0xf8f8f8],
+                                                         BM_backColor:[UIColor clearColor],
                                                          BM_cellHeight:@(64)}]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"确认充值",
                                                          BM_leading:@(20),
