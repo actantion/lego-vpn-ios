@@ -35,8 +35,6 @@
 	<string>need location to update user info</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>need location to update user info</string>
-	<key>UIBackgroundModes</key>
-	<array/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

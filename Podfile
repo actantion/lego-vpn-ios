@@ -25,6 +25,7 @@ target 'TenonVPN' do
 #   Pods for TenonVPN
   pod 'YYKit'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'AFNetworking'
   pod 'Masonry', '~>1.0'            #界面约束
   pod 'SDWebImage',' ~> 4.4.6'      #图片加载
   pod 'MJExtension',' ~> 3.0.15.1'  #数据解析

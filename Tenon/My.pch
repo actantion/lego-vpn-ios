@@ -17,7 +17,10 @@
 #import "NSObject+setProperty.h"
 #import "UIColor+Extension.h"
 #import "UITableView+loadCell.h"
+#import "JTNetwork.h"
 #import <DKProgressHUD.h>
+#import "NSObject+MJKeyValue.h"
+#define SERVER_URL @"http://192.168.0.43:8080"
 #define APP_MAIN_COLOR kRBColor(18, 181, 170)
 #define BOTTOM                  @"bottom"
 #define CENTER                  @"center"

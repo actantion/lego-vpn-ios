@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - Alamofire (5.0.0-rc.2)
   - Google-Mobile-Ads-SDK (7.65.0):
     - GoogleAppMeasurement (~> 6.0)
@@ -50,6 +65,7 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - AFNetworking
   - Alamofire (~> 5.0.0-rc.2)
   - Google-Mobile-Ads-SDK
   - IQKeyboardManager
@@ -66,6 +82,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - Alamofire
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
@@ -86,6 +103,7 @@ SPEC REPOS:
     - YYKit
 
 SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
   Google-Mobile-Ads-SDK: af735e001ee534d9dd2ce0a87cd8c355b19844b5
   GoogleAppMeasurement: ecc30d0ab5b66d7d18e85ce1b8e2b345db60626d
@@ -105,6 +123,6 @@ SPEC CHECKSUMS:
   Yaml: 52831fc1d9ac2db4ddf6d7562993457127256ca6
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: c1466798a9aa5b31f2f55ee3b3835e042d012eab
+PODFILE CHECKSUM: 1cb771e1697c3edccd2915a204a0fb82c8949443
 
 COCOAPODS: 1.9.3

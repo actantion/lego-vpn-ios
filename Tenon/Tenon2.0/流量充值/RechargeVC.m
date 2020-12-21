@@ -11,7 +11,6 @@
 @interface RechargeVC ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
 @property (nonatomic, assign)NSInteger selectIdx;
 @property (nonatomic, strong)NSString* selectAppleGoodsID;
-@property (nonatomic, strong)NSString* money;
 @property (nonatomic, strong)NSString* applepayProducID;
 @property(nonatomic, strong) NSString* receipt;
 @end
@@ -53,7 +52,7 @@
                                                          BM_cellHeight:@(10)}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
-                                                         BM_subTitle:@"¥10    ",
+                                                         BM_subTitle:@"Tenon月会员",
                                                          BM_cellHeight:@(50),
                                                          BM_SubAlignment:@(2),
                                                          BM_mark:self.selectIdx == 1?@"1":@"0",
@@ -63,7 +62,7 @@
                                                          BM_trading:@(20)}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
-                                                         BM_subTitle:@"¥30    ",
+                                                         BM_subTitle:@"Tenon季度会员",
                                                          BM_cellHeight:@(50),
                                                          BM_SubAlignment:@(2),
                                                          BM_mark:self.selectIdx == 2?@"1":@"0",
@@ -73,40 +72,10 @@
                                                          BM_trading:@(20)}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
-                                                         BM_subTitle:@"¥60    ",
+                                                         BM_subTitle:@"Tenon年会员",
                                                          BM_cellHeight:@(50),
                                                          BM_SubAlignment:@(2),
                                                          BM_mark:self.selectIdx == 3?@"1":@"0",
-                                                         BM_type:@(UIImageLabelSelectType)}]];
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
-                                                         BM_leading:@(20),
-                                                         BM_trading:@(20)}]];
-    
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
-                                                         BM_subTitle:@"¥200    ",
-                                                         BM_cellHeight:@(50),
-                                                         BM_SubAlignment:@(2),
-                                                         BM_mark:self.selectIdx == 4?@"1":@"0",
-                                                         BM_type:@(UIImageLabelSelectType)}]];
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
-                                                         BM_leading:@(20),
-                                                         BM_trading:@(20)}]];
-    
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
-                                                         BM_subTitle:@"¥500    ",
-                                                         BM_cellHeight:@(50),
-                                                         BM_SubAlignment:@(2),
-                                                         BM_mark:self.selectIdx == 5?@"1":@"0",
-                                                         BM_type:@(UIImageLabelSelectType)}]];
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
-                                                         BM_leading:@(20),
-                                                         BM_trading:@(20)}]];
-    
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_title:@"logo",
-                                                         BM_subTitle:@"¥1000    ",
-                                                         BM_cellHeight:@(50),
-                                                         BM_SubAlignment:@(2),
-                                                         BM_mark:self.selectIdx == 6?@"1":@"0",
                                                          BM_type:@(UIImageLabelSelectType)}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
@@ -144,6 +113,7 @@
         return [tableView reloadCell:@"UIConfirnBtnCell" withModel:model withBlock:^(id  _Nullable value) {
             NSLog(@"内购");
             if (self.selectAppleGoodsID.length == 0) {
+                [DKProgressHUD showInfoWithStatus:@"please chose your product"];
                 return;
             }
             self.applepayProducID = [NSString stringWithFormat:@"%@%@",[TenonP2pLib sharedInstance].account_id,[self getNowTimeTimestamp]];
@@ -163,28 +133,13 @@
     
     if (indexPath.row == 2) {
         self.selectIdx = 1;
-        self.money = @"10";
-        self.selectAppleGoodsID = @"cszs8ansfpsfelofgzek7ga3bb3e0icj";
+        self.selectAppleGoodsID = @"91858c25f442453e95de063494981b1c";
     }else if (indexPath.row == 4) {
         self.selectIdx = 2;
-        self.money = @"30";
-        self.selectAppleGoodsID = @"cfhhnw0199gt8quam43i2qpli6whobvu";
+        self.selectAppleGoodsID = @"f55ce3d2138349adb754eb6c1fff53b1";
     }else if (indexPath.row == 6) {
         self.selectIdx = 3;
-        self.money = @"60";
-        self.selectAppleGoodsID = @"x77c4ate05yzbt6f96yd8zrnxhyxl6y8";
-    }else if (indexPath.row == 8) {
-        self.selectIdx = 4;
-        self.money = @"200";
-        self.selectAppleGoodsID = @"cnw26qwdnd1qunkukzgemq3s97f2iuve";
-    }else if (indexPath.row == 10) {
-        self.selectIdx = 5;
-        self.money = @"500";
-        self.selectAppleGoodsID = @"3h693zvxyn7j0054cqz9fnqgnsjmx8ti";
-    }else if (indexPath.row == 12) {
-        self.selectIdx = 6;
-        self.money = @"1000";
-        self.selectAppleGoodsID = @"8obc7c9srmlct8atc46j0sb8m5n8jia5";
+        self.selectAppleGoodsID = @"f2893f61745d48638e14281b63d55f2e";
     }
     [self loadUI];
 }
@@ -197,16 +152,16 @@
 }
 
 - (void)PaySuccess{
-    [DKProgressHUD showInfoWithStatus:@"pay success"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [DKProgressHUD showInfoWithStatus:@"pay success"];
+    });
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)orderToApplePay{
     //是否允许内购
     if ([SKPaymentQueue canMakePayments]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [DKProgressHUD showLoading];
-        });
+        [DKProgressHUD showLoading];
         NSArray *product = [[NSArray alloc] initWithObjects:self.selectAppleGoodsID,nil];
         NSSet *nsset = [NSSet setWithArray:product];
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
@@ -214,7 +169,10 @@
         [request start];
         
     }else{
-//        [self showHint:@"您的手机暂时不支持内购" delay:1.3];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DKProgressHUD showInfoWithStatus:@"your phone cannot IAP"];
+        });
+        [DKProgressHUD dismiss];
     }
 }
 #pragma mark - SKProductsRequestDelegate
@@ -234,16 +192,18 @@
         payment.applicationUsername = self.applepayProducID;
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }else{
-        [DKProgressHUD showInfoWithStatus:@"没有该商品"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DKProgressHUD showInfoWithStatus:@"no product"];
+            
+        });
+        [DKProgressHUD dismiss];
     }
 }
 #pragma mark - SKRequestDelegate
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [DKProgressHUD hideHUDForView:self.view animated:NO];
-    });
+    [DKProgressHUD dismiss];
 }
 
 //请求结束
@@ -260,10 +220,8 @@
             case SKPaymentTransactionStatePurchased:
             {
                 NSLog(@"交易完成");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [DKProgressHUD hideHUDForView:self.view animated:NO];
-                    [DKProgressHUD showLoading];
-                });
+                [DKProgressHUD dismiss];
+                [DKProgressHUD showLoading];
                 
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 [self completeTransaction:tran];
@@ -273,11 +231,10 @@
             {
                 NSLog(@"交易失败");
                 self.view.userInteractionEnabled = YES;
+                [DKProgressHUD dismiss];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [DKProgressHUD hideHUDForView:self.view animated:NO];
+                    [DKProgressHUD showInfoWithStatus:@"failed"];
                 });
-                
-                [DKProgressHUD showInfoWithStatus:@"购买失败"];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 
             }
@@ -305,34 +262,31 @@
     
     NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
     if (result == nil) {
-        NSLog(@"验证失败");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [DKProgressHUD hideHUDForView:self.view animated:NO];
-        });
-        
+        [DKProgressHUD dismiss];
+        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         return;
     }
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
     if (dic != nil) {
-//        [JTNetwork requestGetWithParam:@{@"transactionID":[UserModelManager shareInstance].userModel.token,
-//                                         @"receipt":self.receipt
-//        } url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self hideAllHud];
-//            });
-//            if (model.zt == 1) {
-//                [self PaySuccess];
-//                [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-//            }else{
-//                [self showHint:model.xx];
-//                [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-//            }
-//
-//        }];
+        [JTNetwork requestPostWithParam:@{@"transactionID":transaction.transactionIdentifier,
+                                         @"receipt":self.receipt}
+                                   url:@"/appleIAPAuth"
+                              callback:^(JTBaseReqModel *model) {
+            [DKProgressHUD dismiss];
+            if (model.status == 1) {
+                [self PaySuccess];
+                [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [DKProgressHUD showInfoWithStatus:@"rechage failed"];
+                });
+                
+                [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+            }
+        }];
     }
     else{
-        [DKProgressHUD hideHUDForView:self.view animated:NO];
+        [DKProgressHUD dismiss];
         [self.navigationController popViewControllerAnimated:YES];
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     }

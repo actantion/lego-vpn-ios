@@ -21,6 +21,9 @@
 		18F3C64C2293D7F800D79C4A /* freeWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 18F3C6412293D7F800D79C4A /* freeWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		18F3C6522293E40400D79C4A /* NEKitRule.conf in Resources */ = {isa = PBXBuildFile; fileRef = 18E9149B2267220B005E6027 /* NEKitRule.conf */; };
 		5DA1BE6BD0C526BF119CCCE7 /* Pods_PacketTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */; };
+		84A0A00D259037D6005F0253 /* JTNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A09FEC259037D6005F0253 /* JTNetwork.m */; };
+		84A0A015259037D6005F0253 /* JTBaseReqModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A09FFF259037D6005F0253 /* JTBaseReqModel.m */; };
+		84A0A04A259067CD005F0253 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A0A049259067CD005F0253 /* StoreKit.framework */; };
 		852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852577722329ECD800BF8AF8 /* TenonP2pLib.swift */; };
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
@@ -226,6 +229,11 @@
 		2F2DE645899F3ED7E129742A /* Pods-PacketTunnel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.debug.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.debug.xcconfig"; sourceTree = "<group>"; };
 		4B0BC1E9EDCB1216E4A46B87 /* Pods-freeWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.release.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.release.xcconfig"; sourceTree = "<group>"; };
 		807D47F7956E953C8F94626F /* Pods-freeWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.debug.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		84A09FE8259037D6005F0253 /* JTBaseReqModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTBaseReqModel.h; sourceTree = "<group>"; };
+		84A09FEC259037D6005F0253 /* JTNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTNetwork.m; sourceTree = "<group>"; };
+		84A09FFF259037D6005F0253 /* JTBaseReqModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTBaseReqModel.m; sourceTree = "<group>"; };
+		84A0A003259037D6005F0253 /* JTNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTNetwork.h; sourceTree = "<group>"; };
+		84A0A049259067CD005F0253 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		852577722329ECD800BF8AF8 /* TenonP2pLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenonP2pLib.swift; sourceTree = "<group>"; };
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
@@ -404,6 +412,7 @@
 				D35BBDDE2330C4840043E340 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D33FB673231F8AFF004ECA2A /* MMDB.framework in Frameworks */,
 				D33FB667231F8AC4004ECA2A /* CocoaLumberjack.framework in Frameworks */,
+				84A0A04A259067CD005F0253 /* StoreKit.framework in Frameworks */,
 				DB56AE96686C8BBBDFD30356 /* Pods_TenonVPN.framework in Frameworks */,
 				D34378FF2328F234000F1F69 /* NetworkExtension.framework in Frameworks */,
 			);
@@ -520,9 +529,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		84A09FDF259037D6005F0253 /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				84A09FE8259037D6005F0253 /* JTBaseReqModel.h */,
+				84A09FFF259037D6005F0253 /* JTBaseReqModel.m */,
+				84A0A003259037D6005F0253 /* JTNetwork.h */,
+				84A09FEC259037D6005F0253 /* JTNetwork.m */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
 		AE2E93114404A35E87606173 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84A0A049259067CD005F0253 /* StoreKit.framework */,
 				D35BBDDA2330C37B0043E340 /* libp2p.framework */,
 				D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */,
 				D34378FB2328F226000F1F69 /* NetworkExtension.framework */,
@@ -590,6 +611,7 @@
 		D38E584D232F87F700D99A90 /* NetworkOperation */ = {
 			isa = PBXGroup;
 			children = (
+				84A09FDF259037D6005F0253 /* NetWork */,
 				D38E5855232F8C0B00D99A90 /* VpnManager.swift */,
 				852577722329ECD800BF8AF8 /* TenonP2pLib.swift */,
 			);
@@ -1254,6 +1276,7 @@
 				F656DFE9257E539900791518 /* RechargeVC.m in Sources */,
 				D316BC2423224D97008C8FD3 /* AcountSetViewController.swift in Sources */,
 				F656E025257E545700791518 /* UIImageView+loading.m in Sources */,
+				84A0A015259037D6005F0253 /* JTBaseReqModel.m in Sources */,
 				F656E020257E545700791518 /* UIButton+LargeArea.m in Sources */,
 				F656E033257E545700791518 /* UITableView+loadCell.m in Sources */,
 				F656E073257E579800791518 /* UILabelContentCell.m in Sources */,
@@ -1285,6 +1308,7 @@
 				F656E079257E579800791518 /* UIVerificationCodeCell.m in Sources */,
 				F656E027257E545700791518 /* NSData+Base65EnCode.m in Sources */,
 				85F19855257C042700E32107 /* main.m in Sources */,
+				84A0A00D259037D6005F0253 /* JTNetwork.m in Sources */,
 				F656E075257E579800791518 /* UIForgetRegistCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1558,7 +1582,7 @@
 					"-lssl",
 					"-lcontract",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Tenon/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1654,7 +1678,7 @@
 					"-lssl",
 					"-lcontract",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Tenon/TenonVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1685,7 +1709,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.PacketTunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.TenonPacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1715,7 +1739,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.PacketTunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.TenonPacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1746,7 +1770,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libp2p/lib";
 				MARKETING_VERSION = 2;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.freeWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.TenonFreeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1778,7 +1802,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libp2p/lib";
 				MARKETING_VERSION = 2;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.XL.Tenonvpn.freeWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenon.tenonvpn.TenonFreeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
