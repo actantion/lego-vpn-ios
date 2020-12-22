@@ -82,7 +82,7 @@
         NSLog(@"客户端报错 %@",error);
         
         JTBaseReqModel *model = [[JTBaseReqModel alloc] init];
-        model.msg = (NSString *)model.data;
+        model.message = (NSString *)model.data;
         model.error = error;
         model.status = 0;
         if (callback) {
@@ -107,7 +107,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
         JTBaseReqModel *model = [[JTBaseReqModel alloc] init];
-        model.msg = (NSString *)model.data;
+        model.message = (NSString *)model.data;
         model.status = 0;
         if (callback) {
             callback (model);

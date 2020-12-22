@@ -13,7 +13,7 @@
 // 状态
 @property (nonatomic, assign) NSInteger status;
 // 提示消息
-@property (nonatomic, strong) NSString  *msg;
+@property (nonatomic, strong) NSString  *message;
 @property (nonatomic, strong) NSString  *code;
 @property (nonatomic, strong) NSError   *error;
 // 数据

@@ -133,7 +133,7 @@
     
     if (indexPath.row == 2) {
         self.selectIdx = 1;
-        self.selectAppleGoodsID = @"91858c25f442453e95de063494981b1c";
+        self.selectAppleGoodsID = @"91858c25f442453e95de063494981b1c"; // 测试消耗品 bf68d4c5c70048d68bfa5f1ac1f28d74
     }else if (indexPath.row == 4) {
         self.selectIdx = 2;
         self.selectAppleGoodsID = @"f55ce3d2138349adb754eb6c1fff53b1";
@@ -153,9 +153,10 @@
 
 - (void)PaySuccess{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [DKProgressHUD showInfoWithStatus:@"pay success"];
+        [DKProgressHUD dismiss];
+        [DKProgressHUD showSuccessWithStatus:@"购买成功"];
     });
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)orderToApplePay{
@@ -221,8 +222,6 @@
             {
                 NSLog(@"交易完成");
                 [DKProgressHUD dismiss];
-                [DKProgressHUD showLoading];
-                
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 [self completeTransaction:tran];
             }
@@ -247,6 +246,9 @@
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [DKProgressHUD showLoading];
+    });
     
     NSURL *rurl = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *rdata = [NSData dataWithContentsOfURL:rurl];
@@ -259,28 +261,29 @@
     NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}", _receipt];
     NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
     urlRequest.HTTPBody = payloadData;
-    
     NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
     if (result == nil) {
-        [DKProgressHUD dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DKProgressHUD dismiss];
+        });
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         return;
     }
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
     if (dic != nil) {
+        
         [JTNetwork requestPostWithParam:@{@"transactionID":transaction.transactionIdentifier,
                                          @"receipt":self.receipt}
                                    url:@"/appleIAPAuth"
                               callback:^(JTBaseReqModel *model) {
-            [DKProgressHUD dismiss];
             if (model.status == 1) {
                 [self PaySuccess];
                 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [DKProgressHUD showInfoWithStatus:@"rechage failed"];
+                    [DKProgressHUD dismiss];
+                    [DKProgressHUD showErrorWithStatus:model.message];
                 });
-                
                 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
             }
         }];
