@@ -19,12 +19,14 @@
 #import "RechargeVC.h"
 
 ViewController *swiftViewController;
+extern NSString* GlobalMonitorString;
 
 @interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
     UIPickerView *pickViewss;
     NSArray *arrayOne;
     NSArray *arrayImg;
+    NSArray *arrayShortCountry;
 }
 @property (nonatomic, assign) BOOL isFree;
 @property (nonatomic, strong) UIView *freeView;
@@ -60,6 +62,7 @@ ViewController *swiftViewController;
 
 @property(nonatomic, strong) NSMutableArray *shareArray;
 @property(nonatomic, strong) NSMutableArray *functionArray;
+@property (nonatomic, strong) NSString *choosedCountry;
 
 @end
 
@@ -127,9 +130,9 @@ ViewController *swiftViewController;
     [shareV addSubview:shareImg];
     
     UILabel *shareLab = [[UILabel alloc] initWithFrame:CGRectMake(36, 0, 40, 36)];
-    if(![[[NSUserDefaults standardUserDefaults] objectForKey:@"AppLanguagesKey"] isEqualToString:@"en"]) {
-        shareLab.text = GCLocalizedString(@"分享");
-    }
+//    if(![[[NSUserDefaults standardUserDefaults] objectForKey:@"AppLanguagesKey"] isEqualToString:@"en"]) {
+        shareLab.text = GCLocalizedString(@"Share");
+//    }
     
     shareLab.font = Font_B(14);
     shareLab.textColor = kRBColor(21, 203, 191);
@@ -142,7 +145,6 @@ ViewController *swiftViewController;
     UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, top_H, 40, 40)];
     [settingBtn addTarget:self action:@selector(editBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [navView addSubview:settingBtn];
-
 }
 
 -(void)shareBtnClicked
@@ -215,15 +217,30 @@ ViewController *swiftViewController;
         }
     });
     
-    arrayOne = @[GCLocalizedString(@"美国"),GCLocalizedString(@"日本"),GCLocalizedString(@"香港"),GCLocalizedString(@"韩国"),GCLocalizedString(@"澳大利亚")];
-    arrayImg = @[@"us",@"jp",@"hk",@"hk",@"au"];
+    arrayOne = @[GCLocalizedString(@"United States"),
+                 GCLocalizedString(@"China"),
+                 GCLocalizedString(@"Singapore"),
+                 GCLocalizedString(@"Japan"),
+                 GCLocalizedString(@"South Korea"),
+                 GCLocalizedString(@"Canada"),
+                 GCLocalizedString(@"France"),
+                 GCLocalizedString(@"England"),
+                 GCLocalizedString(@"Germany"),
+                 GCLocalizedString(@"Australia"),
+                 GCLocalizedString(@"Brazil"),
+                 GCLocalizedString(@"Netherlands"),
+                 GCLocalizedString(@"Hong Kong"),
+                 GCLocalizedString(@"India"),
+                 GCLocalizedString(@"Russia")];
+    arrayImg = @[@"us",@"cn",@"sg",@"jp",@"kr",@"ca",@"fr",@"gb",@"de",@"au",@"br",@"nl",@"hk",@"in",@"ru"];
+    arrayShortCountry = @[@"US",@"CN",@"SG",@"JP",@"KR",@"CA",@"FR",@"GB",@"DE",@"AU",@"BR",@"NL",@"HK",@"IN",@"RU"];
     
     [self addAdView];
     
     _aboutBtn = [[UIButton alloc] init];
-    [_aboutBtn setTitle:@"About Tenon VPN" forState:0];
+    [_aboutBtn setTitle:GCLocalizedString(@"About Tenon VPN") forState:0];
     [_aboutBtn setTitleColor:kRBColor(21,203,191) forState:0];
-    _aboutBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _aboutBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [_aboutBtn addTarget:self action:@selector(aboutBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_aboutBtn];
     [_aboutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -288,8 +305,8 @@ ViewController *swiftViewController;
     [self.view addSubview:leftView];
     
     _nameLabel = [[UILabel alloc] init];
-    _nameLabel.text = GCLocalizedString(@"匿名用户");
-    _nameLabel.font = Font_B(14);
+    _nameLabel.text = GCLocalizedString(@"Anonymous User");
+    _nameLabel.font = Font_B(16);
     _nameLabel.textColor = kRBColor(154, 162, 161);
     [leftView addSubview:_nameLabel];
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -308,16 +325,16 @@ ViewController *swiftViewController;
     }];
     
     _codeLabel = [[UILabel alloc] init];
-    _codeLabel.text = @"s823rjdf9s8hc23289rhvnweua8932s823rjdf9s8hc23289rhvnweua8932rkop";
-    _codeLabel.font = [UIFont systemFontOfSize:12];
+    _codeLabel.text = swiftViewController.local_account_id;
+    _codeLabel.font = [UIFont systemFontOfSize:14];
     _codeLabel.textColor = kRBColor(76, 85, 85);
     _codeLabel.numberOfLines = 0;
     _codeLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [leftView addSubview:_codeLabel];
     [_codeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(leftView).offset(12);
+        make.left.equalTo(leftView).offset(10);
         make.right.equalTo(leftView.mas_right).offset(-14);
-        make.top.equalTo(_nameLabel.mas_bottom).offset(8);
+        make.top.equalTo(_nameLabel.mas_bottom).offset(0);
     }];
     self.codeLabel.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPre:)];
@@ -341,7 +358,7 @@ ViewController *swiftViewController;
     
     UILabel *titLabel = [[UILabel alloc] init];
     titLabel.text = GCLocalizedString(@"私钥");
-    titLabel.font = Font_B(14);
+    titLabel.font = Font_B(16);
     titLabel.textColor = kRBColor(154, 162, 161);
     [rightView addSubview:titLabel];
     [titLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -360,20 +377,20 @@ ViewController *swiftViewController;
     }];
     
     NSMutableString *codeS = [[NSMutableString alloc] init];
-    for (int i=0;i<_codeString.length;i++) {
+    for (int i=0;i<100;i++) {
         [codeS appendString:@"*"];
     }
     _keyLabel = [[UILabel alloc] init];
     _keyLabel.text = codeS.copy;
-    _keyLabel.font = [UIFont systemFontOfSize:12];
+    _keyLabel.font = [UIFont systemFontOfSize:14];
     _keyLabel.textColor = kRBColor(76, 85, 85);
     _keyLabel.numberOfLines = 0;
     _keyLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [rightView addSubview:_keyLabel];
     [_keyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(rightView).offset(12);
+        make.left.equalTo(rightView).offset(10);
         make.right.equalTo(rightView.mas_right).offset(-14);
-        make.top.equalTo(titLabel.mas_bottom).offset(8);
+        make.top.equalTo(titLabel.mas_bottom).offset(0);
     }];
     self.keyLabel.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPre1:)];
@@ -389,11 +406,11 @@ ViewController *swiftViewController;
     _isShow = !_isShow;
     if(_isShow) {
         [_eyeBtn setImage:[UIImage imageNamed:@"show_icon"] forState:UIControlStateNormal];
-        _keyLabel.text = _codeString;
+        _keyLabel.text = swiftViewController.local_private_key;
     } else {
         [_eyeBtn setImage:[UIImage imageNamed:@"hidden_icon"] forState:UIControlStateNormal];
         NSMutableString *codeS = [[NSMutableString alloc] init];
-        for (int i=0;i<_codeString.length;i++) {
+        for (int i=0;i<100;i++) {
             [codeS appendString:@"*"];
         }
         _keyLabel.text = codeS.copy;
@@ -428,7 +445,7 @@ ViewController *swiftViewController;
     }];
     
     _typeTextLabel = [[UILabel alloc] init];
-    _typeTextLabel.text = GCLocalizedString(@"免费");
+    _typeTextLabel.text = GCLocalizedString(@"Free");
     _typeTextLabel.font = [UIFont systemFontOfSize:12];
     _typeTextLabel.textColor = kRBColor(154, 162, 161);
     [twoLeftView addSubview:_typeTextLabel];
@@ -455,7 +472,7 @@ ViewController *swiftViewController;
     
     if(_isFree) {
         UILabel *rtLabel = [[UILabel alloc] init];
-        rtLabel.text = GCLocalizedString(@"更高性能·更高质量");
+        rtLabel.text = GCLocalizedString(@"Higher performance");
         rtLabel.font = Font_M(14);
         rtLabel.textColor = kRBColor(18, 181, 170);
         [twoRightView addSubview:rtLabel];
@@ -464,8 +481,18 @@ ViewController *swiftViewController;
             make.top.equalTo(twoRightView).offset(12);
             make.height.mas_equalTo(20);
         }];
-        
-        UIImageView *updateImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:GCLocalizedString(@"update_cn")]];
+        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        NSString *mystr = [defaultdata objectForKey:@"language"];
+        if (!mystr || !mystr.length) {
+            mystr = @"Default";
+        }
+        NSString *img_name = @"update_en";
+        if ([mystr isEqualToString: @"Default"] || [mystr isEqualToString: @"English"]) {
+            img_name = @"update_en";
+        } else if ([mystr isEqualToString: @"中文"]) {
+            img_name = @"update_cn";
+        }
+        UIImageView *updateImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:img_name]];
         [twoRightView addSubview:updateImg];
         [updateImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(twoRightView).offset(-12);
@@ -484,7 +511,7 @@ ViewController *swiftViewController;
         lineV.transform = CGAffineTransformMakeRotation(-M_PI/6);
         
         UILabel *chongL = [[UILabel alloc] init];
-        chongL.text = GCLocalizedString(@"充流量");
+        chongL.text = GCLocalizedString(@"Charge flow");
         chongL.font = Font_B(14);
         chongL.textColor = kRBColor(18, 181, 170);
         [twoRightView addSubview:chongL];
@@ -499,7 +526,7 @@ ViewController *swiftViewController;
         }];
         
         UILabel *tiL = [[UILabel alloc] init];
-        tiL.text = GCLocalizedString(@"提流量");
+        tiL.text = GCLocalizedString(@"Seel out");
         tiL.font = Font_B(14);
         tiL.textColor = kRBColor(18, 181, 170);
         [twoRightView addSubview:tiL];
@@ -564,7 +591,7 @@ ViewController *swiftViewController;
         }];
         
         _linkLabel = [[UILabel alloc] init];
-        _linkLabel.text = GCLocalizedString(@"未链接");
+        _linkLabel.text = GCLocalizedString(@"Disconnect");
         _linkLabel.font = Font_B(24);
         _linkLabel.textColor = kRBColor(214, 223, 221);
         [_linkBgView addSubview:_linkLabel];
@@ -603,7 +630,7 @@ ViewController *swiftViewController;
         }];
         
         _linkLabel = [[UILabel alloc] init];
-        _linkLabel.text = GCLocalizedString(@"已链接");
+        _linkLabel.text = GCLocalizedString(@"Connected");
         if([[[NSUserDefaults standardUserDefaults] objectForKey:@"AppLanguagesKey"] isEqualToString:@"en"]) {
             _linkLabel.font = Font_B(20);
         } else {
@@ -622,7 +649,7 @@ ViewController *swiftViewController;
         [_linkBgView addSubview:linkBtn];
         
         _linkNoticeLabel = [[UILabel alloc] init];
-        _linkNoticeLabel.text = GCLocalizedString(@"P2P网络正在保护您的IP和数据隐私");
+        _linkNoticeLabel.text = GCLocalizedString(@"P2P networks are protecting your IP and data privacy");
         _linkNoticeLabel.font = [UIFont systemFontOfSize:12];
         _linkNoticeLabel.textColor = kRBColor(21, 209, 191);
         [self.view addSubview:_linkNoticeLabel];
@@ -636,15 +663,25 @@ ViewController *swiftViewController;
 
 -(void)linkBtnClicked:(UIButton *)sender
 {
+    if (self.isLink) {
+        [swiftViewController DoClickDisconnect];
+        self.isLink = false;
+        [self refreshLinkView];
+        return;
+    }
+    
     [swiftViewController DoClickConnect];
     [self addtagBtnClicked];
     sender.enabled = NO;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         sender.enabled = YES;
     });
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.isLink = !self.isLink;
-        [self refreshLinkView];
+        if (!self.isLink && swiftViewController.user_started_vpn) {
+            self.isLink = true;
+            [self refreshLinkView];
+        }
+
     });
     
 }
@@ -657,30 +694,30 @@ ViewController *swiftViewController;
     if(_isFree)
     {
         UILabel *freeLab = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 200, 36)];
-        freeLab.text = GCLocalizedString(@"社区版本");
-        freeLab.textColor = kRBColor(154, 162, 161);
-        freeLab.font = [UIFont systemFontOfSize:12];
+        freeLab.text = GCLocalizedString(@"Community");
+        freeLab.textColor = kRBColor(18, 181, 170);
+        freeLab.font = Font_B(19);
         [_freeView addSubview:freeLab];
         
         _typeSignLabel.text = @"FREE!";
-        _typeTextLabel.text = GCLocalizedString(@"免费");
+        _typeTextLabel.text = GCLocalizedString(@"Free");
     }
     else
     {
-        UILabel *proLab = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 36)];
-        proLab.text = @"PRO";
+        UILabel *proLab = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 200, 36)];
+        proLab.text = GCLocalizedString(@"Professional");
         proLab.textColor = kRBColor(18, 181, 170);
-        proLab.font = Font_B(14);
+        proLab.font = Font_B(19);
         [_freeView addSubview:proLab];
         
         UILabel *freeLab = [[UILabel alloc] initWithFrame:CGRectMake(46, 0, 100, 36)];
-        freeLab.text = GCLocalizedString(@"专业版");
+        freeLab.text = GCLocalizedString(@"");
         freeLab.textColor = kRBColor(154, 162, 161);
         freeLab.font = Font_M(14);
         [_freeView addSubview:freeLab];
         
         UILabel *freeL = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-24-54, 0, 50, 36)];
-        freeL.text = GCLocalizedString(@"免费版");
+        freeL.text = GCLocalizedString(@"Free");
         freeL.textColor = kRBColor(18, 181, 170);
         freeL.font = [UIFont systemFontOfSize:14];
         [_freeView addSubview:freeL];
@@ -698,7 +735,7 @@ ViewController *swiftViewController;
         [_freeView addSubview:changeBtn];
         
         _typeSignLabel.text = @"500.03 M";
-        _typeTextLabel.text = [NSString stringWithFormat:@"%@≈100 TEN",GCLocalizedString(@"总值")];
+        _typeTextLabel.text = [NSString stringWithFormat:@"%@≈100 TEN",GCLocalizedString(@"Total")];
     }
 }
 
@@ -735,7 +772,7 @@ ViewController *swiftViewController;
     titleLs.textAlignment = NSTextAlignmentCenter;
     titleLs.textColor = [UIColor whiteColor];
     titleLs.font = Font_H(17);
-    titleLs.text = GCLocalizedString(@"输入私钥");
+    titleLs.text = GCLocalizedString(@"Enter private key");
     [_inputAlertView addSubview:titleLs];
     
     UIView *inputBgV = [[UIView alloc] initWithFrame:CGRectMake(16, 62, 238, 25)];
@@ -745,10 +782,10 @@ ViewController *swiftViewController;
     
     _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(5, 0, 228, 25)];
     _inputTextField.textColor = [UIColor whiteColor];
-    _inputTextField.placeholder = GCLocalizedString(@"输入64位私钥");
+    _inputTextField.placeholder = GCLocalizedString(@"Enter the 64-bit private key");
     _inputTextField.font = kFont(13);
     NSDictionary *dic = @{NSForegroundColorAttributeName:kRBColor(154, 162, 161), NSFontAttributeName:[UIFont systemFontOfSize:13]};
-    _inputTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GCLocalizedString(@"输入64位私钥") attributes:dic];
+    _inputTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GCLocalizedString(@"Enter the 64-bit private key") attributes:dic];
     [inputBgV addSubview:_inputTextField];
     
     UIView *henLine = [[UIView alloc] initWithFrame:CGRectMake(0, 105, 270, 0.5)];
@@ -760,14 +797,14 @@ ViewController *swiftViewController;
     [_inputAlertView addSubview:shuLine];
     
     UIButton *cancleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 105, 135, 44)];
-    [cancleBtn setTitle:GCLocalizedString(@"取消") forState:UIControlStateNormal];
+    [cancleBtn setTitle:GCLocalizedString(@"Cancel") forState:UIControlStateNormal];
     [cancleBtn setTitleColor:kRBColor(214, 223, 221) forState:UIControlStateNormal];
     cancleBtn.titleLabel.font = kFont(17);
     [cancleBtn addTarget:self action:@selector(cancleBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [_inputAlertView addSubview:cancleBtn];
     
     UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(135, 105, 135, 44)];
-    [confirmBtn setTitle:GCLocalizedString(@"确定") forState:UIControlStateNormal];
+    [confirmBtn setTitle:GCLocalizedString(@"OK") forState:UIControlStateNormal];
     [confirmBtn setTitleColor:kRBColor(18, 181, 170) forState:UIControlStateNormal];
     confirmBtn.titleLabel.font = Font_B(17);
     [confirmBtn addTarget:self action:@selector(confirmBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -784,6 +821,23 @@ ViewController *swiftViewController;
 -(void)confirmBtnClicked
 {
     [self.view endEditing:YES];
+    int res = [swiftViewController ResetPrivateKey:_inputTextField.text];
+    if (res == 1) {
+        
+    } else if (res == 2){
+        [self.view makeToast:GCLocalizedString(@"invalid private key.") duration:2 position:CENTER];
+    } else if (res == 3) {
+        [self.view makeToast:GCLocalizedString(@"Set up to 3 private keys.") duration:2 position:CENTER];
+    } else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:GCLocalizedString(@"OK")
+                                    message:GCLocalizedString(@"after success reset private key, must restart program.")
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:GCLocalizedString(@"OK") style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action) { exit(0); }];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
     _inputTextField.text = @"";
     _inputAlertBgView.hidden = YES;
 }
@@ -796,7 +850,7 @@ ViewController *swiftViewController;
     _btnBuyTenonCoin = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 60)];
     _btnBuyTenonCoin.backgroundColor = [UIColor clearColor];
     [_btnBuyTenonCoin addTarget:self action:@selector(clickRechargeTenonCoin) forControlEvents:UIControlEventTouchUpInside];
-    [_btnBuyTenonCoin setTitle:@"充值Tenon" forState:UIControlStateNormal];
+    [_btnBuyTenonCoin setTitle:@"Charge flow" forState:UIControlStateNormal];
     [_ADView addSubview:_btnBuyTenonCoin];
     [self.view addSubview:_ADView];
 }
@@ -838,7 +892,8 @@ ViewController *swiftViewController;
     label2.font = [UIFont systemFontOfSize:12];
     label2.textAlignment = NSTextAlignmentRight;
     label2.textColor = kRBColor(214, 223, 221);
-    label2.text = [NSString stringWithFormat:@"222 %@",GCLocalizedString(@"节点")];
+    int value = arc4random() % 500 + 100;
+    label2.text = [NSString stringWithFormat:@"%d %@",value, GCLocalizedString(@"nodes")];
     [myView addSubview:label2];
     return myView;
 }
@@ -851,7 +906,16 @@ ViewController *swiftViewController;
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog(@"select is %@",arrayOne[row]);
+    NSLog(@"select is %@ %@",arrayOne[row], arrayShortCountry[row]);
+    if (![_choosedCountry isEqualToString: arrayShortCountry[row]]) {
+        VpnManager.shared.choosed_country = arrayShortCountry[row];
+        swiftViewController.choosed_country = arrayShortCountry[row];
+        _choosedCountry = arrayShortCountry[row];
+        [swiftViewController DoClickDisconnect];
+        self.isLink = false;
+        [self refreshLinkView];
+    }
+    
 }
 
 - (BOOL)canBecomeFirstResponder{
@@ -864,17 +928,17 @@ ViewController *swiftViewController;
 
 - (void)copy:(id)sender{
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    pasteBoard.string = self.codeLabel.text;
+    pasteBoard.string = swiftViewController.local_account_id;
 }
 
 - (void)copy1:(id)sender{
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    pasteBoard.string = self.keyLabel.text;
+    pasteBoard.string = swiftViewController.local_private_key;
 }
 // 处理长按事件
 - (void)longPre:(UILongPressGestureRecognizer *)recognizer{
     [self becomeFirstResponder];
-    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"复制") action:@selector(copy:)];
+    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy:)];
     [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
     [[UIMenuController sharedMenuController] setTargetRect:self.codeLabel.frame inView:self.codeLabel.superview];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
@@ -883,7 +947,7 @@ ViewController *swiftViewController;
 // 处理长按事件
 - (void)longPre1:(UILongPressGestureRecognizer *)recognizer{
     [self becomeFirstResponder];
-    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"复制") action:@selector(copy1:)];
+    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy1:)];
     [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
     [[UIMenuController sharedMenuController] setTargetRect:self.keyLabel.frame inView:self.keyLabel.superview];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
@@ -894,24 +958,37 @@ ViewController *swiftViewController;
     [self addADBgView];
     self.progressView.progress = 0;
     _loadingTime = 5;
-    self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"正在为您链接"),(long)_loadingTime];
+    self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
+    self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
     
     [UIView animateWithDuration:_loadingTime animations:^{
         self.progressView.progress = 1;
       } completion:^(BOOL finished) {
           self.loadingView.hidden = YES;
-          self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…0s",GCLocalizedString(@"正在为您链接")];
+          self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…0s",GCLocalizedString(@"Linking for you")];
           [self.loadingView removeFromSuperview];
       }];
 }
 
 -(void)getCodeTime
 {
-    _loadingTime -= 0.2;
+    printf("FFFFFFFFFFF %d\n", swiftViewController.user_started_vpn);
+    if (swiftViewController.user_started_vpn) {
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+        
+        self.loadingView.hidden = YES;
+        [self.loadingView removeFromSuperview];
+        self.isLink = true;
+        [self refreshLinkView];
+        _loadingTime = 0;
+    }
+    _loadingTime -= 1;
     if(_loadingTime > 0) {
-        self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"正在为您链接"),(long)_loadingTime];
+        self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     } else {
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];

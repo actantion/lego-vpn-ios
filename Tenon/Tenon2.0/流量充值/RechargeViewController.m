@@ -54,7 +54,7 @@
     CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
     
     UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 200, 50)];
-    aboutLab.text = GCLocalizedString(@"充流量");
+    aboutLab.text = GCLocalizedString(@"Charge flow");
     aboutLab.textColor = kRBColor(154, 162, 161);
     aboutLab.font = Font_B(36);
     [self.view addSubview:aboutLab];
@@ -71,7 +71,7 @@
     }];
     
     UILabel *oneLab = [[UILabel alloc] init];
-    oneLab.text = GCLocalizedString(@"方式一");
+    oneLab.text = GCLocalizedString(@"Method one");
     oneLab.textColor = kRBColor(18, 181, 170);
     oneLab.font = Font_B(14);
     [textBgView addSubview:oneLab];
@@ -82,7 +82,7 @@
     }];
     
     UILabel *oneContLab = [[UILabel alloc] init];
-    oneContLab.text = GCLocalizedString(@"直接将Tenon转入您的匿名账户");
+    oneContLab.text = GCLocalizedString(@"Transfer Tenon directly to your anonymous account");
     oneContLab.textColor = kRBColor(154, 162, 161);
     oneContLab.font = kFont(14);
     [textBgView addSubview:oneContLab];
@@ -108,7 +108,7 @@
     
     UIButton *copyBtn = [[UIButton alloc] init];
     [copyBtn addTarget:self action:@selector(copyBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [copyBtn setTitle:GCLocalizedString(@"复制") forState:0];
+    [copyBtn setTitle:GCLocalizedString(@"Copy") forState:0];
     [copyBtn setTitleColor:kRBColor(18, 181, 170) forState:0];
     copyBtn.titleLabel.font = Font_B(14);
     [textBgView addSubview:copyBtn];
@@ -135,7 +135,7 @@
     }];
     
     UILabel *twoLab = [[UILabel alloc] init];
-    twoLab.text = GCLocalizedString(@"方式二");
+    twoLab.text = GCLocalizedString(@"Method two");
     twoLab.textColor = kRBColor(18, 181, 170);
     twoLab.font = Font_B(14);
     [twoBgView addSubview:twoLab];
@@ -146,7 +146,7 @@
     }];
     
     UILabel *twoContLab = [[UILabel alloc] init];
-    twoContLab.text = GCLocalizedString(@"月付/季付/年付");
+    twoContLab.text = GCLocalizedString(@"Monthly/Quarterly/Annual");
     twoContLab.textColor = kRBColor(154, 162, 161);
     twoContLab.font = kFont(14);
     [twoBgView addSubview:twoContLab];
@@ -161,7 +161,7 @@
     twoBtn.titleLabel.font = Font_B(14);
     twoBtn.backgroundColor = kRBColor(18, 181, 170);
     [twoBtn setTitleColor:kRBColor(0, 41, 51) forState:0];
-    [twoBtn setTitle:GCLocalizedString(@"快速") forState:0];
+    [twoBtn setTitle:GCLocalizedString(@"Fast") forState:0];
     [twoBtn addTarget:self action:@selector(joinBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [twoBgView addSubview:twoBtn];
     [twoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -183,7 +183,7 @@
     }];
     
     UILabel *threeLab = [[UILabel alloc] init];
-    threeLab.text = GCLocalizedString(@"方式三");
+    threeLab.text = GCLocalizedString(@"Method three");
     threeLab.textColor = kRBColor(18, 181, 170);
     threeLab.font = Font_B(14);
     [threeBgView addSubview:threeLab];
@@ -194,7 +194,7 @@
     }];
     
     UILabel *threeContLab = [[UILabel alloc] init];
-    threeContLab.text = GCLocalizedString(@"观看广告获得Tenon");
+    threeContLab.text = GCLocalizedString(@"Watch ads to earn Tenon");
     threeContLab.textColor = kRBColor(154, 162, 161);
     threeContLab.font = kFont(14);
     [threeBgView addSubview:threeContLab];
@@ -209,7 +209,7 @@
     threeBtn.titleLabel.font = Font_B(14);
     threeBtn.backgroundColor = kRBColor(18, 181, 170);
     [threeBtn setTitleColor:kRBColor(0, 41, 51) forState:0];
-    [threeBtn setTitle:GCLocalizedString(@"进入") forState:0];
+    [threeBtn setTitle:GCLocalizedString(@"Go") forState:0];
     [threeBtn addTarget:self action:@selector(lookADBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [threeBgView addSubview:threeBtn];
     [threeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -220,7 +220,7 @@
     }];
     
     UILabel *lsitLab = [[UILabel alloc] init];
-    lsitLab.text = GCLocalizedString(@"历史记录");
+    lsitLab.text = GCLocalizedString(@"History");
     lsitLab.textColor = kRBColor(18, 181, 170);
     lsitLab.font = Font_B(14);
     [self.view addSubview:lsitLab];
@@ -253,12 +253,12 @@
 {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = @"s823rjdf9s8hc23289rhvnweua8932s823rjdf9s…";
-    [self.view makeToast:GCLocalizedString(@"复制成功") duration:2 position:BOTTOM];
+    [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
 }
 
 -(void)joinBtnClicked
 {
-    [self.view makeToast:GCLocalizedString(@"快速") duration:2 position:BOTTOM];
+    [self.view makeToast:GCLocalizedString(@"Fast") duration:2 position:BOTTOM];
 }
 
 -(void)lookADBtnClicked
@@ -285,7 +285,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.cellOneLab.text = @"500M";
     cell.cellTwoLab.text = @"2020.02.04";
-    cell.cellThreeLab.text = GCLocalizedString(@"已过期");
+    cell.cellThreeLab.text = GCLocalizedString(@"Expired");
     return cell;
 }
 @end

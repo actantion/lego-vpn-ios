@@ -49,7 +49,7 @@ extern ViewController *swiftViewController;
     }];
     
     _getCodeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 112, 36)];
-    [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"跳过广告"),(long)_secondNum] forState:0];
+    [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:0];
     [_getCodeBtn setTitleColor:kRBColor(154,162,161) forState:0];
     _getCodeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_getCodeBtn addTarget:self action:@selector(jumpBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -64,7 +64,7 @@ extern ViewController *swiftViewController;
     
     swiftViewController = [ViewController new];
     if ([swiftViewController InitP2p] != 0) {
-        [self.view makeToast:GCLocalizedString(@"初始化P2P网络失败，请重试！") duration:2 position:BOTTOM];
+        [self.view makeToast:GCLocalizedString(@"Failed to initialize P2P network, please try again!") duration:2 position:BOTTOM];
         exit(0);
     }
 }
@@ -74,7 +74,7 @@ extern ViewController *swiftViewController;
   if(_secondNum>0)
   {
     _secondNum--;
-    [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"跳过广告"),(long)_secondNum] forState:UIControlStateNormal];
+    [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
   }
   else
   {

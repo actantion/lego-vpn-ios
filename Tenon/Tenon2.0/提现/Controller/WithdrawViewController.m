@@ -54,7 +54,7 @@
     CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
     
     UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 200, 50)];
-    aboutLab.text = GCLocalizedString(@"提现流量");
+    aboutLab.text = GCLocalizedString(@"Seel out");
     aboutLab.textColor = kRBColor(154, 162, 161);
     aboutLab.font = Font_B(36);
     [self.view addSubview:aboutLab];
@@ -71,7 +71,7 @@
     }];
     
     UILabel *oneLab = [[UILabel alloc] init];
-    oneLab.text = GCLocalizedString(@"提现流量Tenon地址");
+    oneLab.text = GCLocalizedString(@"Destination Tenon Address");
     oneLab.textColor = kRBColor(18, 181, 170);
     oneLab.font = Font_B(14);
     [textBgView addSubview:oneLab];
@@ -95,10 +95,10 @@
     
     UITextField *oneTextField = [[UITextField alloc] init];
     oneTextField.textColor = [UIColor whiteColor];
-    oneTextField.placeholder = GCLocalizedString(@"输入或粘贴地址");
+    oneTextField.placeholder = GCLocalizedString(@"Type or paste address");
     oneTextField.font = kFont(12);
     NSDictionary *dic = @{NSForegroundColorAttributeName:kRBColor(76, 85, 85), NSFontAttributeName:[UIFont systemFontOfSize:12]};
-    oneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GCLocalizedString(@"输入或粘贴地址") attributes:dic];
+    oneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GCLocalizedString(@"Type or paste address") attributes:dic];
     [oneView addSubview:oneTextField];
     [oneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(oneView).offset(12);
@@ -108,7 +108,7 @@
     }];
     
     UILabel *twoLab = [[UILabel alloc] init];
-    twoLab.text = GCLocalizedString(@"数量");
+    twoLab.text = GCLocalizedString(@"Count");
     twoLab.textColor = kRBColor(18, 181, 170);
     twoLab.font = Font_B(14);
     [textBgView addSubview:twoLab];
@@ -119,7 +119,7 @@
     }];
     
     UILabel *twoLab1 = [[UILabel alloc] init];
-    twoLab1.text = [NSString stringWithFormat:@"%@ 10000 Tenon",GCLocalizedString(@"可提")];
+    twoLab1.text = [NSString stringWithFormat:@"%@ 10000 Tenon",GCLocalizedString(@"Allow to seel")];
     twoLab1.textColor = kRBColor(154, 162, 161);
     twoLab1.font = kFont(12);
     [textBgView addSubview:twoLab1];
@@ -143,10 +143,10 @@
     
     _numTextField = [[UITextField alloc] init];
     _numTextField.textColor = [UIColor whiteColor];
-    _numTextField.placeholder = GCLocalizedString(@"最低数量100");
+    _numTextField.placeholder = GCLocalizedString(@"Minimum Count 100");
     _numTextField.font = kFont(12);
     _numTextField.keyboardType = UIKeyboardTypeNumberPad;
-    _numTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GCLocalizedString(@"最低数量100") attributes:dic];
+    _numTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GCLocalizedString(@"Minimum Count 100") attributes:dic];
     [twoView addSubview:_numTextField];
     [_numTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(twoView).offset(12);
@@ -157,7 +157,7 @@
     
     UIButton *allBtn = [[UIButton alloc] init];
     [allBtn addTarget:self action:@selector(allBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [allBtn setTitle:GCLocalizedString(@"全部提取") forState:0];
+    [allBtn setTitle:GCLocalizedString(@"Seel out all") forState:0];
     [allBtn setTitleColor:kRBColor(18, 181, 170) forState:0];
     allBtn.titleLabel.font = Font_B(12);
     [textBgView addSubview:allBtn];
@@ -172,7 +172,7 @@
     twoBtn.titleLabel.font = Font_B(14);
     twoBtn.backgroundColor = kRBColor(18, 181, 170);
     [twoBtn setTitleColor:kRBColor(0, 41, 51) forState:0];
-    [twoBtn setTitle:GCLocalizedString(@"提现") forState:0];
+    [twoBtn setTitle:GCLocalizedString(@"Seel out") forState:0];
     [twoBtn addTarget:self action:@selector(getBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [textBgView addSubview:twoBtn];
     [twoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -183,7 +183,7 @@
     }];
     
     UILabel *noticeLab = [[UILabel alloc] init];
-    noticeLab.text = GCLocalizedString(@"提示：最少可提100 Tenon。为了保障安全，请保存好您的私钥，不要告诉任何人，确保您的账户安全。");
+    noticeLab.text = GCLocalizedString(@"Tip: At least 100 Tenon can be mentioned. For security, please keep your private key and don't tell anyone to ensure your account is safe.");
     noticeLab.textColor = kRBColor(18, 181, 170);
     noticeLab.font = kFont(12);
     noticeLab.numberOfLines = 0;
@@ -195,7 +195,7 @@
     }];
     
     UILabel *lsitLab = [[UILabel alloc] init];
-    lsitLab.text = GCLocalizedString(@"历史记录");
+    lsitLab.text = GCLocalizedString(@"History");
     lsitLab.textColor = kRBColor(18, 181, 170);
     lsitLab.font = Font_B(14);
     [self.view addSubview:lsitLab];
@@ -231,7 +231,7 @@
 
 -(void)getBtnClicked
 {
-    [self.view makeToast:GCLocalizedString(@"提现") duration:2 position:BOTTOM];
+    [self.view makeToast:GCLocalizedString(@"Seel out") duration:2 position:BOTTOM];
 }
 
 #pragma mark - UITableViewDelegate UITableViewDataSource
@@ -251,7 +251,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.cellOneLab.text = @"500M";
     cell.cellTwoLab.text = @"2020.02.04";
-    cell.cellThreeLab.text = GCLocalizedString(@"已过期");
+    cell.cellThreeLab.text = GCLocalizedString(@"Expired");
     return cell;
 }
 

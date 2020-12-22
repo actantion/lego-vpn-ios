@@ -27,6 +27,8 @@
 		852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852577722329ECD800BF8AF8 /* TenonP2pLib.swift */; };
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
+		8545F28825920E87008FEEF7 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8545F28725920E86008FEEF7 /* VpnManager.swift */; };
+		8545F29B25921197008FEEF7 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8545F28725920E86008FEEF7 /* VpnManager.swift */; };
 		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
 		85F19851257BFDD600E32107 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1984F257BFDC600E32107 /* AppDelegate.m */; };
 		85F19855257C042700E32107 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19854257C042700E32107 /* main.m */; };
@@ -86,8 +88,6 @@
 		D35BBDDC2330C37B0043E340 /* libp2p.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDDA2330C37B0043E340 /* libp2p.framework */; };
 		D35BBDDE2330C4840043E340 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */; };
 		D35BBDDF2330D8F10043E340 /* CocoaLumberjackSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
-		D38E5857232F8C0B00D99A90 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38E5855232F8C0B00D99A90 /* VpnManager.swift */; };
 		D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D52CC234C894500A3CEEB /* TranscationModel.swift */; };
 		D39D52CF234C894500A3CEEB /* payModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D52CD234C894500A3CEEB /* payModel.swift */; };
 		D3BC34D9234F0DB000588FA5 /* FWUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */; };
@@ -237,6 +237,7 @@
 		852577722329ECD800BF8AF8 /* TenonP2pLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenonP2pLib.swift; sourceTree = "<group>"; };
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
+		8545F28725920E86008FEEF7 /* VpnManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VpnManager.swift; sourceTree = "<group>"; };
 		858B90662396A0FF00359F92 /* TenonGetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonGetView.swift; sourceTree = "<group>"; };
 		85F197D4257BB00200E32107 /* My.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = My.pch; sourceTree = "<group>"; };
 		85F19829257BFB0F00E32107 /* TenonVPN-PCH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-PCH.h"; sourceTree = "<group>"; };
@@ -280,7 +281,6 @@
 		D34378FE2328F234000F1F69 /* TenonVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenonVPN.entitlements; sourceTree = "<group>"; };
 		D35BBDDA2330C37B0043E340 /* libp2p.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libp2p.framework; path = Carthage/Build/iOS/libp2p.framework; sourceTree = "<group>"; };
 		D35BBDDD2330C4840043E340 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
-		D38E5855232F8C0B00D99A90 /* VpnManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnManager.swift; path = Tenon/VpnManager.swift; sourceTree = SOURCE_ROOT; };
 		D39D52CC234C894500A3CEEB /* TranscationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscationModel.swift; sourceTree = "<group>"; };
 		D39D52CD234C894500A3CEEB /* payModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = payModel.swift; sourceTree = "<group>"; };
 		D3BC34D8234F0DB000588FA5 /* FWUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWUpgradeView.swift; sourceTree = "<group>"; };
@@ -611,9 +611,9 @@
 		D38E584D232F87F700D99A90 /* NetworkOperation */ = {
 			isa = PBXGroup;
 			children = (
-				84A09FDF259037D6005F0253 /* NetWork */,
-				D38E5855232F8C0B00D99A90 /* VpnManager.swift */,
+				8545F28725920E86008FEEF7 /* VpnManager.swift */,
 				852577722329ECD800BF8AF8 /* TenonP2pLib.swift */,
+				84A09FDF259037D6005F0253 /* NetWork */,
 			);
 			path = NetworkOperation;
 			sourceTree = "<group>";
@@ -1238,6 +1238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85F19851257BFDD600E32107 /* AppDelegate.m in Sources */,
+				8545F28825920E87008FEEF7 /* VpnManager.swift in Sources */,
 				F656DF7B257E501500791518 /* ADViewController.m in Sources */,
 				D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */,
 				D3204B5523261E5D002ECB69 /* AccountSetTableViewCell.swift in Sources */,
@@ -1268,7 +1269,6 @@
 				F656E076257E579800791518 /* UILabelButtonCell.m in Sources */,
 				F656E070257E579800791518 /* UIImageLabelSelectCell.m in Sources */,
 				F656DF74257E4FC500791518 /* AboutViewController.m in Sources */,
-				D38E5856232F8C0B00D99A90 /* VpnManager.swift in Sources */,
 				18E9141F2266C7B4005E6027 /* ViewController.swift in Sources */,
 				F656DFA5257E50B300791518 /* HelpTool.m in Sources */,
 				F656DF8F257E506700791518 /* HistoryListTableViewCell.m in Sources */,
@@ -1325,8 +1325,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D38E5857232F8C0B00D99A90 /* VpnManager.swift in Sources */,
 				18F3C6452293D7F800D79C4A /* TodayViewController.swift in Sources */,
+				8545F29B25921197008FEEF7 /* VpnManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,7 @@
 #import "ADViewController.h"
 
 NSString  *GlobalLanguePath;
-
+NSString* GlobalMonitorString;
 @interface AppDelegate ()
 @end
 

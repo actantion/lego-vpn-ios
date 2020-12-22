@@ -44,16 +44,34 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+/// 打开外部链接
++ (void)openScheme:(NSString *)scheme {
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:scheme];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open %@: %d",scheme,success);
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+        NSLog(@"Open %@: %d",scheme,success);
+    }
+}
+
 #pragma mark -加载视图
 -(void)initUI
 {
     CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
     
-    UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 140, 50)];
-    aboutLab.text = @"关于";
+    UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 240, 50)];
+    aboutLab.text = GCLocalizedString(@"About");
     aboutLab.textColor = kRBColor(154, 162, 161);
     aboutLab.font = Font_B(36);
     [self.view addSubview:aboutLab];
+    
+
+    
     
     UILabel *companyLab = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-160, topH+78, 140, 20)];
     companyLab.text = @"TenonVPN © 2020";
@@ -85,20 +103,25 @@
         make.top.equalTo(textBgView).offset(16);
         make.width.mas_equalTo(kWIDTH-72);
     }];
-    textLab.text = @"加入节点\n第三方节点接入，一键式启动，并接入去中心化Tenon VPN网络，提供服务和路由\nhttps://www.tenonvpn.net/telegramg…\n\n免责声明\nTenon VPN is composed of a large number of decentralized nodes, because there is no centralized server, thus avoiding the authority of centralization, that is, you can access the network without any blocking.\n\n技术方案\n1. Tenon VPN is composed of a large number of decentralized nodes, because there is no centralized server, thus avoiding the authority of centralization, that is, you can access the network without any blocking.\n\n2. Although Tenon VPN is decentralized, its performance is superior to a centralized VPN server because TenonVPN provides an original intelligent route that can find the best communication route through the user's current network conditions.\n\n3. Tenon VPN is decentralized. All user data is encrypted by the user's private key. At the same time, the addition of the intelligent routing network ensures the client's anonymity in the entire decentralized world.\n\n4. With a powerful P2P network and secure encryption technology, Tenvon VPN acts as a routing node through the user's home PC, making blocking impossible.\n\n5. Tenon VPN is easy to use, requires no complicated configuration, and can be safely, quickly and reliably entered into the decentralized world with one-click connection.";
+    
+    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, topH+10, 540, 60)];
+    [shareBtn addTarget:self action:@selector(shareBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [textBgView addSubview:shareBtn];
+    textLab.text = GCLocalizedString(@"Join the node\nThird-party node access, one-click startup, and access to the decentralized Tenon VPN network to provide services and routing\nhttps://github.com/tenondvpn/tenonvpn-join\n\nDisclaimer\nTenon VPN is composed of a large number of decentralized nodes, because there is no centralized server, thus avoiding the authority of centralization, that is, you can access the network without any blocking.\n\nTechnical Solutions\n1. Tenon VPN is composed of a large number of decentralized nodes, because there is no centralized server, thus avoiding the authority of centralization, that is, you can access the network without any blocking.\n\n2. Although Tenon VPN is decentralized, its performance is superior to a centralized VPN server because TenonVPN provides an original intelligent route that can find the best communication route through the user's current network conditions.\n\n3. Tenon VPN is decentralized. All user data is encrypted by the user's private key. At the same time , the addition of the intelligent routing network ensures the client's anonymity in the entire decentralized world.\n\n4. With a powerful P2P network and secure encryption technology, Tenvon VPN acts as a routing node through the user's home PC, making blocking impossible.\n\n5. Tenon VPN is easy to use, requires no complicated configuration, and can be safely, quickly and reliably entered into the decentralized world with one-click connection.");
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:textLab.text];
-    NSRange range1 = [[str string] rangeOfString:@"加入节点"];
-    NSRange range2 = [[str string] rangeOfString:@"https://www.tenonvpn.net/telegramg…"];
-    NSRange range3 = [[str string] rangeOfString:@"免责声明"];
-    NSRange range4 = [[str string] rangeOfString:@"技术方案"];
+    NSRange range1 = [[str string] rangeOfString:GCLocalizedString(@"Join the node")];
+    NSRange range2 = [[str string] rangeOfString:@"https://github.com/tenondvpn/tenonvpn-join"];
+    NSRange range3 = [[str string] rangeOfString:GCLocalizedString(@"Disclaimer")];
+    NSRange range4 = [[str string] rangeOfString:GCLocalizedString(@"Technical Solutions")];
     [str addAttribute:NSForegroundColorAttributeName value:kRBColor(18, 181, 170) range:range1];
     [str addAttribute:NSForegroundColorAttributeName value:kRBColor(18, 181, 170) range:range2];
     [str addAttribute:NSForegroundColorAttributeName value:kRBColor(18, 181, 170) range:range3];
     [str addAttribute:NSForegroundColorAttributeName value:kRBColor(18, 181, 170) range:range4];
-    [str addAttribute:NSFontAttributeName value:Font_B(14) range:range1];
+    [str addAttribute:NSFontAttributeName value:Font_B(16) range:range1];
     [str addAttribute:NSFontAttributeName value:Font_B(14) range:range2];
-    [str addAttribute:NSFontAttributeName value:Font_B(14) range:range3];
-    [str addAttribute:NSFontAttributeName value:Font_B(14) range:range4];
+    [str addAttribute:NSFontAttributeName value:Font_B(16) range:range3];
+    [str addAttribute:NSFontAttributeName value:Font_B(16) range:range4];
+    
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 6.0; // 设置行间距
     paragraphStyle.alignment = NSTextAlignmentJustified; //设置两端对齐显示
@@ -106,4 +129,18 @@
     textLab.attributedText = str;
 }
 
+-(void)shareBtnClicked
+{
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:@"https://github.com/tenondvpn/tenonvpn-join"];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open %@: %d",@"https://github.com/tenondvpn/tenonvpn-join",success);
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+        NSLog(@"Open %@: %d",@"https://github.com/tenondvpn/tenonvpn-join",success);
+    }
+}
 @end
