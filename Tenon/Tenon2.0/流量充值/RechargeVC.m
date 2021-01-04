@@ -267,32 +267,32 @@
             [DKProgressHUD dismiss];
         });
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-        return;
+    }else{
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
+        if (dic != nil) {
+            
+            [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
+                                              @"receipt":self.receipt,
+                                              @"type":@(self.selectIdx)}
+                                        url:@"/appleIAPAuth"
+                                   callback:^(JTBaseReqModel *model) {
+                if (model.status == 1) {
+                    [self PaySuccess];
+                    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [DKProgressHUD dismiss];
+                        [DKProgressHUD showErrorWithStatus:model.message];
+                    });
+                    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+                }
+            }];
+        }
+        else{
+            [DKProgressHUD dismiss];
+            [self.navigationController popViewControllerAnimated:YES];
+            [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+        }
     }
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-    if (dic != nil) {
-        
-        [JTNetwork requestPostWithParam:@{@"transactionID":transaction.transactionIdentifier,
-                                         @"receipt":self.receipt}
-                                   url:@"/appleIAPAuth"
-                              callback:^(JTBaseReqModel *model) {
-            if (model.status == 1) {
-                [self PaySuccess];
-                [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-            }else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [DKProgressHUD dismiss];
-                    [DKProgressHUD showErrorWithStatus:model.message];
-                });
-                [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-            }
-        }];
-    }
-    else{
-        [DKProgressHUD dismiss];
-        [self.navigationController popViewControllerAnimated:YES];
-        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-    }
-    
 }
 @end
