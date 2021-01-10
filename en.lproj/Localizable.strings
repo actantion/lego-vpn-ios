@@ -1,9 +1,9 @@
 "Share"="Share";
 "Settings"="Settings";
-"Third Node Join"="Third Node Join";
+"Third Node Join"="JoinUs";
 "Third-party node access, one-click startup, and access to the decentralized Tenon VPN network to provide services and routing"="Third-party node access, one-click startup, and access to the decentralized Tenon VPN network to provide services and routing";
 "Language"="Language";
-"TG Group"="TG Group";
+"TG Group"="TG";
 "Email"="Email";
 "Upgrade"="Upgrade";
 "Cancel"="Cancel";
@@ -66,7 +66,7 @@
 "Disclaimer"="Disclaimer";
 "Technical Solutions"="Technical Solutions";
 "About Tenon VPN"="About TenonVPN";
-"Official website"="Official website";
+"Official website"="Mainnet";
 "invalid private key."="invalid private key.";
 "Set up to 3 private keys."="Set up to 3 private keys.";
 "after success reset private key, must restart program."="after success reset private key, must restart program.";

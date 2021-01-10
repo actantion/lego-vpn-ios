@@ -74,7 +74,8 @@
         make.top.equalTo(aboutLab.mas_bottom).offset(20);
         make.width.mas_equalTo(kWIDTH-72);
     }];
-    textLab.text = [NSString stringWithFormat:@"%@\n%@\nhttps://github.com/tenondvpn/tenonvpn-join",GCLocalizedString(@"Third Node Join"),GCLocalizedString(@"Third-party node access, one-click startup, and access to the decentralized Tenon VPN network to provide services and routing")];
+    
+    textLab.text = [NSString stringWithFormat:@""];
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:textLab.text];
     NSRange range1 = [[str string] rangeOfString:GCLocalizedString(@"Third Node Join")];
     NSRange range2 = [[str string] rangeOfString:@"https://github.com/tenondvpn/tenonvpn-join"];
@@ -179,20 +180,20 @@
         make.height.mas_equalTo(300);
     }];
     
-    UIButton *twoBtn = [[UIButton alloc] init];
-    twoBtn.layer.cornerRadius = 22.0f;
-    twoBtn.titleLabel.font = Font_B(14);
-    twoBtn.backgroundColor = kRBColor(18, 181, 170);
-    [twoBtn setTitleColor:kRBColor(0, 41, 51) forState:0];
-    [twoBtn setTitle:GCLocalizedString(@"Upgrade") forState:0];
-    [twoBtn addTarget:self action:@selector(updateBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:twoBtn];
-    [twoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_myTableView.mas_bottom).offset(24);
-        make.height.mas_equalTo(44);
-        make.left.equalTo(self.view).offset(20);
-        make.right.equalTo(self.view.mas_right).offset(-20);
-    }];
+//    UIButton *twoBtn = [[UIButton alloc] init];
+//    twoBtn.layer.cornerRadius = 22.0f;
+//    twoBtn.titleLabel.font = Font_B(14);
+//    twoBtn.backgroundColor = kRBColor(18, 181, 170);
+//    [twoBtn setTitleColor:kRBColor(0, 41, 51) forState:0];
+//    [twoBtn setTitle:GCLocalizedString(@"Upgrade") forState:0];
+//    [twoBtn addTarget:self action:@selector(updateBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:twoBtn];
+//    [twoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_myTableView.mas_bottom).offset(24);
+//        make.height.mas_equalTo(44);
+//        make.left.equalTo(self.view).offset(20);
+//        make.right.equalTo(self.view.mas_right).offset(-20);
+//    }];
 }
 
 #pragma mark - UITableViewDelegate UITableViewDataSource

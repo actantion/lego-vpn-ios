@@ -29,6 +29,7 @@
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
 		8545F28825920E87008FEEF7 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8545F28725920E86008FEEF7 /* VpnManager.swift */; };
 		8545F29B25921197008FEEF7 /* VpnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8545F28725920E86008FEEF7 /* VpnManager.swift */; };
+		8545F2D025A199D5008FEEF7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8545F2D225A199D5008FEEF7 /* Localizable.strings */; };
 		858B90672396A0FF00359F92 /* TenonGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B90662396A0FF00359F92 /* TenonGetView.swift */; };
 		85F19851257BFDD600E32107 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F1984F257BFDC600E32107 /* AppDelegate.m */; };
 		85F19855257C042700E32107 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F19854257C042700E32107 /* main.m */; };
@@ -238,6 +239,17 @@
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
 		8545F28725920E86008FEEF7 /* VpnManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VpnManager.swift; sourceTree = "<group>"; };
+		8545F2D125A199D5008FEEF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8545F2D525A19C27008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8545F2D625A19C2F008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		8545F2D725A19C30008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainInterface.strings"; sourceTree = "<group>"; };
+		8545F2D825A19C32008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8545F2D925A19C36008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		8545F2DA25A19C3A008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainInterface.strings"; sourceTree = "<group>"; };
+		8545F2DB25A19C3F008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8545F2DC25A19C42008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		8545F2DD25A19C43008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainInterface.strings"; sourceTree = "<group>"; };
+		8545F2DE25A19C46008FEEF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		858B90662396A0FF00359F92 /* TenonGetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonGetView.swift; sourceTree = "<group>"; };
 		85F197D4257BB00200E32107 /* My.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = My.pch; sourceTree = "<group>"; };
 		85F19829257BFB0F00E32107 /* TenonVPN-PCH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenonVPN-PCH.h"; sourceTree = "<group>"; };
@@ -455,6 +467,7 @@
 		18E914102266C7B4005E6027 = {
 			isa = PBXGroup;
 			children = (
+				8545F2D225A199D5008FEEF7 /* Localizable.strings */,
 				D34378FE2328F234000F1F69 /* TenonVPN.entitlements */,
 				18E9141B2266C7B4005E6027 /* Tenon */,
 				18E914412266C9B3005E6027 /* PacketTunnel */,
@@ -1084,6 +1097,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 18E914102266C7B4005E6027;
 			productRefGroup = 18E9141A2266C7B4005E6027 /* Products */;
@@ -1115,6 +1129,7 @@
 				F656E066257E579800791518 /* UITipsCell.xib in Resources */,
 				F656DF97257E506700791518 /* HistoryListTableViewCell.xib in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
+				8545F2D025A199D5008FEEF7 /* Localizable.strings in Resources */,
 				18E9149C2267220B005E6027 /* NEKitRule.conf in Resources */,
 				F656E06C257E579800791518 /* UIConfirnBtnCell.xib in Resources */,
 				18E914242266C7B5005E6027 /* Assets.xcassets in Resources */,
@@ -1350,6 +1365,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				18E914212266C7B4005E6027 /* Base */,
+				8545F2D625A19C2F008FEEF7 /* zh-Hans */,
+				8545F2D925A19C36008FEEF7 /* zh-Hans */,
+				8545F2DC25A19C42008FEEF7 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1358,6 +1376,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				18E914262266C7B5005E6027 /* Base */,
+				8545F2D525A19C27008FEEF7 /* zh-Hans */,
+				8545F2D825A19C32008FEEF7 /* zh-Hans */,
+				8545F2DB25A19C3F008FEEF7 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1366,8 +1387,20 @@
 			isa = PBXVariantGroup;
 			children = (
 				18F3C6472293D7F800D79C4A /* Base */,
+				8545F2D725A19C30008FEEF7 /* zh-Hans */,
+				8545F2DA25A19C3A008FEEF7 /* zh-Hans */,
+				8545F2DD25A19C43008FEEF7 /* zh-Hans */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		8545F2D225A199D5008FEEF7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8545F2D125A199D5008FEEF7 /* en */,
+				8545F2DE25A19C46008FEEF7 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1377,6 +1410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1441,6 +1475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

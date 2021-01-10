@@ -9,6 +9,10 @@
 #import "RechargeViewController.h"
 #import "HistoryListTableViewCell.h"
 #import "ADViewController.h"
+#import "TenonVPN-Swift.h"
+#import "RechargeVC.h"
+
+extern ViewController *swiftViewController;
 
 @interface RechargeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *myTableView;
@@ -67,7 +71,7 @@
         make.centerX.equalTo(self.view);
         make.width.mas_equalTo(kWIDTH-40);
         make.top.equalTo(aboutLab.mas_bottom).offset(8);
-        make.height.mas_equalTo(236);
+        make.height.mas_equalTo(86);
     }];
     
     UILabel *oneLab = [[UILabel alloc] init];
@@ -92,16 +96,16 @@
         make.height.mas_equalTo(20);
     }];
     
-    UIImageView *codeImg = [[UIImageView alloc] init];
-    codeImg.image = [UIImage imageNamed:@"icon_code"];
-    [textBgView addSubview:codeImg];
-    [codeImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(120);
-        make.center.equalTo(textBgView);
-    }];
-    
-    UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(16, 190, kWIDTH-88-16, 20)];
-    codeLab.text = @"s823rjdf9s8hc23289rhvnweua8932s823rjdf9s…";
+//    UIImageView *codeImg = [[UIImageView alloc] init];
+//    codeImg.image = [UIImage imageNamed:@"icon_code"];
+//    [textBgView addSubview:codeImg];
+//    [codeImg mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.height.mas_equalTo(120);
+//        make.center.equalTo(textBgView);
+//    }];
+//
+    UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(16, 50, kWIDTH-88-16, 20)];
+    codeLab.text = swiftViewController.local_account_id;
     codeLab.textColor = kRBColor(76, 85, 85);
     codeLab.font = kFont(12);
     [textBgView addSubview:codeLab];
@@ -252,13 +256,14 @@
 -(void)copyBtnClicked
 {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = @"s823rjdf9s8hc23289rhvnweua8932s823rjdf9s…";
+    pasteboard.string = swiftViewController.local_account_id;
     [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
 }
 
 -(void)joinBtnClicked
 {
-    [self.view makeToast:GCLocalizedString(@"Fast") duration:2 position:BOTTOM];
+    RechargeVC* vc = [[RechargeVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)lookADBtnClicked

@@ -539,6 +539,9 @@ extension String{
         balance = TenonP2pLib.sharedInstance.GetBalance()
         if balance != UInt64.max {
             TenonP2pLib.sharedInstance.now_balance = Int64(balance)
+            print("get blance: " + String(balance));
+        } else {
+            print("not get blance: " + String(balance));
         }
         
         if check_vip_times < 1 {

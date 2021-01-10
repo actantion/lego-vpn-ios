@@ -166,8 +166,8 @@ extern NSString* GlobalMonitorString;
 #pragma mark -加载视图
 -(void)initUI
 {
-    _isFree = YES;
-    _isShow = NO;
+    _isFree = NO; //YES;
+    _isShow = YES; //NO;
     _codeString = @"s823rjdf9s8hc23289rhvnweua8932s823rjdf9s8hc23289rhvnweua8932rkop";
     _freeView = [[UIView alloc] initWithFrame:CGRectMake(12, top_H+60, kWIDTH-24, 36)];
     _freeView.layer.cornerRadius = 4.0f;
