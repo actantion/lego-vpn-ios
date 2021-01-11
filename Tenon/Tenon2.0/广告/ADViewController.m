@@ -10,12 +10,15 @@
 #import "MSWeakTimer.h"
 #import "MainViewController.h"
 #import "TenonVPN-Swift.h"
-
+#import <GoogleMobileAds/GoogleMobileAds.h>
+#import "HelpTool.h"
+ 
 extern ViewController *swiftViewController;
 @interface ADViewController ()
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger secondNum;
 @property (nonatomic, strong) UIButton *getCodeBtn;
+@property(nonatomic, strong) GADInterstitial *interstitial;
 @end
 
 @implementation ADViewController
@@ -23,6 +26,8 @@ extern ViewController *swiftViewController;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
+    NSString* adUID = [[[NSBundle mainBundle] infoDictionary] objectForKey:[HelpTool URLSchemesForkey:@"GADApplicationIdentifier"]];
+    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:adUID];
 }
 
 -(void)dealloc
