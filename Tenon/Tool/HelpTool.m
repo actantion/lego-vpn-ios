@@ -342,18 +342,4 @@
     return [UIImage imageWithCGImage:scaledImage];
 }
 
-+ (NSString *)URLSchemesForkey:(NSString *)key
-{
-    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
-    NSArray *urlTypes = dict[@"CFBundleURLTypes"];
-    NSString *urlSchemes = nil;
-    for (NSDictionary *scheme in urlTypes) {
-        NSString *schemeKey = scheme[@"CFBundleURLName"];
-        if ([schemeKey isEqualToString:key]) {
-            urlSchemes = scheme[@"CFBundleURLSchemes"][0];
-            break;
-        }
-    }
-    return urlSchemes;
-}
 @end

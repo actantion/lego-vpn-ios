@@ -93,7 +93,5 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param size 图片大小
 +(UIImage *)createCodeImageFormUrlstring:(NSString *)urlString withSize:(CGFloat)size;
 
-// 获取plist中的值
-+ (NSString *)URLSchemesForkey:(NSString *)key;
 @end
 NS_ASSUME_NONNULL_END

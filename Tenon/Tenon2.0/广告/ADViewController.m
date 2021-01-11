@@ -11,7 +11,6 @@
 #import "MainViewController.h"
 #import "TenonVPN-Swift.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
-#import "HelpTool.h"
  
 extern ViewController *swiftViewController;
 @interface ADViewController ()
@@ -26,8 +25,11 @@ extern ViewController *swiftViewController;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
-    NSString* adUID = [[[NSBundle mainBundle] infoDictionary] objectForKey:[HelpTool URLSchemesForkey:@"GADApplicationIdentifier"]];
+//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
+    NSString* adUID = @"ca-app-pub-3940256099942544/4411468910";
     self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:adUID];
+    GADRequest *request = [GADRequest request];
+    [self.interstitial loadRequest:request];
 }
 
 -(void)dealloc
@@ -72,12 +74,16 @@ extern ViewController *swiftViewController;
         [self.view makeToast:GCLocalizedString(@"Failed to initialize P2P network, please try again!") duration:2 position:BOTTOM];
         exit(0);
     }
+    
 }
 
 -(void)getCodeTime
 {
   if(_secondNum>0)
   {
+      if (self.interstitial.isReady) {
+          [self.interstitial presentFromRootViewController:self];
+      }
     _secondNum--;
     [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
   }
