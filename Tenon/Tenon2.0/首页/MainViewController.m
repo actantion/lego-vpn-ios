@@ -22,7 +22,7 @@
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
 
-@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADInterstitialDelegate>
+@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADInterstitialDelegate,GADBannerViewDelegate>
 {
     UIPickerView *pickViewss;
     NSArray *arrayOne;
@@ -65,6 +65,7 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) NSMutableArray *functionArray;
 @property (nonatomic, strong) NSString *choosedCountry;
 @property(nonatomic, strong) GADInterstitial *interstitial;
+@property(nonatomic, strong) GADBannerView *bannerView;
 @end
 
 @implementation MainViewController
@@ -78,6 +79,7 @@ extern NSString* GlobalMonitorString;
 - (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
     NSLog(@"interstitialDidDismissScreen");
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadRequest];
@@ -859,12 +861,30 @@ extern NSString* GlobalMonitorString;
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
     
-    _btnBuyTenonCoin = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 60)];
-    _btnBuyTenonCoin.backgroundColor = [UIColor clearColor];
+    
+    
+    self.bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(_ADView.width, _ADView.height))];
+    self.bannerView.frame = CGRectMake(0, 0, _ADView.width, _ADView.height);
+    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[GADRequest request]];
+    self.bannerView.delegate = self;
+    
+    _btnBuyTenonCoin = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
+    _btnBuyTenonCoin.backgroundColor = [UIColor yellowColor];
     [_btnBuyTenonCoin addTarget:self action:@selector(clickRechargeTenonCoin) forControlEvents:UIControlEventTouchUpInside];
     [_btnBuyTenonCoin setTitle:@"Charge flow" forState:UIControlStateNormal];
-    [_ADView addSubview:_btnBuyTenonCoin];
+    [_btnBuyTenonCoin setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     [self.view addSubview:_ADView];
+}
+- (void)adViewDidReceiveAd:(GADBannerView *)adView {
+  // Add adView to view and add constraints as above.
+    [_ADView addSubview:self.bannerView];
+    [_ADView addSubview:_btnBuyTenonCoin];
+    adView.alpha = 0;
+    [UIView animateWithDuration:1.0 animations:^{
+      adView.alpha = 1;
+    }];
 }
 - (void)clickRechargeTenonCoin{
     RechargeVC* vc = [[RechargeVC alloc] init];
