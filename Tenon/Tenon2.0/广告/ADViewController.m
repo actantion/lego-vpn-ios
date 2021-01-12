@@ -18,6 +18,7 @@ extern ViewController *swiftViewController;
 @property (nonatomic, assign) NSInteger secondNum;
 @property (nonatomic, strong) UIButton *getCodeBtn;
 @property(nonatomic, strong) GADInterstitial *interstitial;
+@property (nonatomic, assign) BOOL bIsShowAd;
 @end
 
 @implementation ADViewController
@@ -25,6 +26,7 @@ extern ViewController *swiftViewController;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
+    self.bIsShowAd = NO;
 //    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
     NSString* adUID = @"ca-app-pub-3940256099942544/4411468910";
     self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:adUID];
@@ -81,25 +83,35 @@ extern ViewController *swiftViewController;
 {
   if(_secondNum>0)
   {
-      if (self.interstitial.isReady) {
-          [self.interstitial presentFromRootViewController:self];
-      }
     _secondNum--;
     [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
   }
   else
   {
-      [self jumpBtnClicked];
+      if (self.interstitial.isReady) {
+          self.bIsShowAd = YES;
+          [self.interstitial presentFromRootViewController:self];
+          [self jumpBtnClicked];
+      }
   }
 }
 
 -(void)jumpBtnClicked
 {
+    
     if (self.codeTimer != nil) {
       [self.codeTimer invalidate];
       self.codeTimer = nil;
     }
     
+    if (self.bIsShowAd == NO) {
+        if (self.interstitial.isReady) {
+            self.bIsShowAd = YES;
+            [self.interstitial presentFromRootViewController:self];
+        }else{
+            return;
+        }
+    }
     if([self.FROM isEqualToString:@"MAIN"])
     {
         MainViewController *nextVC = [[MainViewController alloc] init];

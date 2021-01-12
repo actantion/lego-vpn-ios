@@ -17,11 +17,12 @@
 #import <Social/Social.h>
 #import "TSShareHelper.h"
 #import "RechargeVC.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
 
-@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>
+@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADInterstitialDelegate>
 {
     UIPickerView *pickViewss;
     NSArray *arrayOne;
@@ -63,13 +64,23 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) NSMutableArray *shareArray;
 @property(nonatomic, strong) NSMutableArray *functionArray;
 @property (nonatomic, strong) NSString *choosedCountry;
-
+@property(nonatomic, strong) GADInterstitial *interstitial;
 @end
 
 @implementation MainViewController
 
+- (void)loadRequest {
+    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+    self.interstitial.delegate = self;
+    [self.interstitial loadRequest:[GADRequest request]];
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    NSLog(@"interstitialDidDismissScreen");
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadRequest];
     self.view.backgroundColor = [UIColor blackColor];
     [self initNavView];
     [self initUI];
@@ -663,27 +674,28 @@ extern NSString* GlobalMonitorString;
 
 -(void)linkBtnClicked:(UIButton *)sender
 {
-    if (self.isLink) {
+    if (self.isLink == YES) {
         [swiftViewController DoClickDisconnect];
-        self.isLink = false;
+        self.isLink = NO;
         [self refreshLinkView];
-        return;
+    }else if (self.interstitial.isReady == YES) {
+        [self.interstitial presentFromRootViewController:self];
+        [swiftViewController DoClickConnect];
+        [self addtagBtnClicked];
+        sender.enabled = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            sender.enabled = YES;
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (!self.isLink && swiftViewController.user_started_vpn) {
+                self.isLink = true;
+                [self refreshLinkView];
+            }
+        });
+        [self loadRequest];
+    }else{
+        
     }
-    
-    [swiftViewController DoClickConnect];
-    [self addtagBtnClicked];
-    sender.enabled = NO;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        sender.enabled = YES;
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (!self.isLink && swiftViewController.user_started_vpn) {
-            self.isLink = true;
-            [self refreshLinkView];
-        }
-
-    });
-    
 }
 
 #pragma mark -刷新顶部视图
