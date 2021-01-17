@@ -6,11 +6,12 @@
 //  Copyright © 2020 Raobin. All rights reserved.
 //
 
-
 #import "AppDelegate.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "MainViewController.h"
 #import "ADViewController.h"
+#import "libp2p/libp2p.h"
+
 
 NSString  *GlobalLanguePath;
 NSString* GlobalMonitorString;
@@ -47,6 +48,8 @@ NSString* GlobalMonitorString;
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//    printf("applicationDidEnterBackground called!");
+//    [LibP2P Destroy];
 }
 
 #pragma mark 当应用程序进入前台的时候调用
@@ -61,6 +64,8 @@ NSString* GlobalMonitorString;
 
 #pragma mark 程序在某些情况下被终结时会调用这个方法（例如强制杀死进程）
 - (void)applicationWillTerminate:(UIApplication *)application {
+    printf("applicationWillTerminate called!");
+    [LibP2P Destroy];
 }
 
 /* 全局键盘自动弹出设置 */

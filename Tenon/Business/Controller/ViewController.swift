@@ -149,16 +149,16 @@ extension String{
     }
     
     @objc func InitP2p() -> Int {
-        VpnManager.shared.vpn_init()
         let bTime = Date().timeIntervalSince1970
+        VpnManager.shared.vpn_init()
+
         let url = URL(string:"https://www.google.com");
         URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
             (data, rsp, error) in
-            //do some thing
             print("visit network ok");
         }).resume()
-        
-        // test for p2p library
+
+
         let time1 = Date().timeIntervalSince1970
         print("time1: " , (time1 - bTime));
         //ViewController.global_test_str = String(format:"%.2f", time1 - bTime) + ":";
@@ -170,7 +170,7 @@ extension String{
         if (res.local_country.isEmpty) {
             let alertController = UIAlertController(title: "error",
                             message: "Network invalid, please retry!", preferredStyle: .alert)
-            
+
             let okAction = UIAlertAction(title: "OK", style: .default, handler: {
                 action in _exit(0)
             })
@@ -178,9 +178,10 @@ extension String{
             self.present(alertController, animated: true, completion: nil)
             return -1
         }
-        
-        setRouteInfo()
-        
+
+        // 加载慢的原因 解决掉
+        //setRouteInfo()
+
         local_country = res.local_country as String
         local_private_key = res.prikey as String
         local_account_id = res.account_id as String
@@ -193,21 +194,19 @@ extension String{
             if item_split.count != 2 {
                 continue
             }
-            
+
             if item_split[0] == local_country {
                 local_country = String(item_split[1])
             }
         }
         let time4 = Date().timeIntervalSince1970
         print("time4: " , (time4 - time3));
-        //ViewController.global_test_str += String(format:"%.2f",time4 - time3) + ":";
         VpnManager.shared.local_country = local_country
         NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
         for _ in countryCode {
             countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
         }
-        
-//        self.lbNodes.text = self.countryNodes[0]
+
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
         VpnManager.shared.choosed_country = self.choosed_country
         let time5 = Date().timeIntervalSince1970
@@ -216,14 +215,11 @@ extension String{
         requestData()
         if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
             print("yes")
-//            tvInstruction.backgroundColor = UIColor.white
-//            instructionView.isHidden = false
         }else{
-            
+
         }
         let time6 = Date().timeIntervalSince1970
         print("time6: ", (time6 - time5));
-        //ViewController.global_test_str += String(format:"%.2f",time6 - time5) + ":";
         let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
         userDefaults?.set("ok", forKey: "vpnsvr_status")
         return 0
@@ -297,7 +293,7 @@ extension String{
             return
         }
         
-        setRouteInfo()
+        //setRouteInfo()
         
         local_country = res.local_country as String
         local_private_key = res.prikey as String
@@ -439,45 +435,16 @@ extension String{
     }
 
     func setRouteInfo() {
-        let iCon:[String] = ["US", "SG", "BR","DE","FR", "NL", "KR", "JP", "CA","AU","HK", "IN", "GB","CN"]
-                         
-         var route_str: String = ""
-         for country in iCon {
-             let res_str = TenonP2pLib.sharedInstance.GetVpnNodes(country, true) as String
-             if (res_str.isEmpty) {
-                 continue
-             }
-             
-             if (route_str.isEmpty) {
-                 route_str = country + ";" + res_str;
-             } else {
-                 route_str += "`" + country + ";" + res_str;
-             }
-             
-             
-         }
-        
-         
-         var vpn_str: String = ""
-         for country in iCon {
+        var res_str = TenonP2pLib.sharedInstance.GetVpnNodes("ALL", true) as String
+        if (res_str.isEmpty) {
+            return
+        }
 
-             let res_str = TenonP2pLib.sharedInstance.GetVpnNodes(country, false) as String
-             if (res_str.isEmpty) {
-                 continue
-             }
-             
-             if (vpn_str.isEmpty) {
-                 vpn_str = country + ";" + res_str;
-             } else {
-                 vpn_str += "`" + country + ";" + res_str;
-             }
-             
-             
-         }
-        
-        setExRouteNode()
-        VpnManager.shared.SetRouteNodes(nodes_str: route_str)
-        VpnManager.shared.SetVpnNodes(nodes_str: vpn_str)
+        let vpn_route_strs = res_str.split(separator: "~")
+        if (vpn_route_strs.count == 2) {
+            VpnManager.shared.SetRouteNodes(nodes_str: String(vpn_route_strs[1]))
+            VpnManager.shared.SetVpnNodes(nodes_str: String(vpn_route_strs[0]))
+        }
     }
     
     func OpenGet() {
@@ -507,27 +474,6 @@ extension String{
 //                }
     }
     
-    func setExRouteNode() {
-        
-        var route_node = super.getOneRouteNode(country: "US")
-        if (route_node.ip.isEmpty) {
-            for country in self.defaultCountry {
-                route_node = super.getOneRouteNode(country: country)
-                if (!route_node.ip.isEmpty) {
-                    break
-                }
-            }
-        }
-        
-        if (!route_node.ip.isEmpty) {
-            let vpn_ip_int = LibP2P.changeStrIp(route_node.ip)
-            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
-            userDefaults?.set(String(vpn_ip_int), forKey: "ex_route_ip_int")
-            userDefaults?.set(String(route_node.port), forKey: "ex_route_port_int")
-        }
-        
-    }
-    
     @objc func requestData(){
         let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
         if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
@@ -539,9 +485,6 @@ extension String{
         balance = TenonP2pLib.sharedInstance.GetBalance()
         if balance != UInt64.max {
             TenonP2pLib.sharedInstance.now_balance = Int64(balance)
-            print("get blance: " + String(balance));
-        } else {
-            print("not get blance: " + String(balance));
         }
         
         if check_vip_times < 1 {
@@ -575,7 +518,7 @@ extension String{
 //        }
 //
         setRouteInfo()
-        self.perform(#selector(requestData), afterDelay: 1)
+        self.perform(#selector(requestData), afterDelay: 5)
     }
     
     @objc func ConnectVpn() {
@@ -640,10 +583,7 @@ extension String{
                     }
                 }
             }
-            
-            setExRouteNode()
-            print("rotue 1 : \(route_node.ip):\(route_node.port)")
-            print("vpn 1: \(vpn_node.ip):\(vpn_node.port),\(vpn_node.passwd)")
+    
             
             if !route_node.ip.isEmpty && !vpn_node.ip.isEmpty{
 //                self.vwBackHub.proEndgress = 0.0

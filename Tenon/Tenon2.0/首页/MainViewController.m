@@ -87,7 +87,9 @@ extern NSString* GlobalMonitorString;
     [self initNavView];
     [self initUI];
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
+
 }
 
 -(void)reloadLanguage
@@ -620,6 +622,9 @@ extern NSString* GlobalMonitorString;
     }
     else
     {
+        if (self.interstitial.isReady == YES) {
+            [self.interstitial presentFromRootViewController:self];
+        }
         _linkBgView = [[UIView alloc] initWithFrame:CGRectMake((kWIDTH-162)/2, top_H+254, 162, 182)];
         [self.view addSubview:_linkBgView];
         [self.view bringSubviewToFront:_linkBgView];
@@ -680,8 +685,10 @@ extern NSString* GlobalMonitorString;
         [swiftViewController DoClickDisconnect];
         self.isLink = NO;
         [self refreshLinkView];
-    }else if (self.interstitial.isReady == YES) {
-        [self.interstitial presentFromRootViewController:self];
+    }else {
+        if (self.interstitial.isReady == YES) {
+            [self.interstitial presentFromRootViewController:self];
+        }
         [swiftViewController DoClickConnect];
         [self addtagBtnClicked];
         sender.enabled = NO;
@@ -695,8 +702,6 @@ extern NSString* GlobalMonitorString;
             }
         });
         [self loadRequest];
-    }else{
-        
     }
 }
 

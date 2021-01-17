@@ -86,14 +86,14 @@ extern ViewController *swiftViewController;
     _secondNum--;
     [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
   }
-  else
-  {
+//  else
+//  {
       if (self.interstitial.isReady) {
           self.bIsShowAd = YES;
           [self.interstitial presentFromRootViewController:self];
           [self jumpBtnClicked];
       }
-  }
+//  }
 }
 
 -(void)jumpBtnClicked
@@ -108,8 +108,8 @@ extern ViewController *swiftViewController;
         if (self.interstitial.isReady) {
             self.bIsShowAd = YES;
             [self.interstitial presentFromRootViewController:self];
-        }else{
-            return;
+//        }else{
+//            return;
         }
     }
     if([self.FROM isEqualToString:@"MAIN"])
