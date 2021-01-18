@@ -22,7 +22,7 @@
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
 
-@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADInterstitialDelegate,GADBannerViewDelegate>
+@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADBannerViewDelegate,GADRewardedAdDelegate>
 {
     UIPickerView *pickViewss;
     NSArray *arrayOne;
@@ -64,25 +64,39 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) NSMutableArray *shareArray;
 @property(nonatomic, strong) NSMutableArray *functionArray;
 @property (nonatomic, strong) NSString *choosedCountry;
-@property(nonatomic, strong) GADInterstitial *interstitial;
+//@property(nonatomic, strong) GADInterstitial *interstitial;
+@property(nonatomic, strong) GADRewardedAd *rewardedAd;
 @property(nonatomic, strong) GADBannerView *bannerView;
+@property (nonatomic, assign) BOOL bAdLoaded;
 @end
 
 @implementation MainViewController
 
-- (void)loadRequest {
-    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
-    self.interstitial.delegate = self;
-    [self.interstitial loadRequest:[GADRequest request]];
+- (GADRewardedAd *)createAndLoadRewardedAd {
+    GADRewardedAd *rewardedAd = [[GADRewardedAd alloc]
+                                 initWithAdUnitID:@"ca-app-pub-3940256099942544/1712485313"];
+    GADRequest *request = [GADRequest request];
+    [rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
+        if (error) {
+            // Handle ad failed to load case.
+            NSLog(@"Handle ad failed to load case.");
+            self.bAdLoaded = NO;
+//            self.rewardedAd = [self createAndLoadRewardedAd];
+        } else {
+            // Ad successfully loaded.
+            self.bAdLoaded = YES;
+            NSLog(@"Ad successfully loaded.");
+        }
+    }];
+    return rewardedAd;
 }
-
-- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
-    NSLog(@"interstitialDidDismissScreen");
+- (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
+    self.bAdLoaded = NO;
+    self.rewardedAd = [self createAndLoadRewardedAd];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadRequest];
+    self.rewardedAd = [self createAndLoadRewardedAd];
     self.view.backgroundColor = [UIColor blackColor];
     [self initNavView];
     [self initUI];
@@ -622,9 +636,6 @@ extern NSString* GlobalMonitorString;
     }
     else
     {
-        if (self.interstitial.isReady == YES) {
-            [self.interstitial presentFromRootViewController:self];
-        }
         _linkBgView = [[UIView alloc] initWithFrame:CGRectMake((kWIDTH-162)/2, top_H+254, 162, 182)];
         [self.view addSubview:_linkBgView];
         [self.view bringSubviewToFront:_linkBgView];
@@ -686,8 +697,12 @@ extern NSString* GlobalMonitorString;
         self.isLink = NO;
         [self refreshLinkView];
     }else {
-        if (self.interstitial.isReady == YES) {
-            [self.interstitial presentFromRootViewController:self];
+        if (self.rewardedAd.isReady) {
+            [self.rewardedAd presentFromRootViewController:self delegate:self];
+        }else{
+            self.rewardedAd = [self createAndLoadRewardedAd];
+            NSLog(@"点击链接，未加载好广告");
+            return;
         }
         [swiftViewController DoClickConnect];
         [self addtagBtnClicked];
@@ -701,7 +716,7 @@ extern NSString* GlobalMonitorString;
                 [self refreshLinkView];
             }
         });
-        [self loadRequest];
+        
     }
 }
 
@@ -865,7 +880,6 @@ extern NSString* GlobalMonitorString;
 {
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
-    
     
     
     self.bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(_ADView.width, _ADView.height))];

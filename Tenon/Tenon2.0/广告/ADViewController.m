@@ -13,11 +13,11 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
  
 extern ViewController *swiftViewController;
-@interface ADViewController ()
+@interface ADViewController ()<GADRewardedAdDelegate>
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger secondNum;
 @property (nonatomic, strong) UIButton *getCodeBtn;
-@property(nonatomic, strong) GADInterstitial *interstitial;
+@property(nonatomic, strong) GADRewardedAd *rewardedAd;
 @property (nonatomic, assign) BOOL bIsShowAd;
 @end
 
@@ -27,13 +27,22 @@ extern ViewController *swiftViewController;
     [super viewDidLoad];
     [self initUI];
     self.bIsShowAd = NO;
-//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
-    NSString* adUID = @"ca-app-pub-3940256099942544/4411468910";
-    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:adUID];
-    GADRequest *request = [GADRequest request];
-    [self.interstitial loadRequest:request];
+    [self createAndLoadRewardedAd];
 }
-
+-(void)createAndLoadRewardedAd{
+//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
+    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    self.rewardedAd = [[GADRewardedAd alloc]
+          initWithAdUnitID:adUID];
+    GADRequest *request = [GADRequest request];
+    [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
+        if (error) {
+            // Handle ad failed to load case.
+        } else {
+            // Ad successfully loaded.
+        }
+    }];
+}
 -(void)dealloc
 {
    if (self.codeTimer != nil) {
@@ -81,45 +90,54 @@ extern ViewController *swiftViewController;
 
 -(void)getCodeTime
 {
-  if(_secondNum>0)
-  {
-    _secondNum--;
-    [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
-  }
-//  else
-//  {
-      if (self.interstitial.isReady) {
-          self.bIsShowAd = YES;
-          [self.interstitial presentFromRootViewController:self];
-          [self jumpBtnClicked];
-      }
-//  }
+    if(_secondNum>0)
+    {
+        _secondNum--;
+        [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
+    }
+    if (self.rewardedAd.isReady) {
+        self.bIsShowAd = YES;
+        [self.rewardedAd presentFromRootViewController:self delegate:self];
+        [self jumpBtnClicked];
+    } else {
+        NSLog(@"Ad wasn't ready");
+    }
 }
 
 -(void)jumpBtnClicked
 {
-    
-    if (self.codeTimer != nil) {
-      [self.codeTimer invalidate];
-      self.codeTimer = nil;
-    }
-    
     if (self.bIsShowAd == NO) {
-        if (self.interstitial.isReady) {
+        if (self.rewardedAd.isReady) {
             self.bIsShowAd = YES;
-            [self.interstitial presentFromRootViewController:self];
-//        }else{
-//            return;
+            [self.rewardedAd presentFromRootViewController:self delegate:self];
+            if (self.codeTimer != nil) {
+                [self.codeTimer invalidate];
+                self.codeTimer = nil;
+            }
+            if([self.FROM isEqualToString:@"MAIN"]){
+                MainViewController *nextVC = [[MainViewController alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }else{
+            
+        }
+    }else{
+        if (self.codeTimer != nil) {
+            [self.codeTimer invalidate];
+            self.codeTimer = nil;
+        }
+        if([self.FROM isEqualToString:@"MAIN"]){
+            MainViewController *nextVC = [[MainViewController alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
-    if([self.FROM isEqualToString:@"MAIN"])
-    {
-        MainViewController *nextVC = [[MainViewController alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
 }
+- (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
+    [self createAndLoadRewardedAd];
+}
+
 @end
