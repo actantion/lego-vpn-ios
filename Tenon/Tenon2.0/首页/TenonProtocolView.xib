@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TenonProtocolView" customModule="TenonVPN" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oEh-6h-jWC">
+                    <rect key="frame" x="8" y="44" width="398" height="782"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <string key="text">
+In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
+
+All of our policies regarding data and its storage
+
+Policy overview
+Our underlying policy is that we want you to remain anonymous when using our service. It is therefore our policy to never store any activity logs or metadata and to have as minimal data retention as possible. However, in some situations we might process your personal data if you, for example, are making payments by a bank wire, PayPal, Swish, Stripe or are sending an e-mail or reporting a problem. In those cases, we might process your personal data and the General Data Protection Regulation (“GDPR”) and other data protection laws may apply to the processing.
+
+The purpose and legal basis for each processing
+Payments
+Payment information are processed for the purpose of providing you with the service we offer, to pay out refunds and for accounting purposes. The processing of payment data for the first two purposes are based on a legitimate interest where our rights to process the data for such interest overrides your rights to your personal data. Payment information processed for accounting purposes are necessary for the compliance of a legal obligation to which we are subject.
+
+Support and problem report
+Processing of e-mails and problem reports via our app/client are made for the purpose of answering questions, resolve problems, and provide general support to customers. The processing is necessary for the purpose of the legitimate interests where such interest overrides your rights to your personal data.
+
+Categories of personal data
+We are processing the following categories of personal data. TenonVPN can access the personal data below through our payment service providers but that does not necessarily mean that TenonVPN are storing the data anywhere else than in the service.
+
+Payments
+Bank wire: sender name, address, bank account number and Tenon account number
+PayPal: transaction-ID, sender name, origin country and e-mail address
+Swish: Swish-ID, name and phone number
+Stripe: Stripe charge ID, expire date, last 4 digits of the card, card type and origin country
+Please avoid making payments through bank wire if you do not want your TenonVPN account to be traceable to you. When making such payments, the TenonVPN account number will exist in the "message" field of the transaction.
+
+Support and problem report
+Support by e-mail: your e-mail address and other information which you have written in the e-mail.
+Problem reported by the app/client: (program logs, email, IP-addresses and sensitive path are removed). Please refrain from entering any personal data when reporting a problem by the app/client.
+How long is the personal data saved?
+The time periods for which the personal data will be saved are the following.
+
+PayPal payment data
+Since we support 30-day refunds and because we encounter certain transaction issues from PayPal (for example, double payments and subscription problems), we need to be able to track payments in order to give customers the service we offer. We only duplicate the information since PayPal already has it. Transaction id and e-mail are permanently deleted after six months.
+
+General payment data
+Certain payment data must be kept for the statutory retention period described in applicable local laws such as the Swedish Accounting Act (some information must be stored for seven years from the end of the fiscal year). If not required by law or stated above, the data will be stored for no longer than necessary for the purpose. After the statutory retention periods, the data will be permanently deleted.
+
+Support and problem report
+After "solving" or "closing" a support case/problem report, all related emails/problem reports are archived (removed from the inbox). After six months, all emails/problem reports sent to our support address are automatically, permanently erased (from inbox, deleted items, sent items, trash, and archives).
+
+Third-party recipients
+Your personal data will only be shared with third party suppliers who are performing services on our behalf and for the purposes stated above. The categories of such recipients are e-mail service providers and payment solution suppliers (which are subject to confidentiality).
+
+Is any transfer made to a third country?
+No. We only stores your personal data within the EU/EEA. If transfer to a third country occurs in exceptional cases, we will ensure that there is a legal basies for such a transfer and provide you with necessary information.
+
+Automated decision making
+No automated decision making (including profiling) takes place.
+
+The rights of individuals
+You have the right, in certain situations, to request us to correct or delete incorrect personal data regarding you and/or limit the processing. You also have the right to request for a copy of your personal data and a registry extract. However, we cannot give out payment data since the purpose of the processing of the payment data do not require identification of the data subject and would require disproportionate effort for us to further acquire or process additional information to identify the data subject (article 11 in the GDPR).
+
+The registry extract and the copy of personal data will be provided to the data subject (if the personal data are not subject to article 11 in the GDPR) without undue delay and in any event within one month of receipt of the request. If the request is particularly complex or if we receive number of the requests, the period may be extended where necessary. In this event we will inform the data subject of any such extension within one month of receipt the request together with the reason for the delay.
+
+Where the legal basis for the processing is based on a weighing of interests you are as a data subject entitled to object at any time to the processing of your data.
+
+If you are displeased with our processing of your personal data, please contact us or submit a complaint to the supervisory authority (The Swedish Data Protection Authority, www.datainspektionen.se).
+
+If you would like to exercise your rights, please contact support@tenonvpn.org for more information.
+
+Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
+
+Data controller contact information
+Reg. no. +8613735484728
+Box SAN PO KONG
+Rm 1604 Perfect Indl Building
+Hong Kong
+support@tenonvpn.org
+
+To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
+
+Updates
+This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
+                    <color key="textColor" systemColor="labelColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6BN-BP-xcg">
+                    <rect key="frame" x="0.0" y="836" width="414" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOw-gC-A4R">
+                            <rect key="frame" x="8" y="8" width="398" height="37"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Agree">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="swCornerRadius">
+                                    <real key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickAgree:" destination="iN0-l3-epB" eventType="touchUpInside" id="7Hf-QZ-oAR"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="GOw-gC-A4R" firstAttribute="leading" secondItem="6BN-BP-xcg" secondAttribute="leading" constant="8" id="4US-WZ-Ieo"/>
+                        <constraint firstAttribute="trailing" secondItem="GOw-gC-A4R" secondAttribute="trailing" constant="8" id="K7i-A9-lNL"/>
+                        <constraint firstAttribute="height" constant="60" id="LJS-Cc-K16"/>
+                        <constraint firstItem="GOw-gC-A4R" firstAttribute="top" secondItem="6BN-BP-xcg" secondAttribute="top" constant="8" id="aLC-XV-SUM"/>
+                        <constraint firstAttribute="bottom" secondItem="GOw-gC-A4R" secondAttribute="bottom" constant="15" id="cza-it-8gn"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="oEh-6h-jWC" secondAttribute="bottom" constant="40" id="53f-8G-93y"/>
+                <constraint firstItem="6BN-BP-xcg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ELG-Y5-Z77"/>
+                <constraint firstItem="6BN-BP-xcg" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Wud-Bt-zkf"/>
+                <constraint firstItem="oEh-6h-jWC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="aDV-qt-dyn"/>
+                <constraint firstItem="6BN-BP-xcg" firstAttribute="top" secondItem="oEh-6h-jWC" secondAttribute="bottom" constant="10" id="mLT-ty-Pcq"/>
+                <constraint firstItem="oEh-6h-jWC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="oEB-iR-QGC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oEh-6h-jWC" secondAttribute="trailing" constant="8" id="srO-99-2Aj"/>
+                <constraint firstAttribute="bottom" secondItem="6BN-BP-xcg" secondAttribute="bottom" id="z8s-gB-fn3"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="53f-8G-93y"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="137.68115942028987" y="131.91964285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

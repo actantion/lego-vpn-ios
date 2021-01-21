@@ -103,7 +103,6 @@ extern NSString* GlobalMonitorString;
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
-
 }
 
 -(void)reloadLanguage
@@ -243,6 +242,15 @@ extern NSString* GlobalMonitorString;
                     [myView addSubview:dianV];
                 }
             }
+        }
+        NSUserDefaults* defaluts = [NSUserDefaults standardUserDefaults];
+        NSString* tag = [defaluts objectForKey:@"FIRST_ENTER_APP"];
+        if (tag == nil) {
+            TenonProtocolView* vc = [NSBundle.mainBundle loadNibNamed:@"TenonProtocolView" owner:self options:nil][0];
+            [self.view addSubview:vc];
+            [vc mas_makeConstraints:^(MASConstraintMaker *make) {
+                [make.edges setInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+            }];
         }
     });
     

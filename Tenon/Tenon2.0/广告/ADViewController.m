@@ -102,6 +102,10 @@ extern ViewController *swiftViewController;
     } else {
         NSLog(@"Ad wasn't ready");
     }
+    if (_secondNum <= 0) {
+        self.bIsShowAd = YES;
+        [self jumpBtnClicked];
+    }
 }
 
 -(void)jumpBtnClicked

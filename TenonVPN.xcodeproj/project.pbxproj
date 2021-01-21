@@ -21,6 +21,9 @@
 		18F3C64C2293D7F800D79C4A /* freeWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 18F3C6412293D7F800D79C4A /* freeWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		18F3C6522293E40400D79C4A /* NEKitRule.conf in Resources */ = {isa = PBXBuildFile; fileRef = 18E9149B2267220B005E6027 /* NEKitRule.conf */; };
 		5DA1BE6BD0C526BF119CCCE7 /* Pods_PacketTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */; };
+		849CEE9725B90EC1005FDECD /* TenonProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849CEE9525B90EC1005FDECD /* TenonProtocolView.swift */; };
+		849CEE9825B90EC1005FDECD /* TenonProtocolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849CEE9625B90EC1005FDECD /* TenonProtocolView.xib */; };
+		849CEE9C25B90EC9005FDECD /* UIView+Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849CEE9B25B90EC9005FDECD /* UIView+Layer.swift */; };
 		84A0A00D259037D6005F0253 /* JTNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A09FEC259037D6005F0253 /* JTNetwork.m */; };
 		84A0A015259037D6005F0253 /* JTBaseReqModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A09FFF259037D6005F0253 /* JTBaseReqModel.m */; };
 		84A0A04A259067CD005F0253 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A0A049259067CD005F0253 /* StoreKit.framework */; };
@@ -230,6 +233,9 @@
 		2F2DE645899F3ED7E129742A /* Pods-PacketTunnel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.debug.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.debug.xcconfig"; sourceTree = "<group>"; };
 		4B0BC1E9EDCB1216E4A46B87 /* Pods-freeWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.release.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.release.xcconfig"; sourceTree = "<group>"; };
 		807D47F7956E953C8F94626F /* Pods-freeWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.debug.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		849CEE9525B90EC1005FDECD /* TenonProtocolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonProtocolView.swift; sourceTree = "<group>"; };
+		849CEE9625B90EC1005FDECD /* TenonProtocolView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenonProtocolView.xib; sourceTree = "<group>"; };
+		849CEE9B25B90EC9005FDECD /* UIView+Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layer.swift"; sourceTree = "<group>"; };
 		84A09FE8259037D6005F0253 /* JTBaseReqModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTBaseReqModel.h; sourceTree = "<group>"; };
 		84A09FEC259037D6005F0253 /* JTNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTNetwork.m; sourceTree = "<group>"; };
 		84A09FFF259037D6005F0253 /* JTBaseReqModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTBaseReqModel.m; sourceTree = "<group>"; };
@@ -594,6 +600,7 @@
 		D38E584B232F87CF00D99A90 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				849CEE9B25B90EC9005FDECD /* UIView+Layer.swift */,
 				F656DF89257E506700791518 /* RBProgressView.h */,
 				F656DF88257E506700791518 /* RBProgressView.m */,
 				F656DF9B257E50B200791518 /* HelpTool.h */,
@@ -713,6 +720,8 @@
 				18E914202266C7B4005E6027 /* Main.storyboard */,
 				85F19850257BFDC700E32107 /* AppDelegate.h */,
 				85F1984F257BFDC600E32107 /* AppDelegate.m */,
+				849CEE9525B90EC1005FDECD /* TenonProtocolView.swift */,
+				849CEE9625B90EC1005FDECD /* TenonProtocolView.xib */,
 				F656DF85257E506700791518 /* MainViewController.h */,
 				F656DF7F257E506600791518 /* MainViewController.m */,
 			);
@@ -1125,6 +1134,7 @@
 				F656E068257E579800791518 /* UISpaceCell.xib in Resources */,
 				F656E06B257E579800791518 /* UILineCell.xib in Resources */,
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
+				849CEE9825B90EC1005FDECD /* TenonProtocolView.xib in Resources */,
 				F656E072257E579800791518 /* UILabelContentCell.xib in Resources */,
 				F656E066257E579800791518 /* UITipsCell.xib in Resources */,
 				F656DF97257E506700791518 /* HistoryListTableViewCell.xib in Resources */,
@@ -1256,6 +1266,7 @@
 				8545F28825920E87008FEEF7 /* VpnManager.swift in Sources */,
 				F656DF7B257E501500791518 /* ADViewController.m in Sources */,
 				D39D52CE234C894500A3CEEB /* TranscationModel.swift in Sources */,
+				849CEE9C25B90EC9005FDECD /* UIView+Layer.swift in Sources */,
 				D3204B5523261E5D002ECB69 /* AccountSetTableViewCell.swift in Sources */,
 				D3204B5A232626DD002ECB69 /* BaseViewContrller.swift in Sources */,
 				F656DFA6257E50B300791518 /* TSShareHelper.m in Sources */,
@@ -1315,6 +1326,7 @@
 				F656E02F257E545700791518 /* UIImage+RCImage.m in Sources */,
 				D3204B522325EA7A002ECB69 /* UITableView+Extension.swift in Sources */,
 				F656E02C257E545700791518 /* UIView+PubicColor.m in Sources */,
+				849CEE9725B90EC1005FDECD /* TenonProtocolView.swift in Sources */,
 				F656E032257E545700791518 /* UIImage+TOO.m in Sources */,
 				F656DF93257E506700791518 /* SettingViewController.m in Sources */,
 				F656DF96257E506700791518 /* RBProgressView.m in Sources */,
