@@ -54,7 +54,6 @@ extern NSString* GlobalMonitorString;
 @property (nonatomic, strong) UITextField *inputTextField;
 
 @property (nonatomic, strong) UIView *ADView;
-@property (nonatomic, strong) UIButton* btnBuyTenonCoin;
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIView *loadingAdView;
 @property (nonatomic, strong) RBProgressView *progressView;
@@ -897,17 +896,11 @@ extern NSString* GlobalMonitorString;
     [self.bannerView loadRequest:[GADRequest request]];
     self.bannerView.delegate = self;
     
-    _btnBuyTenonCoin = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
-    _btnBuyTenonCoin.backgroundColor = [UIColor yellowColor];
-    [_btnBuyTenonCoin addTarget:self action:@selector(clickRechargeTenonCoin) forControlEvents:UIControlEventTouchUpInside];
-    [_btnBuyTenonCoin setTitle:@"Charge flow" forState:UIControlStateNormal];
-    [_btnBuyTenonCoin setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     [self.view addSubview:_ADView];
 }
 - (void)adViewDidReceiveAd:(GADBannerView *)adView {
   // Add adView to view and add constraints as above.
     [_ADView addSubview:self.bannerView];
-    [_ADView addSubview:_btnBuyTenonCoin];
     adView.alpha = 0;
     [UIView animateWithDuration:1.0 animations:^{
       adView.alpha = 1;
