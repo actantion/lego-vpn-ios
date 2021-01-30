@@ -29,6 +29,10 @@
 "Method six"="Method six";
 "Method seven"="Method seven";
 "Buy"="Buy";
+"Transaction time"="Transaction Time";
+"Type"="Type";
+"volume of trade"="Volume Of Trade";
+"Balance"="Balance";
 "pay_for_vpn"="Pay For VPN";
 "transfer_out"="Transfer Out";
 "transfer_in"="Transfer In";

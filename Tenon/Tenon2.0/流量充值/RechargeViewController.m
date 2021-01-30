@@ -16,6 +16,7 @@
 #import "TenonHeadCell.h"
 #import "TSShareHelper.h"
 #import "UITipsCell.h"
+#import "OrderListHeaderCell.h"
 #import <StoreKit/StoreKit.h>
 extern ViewController *swiftViewController;
 
@@ -148,45 +149,52 @@ extern ViewController *swiftViewController;
     }]];
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@15}]];
-    [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UIOrderListType),
-                                                     BM_title:GCLocalizedString(@"OrderList"),
-                                                     BM_leading:@(20),
-                                                     BM_titleSize:@(14),
-                                                     BM_cellHeight:@(14),
-                                                     BM_backColor:[UIColor clearColor],
-                                                     BM_titleColor:[UIColor colorWithHex:0x12B5AA]
-    }]];
-    NSLog(@"transcations =  %@",TenonP2pLib.sharedInstance.GetTransactions);
-    NSString* transcation = @"01/30 11:24,1,-66,5,931bf2a24cf7b6a14c70fe63a67a4780ece97b74755fe8dda16ab3c14eb7e12f,5,0;01/30 11:23,6,8,71,8246e90a8d82a44f68054b49e4738499a202a8ac3821d61abdbbcd99e8094b3c,0,0;01/30 11:18,6,7,63,2988b07a0786631aa8fe4b66398d91aa407318eb2eab55389acb846317370c0a,0,0;01/30 11:07,6,6,56,b876ae962588398778e7128e01b7872740bae2d77d086c655ec37e014996c30b,0,0;01/30 10:54,6,8,50,4e5508a4196eeb35308a4ae45d4aa3fe717c4ab84201b8d2bd62af1d3985e7fe,0,0;01/30 10:44,6,8,42,376f25f8d594884283835bbb6d47e4b45dadbae1242d77425fb58fdb1e379617,0,0;01/30 10:16,6,6,34,99088020d8e0cdd2acb7ab07c58716be6211fa297ee0e8ba2e937fc82226d2ab,0,0;01/30 10:11,6,6,28,907c1be591ac34c08e8b45d00650e6dea859e484ada3c3b319d5603fc58fdbcc,0,0;01/30 10:05,6,6,22,9af3de986e10c996d66e6fa6301f5baeb944609a6f9799aa21a5d7a266afea16,0,0;01/29 21:44,6,9,16,7bf525b1d679b66078c46787d51506655669b304810f37b4af5802de6cae696c,0,0;01/29 21:39,6,7,7,a5621a45749fba0b99b98056ce94eb139e203cb5a5a09fc12bf3f4dc9599d66e,0,0";
-    NSMutableArray* array = [transcation componentsSeparatedByString:@";"];
-    NSLog(@"array = %@",array);
-    NSInteger idx = 0;
-    for (NSString* value in array) {
-        NSMutableArray* dataArray = [value componentsSeparatedByString:@","];
-        NSString* type = dataArray[1];
-        NSString* typeValue = @"";
-        if ([type intValue] == 1) {
-            typeValue = GCLocalizedString(@"pay_for_vpn");
-        }else if ([type intValue] == 2){
-            typeValue = GCLocalizedString(@"transfer_out");
-        }else if ([type intValue] == 3){
-            typeValue = GCLocalizedString(@"Charge flow");
-        }else if ([type intValue] == 4){
-            typeValue = GCLocalizedString(@"transfer_in");
-        }else if ([type intValue] == 5){
-            typeValue = GCLocalizedString(@"share_reward");
-        }else if ([type intValue] == 6){
-            typeValue = GCLocalizedString(@"watch_ad_reward");
-        }else if ([type intValue] == 7){
-            typeValue = GCLocalizedString(@"mining");
-        }
-        [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
-                                                         BM_title:dataArray[0],
-                                                         BM_subTitle:typeValue,
-                                                         BM_backColor:idx%2 == 0?[UIColor whiteColor]:[UIColor colorWithHex:0x12B5AA],
-                                                         BM_dataArray:@[dataArray[1],dataArray[2]]
+    NSString* transcation = TenonP2pLib.sharedInstance.GetTransactions;
+    if (transcation.length != 0) {
+        [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UIOrderListType),
+                                                         BM_title:GCLocalizedString(@"OrderList"),
+                                                         BM_leading:@(20),
+                                                         BM_titleSize:@(14),
+                                                         BM_cellHeight:@(14),
+                                                         BM_backColor:[UIColor clearColor],
+                                                         BM_titleColor:[UIColor colorWithHex:0x12B5AA]
         }]];
-        idx++;
+        [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+                                                         BM_cellHeight:@8}]];
+        
+        NSMutableArray* array = [transcation componentsSeparatedByString:@";"];
+        
+        [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
+                                                         BM_dataArray:@[GCLocalizedString(@"Transaction time"),GCLocalizedString(@"Type"),GCLocalizedString(@"volume of trade"),GCLocalizedString(@"Balance")]}]];
+        NSLog(@"array = %@",array);
+        NSInteger idx = 0;
+        for (NSString* value in array) {
+            NSMutableArray* dataArray = [value componentsSeparatedByString:@","];
+            NSString* type = dataArray[1];
+            NSString* typeValue = @"";
+            if ([type intValue] == 1) {
+                typeValue = GCLocalizedString(@"pay_for_vpn");
+            }else if ([type intValue] == 2){
+                typeValue = GCLocalizedString(@"transfer_out");
+            }else if ([type intValue] == 3){
+                typeValue = GCLocalizedString(@"Charge flow");
+            }else if ([type intValue] == 4){
+                typeValue = GCLocalizedString(@"transfer_in");
+            }else if ([type intValue] == 5){
+                typeValue = GCLocalizedString(@"share_reward");
+            }else if ([type intValue] == 6){
+                typeValue = GCLocalizedString(@"watch_ad_reward");
+            }else if ([type intValue] == 7){
+                typeValue = GCLocalizedString(@"mining");
+            }
+            [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                             BM_title:dataArray[0],
+                                                             BM_subTitle:typeValue,
+                                                             BM_backColor:idx%2 == 0?[UIColor whiteColor]:[UIColor colorWithHex:0x12B5AA],
+                                                             BM_dataArray:@[dataArray[1],dataArray[2]]
+            }]];
+            idx++;
+        }
     }
     
     _myTableView = [[UITableView alloc] init];
@@ -201,6 +209,8 @@ extern ViewController *swiftViewController;
     [_myTableView registCell:@"UISpaceCell"];
     [_myTableView registCell:@"TenonHeadCell"];
     [_myTableView registCell:@"UITipsCell"];
+    [_myTableView registCell:@"OrderListHeaderCell"];
+    
     
     _myTableView.estimatedRowHeight = 40;
     [self.view addSubview:_myTableView];
@@ -302,8 +312,15 @@ extern ViewController *swiftViewController;
         UITipsCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITipsCell"];
         [cell setModel:model];
         return cell;
-    }
-    else{
+    }else if ([model.type isEqual:@(UILineType)]){
+        OrderListHeaderCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OrderListHeaderCell"];
+//        [cell setModel:model];
+        cell.lb1.text = model.dataArray[0];
+        cell.lb2.text = model.dataArray[1];
+        cell.lb3.text = model.dataArray[2];
+        cell.lb4.text = model.dataArray[3];
+        return cell;
+    }else{
         HistoryListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryListTableViewCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.cellOneLab.text = model.title;

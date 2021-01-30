@@ -11,6 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderListHeaderCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lb1;
+@property (weak, nonatomic) IBOutlet UILabel *lb2;
+@property (weak, nonatomic) IBOutlet UILabel *lb3;
+@property (weak, nonatomic) IBOutlet UILabel *lb4;
 
 @end
 

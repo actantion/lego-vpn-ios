@@ -41,6 +41,10 @@
 "Share to earn Tenon"="分享获得Tenon";
 "mining"="挖矿";
 "OrderList"="交易记录";
+"Transaction time"="交易时间";
+"Type"="类型";
+"volume of trade"="交易时间";
+"Balance"="余额";
 "Transfer Tenon directly to your anonymous account"="直接将Tenon转入您的匿名账户";
 "Copy"="复制";
 "Monthly/Quarterly/Annual"="月付/季付/年付";
