@@ -35,17 +35,75 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xta-7P-mhZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="启动页" translatesAutoresizingMaskIntoConstraints="NO" id="8Mn-sK-lNi">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="建筑" translatesAutoresizingMaskIntoConstraints="NO" id="8Mn-sK-lNi">
+                                        <rect key="frame" x="0.0" y="742.5" width="414" height="153.5"/>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="快速" translatesAutoresizingMaskIntoConstraints="NO" id="zGJ-tR-pN4">
+                                        <rect key="frame" x="116.5" y="733.5" width="25" height="34"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="安全" translatesAutoresizingMaskIntoConstraints="NO" id="oiK-sn-aNY">
+                                        <rect key="frame" x="166.5" y="733.5" width="25" height="34"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="可靠" translatesAutoresizingMaskIntoConstraints="NO" id="PZ7-FB-XER">
+                                        <rect key="frame" x="221.5" y="733.5" width="25" height="34"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="简单" translatesAutoresizingMaskIntoConstraints="NO" id="JVB-Pa-ddB">
+                                        <rect key="frame" x="271.5" y="733.5" width="25" height="34"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="去中心化" translatesAutoresizingMaskIntoConstraints="NO" id="2BQ-5J-O9d">
+                                        <rect key="frame" x="144.5" y="656.5" width="125" height="37"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="中心图形" translatesAutoresizingMaskIntoConstraints="NO" id="TmX-6D-GiJ">
+                                        <rect key="frame" x="51.5" y="319" width="311.5" height="232"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="区块链应用之光" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-7j-zPa">
+                                        <rect key="frame" x="212" y="234" width="182" height="32"/>
+                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="26"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TenonVPN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-SD-2KM">
+                                        <rect key="frame" x="95" y="110" width="299" height="74"/>
+                                        <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="60"/>
+                                        <color key="textColor" red="0.070588235289999995" green="0.70980392160000005" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.24752926829999999" green="0.20436593889999999" blue="0.34104770420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.057449616490000001" green="0.084172941740000007" blue="0.1193488166" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="oiK-sn-aNY" firstAttribute="top" secondItem="2BQ-5J-O9d" secondAttribute="bottom" constant="40" id="09d-WZ-u4Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ev3-7j-zPa" secondAttribute="trailing" constant="20" id="7fX-fD-gdH"/>
+                                    <constraint firstItem="Ev3-7j-zPa" firstAttribute="top" secondItem="8fQ-SD-2KM" secondAttribute="bottom" constant="50" id="7tN-OI-BI3"/>
+                                    <constraint firstItem="zGJ-tR-pN4" firstAttribute="centerX" secondItem="8Mn-sK-lNi" secondAttribute="centerX" id="AWE-m0-ALq"/>
+                                    <constraint firstItem="Ev3-7j-zPa" firstAttribute="trailing" secondItem="TmX-6D-GiJ" secondAttribute="trailing" id="HUm-pm-a3p"/>
+                                    <constraint firstItem="JVB-Pa-ddB" firstAttribute="centerY" secondItem="PZ7-FB-XER" secondAttribute="centerY" id="Qep-r8-zYQ"/>
+                                    <constraint firstItem="Ev3-7j-zPa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xta-7P-mhZ" secondAttribute="leading" constant="20" symbolic="YES" id="Rwe-IQ-n1N"/>
+                                    <constraint firstItem="PZ7-FB-XER" firstAttribute="centerY" secondItem="oiK-sn-aNY" secondAttribute="centerY" id="Trh-SQ-AOZ"/>
+                                    <constraint firstItem="8Mn-sK-lNi" firstAttribute="top" secondItem="zGJ-tR-pN4" secondAttribute="bottom" constant="-25" id="VCC-xM-tl5"/>
+                                    <constraint firstItem="oiK-sn-aNY" firstAttribute="centerY" secondItem="zGJ-tR-pN4" secondAttribute="centerY" id="W8W-Z1-73v"/>
                                     <constraint firstAttribute="trailing" secondItem="8Mn-sK-lNi" secondAttribute="trailing" id="Yvz-DV-5dX"/>
+                                    <constraint firstItem="JVB-Pa-ddB" firstAttribute="leading" secondItem="PZ7-FB-XER" secondAttribute="trailing" constant="25" id="Z8h-uW-g0h"/>
+                                    <constraint firstItem="8fQ-SD-2KM" firstAttribute="top" secondItem="xta-7P-mhZ" secondAttribute="top" constant="110" id="Zca-Cp-xcN"/>
                                     <constraint firstItem="8Mn-sK-lNi" firstAttribute="top" secondItem="xta-7P-mhZ" secondAttribute="top" id="dBJ-fb-hRW"/>
+                                    <constraint firstItem="PZ7-FB-XER" firstAttribute="leading" secondItem="oiK-sn-aNY" secondAttribute="trailing" constant="30" id="fMM-pk-bIM"/>
+                                    <constraint firstItem="2BQ-5J-O9d" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TmX-6D-GiJ" secondAttribute="bottom" constant="20" id="gEL-mE-fXX"/>
+                                    <constraint firstItem="oiK-sn-aNY" firstAttribute="leading" secondItem="zGJ-tR-pN4" secondAttribute="trailing" constant="25" id="gyE-3M-sIt"/>
+                                    <constraint firstItem="TmX-6D-GiJ" firstAttribute="centerX" secondItem="2BQ-5J-O9d" secondAttribute="centerX" id="kYZ-xH-LbV"/>
+                                    <constraint firstItem="TmX-6D-GiJ" firstAttribute="top" secondItem="Ev3-7j-zPa" secondAttribute="bottom" constant="53" id="mux-UM-dfh"/>
+                                    <constraint firstItem="2BQ-5J-O9d" firstAttribute="centerX" secondItem="8Mn-sK-lNi" secondAttribute="centerX" id="pKb-6s-bNW"/>
+                                    <constraint firstAttribute="trailing" secondItem="8fQ-SD-2KM" secondAttribute="trailing" constant="20" id="qg8-hS-NC8"/>
                                     <constraint firstItem="8Mn-sK-lNi" firstAttribute="leading" secondItem="xta-7P-mhZ" secondAttribute="leading" id="ufd-ME-mAv"/>
+                                    <constraint firstItem="oiK-sn-aNY" firstAttribute="centerX" secondItem="8Mn-sK-lNi" secondAttribute="centerX" constant="-28" id="xI6-aH-Voo"/>
                                     <constraint firstAttribute="bottom" secondItem="8Mn-sK-lNi" secondAttribute="bottom" id="ysi-1U-i3s"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="HUm-pm-a3p"/>
+                                        <exclude reference="Rwe-IQ-n1N"/>
+                                        <exclude reference="dBJ-fb-hRW"/>
+                                        <exclude reference="AWE-m0-ALq"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DtJ-N8-mHp"/>
@@ -67,7 +125,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="启动页" width="1172" height="2537.5"/>
+        <image name="中心图形" width="311.5" height="232"/>
+        <image name="去中心化" width="125" height="37"/>
+        <image name="可靠" width="25" height="34"/>
+        <image name="安全" width="25" height="34"/>
+        <image name="建筑" width="346.5" height="153.5"/>
+        <image name="快速" width="25" height="34"/>
+        <image name="简单" width="25" height="34"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
