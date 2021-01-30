@@ -33,6 +33,9 @@
         self.lbTips.text = model.title;
     }
     
+    if (model.cellHeight.floatValue  > 10) {
+        self.cellHeigh.constant = model.cellHeight.floatValue;
+    }
     if (model.titleSize != 0) {
         self.lbTips.font = [UIFont systemFontOfSize:[model.titleSize intValue]];
     }else{

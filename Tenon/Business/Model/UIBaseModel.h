@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define BM_backColor @"backColor"
 #define BM_cellHeight @"cellHeight"
 #define BM_type @"type"
+#define BM_Index @"index"
 #define BM_mark @"mark"
 #define BM_leading @"leading"
 #define BM_trading @"trading"
@@ -56,6 +57,7 @@ typedef enum _UIType {
 @interface UIBaseModel : NSObject
 + (instancetype)initWithDic:(NSDictionary*)dic;
 @property (nonatomic, strong) NSString* modelId;
+@property (nonatomic, strong) NSString* index;
 @property (nonatomic, strong) NSString* imageName;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSNumber* titleSize;

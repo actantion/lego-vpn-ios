@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,47 +32,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vaU-dZ-Y8f">
-                                <rect key="frame" x="120" y="772" width="174" height="40"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="65c-6N-COz">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="65c-6N-COz" secondAttribute="height" multiplier="1:1" id="kCt-uK-2rz"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tenon VPN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anm-jq-0SB">
-                                        <rect key="frame" x="48" y="5.5" width="140" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
-                                        <color key="textColor" red="0.070588235289999995" green="0.70980392160000005" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="anm-jq-0SB" firstAttribute="leading" secondItem="65c-6N-COz" secondAttribute="trailing" constant="8" symbolic="YES" id="3AA-TW-qrh"/>
-                                    <constraint firstAttribute="height" constant="40" id="Ah3-zR-DAV"/>
-                                    <constraint firstItem="65c-6N-COz" firstAttribute="leading" secondItem="vaU-dZ-Y8f" secondAttribute="leading" id="CO9-sH-rDZ"/>
-                                    <constraint firstItem="anm-jq-0SB" firstAttribute="centerY" secondItem="65c-6N-COz" secondAttribute="centerY" id="Lct-V5-tQw"/>
-                                    <constraint firstAttribute="width" constant="174" id="Phe-dd-uOK"/>
-                                    <constraint firstAttribute="bottom" secondItem="65c-6N-COz" secondAttribute="bottom" id="fCJ-oh-la7"/>
-                                    <constraint firstItem="65c-6N-COz" firstAttribute="top" secondItem="vaU-dZ-Y8f" secondAttribute="top" id="fwr-zv-SSm"/>
-                                    <constraint firstAttribute="trailing" secondItem="anm-jq-0SB" secondAttribute="trailing" constant="-14" id="kPQ-Hx-jvD"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xta-7P-mhZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="启动页" translatesAutoresizingMaskIntoConstraints="NO" id="8Mn-sK-lNi">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.24752926829999999" green="0.20436593889999999" blue="0.34104770420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8Mn-sK-lNi" secondAttribute="trailing" id="Yvz-DV-5dX"/>
+                                    <constraint firstItem="8Mn-sK-lNi" firstAttribute="top" secondItem="xta-7P-mhZ" secondAttribute="top" id="dBJ-fb-hRW"/>
+                                    <constraint firstItem="8Mn-sK-lNi" firstAttribute="leading" secondItem="xta-7P-mhZ" secondAttribute="leading" id="ufd-ME-mAv"/>
+                                    <constraint firstAttribute="bottom" secondItem="8Mn-sK-lNi" secondAttribute="bottom" id="ysi-1U-i3s"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DtJ-N8-mHp"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xta-7P-mhZ" secondAttribute="bottom" id="3z2-6i-Pq9"/>
                             <constraint firstItem="xta-7P-mhZ" firstAttribute="top" secondItem="3jg-bf-6yV" secondAttribute="top" id="CFw-Nf-3gX"/>
                             <constraint firstItem="xta-7P-mhZ" firstAttribute="leading" secondItem="DtJ-N8-mHp" secondAttribute="leading" id="GXi-ag-XKM"/>
-                            <constraint firstItem="vaU-dZ-Y8f" firstAttribute="centerX" secondItem="DtJ-N8-mHp" secondAttribute="centerX" id="Rst-U9-akg"/>
-                            <constraint firstItem="DtJ-N8-mHp" firstAttribute="bottom" secondItem="vaU-dZ-Y8f" secondAttribute="bottom" constant="50" id="jtA-dp-X27"/>
-                            <constraint firstItem="vaU-dZ-Y8f" firstAttribute="top" secondItem="xta-7P-mhZ" secondAttribute="bottom" constant="20" id="oPb-43-GFP"/>
                             <constraint firstItem="xta-7P-mhZ" firstAttribute="trailing" secondItem="DtJ-N8-mHp" secondAttribute="trailing" id="wma-qr-GU2"/>
                         </constraints>
                     </view>
@@ -86,7 +67,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="40" height="40"/>
+        <image name="启动页" width="1172" height="2537.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

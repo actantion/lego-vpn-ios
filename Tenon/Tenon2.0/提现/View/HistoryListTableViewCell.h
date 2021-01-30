@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *cellOneLab;
 @property (weak, nonatomic) IBOutlet UILabel *cellTwoLab;
 @property (weak, nonatomic) IBOutlet UILabel *cellThreeLab;
+@property (weak, nonatomic) IBOutlet UILabel *cellForLab;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 
 @end
 

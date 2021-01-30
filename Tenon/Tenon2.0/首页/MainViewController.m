@@ -16,7 +16,6 @@
 #import "TenonVPN-Swift.h"
 #import <Social/Social.h>
 #import "TSShareHelper.h"
-#import "RechargeVC.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 ViewController *swiftViewController;
@@ -775,8 +774,8 @@ extern NSString* GlobalMonitorString;
         [changeBtn addTarget:self action:@selector(changeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_freeView addSubview:changeBtn];
         
-        _typeSignLabel.text = @"500.03 M";
-        _typeTextLabel.text = [NSString stringWithFormat:@"%@≈100 TEN",GCLocalizedString(@"Total")];
+        _typeSignLabel.text = [NSString stringWithFormat:@"%d天后到期",TenonP2pLib.sharedInstance.vip_left_days];
+        _typeTextLabel.text = [NSString stringWithFormat:@"%llu TEN",TenonP2pLib.sharedInstance.GetBalance];
     }
 }
 
@@ -906,10 +905,7 @@ extern NSString* GlobalMonitorString;
       adView.alpha = 1;
     }];
 }
-- (void)clickRechargeTenonCoin{
-    RechargeVC* vc = [[RechargeVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
     return kWIDTH;
