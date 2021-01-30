@@ -168,5 +168,9 @@ extern ViewController *swiftViewController;
 - (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
     [self createAndLoadRewardedAd];
 }
-
+- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
+    userDidEarnReward:(nonnull GADAdReward *)reward
+{
+    NSLog(@"广告播放成功获得奖励");
+}
 @end

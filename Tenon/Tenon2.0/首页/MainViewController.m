@@ -270,7 +270,11 @@ extern NSString* GlobalMonitorString;
     arrayImg = @[@"us",@"cn",@"sg",@"jp",@"kr",@"ca",@"fr",@"gb",@"de",@"au",@"br",@"nl",@"hk",@"in",@"ru"];
     arrayShortCountry = @[@"US",@"CN",@"SG",@"JP",@"KR",@"CA",@"FR",@"GB",@"DE",@"AU",@"BR",@"NL",@"HK",@"IN",@"RU"];
     
-    [self addAdView];
+    if (!TenonP2pLib.sharedInstance.IsVip) {
+        // 非vip显示地步广告
+        [self addAdView];
+    }
+    
     
     _aboutBtn = [[UIButton alloc] init];
     [_aboutBtn setTitle:GCLocalizedString(@"About Tenon VPN") forState:0];
