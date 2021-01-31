@@ -28,6 +28,7 @@
 "watch_ad_reward"="广告奖励";
 "ad_reward_info"="广告获得奖励：3~10 个币";
 "Ad is not ready."="广告还未准备好，请重试.";
+"exit_and_retry"="可能网络没有初始化完成，重试或退出APP重试.";
 "Method one"="方式1";
 "Method two"="方式2";
 "Method three"="方式3";

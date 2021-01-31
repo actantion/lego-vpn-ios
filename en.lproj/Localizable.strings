@@ -36,6 +36,7 @@
 "pay_for_vpn"="To VPN";
 "ad_reward_info"="watched ad earned 3~10 tenon";
 "Ad is not ready."="Ad is not ready, retry later.";
+"exit_and_retry"="network is not ready, retry or exit app to retry.";
 "transfer_out"="Transfer Out";
 "transfer_in"="Transfer In";
 "share_reward"="Share Reward";

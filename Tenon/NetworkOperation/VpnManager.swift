@@ -142,35 +142,48 @@ extension VpnManager{
     }
     
     func loadAndCreatePrividerManager(_ complete: @escaping (NETunnelProviderManager?) -> Void ){
+        print("TTTT 3 1")
         NETunnelProviderManager.loadAllFromPreferences{ (managers, error) in
-            guard let managers = managers else{return}
+            guard let managers = managers else{
+                print("TTTT 3 2")
+                return
+            }
+            print("TTTT 3 3")
             let manager: NETunnelProviderManager
             if managers.count > 0 {
                 manager = managers[0]
                 self.delDupConfig(managers)
             }else{
                 manager = self.createProviderManager()
+                print("TTTT 3 4")
             }
             
+            print("TTTT 3 5")
             manager.isEnabled = true
             self.setRulerConfig(manager)
+            print("TTTT 3 6")
             manager.saveToPreferences{
                 if ($0 != nil){
+                    print("TTTT 3 7")
 //                    complete(nil);
 //                    return;
                 }
                 manager.loadFromPreferences{
                     if $0 != nil{
+                        print("TTTT 3 8")
                         print($0.debugDescription)
                         complete(nil);return;
                     }
                     self.addVPNStatusObserver()
+                    print("TTTT 3 9")
                     complete(manager)
                 }
             }
             
+            print("TTTT 3 10")
             self.queue.async {
                 while (!self.stop_queue) {
+                    print("TTTT 3 12")
                     if VpnManager.shared.vpnStatus == .on {
                         var conf = [String:AnyObject]()
                         conf["ss_address"] = self.ip_address as AnyObject?
@@ -211,6 +224,7 @@ extension VpnManager{
                                     
                     }
                     
+                    print("TTTT 3 11")
                     sleep(3)
                 }
             }
@@ -246,9 +260,14 @@ extension VpnManager{
 // Actions
 extension VpnManager{
     func connect(){
+        print("TTTT 0")
         self.stop_queue = false
         self.loadAndCreatePrividerManager { (manager) in
-            guard let manager = manager else{return}
+            guard let manager = manager  else{
+                print("TTTT")
+                return
+            }
+            
             do{
                 try manager.connection.startVPNTunnel(options: [:])
             }catch let err{

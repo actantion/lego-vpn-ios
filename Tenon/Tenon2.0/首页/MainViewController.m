@@ -1077,6 +1077,9 @@ extern NSString* GlobalMonitorString;
     if(_loadingTime > 0) {
         self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     } else {
+        if (!swiftViewController.user_started_vpn) {
+            [self.view makeToast:GCLocalizedString(@"exit_and_retry") duration:2 position:BOTTOM];
+        }
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
           self.codeTimer = nil;
