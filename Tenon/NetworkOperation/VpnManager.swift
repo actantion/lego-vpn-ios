@@ -102,8 +102,6 @@ enum VPNStatus {
                 self.observerAdded = true
                 NotificationCenter.default.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: manager.connection, queue: OperationQueue.main, using: { [unowned self] (notification) -> Void in
                     self.updateVPNStatus(manager)
-                    
-                    print("notification get vpn status changed: ")
                     })
             }
         }
@@ -253,9 +251,9 @@ extension VpnManager{
             guard let manager = manager else{return}
             do{
                 try manager.connection.startVPNTunnel(options: [:])
-                
+                print("tt 0")
             }catch let err{
-                print(err)
+                print("tt " + err.localizedDescription)
             }
         }
     }

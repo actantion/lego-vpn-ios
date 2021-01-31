@@ -112,6 +112,7 @@ extern ViewController *swiftViewController;
     NSString* rand_str = [self random:2048];
     NSString* gid = [self sha256HashForText:(rand_str)];
     [LibP2P AdReward:gid];
+    [self.view makeToast:GCLocalizedString(@"ad_reward_info") duration:2 position:CENTER];
     NSLog(@"广告播放成功获得奖励, %@", gid);
 }
 
@@ -355,7 +356,6 @@ extern ViewController *swiftViewController;
 -(void)getCodeTime
 {
     if (self.rewardedAd.isReady) {
-        printf("TTTTTTTTTTTTTT");
         [self.rewardedAd presentFromRootViewController:self delegate:self];
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
@@ -370,6 +370,7 @@ extern ViewController *swiftViewController;
     if(_loadingTime > 0) {
         self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     } else {
+        [self.view makeToast:GCLocalizedString(@"Ad is not ready.") duration:2 position:CENTER];
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
           self.codeTimer = nil;
