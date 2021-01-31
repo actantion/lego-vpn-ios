@@ -251,9 +251,8 @@ extension VpnManager{
             guard let manager = manager else{return}
             do{
                 try manager.connection.startVPNTunnel(options: [:])
-                print("tt 0")
             }catch let err{
-                print("tt " + err.localizedDescription)
+                print(err)
             }
         }
     }
