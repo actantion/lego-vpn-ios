@@ -17,10 +17,17 @@
 #import "TSShareHelper.h"
 #import "UITipsCell.h"
 #import "OrderListHeaderCell.h"
+#import "RBProgressView.h"
+#import "MSWeakTimer.h"
+#import "libp2p/libp2p.h"
+#import <CommonCrypto/CommonDigest.h>
 #import <StoreKit/StoreKit.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
+#import "MainViewController.h"
+
 extern ViewController *swiftViewController;
 
-@interface RechargeViewController ()<UITableViewDelegate,UITableViewDataSource,SKPaymentTransactionObserver,SKProductsRequestDelegate>
+@interface RechargeViewController()<UITableViewDelegate,UITableViewDataSource,SKPaymentTransactionObserver,SKProductsRequestDelegate>
 @property (nonatomic, assign)NSInteger selectIdx;
 @property (nonatomic, strong)NSString* selectAppleGoodsID;
 @property (nonatomic, strong)NSString* applepayProducID;
@@ -28,18 +35,104 @@ extern ViewController *swiftViewController;
 
 @property (nonatomic,strong) UITableView *myTableView;
 @property (nonatomic,strong) NSMutableArray *listarray;
+
+@property(nonatomic, strong) GADRewardedAd *rewardedAd;
+@property(nonatomic, strong) GADAdLoader *adLoader;
+@property (nonatomic, assign) BOOL bIsShowAd;
+@property (nonatomic, strong) UIView *loadingView;
+@property (nonatomic, strong) UIView *loadingAdView;
+@property (nonatomic, strong) RBProgressView *progressView;
+@property (nonatomic, strong) MSWeakTimer *codeTimer;
+@property (nonatomic, assign) NSInteger loadingTime;
+@property (nonatomic, assign) MainViewController* mainViewController;
+
 @end
 
 @implementation RechargeViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
+    
+    [self createAndLoadRewardedAd];
     self.view.backgroundColor = [UIColor blackColor];
     [self addNav];
     [self initUI];
     self.selectIdx = -1;
     self.selectAppleGoodsID = @"";
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+}
+
+-(void)createAndLoadRewardedAd{
+//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
+    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    self.rewardedAd = [[GADRewardedAd alloc]
+          initWithAdUnitID:adUID];
+    GADRequest *request = [GADRequest request];
+    [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
+        if (error) {
+            // Handle ad failed to load case.
+        } else {
+            // Ad successfully loaded.
+        }
+    }];
+}
+
+- (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
+    [self createAndLoadRewardedAd];
+}
+
+-(NSString*)sha256HashForText:(NSString*)text {
+    const char* utf8chars = [text UTF8String];
+    unsigned char result[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(utf8chars, (CC_LONG)strlen(utf8chars), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_SHA256_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
+- (NSString *)random: (int)len {
+    char ch[len];
+    for (int index=0; index<len; index++) {
+        
+        int num = arc4random_uniform(75)+48;
+        if (num>57 && num<65) { num = num%57+48; }
+        else if (num>90 && num<97) { num = num%90+65; }
+        ch[index] = num;
+    }
+    
+    return [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];
+}
+
+- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
+    userDidEarnReward:(nonnull GADAdReward *)reward
+{
+    NSString* rand_str = [self random:2048];
+    NSString* gid = [self sha256HashForText:(rand_str)];
+    [LibP2P AdReward:gid];
+    NSLog(@"广告播放成功获得奖励, %@", gid);
+}
+
+-(void)addADBgView
+{
+    _loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT)];
+    _loadingView.backgroundColor = kRGBA(0, 0, 0, 0.6);
+    [self.view addSubview:_loadingView];
+    [self.view bringSubviewToFront:_loadingView];
+    //进度条
+    RBProgressView *progressView = [[RBProgressView alloc] initWithFrame:CGRectMake(40, kHEIGHT/2+119*kSCALE, kWIDTH-80, 12*kSCALE)];
+    //进度条边框宽度
+    progressView.progerStokeWidth=1.0f;
+    //进度条未加载背景
+    progressView.progerssBackgroundColor=[UIColor blackColor];
+    //进度条已加载 颜色
+    progressView.progerssColor=kRBColor(18, 181, 170);
+    //背景边框颜色
+    progressView.progerssStokeBackgroundColor=kRBColor(18, 181, 170);
+    [_loadingView addSubview:progressView];
+    self.progressView = progressView;
 }
 
 -(void)addNav
@@ -77,19 +170,21 @@ extern ViewController *swiftViewController;
     aboutLab.font = Font_B(36);
     [self.view addSubview:aboutLab];
     
-    UILabel *noticeLab = [[UILabel alloc] initWithFrame:CGRectMake(20, aboutLab.bottom+15, kWIDTH-40, 60)];
+    UILabel *noticeLab = [[UILabel alloc] initWithFrame:CGRectMake(20, aboutLab.bottom+15, kWIDTH-40, 75)];
     noticeLab.text = GCLocalizedString(@"private_key_notices");
     noticeLab.textColor = kRBColor(18, 181, 170);
     noticeLab.lineBreakMode = NSLineBreakByWordWrapping;
     noticeLab.numberOfLines = 0;
-    noticeLab.font = Font_B(14);
+    noticeLab.font = Font_B(16);
     [self.view addSubview:noticeLab];
     _listarray = [[NSMutableArray alloc] init];
     
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITitleType),
                                                      BM_title:GCLocalizedString(@"Method one"),
+                                                     BM_titleSize:@(24),
                                                      BM_subTitle:GCLocalizedString(@"Transfer Tenon directly to your anonymous account"),
                                                      BM_dataArray:@[swiftViewController.local_account_id],
+                                                     BM_subTitleSize:@(24),
                                                      BM_mark:GCLocalizedString(@"Copy")
     }]];
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
@@ -150,12 +245,13 @@ extern ViewController *swiftViewController;
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@15}]];
     NSString* transcation = TenonP2pLib.sharedInstance.GetTransactions;
+    
     if (transcation.length != 0) {
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UIOrderListType),
                                                          BM_title:GCLocalizedString(@"OrderList"),
                                                          BM_leading:@(20),
-                                                         BM_titleSize:@(14),
-                                                         BM_cellHeight:@(14),
+                                                         BM_titleSize:@(20),
+                                                         BM_cellHeight:@(20),
                                                          BM_backColor:[UIColor clearColor],
                                                          BM_titleColor:[UIColor colorWithHex:0x12B5AA]
         }]];
@@ -191,7 +287,7 @@ extern ViewController *swiftViewController;
                                                              BM_title:dataArray[0],
                                                              BM_subTitle:typeValue,
                                                              BM_backColor:idx%2 == 0?[UIColor whiteColor]:[UIColor colorWithHex:0x12B5AA],
-                                                             BM_dataArray:@[dataArray[1],dataArray[2]]
+                                                             BM_dataArray:@[dataArray[3],dataArray[2]]
             }]];
             idx++;
         }
@@ -232,9 +328,53 @@ extern ViewController *swiftViewController;
 
 -(void)lookADBtnClicked
 {
-    ADViewController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ADViewController"];
-    mainVC.FROM = @"AD";
-    [self.navigationController pushViewController:mainVC animated:YES];
+    [self addADBgView];
+    self.progressView.progress = 0;
+    _loadingTime = 10;
+    self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
+    
+    [UIView animateWithDuration:_loadingTime animations:^{
+        self.progressView.progress = 1;
+      } completion:^(BOOL finished) {
+          self.loadingView.hidden = YES;
+          self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…0s",GCLocalizedString(@"Linking for you")];
+          [self.loadingView removeFromSuperview];
+      }];
+}
+
+-(void)dealloc
+{
+   if (self.codeTimer != nil) {
+      [self.codeTimer invalidate];
+      self.codeTimer = nil;
+    }
+}
+
+-(void)getCodeTime
+{
+    if (self.rewardedAd.isReady) {
+        printf("TTTTTTTTTTTTTT");
+        [self.rewardedAd presentFromRootViewController:self delegate:self];
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+        
+        self.loadingView.hidden = YES;
+        [self.loadingView removeFromSuperview];
+        _loadingTime = 0;
+    }
+    _loadingTime -= 1;
+    if(_loadingTime > 0) {
+        self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
+    } else {
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+    }
 }
 
 #pragma mark - UITableViewDelegate UITableViewDataSource
@@ -249,7 +389,9 @@ extern ViewController *swiftViewController;
     if ([model.type  isEqual: @(UITipsType)]) {
         getTenonCell* cell = [tableView dequeueReusableCellWithIdentifier:@"getTenonCell"];
         cell.lbTitle.text = model.title;
+        cell.lbTitle.font = Font_H(16);
         cell.lbSubTitle.text = model.subTitle;
+        cell.lbSubTitle.font = Font_H(16);
         [cell.btnEnter setTitle:model.mark forState:UIControlStateNormal];
         cell.clickBlock = ^{
             if ([model.index intValue] == 2) {
@@ -297,6 +439,8 @@ extern ViewController *swiftViewController;
         TenonHeadCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TenonHeadCell"];
         cell.lbTitle.text = model.title;
         cell.lbSubTitle.text = model.subTitle;
+        cell.lbTitle.font = Font_H(16);
+        cell.lbSubTitle.font = Font_H(16);
         cell.lbContent.text = model.dataArray[0];
         cell.clickBlock = ^{
             [self copyBtnClicked];
@@ -310,6 +454,7 @@ extern ViewController *swiftViewController;
         return cell;
     }else if ([model.type isEqual:@(UIOrderListType)]){
         UITipsCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITipsCell"];
+        cell.lbTips.font = Font_H(20);
         [cell setModel:model];
         return cell;
     }else if ([model.type isEqual:@(UILineType)]){
@@ -319,6 +464,10 @@ extern ViewController *swiftViewController;
         cell.lb2.text = model.dataArray[1];
         cell.lb3.text = model.dataArray[2];
         cell.lb4.text = model.dataArray[3];
+        cell.lb1.font = Font_H(16);
+        cell.lb2.font = Font_H(16);
+        cell.lb3.font = Font_H(16);
+        cell.lb4.font = Font_H(16);
         return cell;
     }else{
         HistoryListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryListTableViewCell"];
@@ -327,6 +476,10 @@ extern ViewController *swiftViewController;
         cell.cellTwoLab.text = model.subTitle;
         cell.cellThreeLab.text = model.dataArray[0];
         cell.cellForLab.text = model.dataArray[1];
+        cell.cellOneLab.font = Font_H(14);
+        cell.cellTwoLab.font = Font_H(14);
+        cell.cellThreeLab.font = Font_H(14);
+        cell.cellForLab.font = Font_H(14);
         cell.backView.backgroundColor = model.backColor;
         return cell;
     }

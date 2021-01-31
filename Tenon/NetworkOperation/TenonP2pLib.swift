@@ -22,11 +22,6 @@ extension Date {
 class TenonP2pLib : NSObject {
     static let sharedInstance = TenonP2pLib()
     var payfor_vpn_accounts_arr:[String] = [
-        "dc161d9ab9cd5a031d6c5de29c26247b6fde6eb36ed3963c446c1a993a088262",
-        "5595b040cdd20984a3ad3805e07bad73d7bf2c31e4dc4b0a34bc781f53c3dff7",
-        "25530e0f5a561f759a8eb8c2aeba957303a8bb53a54da913ca25e6aa00d4c365",
-        "9eb2f3bd5a78a1e7275142d2eaef31e90eae47908de356781c98771ef1a90cd2",
-        "c110df93b305ce23057590229b5dd2f966620acd50ad155d213b4c9db83c1f36",
         "f64e0d4feebb5283e79a1dfee640a276420a08ce6a8fbef5572e616e24c2cf18",
         "7ff017f63dc70770fcfe7b336c979c7fc6164e9653f32879e55fcead90ddf13f",
         "6dce73798afdbaac6b94b79014b15dcc6806cb693cf403098d8819ac362fa237",
@@ -79,6 +74,9 @@ class TenonP2pLib : NSObject {
         
         account_id = array[1]
         private_key = array[2]
+        CheckVip()
+        GetVipStatus()
+        PayforVpn()
         return (array[0], array[2], array[1], array[3])
     }
     
@@ -131,6 +129,7 @@ class TenonP2pLib : NSObject {
         let cur_timestamp: Int64 = Int64(Date().milliStamp)
         let days_cur = cur_timestamp / day_msec;
         let vip_days = payfor_amount / min_payfor_vpn_tenon
+        vip_left_days = (Int32)(now_balance / min_payfor_vpn_tenon);
         if (payfor_timestamp != Int64.max && days_timestamp + vip_days > days_cur) {
             payfor_gid = "";
             vip_left_days = Int32((days_timestamp + vip_days - days_cur)) + (Int32)(now_balance / min_payfor_vpn_tenon);
@@ -151,8 +150,14 @@ class TenonP2pLib : NSObject {
             return Int64.max
         }
         
+        let tmp_payfor_timestamp = (Int64)(res_split[0]) ?? Int64.max
+        if (tmp_payfor_timestamp == payfor_timestamp) {
+            return payfor_timestamp;
+        }
+        
         payfor_amount = (Int64)(res_split[1]) ?? 0
         payfor_timestamp = (Int64)(res_split[0]) ?? Int64.max
+        SaveVipStatus()
         return payfor_timestamp
     }
     
@@ -233,6 +238,16 @@ class TenonP2pLib : NSObject {
             
             keeped_private_kyes.append(tmp_item)
         }
+    }
+    
+    func GetVipStatus() {
+        payfor_timestamp = Int64(UserDefaults.standard.integer(forKey: "vip_status_payfor_tm"))
+        payfor_amount = Int64(UserDefaults.standard.integer(forKey: "vip_status_payfor_amount"))
+    }
+    
+    func SaveVipStatus() {
+        UserDefaults.standard.set(payfor_timestamp, forKey: "vip_status_payfor_tm")
+        UserDefaults.standard.set(payfor_amount, forKey: "vip_status_payfor_amount")
     }
     
     func GetPrivateKey() -> String {

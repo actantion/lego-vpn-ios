@@ -11,7 +11,10 @@
 #import "MainViewController.h"
 #import "TenonVPN-Swift.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "libp2p/libp2p.h"
+#import <CommonCrypto/CommonDigest.h>
  
+extern long prevAdViewTm;
 extern ViewController *swiftViewController;
 /*原生视频广告*/
 //GADUnifiedNativeAdLoaderDelegate, GADVideoControllerDelegate
@@ -22,6 +25,7 @@ extern ViewController *swiftViewController;
 @property(nonatomic, strong) GADRewardedAd *rewardedAd;
 @property(nonatomic, strong) GADAdLoader *adLoader;
 @property (nonatomic, assign) BOOL bIsShowAd;
+@property (nonatomic, assign) BOOL bIsFirstComing;
 @end
 
 @implementation ADViewController
@@ -78,6 +82,14 @@ extern ViewController *swiftViewController;
 
 -(void)initUI
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    _bIsFirstComing = [userDefaults boolForKey:@"first_coming"];
+    printf("FFFFFFFFFFFFFFF %d", _bIsFirstComing);
+    if (!_bIsFirstComing) {
+        [userDefaults setBool:YES forKey:@"first_coming"];
+        [userDefaults synchronize];
+    }
+    
     _secondNum = 5;
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = kRGBA(0, 0, 0, 0.6);
@@ -120,13 +132,16 @@ extern ViewController *swiftViewController;
         _secondNum--;
         [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:UIControlStateNormal];
     }
-    if (self.rewardedAd.isReady) {
+    
+    long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
+    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing) {
+        prevAdViewTm = nowAdViewTm;
         self.bIsShowAd = YES;
         [self.rewardedAd presentFromRootViewController:self delegate:self];
+        prevAdViewTm = [[NSDate date] timeIntervalSince1970]*1000;
         [self jumpBtnClicked];
-    } else {
-        NSLog(@"Ad wasn't ready");
     }
+    
     if (_secondNum <= 0) {
         self.bIsShowAd = YES;
         [self jumpBtnClicked];
@@ -136,7 +151,9 @@ extern ViewController *swiftViewController;
 -(void)jumpBtnClicked
 {
     if (self.bIsShowAd == NO) {
-        if (self.rewardedAd.isReady) {
+        long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
+        if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing) {
+            prevAdViewTm = nowAdViewTm;
             self.bIsShowAd = YES;
             [self.rewardedAd presentFromRootViewController:self delegate:self];
             if (self.codeTimer != nil) {
@@ -149,8 +166,6 @@ extern ViewController *swiftViewController;
             }else{
                 [self.navigationController popViewControllerAnimated:YES];
             }
-        }else{
-            
         }
     }else{
         if (self.codeTimer != nil) {
@@ -168,9 +183,39 @@ extern ViewController *swiftViewController;
 - (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
     [self createAndLoadRewardedAd];
 }
+-(NSString*)sha256HashForText:(NSString*)text {
+    const char* utf8chars = [text UTF8String];
+    unsigned char result[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(utf8chars, (CC_LONG)strlen(utf8chars), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_SHA256_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
+- (NSString *)random: (int)len {
+    char ch[len];
+    for (int index=0; index<len; index++) {
+        
+        int num = arc4random_uniform(75)+48;
+        if (num>57 && num<65) { num = num%57+48; }
+        else if (num>90 && num<97) { num = num%90+65; }
+        ch[index] = num;
+    }
+    
+    return [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];
+}
+
 - (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
     userDidEarnReward:(nonnull GADAdReward *)reward
 {
-    NSLog(@"广告播放成功获得奖励");
+    NSString* rand_str = [self random:2048];
+    NSString* gid = [self sha256HashForText:(rand_str)];
+    [LibP2P AdReward:gid];
+    
+    NSLog(@"广告播放成功获得奖励, %@", gid);
 }
+
 @end

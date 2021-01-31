@@ -209,6 +209,11 @@ extension String{
 
         self.choosed_country = self.getCountryShort(countryCode: self.countryCode[0])
         VpnManager.shared.choosed_country = self.choosed_country
+        balance = TenonP2pLib.sharedInstance.GetBalance()
+        if balance != UInt64.max {
+            TenonP2pLib.sharedInstance.now_balance = Int64(balance)
+            TenonP2pLib.sharedInstance.PayforVpn()
+        }
         let time5 = Date().timeIntervalSince1970
         print("time5: " , (time5 - time4));
         //ViewController.global_test_str += String(format:"%.2f",time5 - time4) + ":";
@@ -223,6 +228,15 @@ extension String{
         let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
         userDefaults?.set("ok", forKey: "vpnsvr_status")
         return 0
+    }
+    
+    
+    @objc func GetAccountBalance() -> UInt64 {
+        return TenonP2pLib.sharedInstance.GetBalance()
+    }
+    
+    @objc func GetAccountVipDays() -> Int32 {
+        return TenonP2pLib.sharedInstance.vip_left_days
     }
     
     @objc func IsConnected()->Bool {
@@ -485,21 +499,22 @@ extension String{
         balance = TenonP2pLib.sharedInstance.GetBalance()
         if balance != UInt64.max {
             TenonP2pLib.sharedInstance.now_balance = Int64(balance)
-        }
-        
-        if check_vip_times < 1 {
-            let tm = TenonP2pLib.sharedInstance.CheckVip()
-            if TenonP2pLib.sharedInstance.payfor_timestamp == 0 || tm != Int64.max {
-                if tm != Int64.max && tm != 0 {
-                    check_vip_times = 11
-                }
-                
-                TenonP2pLib.sharedInstance.payfor_timestamp = tm
-            }
-            check_vip_times += 1
-        } else {
             TenonP2pLib.sharedInstance.PayforVpn()
         }
+        
+//        if check_vip_times < 1 {
+//            let tm = TenonP2pLib.sharedInstance.CheckVip()
+//            if TenonP2pLib.sharedInstance.payfor_timestamp == 0 || tm != Int64.max {
+//                if tm != Int64.max && tm != 0 {
+//                    check_vip_times = 11
+//                }
+//
+//                TenonP2pLib.sharedInstance.payfor_timestamp = tm
+//            }
+//            check_vip_times += 1
+//        } else {
+//            TenonP2pLib.sharedInstance.PayforVpn()
+//        }
 //
 //        self.Dolor = Double(balance)*0.002
 //        let trascationValue:String = TenonP2pLib.sharedInstance.GetTransactions()
@@ -522,35 +537,8 @@ extension String{
     }
     
     @objc func ConnectVpn() {
-        if balance < 2000 {
-            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
-            if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
-                if messages == "bwo" {
-                    VpnManager.shared.disconnect()
-                    
-                    OpenGet()
-                    userDefaults?.set("ok", forKey: "vpnsvr_status")
-                    
-                    return
-                }
-                
-                if messages == "cni" {
-                    CBToast.showToast(message: "Agent service is not supported \nin your country or region.", aLocationStr: "center", aShowTime: 10.0)
-                    VpnManager.shared.disconnect()
-                    return
-                }
-                
-                if messages == "oul" {
-                    CBToast.showToast(message: "Your account is logged in elsewhere.", aLocationStr: "center", aShowTime: 10.0)
-                    VpnManager.shared.disconnect()
-                    return
-                }
-            }
-        } else {
-            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
-            userDefaults?.set("ok", forKey: "vpnsvr_status")
-        }
-        
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        userDefaults?.set("ok", forKey: "vpnsvr_status")
         print("now connect vpn called")
         if self.choosed_country != nil{
             var route_node = super.getOneRouteNode(country: self.local_country)

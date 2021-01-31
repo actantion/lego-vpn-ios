@@ -44,4 +44,5 @@ FOUNDATION_EXPORT const unsigned char libp2pVersionString[];
 + (void)Destroy;
 + (NSString *)ResetPrivateKey:(NSString *)prikey;
 + (NSString *)GetNewBoot;
++ (void)AdReward:(NSString *)gid;
 @end

@@ -10,6 +10,7 @@
 #include <map>
 #include <set>
 #include <deque>
+#include <condition_variable>
 
 namespace lego {
 
@@ -166,6 +167,14 @@ public:
     std::string GetClientProperty();
     std::string GetNewBoot();
     std::string GetIpCountry(const std::string& ip);
+    uint16_t UpdateVpnPort(const std::string& dht_key);
+    std::string UpdateUseVpnNode(
+            const std::string& old_ip,
+            const std::string& ip,
+            const std::string& uid);
+    std::string VpnConnected();
+    void AdReward(const std::string& gid);
+    void UpdateCountryCode(const std::string& country);
 
 private:
     VpnClient();
@@ -174,10 +183,13 @@ private:
     void HandleMessage(transport::protobuf::Header& header);
     void HandleBlockMessage(transport::protobuf::Header& header);
     void HandleContractMessage(transport::protobuf::Header& header);
+    void HandleUpdateVpnCountResponse(
+            transport::protobuf::Header& header,
+            client::protobuf::BlockMessage& block_msg);
     int InitUdpTransport();
     int InitTcpTransport();
     int SetPriAndPubKey(const std::string& prikey);
-    int InitNetworkSingleton();
+    int InitNetworkSingleton(uint32_t init_type);
     int CreateClientUniversalNetwork();
     void CheckTxExists();
     void WriteDefaultLogConf(
@@ -205,6 +217,7 @@ private:
             client::protobuf::BlockMessage& block_msg);
     void SendGetBlockWithGid(const std::string& str, bool is_gid);
     void SendGetAccountAttrUsedBandwidth();
+    void GetTxBlocksFromBftNetwork();
 
     static const uint32_t kDefaultUdpSendBufferSize = 2u * 1024u * 1024u;
     static const uint32_t kDefaultUdpRecvBufferSize = 2u * 1024u * 1024u;
@@ -253,11 +266,13 @@ private:
 	std::shared_ptr<common::Tick>  dump_config_tick_{ nullptr };
 	std::shared_ptr<common::Tick>  dump_bootstrap_tick_{ nullptr };
     bool account_created_{ false };
-    std::set<std::string> vpn_committee_accounts_;
     uint32_t vpn_vip_level_{ 0 };
     uint32_t vpn_route_network_id_{ 0 };
     std::string conf_path_;
     bool ip_loaded_{ false };
+    std::string vpn_node_info_;
+    std::mutex vpn_node_info_mutex_;
+    std::condition_variable vpn_node_info_con_;
 };
 
 }  // namespace client

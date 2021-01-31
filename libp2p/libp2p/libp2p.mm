@@ -196,4 +196,9 @@ NSString* public_key_ = @"000000000000000000000000000000000";
     
 }
 
++ (void)AdReward:(NSString *)gid {
+    std::string tmp_gid = std::string([gid UTF8String]);
+    lego::client::VpnClient::Instance()->AdReward(tmp_gid);
+}
+
 @end

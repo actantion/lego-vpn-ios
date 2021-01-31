@@ -17,7 +17,10 @@
 #import <Social/Social.h>
 #import "TSShareHelper.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "libp2p/libp2p.h"
+#import <CommonCrypto/CommonDigest.h>
 
+long prevAdViewTm = 0;
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
 
@@ -92,6 +95,42 @@ extern NSString* GlobalMonitorString;
     self.bAdLoaded = NO;
     self.rewardedAd = [self createAndLoadRewardedAd];
 }
+
+-(NSString*)sha256HashForText:(NSString*)text {
+    const char* utf8chars = [text UTF8String];
+    unsigned char result[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(utf8chars, (CC_LONG)strlen(utf8chars), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_SHA256_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
+- (NSString *)random: (int)len {
+    char ch[len];
+    for (int index=0; index<len; index++) {
+        
+        int num = arc4random_uniform(75)+48;
+        if (num>57 && num<65) { num = num%57+48; }
+        else if (num>90 && num<97) { num = num%90+65; }
+        ch[index] = num;
+    }
+    
+    return [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];
+}
+
+- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
+    userDidEarnReward:(nonnull GADAdReward *)reward
+{
+    NSString* rand_str = [self random:2048];
+    NSString* gid = [self sha256HashForText:(rand_str)];
+    [LibP2P AdReward:gid];
+    NSLog(@"广告播放成功获得奖励");
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.rewardedAd = [self createAndLoadRewardedAd];
@@ -128,25 +167,25 @@ extern NSString* GlobalMonitorString;
     navImg.image = [UIImage imageNamed:@"black_bg5"];
     [navView addSubview:navImg];
     
-    UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(20, top_H, 40, 40)];
+    UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(20, top_H, 50, 50)];
     logoImg.image = [UIImage imageNamed:@"logo"];
     [navImg addSubview:logoImg];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(68, top_H, 150, 28)];
-    label1.text = @"Tenon VPN";
-    label1.font = Font_H(24);
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(78, top_H, 150, 28)];
+    label1.text = @"TenonVPN";
+    label1.font = Font_H(28);
     label1.textColor = kRBColor(18, 181, 170);
     [navView addSubview:label1];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(68, top_H+26, 150, 14)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(82, top_H+36, 150, 14)];
     label2.text = [NSString stringWithFormat:@"v%@",app_Version];
-    label2.font = [UIFont systemFontOfSize:12];
+    label2.font = [UIFont systemFontOfSize:16];
     label2.textColor = kRBColor(154, 162, 161);
     [navView addSubview:label2];
     
-    UIView *shareV = [[UIView alloc] initWithFrame:CGRectMake(kWIDTH-96, top_H, 80, 36)];
+    UIView *shareV = [[UIView alloc] initWithFrame:CGRectMake(kWIDTH-116, top_H, 100, 36)];
     shareV.backgroundColor = kRBColor(21, 25, 25);
     shareV.layer.cornerRadius = 18.0f;
     [navView addSubview:shareV];
@@ -155,12 +194,12 @@ extern NSString* GlobalMonitorString;
     shareImg.image = [UIImage imageNamed:@"share_icon"];
     [shareV addSubview:shareImg];
     
-    UILabel *shareLab = [[UILabel alloc] initWithFrame:CGRectMake(36, 0, 40, 36)];
+    UILabel *shareLab = [[UILabel alloc] initWithFrame:CGRectMake(36, 0, 60, 36)];
 //    if(![[[NSUserDefaults standardUserDefaults] objectForKey:@"AppLanguagesKey"] isEqualToString:@"en"]) {
         shareLab.text = GCLocalizedString(@"Share");
 //    }
     
-    shareLab.font = Font_B(14);
+    shareLab.font = Font_B(16);
     shareLab.textColor = kRBColor(21, 203, 191);
     [shareV addSubview:shareLab];
     
@@ -277,9 +316,9 @@ extern NSString* GlobalMonitorString;
     
     
     _aboutBtn = [[UIButton alloc] init];
-    [_aboutBtn setTitle:GCLocalizedString(@"About Tenon VPN") forState:0];
+    [_aboutBtn setTitle:GCLocalizedString(@"About TenonVPN") forState:0];
     [_aboutBtn setTitleColor:kRBColor(21,203,191) forState:0];
-    _aboutBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    _aboutBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [_aboutBtn addTarget:self action:@selector(aboutBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_aboutBtn];
     [_aboutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -301,19 +340,6 @@ extern NSString* GlobalMonitorString;
     _loadingView.backgroundColor = kRGBA(0, 0, 0, 0.6);
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
-    
-//    _loadingAdView = [[UIView alloc] init];
-//    _loadingAdView.backgroundColor = kRBColor(55, 35, 112);
-//    _loadingAdView.layer.borderColor = kRBColor(18, 181, 170).CGColor;
-//    _loadingAdView.layer.cornerRadius = 4.0f;
-//    _loadingAdView.layer.masksToBounds = YES;
-//    [_loadingView addSubview:_loadingAdView];
-//    [_loadingAdView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(kWIDTH-100);
-//        make.height.mas_equalTo(206*kSCALE);
-//        make.center.equalTo(_loadingView);
-//    }];
-    
     //进度条
     RBProgressView *progressView = [[RBProgressView alloc] initWithFrame:CGRectMake(40, kHEIGHT/2+119*kSCALE, kWIDTH-80, 12*kSCALE)];
     //进度条边框宽度
@@ -345,7 +371,7 @@ extern NSString* GlobalMonitorString;
     
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.text = GCLocalizedString(@"Anonymous User");
-    _nameLabel.font = Font_B(16);
+    _nameLabel.font = Font_B(20);
     _nameLabel.textColor = kRBColor(154, 162, 161);
     [leftView addSubview:_nameLabel];
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -365,7 +391,7 @@ extern NSString* GlobalMonitorString;
     
     _codeLabel = [[UILabel alloc] init];
     _codeLabel.text = swiftViewController.local_account_id;
-    _codeLabel.font = [UIFont systemFontOfSize:14];
+    _codeLabel.font = [UIFont systemFontOfSize:13];
     _codeLabel.textColor = kRBColor(76, 85, 85);
     _codeLabel.numberOfLines = 0;
     _codeLabel.lineBreakMode = NSLineBreakByCharWrapping;
@@ -373,7 +399,7 @@ extern NSString* GlobalMonitorString;
     [_codeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(leftView).offset(10);
         make.right.equalTo(leftView.mas_right).offset(-14);
-        make.top.equalTo(_nameLabel.mas_bottom).offset(0);
+        make.top.equalTo(_nameLabel.mas_bottom).offset(6);
     }];
     self.codeLabel.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPre:)];
@@ -396,8 +422,8 @@ extern NSString* GlobalMonitorString;
     [self.view addSubview:rightView];
     
     UILabel *titLabel = [[UILabel alloc] init];
-    titLabel.text = GCLocalizedString(@"私钥");
-    titLabel.font = Font_B(16);
+    titLabel.text = GCLocalizedString(@"Private key");
+    titLabel.font = Font_B(20);
     titLabel.textColor = kRBColor(154, 162, 161);
     [rightView addSubview:titLabel];
     [titLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -416,12 +442,12 @@ extern NSString* GlobalMonitorString;
     }];
     
     NSMutableString *codeS = [[NSMutableString alloc] init];
-    for (int i=0;i<100;i++) {
+    for (int i=0;i<80;i++) {
         [codeS appendString:@"*"];
     }
     _keyLabel = [[UILabel alloc] init];
     _keyLabel.text = codeS.copy;
-    _keyLabel.font = [UIFont systemFontOfSize:14];
+    _keyLabel.font = [UIFont systemFontOfSize:13];
     _keyLabel.textColor = kRBColor(76, 85, 85);
     _keyLabel.numberOfLines = 0;
     _keyLabel.lineBreakMode = NSLineBreakByCharWrapping;
@@ -429,7 +455,7 @@ extern NSString* GlobalMonitorString;
     [_keyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(rightView).offset(10);
         make.right.equalTo(rightView.mas_right).offset(-14);
-        make.top.equalTo(titLabel.mas_bottom).offset(0);
+        make.top.equalTo(titLabel.mas_bottom).offset(6);
     }];
     self.keyLabel.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPre1:)];
@@ -449,7 +475,7 @@ extern NSString* GlobalMonitorString;
     } else {
         [_eyeBtn setImage:[UIImage imageNamed:@"hidden_icon"] forState:UIControlStateNormal];
         NSMutableString *codeS = [[NSMutableString alloc] init];
-        for (int i=0;i<100;i++) {
+        for (int i=0;i<80;i++) {
             [codeS appendString:@"*"];
         }
         _keyLabel.text = codeS.copy;
@@ -465,16 +491,16 @@ extern NSString* GlobalMonitorString;
 
 -(void)addTwoLeftView
 {
-    UIView *twoLeftView = [[UIView alloc] initWithFrame:CGRectMake(12, top_H+220, (kWIDTH-35)/2, 76)];
+    UIView *twoLeftView = [[UIView alloc] initWithFrame:CGRectMake(12, top_H+220, (kWIDTH-35)/2, 106)];
     [self.view addSubview:twoLeftView];
     
-    UIImageView *bgImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 76)];
+    UIImageView *bgImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 106)];
     bgImgV.image = [UIImage imageNamed:@"black_bg3"];
     [twoLeftView addSubview:bgImgV];
     
     _typeSignLabel = [[UILabel alloc] init];
     _typeSignLabel.text = @"FREE!";
-    _typeSignLabel.font = Font_B(24);
+    _typeSignLabel.font = Font_B(20);
     _typeSignLabel.textColor = kRBColor(18, 181, 170);
     [twoLeftView addSubview:_typeSignLabel];
     [_typeSignLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -485,12 +511,12 @@ extern NSString* GlobalMonitorString;
     
     _typeTextLabel = [[UILabel alloc] init];
     _typeTextLabel.text = GCLocalizedString(@"Free");
-    _typeTextLabel.font = [UIFont systemFontOfSize:12];
+    _typeTextLabel.font = [UIFont systemFontOfSize:18];
     _typeTextLabel.textColor = kRBColor(154, 162, 161);
     [twoLeftView addSubview:_typeTextLabel];
     [_typeTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(twoLeftView).offset(12);
-        make.top.equalTo(_typeSignLabel.mas_bottom);
+        make.top.equalTo(_typeSignLabel.mas_bottom).offset(30);
     }];
 }
 
@@ -499,20 +525,20 @@ extern NSString* GlobalMonitorString;
     UIView *alreadV = [self.view viewWithTag:333];
     [alreadV removeFromSuperview];
     
-    UIView *twoRightView = [[UIView alloc] initWithFrame:CGRectMake(23+(kWIDTH-35)/2, top_H+220, (kWIDTH-45)/2, 76)];
+    UIView *twoRightView = [[UIView alloc] initWithFrame:CGRectMake(23+(kWIDTH-35)/2, top_H+220, (kWIDTH-45)/2, 106)];
     twoRightView.tag = 333;
     [self.view addSubview:twoRightView];
     twoRightView.clipsToBounds = YES;
     twoRightView.layer.masksToBounds = YES;
     
-    UIImageView *bgImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 76)];
+    UIImageView *bgImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 106)];
     bgImgV.image = [UIImage imageNamed:@"black_bg2"];
     [twoRightView addSubview:bgImgV];
     
     if(_isFree) {
         UILabel *rtLabel = [[UILabel alloc] init];
         rtLabel.text = GCLocalizedString(@"Higher performance");
-        rtLabel.font = Font_M(14);
+        rtLabel.font = Font_M(20);
         rtLabel.textColor = kRBColor(18, 181, 170);
         [twoRightView addSubview:rtLabel];
         [rtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -535,12 +561,12 @@ extern NSString* GlobalMonitorString;
         [twoRightView addSubview:updateImg];
         [updateImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(twoRightView).offset(-12);
-            make.top.equalTo(rtLabel.mas_bottom).offset(6);
-            make.width.mas_equalTo(86);
-            make.height.mas_equalTo(20);
+            make.top.equalTo(rtLabel.mas_bottom).offset(26);
+            make.width.mas_equalTo(103);
+            make.height.mas_equalTo(24);
         }];
         
-        UIButton *changeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 76)];
+        UIButton *changeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 106)];
         [changeBtn addTarget:self action:@selector(toUpdateBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [twoRightView addSubview:changeBtn];
     } else {
@@ -551,7 +577,7 @@ extern NSString* GlobalMonitorString;
         
         UILabel *chongL = [[UILabel alloc] init];
         chongL.text = GCLocalizedString(@"Charge flow");
-        chongL.font = Font_B(14);
+        chongL.font = Font_B(20);
         chongL.textColor = kRBColor(18, 181, 170);
         [twoRightView addSubview:chongL];
         CGFloat leftF = 44;
@@ -566,7 +592,7 @@ extern NSString* GlobalMonitorString;
         
         UILabel *tiL = [[UILabel alloc] init];
         tiL.text = GCLocalizedString(@"Seel out");
-        tiL.font = Font_B(14);
+        tiL.font = Font_B(20);
         tiL.textColor = kRBColor(18, 181, 170);
         [twoRightView addSubview:tiL];
         [tiL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -614,7 +640,7 @@ extern NSString* GlobalMonitorString;
     [_linkBgView removeFromSuperview];
     [_linkNoticeLabel removeFromSuperview];
     if(!_isLink) {
-        _linkBgView = [[UIView alloc] initWithFrame:CGRectMake((kWIDTH-150)/2, top_H+260, 150, 150)];
+        _linkBgView = [[UIView alloc] initWithFrame:CGRectMake((kWIDTH-150)/2, top_H+270, 150, 150)];
         _linkBgView.backgroundColor = kRBColor(67, 77, 76);
         _linkBgView.layer.cornerRadius = 75.0f;
         _linkBgView.layer.masksToBounds = YES;
@@ -631,7 +657,7 @@ extern NSString* GlobalMonitorString;
         
         _linkLabel = [[UILabel alloc] init];
         _linkLabel.text = GCLocalizedString(@"Disconnect");
-        _linkLabel.font = Font_B(24);
+        _linkLabel.font = Font_B(20);
         _linkLabel.textColor = kRBColor(214, 223, 221);
         [_linkBgView addSubview:_linkLabel];
         [_linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -646,7 +672,7 @@ extern NSString* GlobalMonitorString;
     }
     else
     {
-        _linkBgView = [[UIView alloc] initWithFrame:CGRectMake((kWIDTH-162)/2, top_H+254, 162, 182)];
+        _linkBgView = [[UIView alloc] initWithFrame:CGRectMake((kWIDTH-162)/2, top_H+264, 162, 182)];
         [self.view addSubview:_linkBgView];
         [self.view bringSubviewToFront:_linkBgView];
         
@@ -673,7 +699,7 @@ extern NSString* GlobalMonitorString;
         if([[[NSUserDefaults standardUserDefaults] objectForKey:@"AppLanguagesKey"] isEqualToString:@"en"]) {
             _linkLabel.font = Font_B(20);
         } else {
-            _linkLabel.font = Font_B(24);
+            _linkLabel.font = Font_B(20);
         }
         _linkLabel.textColor = kRBColor(0, 41, 51);
         [yuanV addSubview:_linkLabel];
@@ -700,20 +726,26 @@ extern NSString* GlobalMonitorString;
     }
 }
 
--(void)linkBtnClicked:(UIButton *)sender
+-(void)disconnectVpn
 {
     if (self.isLink == YES) {
         [swiftViewController DoClickDisconnect];
         self.isLink = NO;
         [self refreshLinkView];
+    }
+}
+
+-(void)linkBtnClicked:(UIButton *)sender
+{
+    if (self.isLink == YES) {
+        [self disconnectVpn];
     }else {
-        if (self.rewardedAd.isReady) {
+        long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
+        if (self.rewardedAd.isReady&& (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000) {
+            prevAdViewTm = nowAdViewTm;
             [self.rewardedAd presentFromRootViewController:self delegate:self];
-        }else{
-            self.rewardedAd = [self createAndLoadRewardedAd];
-            NSLog(@"点击链接，未加载好广告");
-            return;
         }
+        
         [swiftViewController DoClickConnect];
         [self addtagBtnClicked];
         sender.enabled = NO;
@@ -751,7 +783,7 @@ extern NSString* GlobalMonitorString;
         UILabel *proLab = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 200, 36)];
         proLab.text = GCLocalizedString(@"Professional");
         proLab.textColor = kRBColor(18, 181, 170);
-        proLab.font = Font_B(19);
+        proLab.font = Font_B(20);
         [_freeView addSubview:proLab];
         
         UILabel *freeLab = [[UILabel alloc] initWithFrame:CGRectMake(46, 0, 100, 36)];
@@ -763,7 +795,7 @@ extern NSString* GlobalMonitorString;
         UILabel *freeL = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-24-54, 0, 50, 36)];
         freeL.text = GCLocalizedString(@"Free");
         freeL.textColor = kRBColor(18, 181, 170);
-        freeL.font = [UIFont systemFontOfSize:14];
+        freeL.font = [UIFont systemFontOfSize:19];
         [_freeView addSubview:freeL];
         
         UIImageView *changeImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"change_icon"]];
@@ -778,8 +810,13 @@ extern NSString* GlobalMonitorString;
         [changeBtn addTarget:self action:@selector(changeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_freeView addSubview:changeBtn];
         
-        _typeSignLabel.text = [NSString stringWithFormat:@"%d天后到期",TenonP2pLib.sharedInstance.vip_left_days];
-        _typeTextLabel.text = [NSString stringWithFormat:@"%llu TEN",TenonP2pLib.sharedInstance.GetBalance];
+        if (TenonP2pLib.sharedInstance.vip_left_days >= 0) {
+            _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
+            _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
+        } else {
+            _typeSignLabel.text = [NSString stringWithFormat:@"%d%@", 0, GCLocalizedString(@"left_days")];
+            _typeTextLabel.text = [NSString stringWithFormat:@"%d TEN",0];
+        }
     }
 }
 
@@ -934,14 +971,14 @@ extern NSString* GlobalMonitorString;
     imgs.image = [UIImage imageNamed:arrayImg[row]];
     [myView addSubview:imgs];
     
-    UILabel *labels = [[UILabel alloc] initWithFrame:CGRectMake(64, 0, 100, 44)];
-    labels.font = [UIFont systemFontOfSize:14];
+    UILabel *labels = [[UILabel alloc] initWithFrame:CGRectMake(64, 0, 130, 44)];
+    labels.font = [UIFont systemFontOfSize:18];
     labels.textColor = kRBColor(214, 223, 221);
     labels.text = arrayOne[row];
     [myView addSubview:labels];
     
     UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-182, 0, 100, 44)];
-    label2.font = [UIFont systemFontOfSize:12];
+    label2.font = [UIFont systemFontOfSize:16];
     label2.textAlignment = NSTextAlignmentRight;
     label2.textColor = kRBColor(214, 223, 221);
     int value = arc4random() % 500 + 100;
@@ -958,7 +995,6 @@ extern NSString* GlobalMonitorString;
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog(@"select is %@ %@",arrayOne[row], arrayShortCountry[row]);
     if (![_choosedCountry isEqualToString: arrayShortCountry[row]]) {
         VpnManager.shared.choosed_country = arrayShortCountry[row];
         swiftViewController.choosed_country = arrayShortCountry[row];
@@ -1025,7 +1061,6 @@ extern NSString* GlobalMonitorString;
 
 -(void)getCodeTime
 {
-    printf("FFFFFFFFFFF %d\n", swiftViewController.user_started_vpn);
     if (swiftViewController.user_started_vpn) {
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
