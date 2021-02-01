@@ -11,11 +11,15 @@
 #import "MainViewController.h"
 #import "ADViewController.h"
 #import "libp2p/libp2p.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 NSString  *GlobalLanguePath;
 NSString* GlobalMonitorString;
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate>
+{
+    CLLocationManager *_locationManager;//定位服务管理类
+    CLGeocoder *_geocoder;//初始化地理编码器
+}
 @end
 
 @implementation AppDelegate
@@ -34,10 +38,62 @@ NSString* GlobalMonitorString;
     
     [self loadKeyboard];      //设置全局键盘弹出规则
     [self configAppLangue];
-
+    [self initializeLocationService];
     return YES;
 }
+- (void)initializeLocationService {
+    // 初始化定位管理器
+    _locationManager = [[CLLocationManager alloc] init];
+    [_locationManager requestWhenInUseAuthorization];
+    //[_locationManager requestAlwaysAuthorization];//iOS8必须，这两行必须有一行执行，否则无法获取位置信息，和定位
+    // 设置代理
+    _locationManager.delegate = self;
+    // 设置定位精确度到米
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    // 设置过滤器为无
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    // 开始定位
+    [_locationManager startUpdatingLocation];//开始定位之后会不断的执行代理方法更新位置会比较费电所以建议获取完位置即时关闭更新位置服务
+    //初始化地理编码器
+    _geocoder = [[CLGeocoder alloc] init];
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
 
+    NSLog(@"%lu",(unsigned long)locations.count);
+    CLLocation * location = locations.lastObject;
+    // 纬度
+    CLLocationDegrees latitude = location.coordinate.latitude;
+    // 经度
+    CLLocationDegrees longitude = location.coordinate.longitude;
+    NSLog(@"%@",[NSString stringWithFormat:@"%lf", location.coordinate.longitude]);
+//    NSLog(@"经度：%f,纬度：%f,海拔：%f,航向：%f,行走速度：%f", location.coordinate.longitude, location.coordinate.latitude,location.altitude,location.course,location.speed);
+    
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            NSLog(@"%@",placemark.name);
+            //获取城市
+            NSString *city = placemark.locality;
+            if (!city) {
+                //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
+                city = placemark.administrativeArea;
+            }
+            NSLog(@"name,%@",placemark.name);
+            NSLog(@"thoroughfare,%@",placemark.thoroughfare);
+            NSLog(@"subThoroughfare,%@",placemark.subThoroughfare);
+            NSLog(@"locality,%@",placemark.locality);
+            NSLog(@"subLocality,%@",placemark.subLocality);
+            NSLog(@"country,%@",placemark.country);
+            NSLog(@"placemark.ISOcountryCode = %@",placemark.ISOcountryCode);
+        }
+        else if (error == nil && [placemarks count] == 0) {
+            NSLog(@"No results were returned.");
+        } else if (error != nil){
+            NSLog(@"An error occurred = %@", error);
+        }
+    }];
+    [manager stopUpdatingLocation];
+}
 #pragma mark 程序失去焦点的时候调用（不能跟用户进行交互了，类似接电话）
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

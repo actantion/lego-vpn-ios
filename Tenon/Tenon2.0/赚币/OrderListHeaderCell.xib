@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxo-Z5-snI">
-                                <rect key="frame" x="198" y="13.5" width="79" height="17.5"/>
+                                <rect key="frame" x="198" y="13.5" width="63" height="17.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="83" id="CKP-j7-8Qs"/>
                                     <constraint firstAttribute="width" constant="83" id="MzK-jq-xn6"/>
@@ -55,9 +55,9 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pY-Lc-nxs">
-                                <rect key="frame" x="277" y="13.5" width="54" height="17.5"/>
+                                <rect key="frame" x="261" y="13.5" width="70" height="17.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="3nL-hZ-YFN"/>
+                                    <constraint firstAttribute="width" constant="70" id="3nL-hZ-YFN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

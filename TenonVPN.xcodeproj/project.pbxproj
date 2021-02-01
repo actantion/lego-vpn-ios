@@ -719,7 +719,7 @@
 				F656DFB3257E516A00791518 /* 关于我们 */,
 				F656DFB0257E516100791518 /* 广告 */,
 				F656DFAD257E514900791518 /* 提现 */,
-				F656DFAC257E513F00791518 /* 流量充值 */,
+				F656DFAC257E513F00791518 /* 赚币 */,
 				F656DFAB257E512000791518 /* 首页 */,
 				F656DF80257E506600791518 /* share_pic.jpg */,
 			);
@@ -740,7 +740,7 @@
 			path = "首页";
 			sourceTree = "<group>";
 		};
-		F656DFAC257E513F00791518 /* 流量充值 */ = {
+		F656DFAC257E513F00791518 /* 赚币 */ = {
 			isa = PBXGroup;
 			children = (
 				F656DF8B257E506700791518 /* RechargeViewController.h */,
@@ -755,7 +755,7 @@
 				F6C5645625C56316006B62FE /* OrderListHeaderCell.m */,
 				F6C5645725C56316006B62FE /* OrderListHeaderCell.xib */,
 			);
-			path = "流量充值";
+			path = "赚币";
 			sourceTree = "<group>";
 		};
 		F656DFAD257E514900791518 /* 提现 */ = {

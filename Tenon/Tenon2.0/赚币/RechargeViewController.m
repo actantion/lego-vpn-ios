@@ -45,7 +45,7 @@ extern ViewController *swiftViewController;
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger loadingTime;
 @property (nonatomic, assign) MainViewController* mainViewController;
-
+@property (nonatomic, strong) NSTimer * timer;
 @end
 
 @implementation RechargeViewController
@@ -60,123 +60,14 @@ extern ViewController *swiftViewController;
     self.selectIdx = -1;
     self.selectAppleGoodsID = @"";
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
 }
-
--(void)createAndLoadRewardedAd{
-//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
-    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
-    self.rewardedAd = [[GADRewardedAd alloc]
-          initWithAdUnitID:adUID];
-    GADRequest *request = [GADRequest request];
-    [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
-        if (error) {
-            // Handle ad failed to load case.
-        } else {
-            // Ad successfully loaded.
-        }
-    }];
+- (void)startTimer{
+    [_listarray removeAllObjects];
+    [self loadUI];
+    [_myTableView reloadData];
 }
-
-- (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
-    [self createAndLoadRewardedAd];
-}
-
--(NSString*)sha256HashForText:(NSString*)text {
-    const char* utf8chars = [text UTF8String];
-    unsigned char result[CC_SHA256_DIGEST_LENGTH];
-    CC_SHA256(utf8chars, (CC_LONG)strlen(utf8chars), result);
-
-    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH*2];
-    for(int i = 0; i<CC_SHA256_DIGEST_LENGTH; i++) {
-        [ret appendFormat:@"%02x",result[i]];
-    }
-    return ret;
-}
-
-- (NSString *)random: (int)len {
-    char ch[len];
-    for (int index=0; index<len; index++) {
-        
-        int num = arc4random_uniform(75)+48;
-        if (num>57 && num<65) { num = num%57+48; }
-        else if (num>90 && num<97) { num = num%90+65; }
-        ch[index] = num;
-    }
-    
-    return [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];
-}
-
-- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
-    userDidEarnReward:(nonnull GADAdReward *)reward
-{
-    NSString* rand_str = [self random:2048];
-    NSString* gid = [self sha256HashForText:(rand_str)];
-    [LibP2P AdReward:gid];
-    [self.view makeToast:GCLocalizedString(@"ad_reward_info") duration:2 position:BOTTOM];
-}
-
--(void)addADBgView
-{
-    _loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT)];
-    _loadingView.backgroundColor = kRGBA(0, 0, 0, 0.6);
-    [self.view addSubview:_loadingView];
-    [self.view bringSubviewToFront:_loadingView];
-    //进度条
-    RBProgressView *progressView = [[RBProgressView alloc] initWithFrame:CGRectMake(40, kHEIGHT/2+119*kSCALE, kWIDTH-80, 12*kSCALE)];
-    //进度条边框宽度
-    progressView.progerStokeWidth=1.0f;
-    //进度条未加载背景
-    progressView.progerssBackgroundColor=[UIColor blackColor];
-    //进度条已加载 颜色
-    progressView.progerssColor=kRBColor(18, 181, 170);
-    //背景边框颜色
-    progressView.progerssStokeBackgroundColor=kRBColor(18, 181, 170);
-    [_loadingView addSubview:progressView];
-    self.progressView = progressView;
-}
-
--(void)addNav
-{
-    CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
-    
-    UIImageView *backImg = [[UIImageView alloc] initWithFrame:CGRectMake(12, topH+5, 11, 18)];
-    backImg.image = [UIImage imageNamed:@"back_icon"];
-    [self.view addSubview:backImg];
-    
-    UILabel *backLab = [[UILabel alloc] initWithFrame:CGRectMake(29, topH, 140, 28)];
-    backLab.text = @"Tenon VPN";
-    backLab.textColor = kRBColor(18, 181, 170);
-    backLab.font = Font_H(24);
-    [self.view addSubview:backLab];
-    
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, topH, 200, 30)];
-    [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
-}
-
--(void)backBtnClicked
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark -加载视图
--(void)initUI
-{
-    CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
-    
-    UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 200, 50)];
-    aboutLab.text = GCLocalizedString(@"Charge flow");
-    aboutLab.textColor = kRBColor(154, 162, 161);
-    aboutLab.font = Font_B(36);
-    [self.view addSubview:aboutLab];
-    
-    UILabel *noticeLab = [[UILabel alloc] initWithFrame:CGRectMake(20, aboutLab.bottom+15, kWIDTH-40, 75)];
-    noticeLab.text = GCLocalizedString(@"private_key_notices");
-    noticeLab.textColor = kRBColor(18, 181, 170);
-    noticeLab.lineBreakMode = NSLineBreakByWordWrapping;
-    noticeLab.numberOfLines = 0;
-    noticeLab.font = Font_B(16);
-    [self.view addSubview:noticeLab];
+- (void)loadUI{
     _listarray = [[NSMutableArray alloc] init];
     
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITitleType),
@@ -292,6 +183,128 @@ extern ViewController *swiftViewController;
             idx++;
         }
     }
+}
+-(void)createAndLoadRewardedAd{
+//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
+    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    self.rewardedAd = [[GADRewardedAd alloc]
+          initWithAdUnitID:adUID];
+    GADRequest *request = [GADRequest request];
+    [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
+        if (error) {
+            // Handle ad failed to load case.
+        } else {
+            // Ad successfully loaded.
+        }
+    }];
+}
+
+- (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
+    [self createAndLoadRewardedAd];
+}
+
+-(NSString*)sha256HashForText:(NSString*)text {
+    const char* utf8chars = [text UTF8String];
+    unsigned char result[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(utf8chars, (CC_LONG)strlen(utf8chars), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_SHA256_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
+- (NSString *)random: (int)len {
+    char ch[len];
+    for (int index=0; index<len; index++) {
+        
+        int num = arc4random_uniform(75)+48;
+        if (num>57 && num<65) { num = num%57+48; }
+        else if (num>90 && num<97) { num = num%90+65; }
+        ch[index] = num;
+    }
+    
+    return [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];
+}
+
+- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
+    userDidEarnReward:(nonnull GADAdReward *)reward
+{
+    NSString* rand_str = [self random:2048];
+    NSString* gid = [self sha256HashForText:(rand_str)];
+    [LibP2P AdReward:gid];
+    [self.view makeToast:GCLocalizedString(@"ad_reward_info") duration:2 position:BOTTOM];
+}
+
+-(void)addADBgView
+{
+    _loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT)];
+    _loadingView.backgroundColor = kRGBA(0, 0, 0, 0.6);
+    [self.view addSubview:_loadingView];
+    [self.view bringSubviewToFront:_loadingView];
+    //进度条
+    RBProgressView *progressView = [[RBProgressView alloc] initWithFrame:CGRectMake(40, kHEIGHT/2+119*kSCALE, kWIDTH-80, 12*kSCALE)];
+    //进度条边框宽度
+    progressView.progerStokeWidth=1.0f;
+    //进度条未加载背景
+    progressView.progerssBackgroundColor=[UIColor blackColor];
+    //进度条已加载 颜色
+    progressView.progerssColor=kRBColor(18, 181, 170);
+    //背景边框颜色
+    progressView.progerssStokeBackgroundColor=kRBColor(18, 181, 170);
+    [_loadingView addSubview:progressView];
+    self.progressView = progressView;
+}
+
+-(void)addNav
+{
+    CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
+    
+    UIImageView *backImg = [[UIImageView alloc] initWithFrame:CGRectMake(12, topH+5, 11, 18)];
+    backImg.image = [UIImage imageNamed:@"back_icon"];
+    [self.view addSubview:backImg];
+    
+    UILabel *backLab = [[UILabel alloc] initWithFrame:CGRectMake(29, topH, 140, 28)];
+    backLab.text = @"Tenon VPN";
+    backLab.textColor = kRBColor(18, 181, 170);
+    backLab.font = Font_H(24);
+    [self.view addSubview:backLab];
+    
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, topH, 200, 30)];
+    [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backBtn];
+}
+
+-(void)backBtnClicked
+{
+    if (self.backBlock) {
+        self.backBlock();
+    }
+    if (self.timer) {
+        [self.timer invalidate];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark -加载视图
+-(void)initUI
+{
+    CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
+    
+    UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 200, 50)];
+    aboutLab.text = GCLocalizedString(@"Charge flow");
+    aboutLab.textColor = kRBColor(154, 162, 161);
+    aboutLab.font = Font_B(36);
+    [self.view addSubview:aboutLab];
+    
+    UILabel *noticeLab = [[UILabel alloc] initWithFrame:CGRectMake(20, aboutLab.bottom+15, kWIDTH-40, 75)];
+    noticeLab.text = GCLocalizedString(@"private_key_notices");
+    noticeLab.textColor = kRBColor(18, 181, 170);
+    noticeLab.lineBreakMode = NSLineBreakByWordWrapping;
+    noticeLab.numberOfLines = 0;
+    noticeLab.font = Font_B(16);
+    [self.view addSubview:noticeLab];
+    [self loadUI];
     
     _myTableView = [[UITableView alloc] init];
     _myTableView.tableFooterView = [[UIView alloc] init];
@@ -342,14 +355,6 @@ extern ViewController *swiftViewController;
           self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…0s",GCLocalizedString(@"Linking for you")];
           [self.loadingView removeFromSuperview];
       }];
-}
-
--(void)dealloc
-{
-   if (self.codeTimer != nil) {
-      [self.codeTimer invalidate];
-      self.codeTimer = nil;
-    }
 }
 
 -(void)getCodeTime

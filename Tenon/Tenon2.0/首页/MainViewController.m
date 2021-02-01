@@ -61,7 +61,7 @@ extern NSString* GlobalMonitorString;
 @property (nonatomic, strong) RBProgressView *progressView;
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger loadingTime;
-
+@property (nonatomic, strong) UIButton *linkBtn;
 @property(nonatomic, strong) NSMutableArray *shareArray;
 @property(nonatomic, strong) NSMutableArray *functionArray;
 @property (nonatomic, strong) NSString *choosedCountry;
@@ -69,6 +69,7 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) GADRewardedAd *rewardedAd;
 @property(nonatomic, strong) GADBannerView *bannerView;
 @property (nonatomic, assign) BOOL bAdLoaded;
+@property (nonatomic, strong) NSTimer * timer;
 @end
 
 @implementation MainViewController
@@ -137,11 +138,18 @@ extern NSString* GlobalMonitorString;
     self.view.backgroundColor = [UIColor blackColor];
     [self initNavView];
     [self initUI];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
+    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSLog(@"locale = %@",locale);
 }
-
+- (void)showAdsTimer{
+    long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
+    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000) {
+        prevAdViewTm = nowAdViewTm;
+        [self.rewardedAd presentFromRootViewController:self delegate:self];
+    }
+}
 -(void)reloadLanguage
 {
     for(UIView *view in [self.view subviews])
@@ -624,7 +632,18 @@ extern NSString* GlobalMonitorString;
 -(void)chongBtnClicked
 {
 //    [self.view makeToast:@"充值" duration:2 position:BOTTOM];
+    BOOL bConnect = NO;
+    if (self.isLink == YES) {
+        [self disconnectVpn];
+        bConnect = YES;
+    }
+    
     RechargeViewController *nextVC = [[RechargeViewController alloc] init];
+    nextVC.backBlock = ^{
+        if (bConnect == YES){
+            [self connectVpn];
+        }
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -666,9 +685,9 @@ extern NSString* GlobalMonitorString;
             make.height.mas_offset(33);
         }];
         
-        UIButton *linkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
-        [linkBtn addTarget:self action:@selector(linkBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_linkBgView addSubview:linkBtn];
+        self.linkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+        [self.linkBtn addTarget:self action:@selector(linkBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_linkBgView addSubview:self.linkBtn];
     }
     else
     {
@@ -709,9 +728,9 @@ extern NSString* GlobalMonitorString;
             make.height.mas_offset(33);
         }];
         
-        UIButton *linkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 162, 162)];
-        [linkBtn addTarget:self action:@selector(linkBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_linkBgView addSubview:linkBtn];
+        self.linkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 162, 162)];
+        [self.linkBtn addTarget:self action:@selector(linkBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_linkBgView addSubview:self.linkBtn];
         
         _linkNoticeLabel = [[UILabel alloc] init];
         _linkNoticeLabel.text = GCLocalizedString(@"P2P networks are protecting your IP and data privacy");
@@ -735,33 +754,29 @@ extern NSString* GlobalMonitorString;
     }
 }
 
--(void)linkBtnClicked:(UIButton *)sender
+-(void)linkBtnClicked
 {
     if (self.isLink == YES) {
         [self disconnectVpn];
     }else {
-        long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-        if (self.rewardedAd.isReady&& (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000) {
-            prevAdViewTm = nowAdViewTm;
-            [self.rewardedAd presentFromRootViewController:self delegate:self];
-        }
-        
-        [swiftViewController DoClickConnect];
-        [self addtagBtnClicked];
-        sender.enabled = NO;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            sender.enabled = YES;
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (!self.isLink && swiftViewController.user_started_vpn) {
-                self.isLink = true;
-                [self refreshLinkView];
-            }
-        });
-        
+        [self showAdsTimer];
+        [self connectVpn];
     }
 }
-
+- (void)connectVpn{
+    [swiftViewController DoClickConnect];
+    [self addtagBtnClicked];
+    self.linkBtn.enabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.linkBtn.enabled = YES;
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (!self.isLink && swiftViewController.user_started_vpn) {
+            self.isLink = true;
+            [self refreshLinkView];
+        }
+    });
+}
 #pragma mark -刷新顶部视图
 -(void)refreshFreeView
 {
