@@ -9,10 +9,11 @@
 #import "SettingViewController.h"
 #import "SettingTableViewCell.h"
 #import "MainViewController.h"
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
 #import "SettingSelectCell.h"
 #import "UISpaceCell.h"
 #import "UITipsCell.h"
+#import "TenonVPN-Swift.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *myTableView;
@@ -24,6 +25,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
+    
+    if (VpnManager.shared.use_global_mode) {
+        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        [defaultdata setObject:@"global_route" forKey:@"proxy pattern"];
+        [defaultdata synchronize];
+    } else {
+        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        [defaultdata setObject:@"smart_route" forKey:@"proxy pattern"];
+        [defaultdata synchronize];
+    }
+    
     [self addNav];
     [self initUI];
 }
@@ -69,8 +81,8 @@
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
                                                          BM_title:GCLocalizedString(@"Join Nodes"),
                                                          BM_leading:@(36),
-                                                         BM_titleSize:@(14),
-                                                         BM_cellHeight:@(14),
+                                                         BM_titleSize:@(20),
+                                                         BM_cellHeight:@(20),
                                                          BM_backColor:[UIColor clearColor],
                                                          BM_titleColor:APP_MAIN_COLOR}]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
@@ -78,8 +90,8 @@
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
                                                          BM_title:GCLocalizedString(@"Third-party node access, one-click startup, and access to the decentralized Tenon VPN network to provide services and routing"),
                                                          BM_leading:@(36),
-                                                         BM_titleSize:@(14),
-                                                         BM_cellHeight:@(14),
+                                                         BM_titleSize:@(16),
+                                                         BM_cellHeight:@(16),
                                                          BM_backColor:[UIColor clearColor],
                                                          BM_titleColor:MyBgLightGrayColor}]];
     
@@ -87,8 +99,8 @@
                                                          BM_title:@"https://github.com/tenondvpn/tenonvpn-join",
                                                          BM_Index:@"1",
                                                          BM_leading:@(36),
-                                                         BM_titleSize:@(14),
-                                                         BM_cellHeight:@(14),
+                                                         BM_titleSize:@(16),
+                                                         BM_cellHeight:@(16),
                                                          BM_backColor:[UIColor clearColor],
                                                          BM_titleColor:APP_MAIN_COLOR}]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
@@ -186,6 +198,8 @@
     if ([model.type  isEqual: @(UISwitchType)]) {
         SettingSelectCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SettingSelectCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.lbTitle.font = Font_H(16);
+        cell.lbSubTitle.font = Font_H(16);
         [cell setModel:model];
         cell.clickBlock = ^{
             if ([model.index intValue] == 2) {
@@ -202,6 +216,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.cellOneLab.text = model.title;
         cell.cellTwoLab.text = model.subTitle;
+        cell.cellOneLab.font = Font_H(16);
+        cell.cellTwoLab.font = Font_H(16);
         return cell;
     }else if ([model.type isEqual:@(UISpaceType)]){
         UISpaceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UISpaceCell"];
@@ -219,6 +235,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.cellOneLab.text = model.title;
         cell.cellTwoLab.text = model.subTitle;
+        cell.cellOneLab.font = Font_H(16);
+        cell.cellTwoLab.font = Font_H(16);
         return cell;
     }
     
@@ -304,6 +322,8 @@
     UIAlertAction *action = [UIAlertAction actionWithTitle:GCLocalizedString(@"smart_route") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         model.subTitle = GCLocalizedString(@"smart_route");
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        VpnManager.shared.use_global_mode  = false;
+        TenonP2pLib.sharedInstance.SaveGlobalModeFalse;
         [defaultdata setObject:@"smart_route" forKey:@"proxy pattern"];
         [defaultdata synchronize];
         [weakSelf.myTableView reloadData];
@@ -311,6 +331,8 @@
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:GCLocalizedString(@"global_route") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         model.subTitle = GCLocalizedString(@"global_route");
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        VpnManager.shared.use_global_mode  = true;
+        TenonP2pLib.sharedInstance.SaveGlobalModeTrue;
         [defaultdata setObject:@"global_route" forKey:@"proxy pattern"];
         [defaultdata synchronize];
         [weakSelf.myTableView reloadData];

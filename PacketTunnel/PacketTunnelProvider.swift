@@ -25,6 +25,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     
     let queue = DispatchQueue(label: "update_route_and_vpn_nodes1")
     var stop_queue = false;
+    var domainKeyWords = [String]()
+    var checked_use_global_mode: Bool = false;
+    var prev_use_global_mode: Bool = false;
     
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         stop_queue = false
@@ -32,6 +35,165 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         DDLog.add(DDOSLogger.sharedInstance, with: DDLogLevel.info)
         ObserverFactory.currentFactory = DebugObserverFactory()
         NSLog("-------------")
+        
+        domainKeyWords.append("google")
+        domainKeyWords.append("youtube")
+        domainKeyWords.append("facebook")
+        domainKeyWords.append("wikipedia")
+        domainKeyWords.append("twitter")
+        domainKeyWords.append("live")
+        domainKeyWords.append("yahoo")
+        domainKeyWords.append("reddit")
+        domainKeyWords.append("netflix")
+        domainKeyWords.append("blogspot")
+        domainKeyWords.append("bing")
+        domainKeyWords.append("instagram")
+        domainKeyWords.append("zoom")
+        domainKeyWords.append("twitch")
+        domainKeyWords.append("fc2")
+        domainKeyWords.append("xhamster")
+        domainKeyWords.append("tumblr")
+        domainKeyWords.append("pinterest")
+        domainKeyWords.append("amazon")
+        domainKeyWords.append("pornhub")
+        domainKeyWords.append("xvideos")
+        domainKeyWords.append("imgur")
+        domainKeyWords.append("thepiratebay")
+        domainKeyWords.append("whatsapp")
+        domainKeyWords.append("amazonaws")
+        domainKeyWords.append("dailymotion")
+        domainKeyWords.append("medium")
+        domainKeyWords.append("quora")
+        domainKeyWords.append("bbc")
+        domainKeyWords.append("nytimes")
+        domainKeyWords.append("vimeo")
+        domainKeyWords.append("theguardian")
+        domainKeyWords.append("slideshare")
+        domainKeyWords.append("deviantart")
+        domainKeyWords.append("telegram")
+        domainKeyWords.append("soundcloud")
+        domainKeyWords.append("washingtonpost")
+        domainKeyWords.append("slack")
+        domainKeyWords.append("nicovideo")
+        domainKeyWords.append("archive")
+        domainKeyWords.append("scribd")
+        domainKeyWords.append("line")
+        domainKeyWords.append("mega")
+        domainKeyWords.append("xing")
+        domainKeyWords.append("hardsextube")
+        domainKeyWords.append("drtuber")
+        domainKeyWords.append("wikimedia")
+        domainKeyWords.append("bloomberg")
+        domainKeyWords.append("e-hentai")
+        domainKeyWords.append("goodreads")
+        domainKeyWords.append("flickr")
+        domainKeyWords.append("huffpost")
+        domainKeyWords.append("duckduckgo")
+        domainKeyWords.append("wattpad")
+        domainKeyWords.append("spiegel")
+        domainKeyWords.append("independent")
+        domainKeyWords.append("wsj")
+        domainKeyWords.append("Feedly")
+        domainKeyWords.append("yomiuri")
+        domainKeyWords.append("reuters")
+        domainKeyWords.append("PChome")
+        domainKeyWords.append("nikkeibp")
+        domainKeyWords.append("nbcnews")
+        domainKeyWords.append("disqus")
+        domainKeyWords.append("badoo")
+        domainKeyWords.append("exhentai")
+        domainKeyWords.append("eporner")
+        domainKeyWords.append("appledaily")
+        domainKeyWords.append("nintendo")
+        domainKeyWords.append("technorati")
+        domainKeyWords.append("archiveofourown")
+        domainKeyWords.append("pixiv")
+        domainKeyWords.append("viber")
+        domainKeyWords.append("nordvpn")
+        domainKeyWords.append("scmp")
+        domainKeyWords.append("plurk")
+        domainKeyWords.append("economist")
+        domainKeyWords.append("rfi")
+        domainKeyWords.append("change")
+        domainKeyWords.append("smh")
+        domainKeyWords.append("Internet")
+        domainKeyWords.append("voanews")
+        domainKeyWords.append("inoreader")
+        domainKeyWords.append("nbc")
+        domainKeyWords.append("rfa")
+        domainKeyWords.append("pbworks")
+        domainKeyWords.append("straitstimes")
+        domainKeyWords.append("theepochtimes")
+        domainKeyWords.append("moegirl")
+        domainKeyWords.append("sony")
+        domainKeyWords.append("aljazeera")
+        domainKeyWords.append("worldcat")
+        domainKeyWords.append("tapatalk")
+        domainKeyWords.append("hbo")
+        domainKeyWords.append("Flipboard")
+        domainKeyWords.append("wikiquote")
+        domainKeyWords.append("minghui")
+        domainKeyWords.append("ndr")
+        domainKeyWords.append("boxun")
+        domainKeyWords.append("akinator")
+        domainKeyWords.append("wikiversity")
+        domainKeyWords.append("ntdtv")
+        domainKeyWords.append("1688")
+        domainKeyWords.append("Shield")
+        domainKeyWords.append("tvb")
+        domainKeyWords.append("getlantern")
+        domainKeyWords.append("hrw")
+        domainKeyWords.append("wikileaks")
+        domainKeyWords.append("theinitium")
+        domainKeyWords.append("sonymusic")
+        domainKeyWords.append("kadokawa")
+        domainKeyWords.append("shadowsocks")
+        domainKeyWords.append("openvpn")
+        domainKeyWords.append("gab")
+        domainKeyWords.append("allmovie")
+        domainKeyWords.append("amnesty")
+        domainKeyWords.append("rferl")
+        domainKeyWords.append("wikinews")
+        domainKeyWords.append("torproject")
+        domainKeyWords.append("rsf")
+        domainKeyWords.append("tvr")
+        domainKeyWords.append("livestation")
+        domainKeyWords.append("akamai")
+        domainKeyWords.append("greatfire")
+        domainKeyWords.append("falundafa")
+        domainKeyWords.append("dalailama")
+        domainKeyWords.append("americanbar")
+        domainKeyWords.append("freetibet")
+        domainKeyWords.append("tibet")
+        domainKeyWords.append("rri")
+        domainKeyWords.append("sluggn")
+        domainKeyWords.append("citizenpowerforchina")
+        domainKeyWords.append("spotify")
+        domainKeyWords.append("pandora")
+        domainKeyWords.append("imdb")
+        domainKeyWords.append("hulu")
+        domainKeyWords.append("steampowered")
+        domainKeyWords.append("blizzard")
+        domainKeyWords.append("tripadvisor")
+        domainKeyWords.append("airbnb")
+        domainKeyWords.append("ted")
+        domainKeyWords.append("udemy")
+        domainKeyWords.append("coursera")
+        domainKeyWords.append("snapchat")
+        domainKeyWords.append("linkddin")
+        domainKeyWords.append("wikihow")
+        domainKeyWords.append("wikioedia")
+        domainKeyWords.append("ebay")
+        domainKeyWords.append("paypal")
+        domainKeyWords.append("blogger")
+        domainKeyWords.append("wordpress")
+        domainKeyWords.append("pixabay")
+        domainKeyWords.append("nationalgeographic")
+        domainKeyWords.append("smallpdf")
+        domainKeyWords.append("stackoverflow")
+        domainKeyWords.append("github")
+        domainKeyWords.append("digitalocean")
+        domainKeyWords.append("godaddy")
         
         guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else{
             NSLog("[ERROR] No ProtocolConfiguration Found")
@@ -54,6 +216,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let use_smart_route = conf["use_smart_route"] as! Bool
         let route_nodes = conf["route_nodes"] as! String
         let vpn_nodes = conf["vpn_nodes"] as! String
+        let use_global_mode = conf["use_global_mode"] as! Bool
         // Proxy Adapter
         // SSR Httpsimple
         //        let obfuscater = ShadowsocksAdapter.ProtocolObfuscater.HTTPProtocolObfuscater.Factory(hosts:["intl.aliyun.com","cdn.aliyun.com"], customHeader:nil)
@@ -82,6 +245,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         ShadowsocksAdapter.SetPublicKey(pubkey: pubkey)
         ShadowsocksAdapter.ChooseVpnNode()
         
+        self.checked_use_global_mode = true
+        self.prev_use_global_mode = use_global_mode
         
         let cryptor = ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm)
         let ssAdapterFactory = ShadowsocksAdapterFactory(serverHost: ss_adder, serverPort: ss_port, pk: pubkey, m: method1, protocolObfuscaterFactory:obfuscater, cryptorFactory: cryptor, streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
@@ -103,13 +268,30 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                     let vpn_str = conf["vpn_nodes"] as! String
                     ShadowsocksAdapter.SetVpnNodes(tmp_vpn_nodes: vpn_str)
                 }
+                
+                if conf["local_country"] != nil {
+                    let country = conf["local_country"] as! String
+                    ShadowsocksAdapter.SetLocalCountry(l_c: country)
+                }
+                
+                let use_global_mode = conf["use_global_mode"] as! Bool
+                if (self.checked_use_global_mode) {
+                    if (self.prev_use_global_mode != use_global_mode) {
+                        exit(EXIT_FAILURE)
+                    }
+                }
 
-                Thread.sleep(forTimeInterval: 3)
+                Thread.sleep(forTimeInterval: 1)
             }
         }
         
-        let directAdapterFactory = DirectAdapterFactory()
-        
+        let directAdapterFactory:NEKit.AdapterFactory
+        if use_global_mode {
+            directAdapterFactory = ssAdapterFactory
+        } else {
+            directAdapterFactory = DirectAdapterFactory()
+        }
+
         //Get lists from conf
         let yaml_str = conf["ymal_conf"] as!String
         let value = try! Yaml.load(yaml_str)
@@ -157,10 +339,17 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }
         }
         
-        
+        var rule_array : [NEKit.DomainListRule.MatchCriterion] = []
+        for item in domainKeyWords {
+            rule_array.append(DomainListRule.MatchCriterion.keyword(String(item)))
+        }
+
+        UserRules.append(DomainListRule(adapterFactory: ssAdapterFactory, criteria: rule_array))
+
         // Rules
-        UserRules.append(try! IPRangeListRule(adapterFactory: directAdapterFactory, ranges: ["113.17.169.103","113.17.169.105","113.17.169.106", "113.17.169.93", "113.17.169.94", "113.17.169.95"]))
-        let chinaRule = CountryRule(countryCode: "CN", match: true, adapterFactory: ssAdapterFactory)
+        
+        UserRules.append(try! IPRangeListRule(adapterFactory: directAdapterFactory, ranges: ["42.51.39.113","42.51.33.89","42.51.41.173","113.17.169.103","113.17.169.105","113.17.169.106","113.17.169.93","113.17.169.94","113.17.169.95","216.108.227.52","216.108.231.102","216.108.231.103","216.108.231.105","216.108.231.19","3.12.73.217","3.137.186.226","3.22.68.200","3.138.121.98","18.188.190.127"]))
+        let chinaRule = CountryRule(countryCode: local_country, match: true, adapterFactory: directAdapterFactory)
         let unKnowLoc = CountryRule(countryCode: "--", match: true, adapterFactory: ssAdapterFactory)
         let dnsFailRule = DNSFailRule(adapterFactory: ssAdapterFactory)
         

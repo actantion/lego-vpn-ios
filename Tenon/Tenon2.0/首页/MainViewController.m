@@ -632,17 +632,17 @@ extern NSString* GlobalMonitorString;
 -(void)chongBtnClicked
 {
 //    [self.view makeToast:@"充值" duration:2 position:BOTTOM];
-    BOOL bConnect = NO;
-    if (self.isLink == YES) {
-        [self disconnectVpn];
-        bConnect = YES;
-    }
+//    BOOL bConnect = NO;
+//    if (self.isLink == YES) {
+//        [self disconnectVpn];
+//        bConnect = YES;
+//    }
     
     RechargeViewController *nextVC = [[RechargeViewController alloc] init];
     nextVC.backBlock = ^{
-        if (bConnect == YES){
-            [self connectVpn];
-        }
+//        if (bConnect == YES){
+//            [self connectVpn];
+//        }
     };
     [self.navigationController pushViewController:nextVC animated:YES];
 }

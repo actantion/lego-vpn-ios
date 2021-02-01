@@ -44,10 +44,11 @@ enum VPNStatus {
     public var route_nodes: String = ""
     public var ex_route_nodes: String = ""
     public var vpn_nodes: String = ""
-    public var local_country: String = ""
+    @objc public var local_country: String = ""
     @objc public var choosed_country: String = ""
     public var use_smart_route: Bool = true
     public var default_routing_map: Dictionary<String, String> = [:]
+    @objc public var use_global_mode: Bool = false
     
     private var nodes_lock = NSLock()
     
@@ -196,6 +197,7 @@ extension VpnManager{
                         conf["local_country"] = self.local_country as AnyObject?
                         conf["choosed_country"] = self.choosed_country as AnyObject?
                         conf["use_smart_route"] = self.use_smart_route as AnyObject?
+                        conf["use_global_mode"] = self.use_global_mode as AnyObject?
                         do {
                             self.nodes_lock.lock()
                             conf["route_nodes"] = self.route_nodes as AnyObject?
@@ -310,6 +312,7 @@ extension VpnManager{
         conf["route_nodes"] = self.route_nodes as AnyObject?
         conf["vpn_nodes"] = self.vpn_nodes as AnyObject?
         conf["ex_route_nodes"] = self.ex_route_nodes as AnyObject?
+        conf["use_global_mode"] = self.use_global_mode as AnyObject?
                 
         orignConf.providerConfiguration = conf
         manager.protocolConfiguration = orignConf

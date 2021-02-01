@@ -74,10 +74,10 @@
     
     
     UILabel *companyLab = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-160, topH+78, 140, 20)];
-    companyLab.text = @"TenonVPN © 2020";
+    companyLab.text = @"TenonVPN © 2021";
     companyLab.textAlignment = NSTextAlignmentRight;
     companyLab.textColor = kRBColor(154, 162, 161);
-    companyLab.font = [UIFont systemFontOfSize:14];
+    companyLab.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:companyLab];
     
     UIScrollView *textBgView = [[UIScrollView alloc] init];
@@ -94,7 +94,7 @@
     
     UILabel *textLab = [[UILabel alloc] init];
     textLab.textColor = kRBColor(154, 162, 161);
-    textLab.font = [UIFont systemFontOfSize:14];
+    textLab.font = [UIFont systemFontOfSize:16];
     textLab.numberOfLines = 0;
     textLab.lineBreakMode = 1;
     [textBgView addSubview:textLab];

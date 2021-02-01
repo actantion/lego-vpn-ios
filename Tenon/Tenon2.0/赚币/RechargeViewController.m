@@ -341,7 +341,7 @@ extern ViewController *swiftViewController;
 {
     [self addADBgView];
     self.progressView.progress = 0;
-    _loadingTime = 10;
+    _loadingTime = 5;
     self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];

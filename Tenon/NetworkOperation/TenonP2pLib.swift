@@ -72,6 +72,7 @@ class TenonP2pLib : NSObject {
             SavePrivateKey(prikey_in: array[2])
         }
         
+        GetGlobalMode()
         account_id = array[1]
         private_key = array[2]
         CheckVip()
@@ -121,6 +122,21 @@ class TenonP2pLib : NSObject {
     
     func IsVip() -> Bool {
         return is_vip
+    }
+    
+    
+    func GetGlobalMode() {
+        VpnManager.shared.use_global_mode = UserDefaults.standard.bool(forKey: "use_global_mode")
+    }
+    
+    func SaveGlobalModeTrue() {
+        UserDefaults.standard.set(true, forKey: "use_global_mode")
+        VpnManager.shared.use_global_mode = true
+    }
+    
+    func SaveGlobalModeFalse() {
+        UserDefaults.standard.set(false, forKey: "use_global_mode")
+        VpnManager.shared.use_global_mode = false
     }
     
     func PayforVpn() {
