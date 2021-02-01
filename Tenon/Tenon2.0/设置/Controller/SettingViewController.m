@@ -10,12 +10,14 @@
 #import "SettingTableViewCell.h"
 #import "MainViewController.h"
 #import "AppDelegate.h"
+#import "SettingSelectCell.h"
+#import "UISpaceCell.h"
+#import "UITipsCell.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *myTableView;
 @property (nonatomic, strong) UILabel *languageLabel;
-@property (nonatomic, strong) NSArray *titleArray;
-@property (nonatomic, strong) NSArray *urlArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIImageView *downImg;
 @end
 
@@ -52,6 +54,56 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)loadUI{
+    self.dataArray = [[NSMutableArray alloc] init];
+    NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+    NSString *mystr = [defaultdata objectForKey:@"language"];
+    if (!mystr || !mystr.length) {
+        mystr = @"Default";
+    }
+    
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+                                                     BM_cellHeight:@20}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
+                                                         BM_title:GCLocalizedString(@"Join the node"),
+                                                         BM_leading:@(36),
+                                                         BM_titleSize:@(14),
+                                                         BM_cellHeight:@(14),
+                                                         BM_backColor:[UIColor clearColor],
+                                                         BM_titleColor:APP_MAIN_COLOR}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+                                                     BM_cellHeight:@20}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISwitchType),
+                                                         BM_title:GCLocalizedString(@"Language"),
+                                                         BM_subTitle:GCLocalizedString(mystr)
+    }]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+                                                     BM_cellHeight:@10}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:GCLocalizedString(@"Third Node Join"),
+                                                         BM_subTitle:@"https://github.com/tenondvpn/tenonvpn-join"}]];
+    
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:GCLocalizedString(@"TG Group"),
+                                                         BM_subTitle:@"https://t.me/tenonvpn"}]];
+    
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:GCLocalizedString(@"Official website"),
+                                                         BM_subTitle:@"https://www.tenonvpn.net"}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:@"Twitter",
+                                                         BM_subTitle:@"https://twitter.com/tim_swu"}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:@"Facebook",
+                                                         BM_subTitle:@"https://www.facebook.com/TenonVPN"}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:GCLocalizedString(@"Email"),
+                                                         BM_subTitle:@"tenonvpn@gmail.com"}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
+                                                         BM_title:@"Skype",
+                                                         BM_subTitle:@"tenonvpn@outlook.com"}]];
+
+}
 #pragma mark -加载视图
 -(void)initUI
 {
@@ -74,164 +126,85 @@
         make.top.equalTo(aboutLab.mas_bottom).offset(20);
         make.width.mas_equalTo(kWIDTH-72);
     }];
+    [self loadUI];
     
-    textLab.text = [NSString stringWithFormat:@""];
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:textLab.text];
-    NSRange range1 = [[str string] rangeOfString:GCLocalizedString(@"Third Node Join")];
-    NSRange range2 = [[str string] rangeOfString:@"https://github.com/tenondvpn/tenonvpn-join"];
-    [str addAttribute:NSForegroundColorAttributeName value:kRBColor(18, 181, 170) range:range1];
-    [str addAttribute:NSForegroundColorAttributeName value:kRBColor(18, 181, 170) range:range2];
-    [str addAttribute:NSFontAttributeName value:Font_B(18) range:range1];
-    [str addAttribute:NSFontAttributeName value:Font_B(14) range:range2];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 4.0; // 设置行间距
-    paragraphStyle.alignment = NSTextAlignmentJustified; //设置两端对齐显示
-    [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
-    textLab.attributedText = str;
-
-    UIView *oneView = [[UIView alloc] init];
-    oneView.backgroundColor = kRBColor(21, 25, 25);
-    oneView.layer.cornerRadius = 24.0f;
-    oneView.layer.masksToBounds = YES;
-    [self.view addSubview:oneView];
-    [oneView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(20);
-        make.width.mas_equalTo(kWIDTH-40);
-        make.height.mas_equalTo(48);
-        make.top.equalTo(textLab.mas_bottom).offset(20);
-    }];
-    
-    UILabel *lsitLab = [[UILabel alloc] init];
-    lsitLab.text = GCLocalizedString(@"Language");
-    lsitLab.textColor = kRBColor(18, 181, 170);
-    lsitLab.font = Font_B(14);
-    [oneView addSubview:lsitLab];
-    [lsitLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(oneView).offset(24);
-        make.height.mas_equalTo(20);
-        make.centerY.equalTo(oneView);
-    }];
-    
-    _downImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_icon"]];
-    [oneView addSubview:_downImg];
-    [_downImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(24);
-        make.right.equalTo(oneView).offset(-16);
-        make.centerY.equalTo(oneView);
-    }];
-    
-    NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
-//    [defaultdata setObject:@"TenonVPN" forKey:@"language"];
-//    [defaultdata synchronize];
-    NSString *mystr = [defaultdata objectForKey:@"language"];
-    if (!mystr || !mystr.length) {
-        mystr = @"Default";
-    }
-    _languageLabel = [[UILabel alloc] init];
-    _languageLabel.text = GCLocalizedString(mystr);
-    _languageLabel.textColor = kRBColor(154, 162, 161);
-    _languageLabel.font = kFont(14);
-    _languageLabel.textAlignment = NSTextAlignmentRight;
-    [oneView addSubview:_languageLabel];
-    [_languageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(oneView).offset(-52);
-        make.height.mas_equalTo(20);
-        make.centerY.equalTo(oneView);
-    }];
-    
-    UIButton *selectBtn = [[UIButton alloc] init];
-    [selectBtn addTarget:self action:@selector(selectBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [oneView addSubview:selectBtn];
-    [selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(oneView);
-        make.centerY.equalTo(oneView);
-        make.height.mas_equalTo(48);
-        make.width.mas_equalTo(100);
-    }];
-    
-    _titleArray = @[GCLocalizedString(@"Third Node Join"),
-                    GCLocalizedString(@"TG Group"),
-                    GCLocalizedString(@"Official website"),
-                    @"Twitter",
-                    @"Facebook",
-                    GCLocalizedString(@"Email"),
-                    @"Skype"];
-    _urlArray = @[@"https://github.com/tenondvpn/tenonvpn-join",
-                  @"https://t.me/tenonvpn",
-                  @"https://www.tenonvpn.net",
-                  @"https://twitter.com/tim_swu",
-                  @"https://www.facebook.com/TenonVPN",
-                  @"tenonvpn@gmail.com",
-                  @"tenonvpn@outlook.com"];
     _myTableView = [[UITableView alloc] init];
     _myTableView.tableFooterView = [[UIView alloc] init];
     _myTableView.delegate = self;
     _myTableView.dataSource = self;
     _myTableView.backgroundColor = [UIColor clearColor];
-    _myTableView.scrollEnabled = NO;
     _myTableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
-    [_myTableView registerNib:[UINib nibWithNibName:@"SettingTableViewCell" bundle:nil] forCellReuseIdentifier:@"SettingTableViewCell"];
-    _myTableView.estimatedRowHeight = 40;
+    [_myTableView registCell:@"SettingTableViewCell"];
+    [_myTableView registCell:@"SettingSelectCell"];
+    [_myTableView registCell:@"UISpaceCell"];
+    [_myTableView registCell:@"UITipsCell"];
+    
+    
     [self.view addSubview:_myTableView];
     [_myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.width.mas_equalTo(kWIDTH);
-        make.top.equalTo(oneView.mas_bottom).offset(16);
-        make.height.mas_equalTo(300);
+        make.top.equalTo(aboutLab.mas_bottom).offset(16);
+        make.height.mas_equalTo(kHEIGHT - aboutLab.bottom - 16);
     }];
     
-//    UIButton *twoBtn = [[UIButton alloc] init];
-//    twoBtn.layer.cornerRadius = 22.0f;
-//    twoBtn.titleLabel.font = Font_B(14);
-//    twoBtn.backgroundColor = kRBColor(18, 181, 170);
-//    [twoBtn setTitleColor:kRBColor(0, 41, 51) forState:0];
-//    [twoBtn setTitle:GCLocalizedString(@"Upgrade") forState:0];
-//    [twoBtn addTarget:self action:@selector(updateBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:twoBtn];
-//    [twoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_myTableView.mas_bottom).offset(24);
-//        make.height.mas_equalTo(44);
-//        make.left.equalTo(self.view).offset(20);
-//        make.right.equalTo(self.view.mas_right).offset(-20);
-//    }];
 }
 
 #pragma mark - UITableViewDelegate UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _titleArray.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.cellOneLab.text = _titleArray[indexPath.row];
-    cell.cellTwoLab.text = _urlArray[indexPath.row];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UIApplication *application = [UIApplication sharedApplication];
-    NSURL *URL = [NSURL URLWithString:_urlArray[indexPath.row]];
-    if (@available(iOS 10.0, *)) {
-        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
-            NSLog(@"Open %@: %d",self->_urlArray[indexPath.row],success);
-        }];
-    } else {
-        // Fallback on earlier versions
-        BOOL success = [application openURL:URL];
-        NSLog(@"Open %@: %d",_urlArray[indexPath.row],success);
+    UIBaseModel* model = self.dataArray[indexPath.row];
+    if ([model.type  isEqual: @(UISwitchType)]) {
+        SettingSelectCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SettingSelectCell"];
+        [cell setModel:model];
+        return cell;
+    }else if ([model.type isEqual:@(UITextType)]){
+        SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.cellOneLab.text = model.title;
+        cell.cellTwoLab.text = model.subTitle;
+        return cell;
+    }else if ([model.type isEqual:@(UISpaceType)]){
+        UISpaceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UISpaceCell"];
+        cell.constraintCellHeight.constant = model.cellHeight.floatValue;
+        cell.backView.backgroundColor = UIColor.clearColor;
+        return cell;
+    }else if ([model.type isEqual:@(UITipsType)]){
+        UITipsCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITipsCell"];
+        [cell setModel:model];
+        return cell;
+    }else{
+        SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.cellOneLab.text = model.title;
+        cell.cellTwoLab.text = model.subTitle;
+        return cell;
     }
     
-    [self.view makeToast:[NSString stringWithFormat:@"跳转%@",_urlArray[indexPath.row]] duration:2 position:BOTTOM];
 }
+
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UIApplication *application = [UIApplication sharedApplication];
+//    NSURL *URL = [NSURL URLWithString:_urlArray[indexPath.row]];
+//    if (@available(iOS 10.0, *)) {
+//        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+//            NSLog(@"Open %@: %d",self->_urlArray[indexPath.row],success);
+//        }];
+//    } else {
+//        // Fallback on earlier versions
+//        BOOL success = [application openURL:URL];
+//        NSLog(@"Open %@: %d",_urlArray[indexPath.row],success);
+//    }
+//
+//    [self.view makeToast:[NSString stringWithFormat:@"跳转%@",_urlArray[indexPath.row]] duration:2 position:BOTTOM];
+//}
 
 -(void)updateBtnClicked
 {

@@ -11,7 +11,6 @@
 #import "ADViewController.h"
 #import "TenonVPN-Swift.h"
 #import "getTenonCell.h"
-#import "UITipsCell.h"
 #import "UISpaceCell.h"
 #import "TenonHeadCell.h"
 #import "TSShareHelper.h"
@@ -79,8 +78,7 @@ extern ViewController *swiftViewController;
                                                      BM_mark:GCLocalizedString(@"Copy")
     }]];
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
-                                                     BM_cellHeight:@10
-    }]];
+                                                     BM_cellHeight:@10}]];
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
                                                      BM_Index:@"2",
                                                      BM_title:GCLocalizedString(@"Method two"),
