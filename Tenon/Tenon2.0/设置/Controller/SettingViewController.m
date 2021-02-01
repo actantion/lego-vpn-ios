@@ -16,9 +16,7 @@
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *myTableView;
-@property (nonatomic, strong) UILabel *languageLabel;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, strong) UIImageView *downImg;
 @end
 
 @implementation SettingViewController
@@ -57,15 +55,19 @@
 - (void)loadUI{
     self.dataArray = [[NSMutableArray alloc] init];
     NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
-    NSString *mystr = [defaultdata objectForKey:@"language"];
-    if (!mystr || !mystr.length) {
-        mystr = @"Default";
+    NSString *language = [defaultdata objectForKey:@"language"];
+    NSString *proxy = [defaultdata objectForKey:@"proxy pattern"];
+    if (language.length == 0) {
+        language = @"Default";
+    }
+    if (proxy.length == 0) {
+        proxy = @"Default";
     }
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@20}]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
-                                                         BM_title:GCLocalizedString(@"Join the node"),
+                                                         BM_title:GCLocalizedString(@"Join Nodes"),
                                                          BM_leading:@(36),
                                                          BM_titleSize:@(14),
                                                          BM_cellHeight:@(14),
@@ -73,15 +75,38 @@
                                                          BM_titleColor:APP_MAIN_COLOR}]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@20}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
+                                                         BM_title:GCLocalizedString(@"Third-party node access, one-click startup, and access to the decentralized Tenon VPN network to provide services and routing"),
+                                                         BM_leading:@(36),
+                                                         BM_titleSize:@(14),
+                                                         BM_cellHeight:@(14),
+                                                         BM_backColor:[UIColor clearColor],
+                                                         BM_titleColor:MyBgLightGrayColor}]];
+    
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
+                                                         BM_title:@"https://github.com/tenondvpn/tenonvpn-join",
+                                                         BM_Index:@"1",
+                                                         BM_leading:@(36),
+                                                         BM_titleSize:@(14),
+                                                         BM_cellHeight:@(14),
+                                                         BM_backColor:[UIColor clearColor],
+                                                         BM_titleColor:APP_MAIN_COLOR}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+                                                     BM_cellHeight:@30}]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISwitchType),
+                                                         BM_Index:@"2",
                                                          BM_title:GCLocalizedString(@"Language"),
-                                                         BM_subTitle:GCLocalizedString(mystr)
+                                                         BM_subTitle:GCLocalizedString(language)
     }]];
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
-                                                     BM_cellHeight:@10}]];
-    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
-                                                         BM_title:GCLocalizedString(@"Third Node Join"),
-                                                         BM_subTitle:@"https://github.com/tenondvpn/tenonvpn-join"}]];
+                                                     BM_cellHeight:@20}]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISwitchType),
+                                                         BM_Index:@"3",
+                                                         BM_title:GCLocalizedString(@"proxy pattern"),
+                                                         BM_subTitle:GCLocalizedString(proxy)
+    }]];
+    [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+                                                     BM_cellHeight:@30}]];
     
     [self.dataArray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITextType),
                                                          BM_title:GCLocalizedString(@"TG Group"),
@@ -139,7 +164,6 @@
     [_myTableView registCell:@"UISpaceCell"];
     [_myTableView registCell:@"UITipsCell"];
     
-    
     [self.view addSubview:_myTableView];
     [_myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
@@ -161,7 +185,17 @@
     UIBaseModel* model = self.dataArray[indexPath.row];
     if ([model.type  isEqual: @(UISwitchType)]) {
         SettingSelectCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SettingSelectCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setModel:model];
+        cell.clickBlock = ^{
+            if ([model.index intValue] == 2) {
+                // 选择语言
+                [self selectBtnClicked];
+            }else if ([model.index intValue] == 3) {
+                // 代理模式
+                [self selectBtnProxy];
+            }
+        };
         return cell;
     }else if ([model.type isEqual:@(UITextType)]){
         SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell"];
@@ -171,11 +205,13 @@
         return cell;
     }else if ([model.type isEqual:@(UISpaceType)]){
         UISpaceCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UISpaceCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.constraintCellHeight.constant = model.cellHeight.floatValue;
         cell.backView.backgroundColor = UIColor.clearColor;
         return cell;
     }else if ([model.type isEqual:@(UITipsType)]){
         UITipsCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITipsCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setModel:model];
         return cell;
     }else{
@@ -189,22 +225,20 @@
 }
 
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UIApplication *application = [UIApplication sharedApplication];
-//    NSURL *URL = [NSURL URLWithString:_urlArray[indexPath.row]];
-//    if (@available(iOS 10.0, *)) {
-//        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
-//            NSLog(@"Open %@: %d",self->_urlArray[indexPath.row],success);
-//        }];
-//    } else {
-//        // Fallback on earlier versions
-//        BOOL success = [application openURL:URL];
-//        NSLog(@"Open %@: %d",_urlArray[indexPath.row],success);
-//    }
-//
-//    [self.view makeToast:[NSString stringWithFormat:@"跳转%@",_urlArray[indexPath.row]] duration:2 position:BOTTOM];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIBaseModel* model = self.dataArray[indexPath.row];
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:[model.index intValue] == 1 ? model.title:model.subTitle];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+    }
+}
 
 -(void)updateBtnClicked
 {
@@ -213,41 +247,78 @@
 
 -(void)selectBtnClicked
 {
-    WS(weakSelf);
+    UIBaseModel* model = nil;
+    for (UIBaseModel* tempModel in self.dataArray) {
+        if ([tempModel.type isEqual:@(UISwitchType)] && [tempModel.index intValue] == 2) {
+            model = tempModel;
+        }
+    }
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:GCLocalizedString(@"Language") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
+    
     UIAlertAction *action = [UIAlertAction actionWithTitle:GCLocalizedString(@"中文") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        weakSelf.languageLabel.text = GCLocalizedString(@"中文");
+        model.subTitle = GCLocalizedString(@"中文");
         [NSBundle setLanguage:@"zh-Hans-CN"];
-        [self resetRootViewController];
-        self->_languageLabel.text = @"中文";
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
         [defaultdata setObject:@"中文" forKey:@"language"];
         [defaultdata synchronize];
+        [self resetRootViewController];
     }];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"English" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        weakSelf.languageLabel.text = @"English";
+        model.subTitle = @"English";
         [NSBundle setLanguage:@"en"];
-        [self resetRootViewController];
-        self->_languageLabel.text = @"English";
+        
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
         [defaultdata setObject:@"English" forKey:@"language"];
         [defaultdata synchronize];
+        [self resetRootViewController];
     }];
     UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"한글" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        weakSelf.languageLabel.text = @"한글";
+        model.subTitle = @"한글";
         [NSBundle setLanguage:@"en"];
-        [self resetRootViewController];
-        self->_languageLabel.text = @"한글";
+        
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
         [defaultdata setObject:@"한글" forKey:@"language"];
         [defaultdata synchronize];
+        [self resetRootViewController];
     }];
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:GCLocalizedString(@"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alert addAction:action];
     [alert addAction:action2];
     [alert addAction:action3];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)selectBtnProxy
+{
+    UIBaseModel* model = nil;
+    for (UIBaseModel* tempModel in self.dataArray) {
+        if ([tempModel.type isEqual:@(UISwitchType)] && [tempModel.index intValue] == 3) {
+            model = tempModel;
+        }
+    }
+    WS(weakSelf);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:GCLocalizedString(@"proxy pattern") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:GCLocalizedString(@"smart_route") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        model.subTitle = GCLocalizedString(@"smart_route");
+        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        [defaultdata setObject:@"smart_route" forKey:@"proxy pattern"];
+        [defaultdata synchronize];
+        [weakSelf.myTableView reloadData];
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:GCLocalizedString(@"global_route") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        model.subTitle = GCLocalizedString(@"global_route");
+        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+        [defaultdata setObject:@"global_route" forKey:@"proxy pattern"];
+        [defaultdata synchronize];
+        [weakSelf.myTableView reloadData];
+    }];
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:GCLocalizedString(@"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alert addAction:action];
+    [alert addAction:action2];
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -260,7 +331,7 @@
         [view removeFromSuperview];
     }
     [self viewDidLoad];
-  
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadLanguage" object:nil];
 }
 @end
