@@ -101,7 +101,7 @@
 "Set up to 3 private keys."="Set up to 3 private keys.";
 "after success reset private key, must restart program."="after success reset private key, must restart program.";
 "left_days"=" DAYS";
-""="";
+"success, now should reconnet vpn."="success, now should reconnet vpn.";
 ""="";
 ""="";
 ""="";

@@ -58,11 +58,15 @@ enum VPNStatus {
     let queue = DispatchQueue(label: "update_route_and_vpn_nodes")
     var stop_queue = false;
     
-    fileprivate(set) var vpnStatus = VPNStatus.off {
+    public fileprivate(set) var vpnStatus = VPNStatus.off {
         didSet {
             print("reloadVPNStatus = 网络通知")
             NotificationCenter.default.post(name: Notification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
         }
+    }
+    
+    public func setVpnStatusOff() {
+        self.vpnStatus = .off
     }
     
     public func vpn_init() {
@@ -185,7 +189,6 @@ extension VpnManager{
             print("TTTT 3 10")
             self.queue.async {
                 while (!self.stop_queue) {
-                    print("TTTT 3 12")
                     if VpnManager.shared.vpnStatus == .on {
                         var conf = [String:AnyObject]()
                         conf["ss_address"] = self.ip_address as AnyObject?
@@ -227,8 +230,7 @@ extension VpnManager{
                                     
                     }
                     
-                    print("TTTT 3 11")
-                    sleep(3)
+                    sleep(1)
                 }
             }
         }

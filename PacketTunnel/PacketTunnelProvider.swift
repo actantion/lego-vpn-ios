@@ -274,12 +274,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                     ShadowsocksAdapter.SetLocalCountry(l_c: country)
                 }
                 
-                let use_global_mode = conf["use_global_mode"] as! Bool
-                if (self.checked_use_global_mode) {
-                    if (self.prev_use_global_mode != use_global_mode) {
-                        exit(EXIT_FAILURE)
-                    }
-                }
+//                let use_global_mode = conf["use_global_mode"] as! Bool
+//                if (self.checked_use_global_mode) {
+//                    if (self.prev_use_global_mode != use_global_mode) {
+//                        exit(EXIT_FAILURE)
+//                    }
+//                }
 
                 Thread.sleep(forTimeInterval: 1)
             }

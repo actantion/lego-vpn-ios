@@ -324,16 +324,26 @@
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
         VpnManager.shared.use_global_mode  = false;
         TenonP2pLib.sharedInstance.SaveGlobalModeFalse;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                selector:@selector(receiveTestNotification:)
+                name:@"TestNotification"
+                object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kSetingProxyServiceVPNStatusNotification" object:nil];
+        //NotificationCenter.default.post(name: Notification.Name(rawValue: "kProxyServiceVPNStatusNotification"), object: nil)
         [defaultdata setObject:@"smart_route" forKey:@"proxy pattern"];
         [defaultdata synchronize];
         [weakSelf.myTableView reloadData];
+        [self.view makeToast:GCLocalizedString(@"success, now should reconnet vpn.") duration:2 position:BOTTOM];
+        
     }];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:GCLocalizedString(@"global_route") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         model.subTitle = GCLocalizedString(@"global_route");
         NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
         VpnManager.shared.use_global_mode  = true;
         TenonP2pLib.sharedInstance.SaveGlobalModeTrue;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kSetingProxyServiceVPNStatusNotification" object:nil];
         [defaultdata setObject:@"global_route" forKey:@"proxy pattern"];
+        [self.view makeToast:GCLocalizedString(@"success, now should reconnet vpn.") duration:2 position:BOTTOM];
         [defaultdata synchronize];
         [weakSelf.myTableView reloadData];
     }];

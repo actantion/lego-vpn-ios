@@ -151,7 +151,6 @@ extern ViewController *swiftViewController;
         
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
                                                          BM_dataArray:@[GCLocalizedString(@"Transaction time"),GCLocalizedString(@"Type"),GCLocalizedString(@"volume of trade"),GCLocalizedString(@"Balance")]}]];
-        NSLog(@"array = %@",array);
         NSInteger idx = 0;
         for (NSString* value in array) {
             NSMutableArray* dataArray = [value componentsSeparatedByString:@","];

@@ -20,6 +20,7 @@
 #import "libp2p/libp2p.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "HomeGuideView.h"
+
 long prevAdViewTm = 0;
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
@@ -70,6 +71,7 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) GADBannerView *bannerView;
 @property (nonatomic, assign) BOOL bAdLoaded;
 @property (nonatomic, strong) NSTimer * timer;
+
 @end
 
 @implementation MainViewController
@@ -145,6 +147,7 @@ extern NSString* GlobalMonitorString;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
     
 }
+
 - (void)showAdsTimer{
     long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
     if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000) {
@@ -156,14 +159,27 @@ extern NSString* GlobalMonitorString;
     _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
     _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
 }
+
 - (void)reloadVPNStatus{
+    printf("DDDDDDDD get vpn status: %d\n", swiftViewController.user_started_vpn);
     if (swiftViewController.user_started_vpn == true) {
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+        
+        self.loadingView.hidden = YES;
+        [self.loadingView removeFromSuperview];
+        self.isLink = true;
+        _loadingTime = 0;
         NSLog(@"网络状态变更状态- VPN开启");
     }else{
-        NSLog(@"网络状态变更状态- VPN关闭");
-        [self disconnectVpn];
+//        NSLog(@"网络状态变更状态- VPN关闭");
+        _isLink = false;
     }
+    [self refreshLinkView];
 }
+
 -(void)reloadLanguage
 {
     for(UIView *view in [self.view subviews])
@@ -1100,16 +1116,16 @@ extern NSString* GlobalMonitorString;
 -(void)getCodeTime
 {
     if (swiftViewController.user_started_vpn) {
-        if (self.codeTimer != nil) {
-          [self.codeTimer invalidate];
-          self.codeTimer = nil;
-        }
-        
-        self.loadingView.hidden = YES;
-        [self.loadingView removeFromSuperview];
-        self.isLink = true;
-        [self refreshLinkView];
-        _loadingTime = 0;
+//        if (self.codeTimer != nil) {
+//          [self.codeTimer invalidate];
+//          self.codeTimer = nil;
+//        }
+//
+//        self.loadingView.hidden = YES;
+//        [self.loadingView removeFromSuperview];
+//        self.isLink = true;
+//        [self refreshLinkView];
+//        _loadingTime = 0;
     }
     _loadingTime -= 1;
     if(_loadingTime > 0) {

@@ -101,7 +101,7 @@
 "Set up to 3 private keys."="最多更换三次私钥.";
 "after success reset private key, must restart program."="私钥设置成功，需要重启!";
 "left_days"=" 天后到期";
-""="";
+"success, now should reconnet vpn."="设置成功，请重连VPN.";
 ""="";
 ""="";
 ""="";

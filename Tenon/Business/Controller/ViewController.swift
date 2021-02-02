@@ -113,6 +113,7 @@ extension String{
         print("time4: " , (time4 - time3));
         VpnManager.shared.local_country = local_country
         NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged), name: NSNotification.Name(rawValue: "kSetingProxyServiceVPNStatusNotification"), object: nil)
         for _ in countryCode {
             countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
         }
@@ -471,6 +472,10 @@ extension String{
             }).resume()
             usleep(50000)
         }
+    }
+    
+    @objc func onSetingVPNStatusChanged() {
+        VpnManager.shared.disconnect()
     }
     
     @objc func onVPNStatusChanged(){
