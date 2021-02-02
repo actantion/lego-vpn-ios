@@ -150,7 +150,7 @@ extern NSString* GlobalMonitorString;
 
 - (void)showAdsTimer{
     long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000) {
+    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && !TenonP2pLib.sharedInstance.IsVip) {
         prevAdViewTm = nowAdViewTm;
         [self.rewardedAd presentFromRootViewController:self delegate:self];
     }
@@ -1097,6 +1097,10 @@ extern NSString* GlobalMonitorString;
 
 -(void)addtagBtnClicked
 {
+    if (TenonP2pLib.sharedInstance.IsVip) {
+        return;
+    }
+    
     [self addADBgView];
     self.progressView.progress = 0;
     _loadingTime = 5;

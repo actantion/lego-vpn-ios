@@ -197,7 +197,7 @@ extern ViewController *swiftViewController;
     }
     
     long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing) {
+    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing && !TenonP2pLib.sharedInstance.IsVip) {
         prevAdViewTm = nowAdViewTm;
         self.bIsShowAd = YES;
         [self.rewardedAd presentFromRootViewController:self delegate:self];
@@ -215,7 +215,7 @@ extern ViewController *swiftViewController;
 {
     if (self.bIsShowAd == NO) {
         long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-        if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing) {
+        if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing && !TenonP2pLib.sharedInstance.IsVip) {
             prevAdViewTm = nowAdViewTm;
             self.bIsShowAd = YES;
             [self.rewardedAd presentFromRootViewController:self delegate:self];
