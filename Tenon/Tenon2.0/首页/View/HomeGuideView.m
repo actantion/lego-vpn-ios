@@ -45,7 +45,7 @@
     NSString *language = [defaultdata objectForKey:@"language"];
     
     CGFloat width = 0;
-    if (![language isEqualToString:@"中文"]) {
+    if (![language isEqualToString:@"中文"] && language.length != 0) {
         width = 50;
     }
     self.imagePop.width = 100 + width;

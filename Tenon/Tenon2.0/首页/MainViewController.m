@@ -322,17 +322,21 @@ extern NSString* GlobalMonitorString;
         NSString* tag = [defaluts objectForKey:@"FIRST_ENTER_APP"];
         NSString* click = [defaluts objectForKey:@"CLICK_SETTING"];
         if (tag == nil) {
+            CGRect rect = CGRectMake(20, top_H, 50, 50);
+            HomeGuideView* view = [[HomeGuideView alloc] nib];
+            [view show:self withRect:rect];
+            
             TenonProtocolView* vc = [NSBundle.mainBundle loadNibNamed:@"TenonProtocolView" owner:self options:nil][0];
             [self.view addSubview:vc];
             [vc mas_makeConstraints:^(MASConstraintMaker *make) {
                 [make.edges setInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
             }];
-        }
-        if (click == nil) {
+        }else if (click == nil){
             CGRect rect = CGRectMake(20, top_H, 50, 50);
             HomeGuideView* view = [[HomeGuideView alloc] nib];
             [view show:self withRect:rect];
         }
+        
     });
     
     arrayOne = @[GCLocalizedString(@"United States"),
