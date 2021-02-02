@@ -279,9 +279,7 @@ extern ViewController *swiftViewController;
     if (self.backBlock) {
         self.backBlock();
     }
-    if (self.timer) {
-        [self.timer invalidate];
-    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark -加载视图
@@ -502,6 +500,9 @@ extern ViewController *swiftViewController;
 {
     [super viewDidDisappear:animated];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    if (self.timer) {
+        [self.timer invalidate];
+    }
 }
 
 - (void)PaySuccess{

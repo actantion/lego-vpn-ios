@@ -21,6 +21,8 @@
 		18F3C64C2293D7F800D79C4A /* freeWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 18F3C6412293D7F800D79C4A /* freeWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		18F3C6522293E40400D79C4A /* NEKitRule.conf in Resources */ = {isa = PBXBuildFile; fileRef = 18E9149B2267220B005E6027 /* NEKitRule.conf */; };
 		5DA1BE6BD0C526BF119CCCE7 /* Pods_PacketTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */; };
+		847143C925C9246200D58BE6 /* HomeGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847143C825C9246200D58BE6 /* HomeGuideView.m */; };
+		847143CD25C9247300D58BE6 /* HomeGuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847143CC25C9247300D58BE6 /* HomeGuideView.xib */; };
 		8482CD9D25C7F415007C256E /* SettingSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8482CD9B25C7F415007C256E /* SettingSelectCell.m */; };
 		8482CD9E25C7F415007C256E /* SettingSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8482CD9C25C7F415007C256E /* SettingSelectCell.xib */; };
 		849CEE9725B90EC1005FDECD /* TenonProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849CEE9525B90EC1005FDECD /* TenonProtocolView.swift */; };
@@ -240,6 +242,9 @@
 		2F2DE645899F3ED7E129742A /* Pods-PacketTunnel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.debug.xcconfig"; path = "Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.debug.xcconfig"; sourceTree = "<group>"; };
 		4B0BC1E9EDCB1216E4A46B87 /* Pods-freeWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.release.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.release.xcconfig"; sourceTree = "<group>"; };
 		807D47F7956E953C8F94626F /* Pods-freeWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-freeWidget.debug.xcconfig"; path = "Target Support Files/Pods-freeWidget/Pods-freeWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		847143C725C9246200D58BE6 /* HomeGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeGuideView.h; sourceTree = "<group>"; };
+		847143C825C9246200D58BE6 /* HomeGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeGuideView.m; sourceTree = "<group>"; };
+		847143CC25C9247300D58BE6 /* HomeGuideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGuideView.xib; sourceTree = "<group>"; };
 		8482CD9A25C7F415007C256E /* SettingSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingSelectCell.h; sourceTree = "<group>"; };
 		8482CD9B25C7F415007C256E /* SettingSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingSelectCell.m; sourceTree = "<group>"; };
 		8482CD9C25C7F415007C256E /* SettingSelectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSelectCell.xib; sourceTree = "<group>"; };
@@ -565,6 +570,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		847143C625C9242C00D58BE6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				847143C725C9246200D58BE6 /* HomeGuideView.h */,
+				847143C825C9246200D58BE6 /* HomeGuideView.m */,
+				847143CC25C9247300D58BE6 /* HomeGuideView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		84A09FDF259037D6005F0253 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +749,7 @@
 		F656DFAB257E512000791518 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				847143C625C9242C00D58BE6 /* View */,
 				18E914202266C7B4005E6027 /* Main.storyboard */,
 				85F19850257BFDC700E32107 /* AppDelegate.h */,
 				85F1984F257BFDC600E32107 /* AppDelegate.m */,
@@ -1152,6 +1168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847143CD25C9247300D58BE6 /* HomeGuideView.xib in Resources */,
 				D316BC2923224F24008C8FD3 /* CountryTableViewCell.xib in Resources */,
 				D3204B5623261E5D002ECB69 /* AccountSetTableViewCell.xib in Resources */,
 				F656E077257E579800791518 /* UILabelButtonCell.xib in Resources */,
@@ -1364,6 +1381,7 @@
 				F656E032257E545700791518 /* UIImage+TOO.m in Sources */,
 				F656DF93257E506700791518 /* SettingViewController.m in Sources */,
 				F656DF96257E506700791518 /* RBProgressView.m in Sources */,
+				847143C925C9246200D58BE6 /* HomeGuideView.m in Sources */,
 				F656E02B257E545700791518 /* UITextView+Placeholder.m in Sources */,
 				F656E069257E579800791518 /* UISpaceCell.m in Sources */,
 				F656E079257E579800791518 /* UIVerificationCodeCell.m in Sources */,

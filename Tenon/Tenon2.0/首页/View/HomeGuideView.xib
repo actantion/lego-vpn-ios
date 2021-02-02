@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HomeGuideView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxT-x8-bfT">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYj-sB-nGg">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <connections>
+                                <action selector="clickHidden:" destination="iN0-l3-epB" eventType="touchUpInside" id="3nm-or-RSP"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="ZYj-sB-nGg" secondAttribute="trailing" id="4xx-pl-W6y"/>
+                        <constraint firstItem="ZYj-sB-nGg" firstAttribute="top" secondItem="oxT-x8-bfT" secondAttribute="top" id="CYV-RL-AUt"/>
+                        <constraint firstItem="ZYj-sB-nGg" firstAttribute="leading" secondItem="oxT-x8-bfT" secondAttribute="leading" id="FOb-cX-Ee1"/>
+                        <constraint firstAttribute="bottom" secondItem="ZYj-sB-nGg" secondAttribute="bottom" id="Zh0-Tn-iSl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="oxT-x8-bfT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FVi-ge-gsE"/>
+                <constraint firstItem="oxT-x8-bfT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Vrp-jx-VSx"/>
+                <constraint firstAttribute="bottom" secondItem="oxT-x8-bfT" secondAttribute="bottom" id="vkQ-fH-5xi"/>
+                <constraint firstItem="oxT-x8-bfT" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="zHL-hm-OcD"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="94.419642857142847"/>
+        </view>
+    </objects>
+</document>

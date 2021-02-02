@@ -19,7 +19,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "libp2p/libp2p.h"
 #import <CommonCrypto/CommonDigest.h>
-
+#import "HomeGuideView.h"
 long prevAdViewTm = 0;
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
@@ -140,8 +140,7 @@ extern NSString* GlobalMonitorString;
     [self initUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
-    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
-    NSLog(@"locale = %@",locale);
+    
 }
 - (void)showAdsTimer{
     long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
@@ -290,12 +289,18 @@ extern NSString* GlobalMonitorString;
         }
         NSUserDefaults* defaluts = [NSUserDefaults standardUserDefaults];
         NSString* tag = [defaluts objectForKey:@"FIRST_ENTER_APP"];
+        NSString* click = [defaluts objectForKey:@"CLICK_SETTING"];
         if (tag == nil) {
             TenonProtocolView* vc = [NSBundle.mainBundle loadNibNamed:@"TenonProtocolView" owner:self options:nil][0];
             [self.view addSubview:vc];
             [vc mas_makeConstraints:^(MASConstraintMaker *make) {
                 [make.edges setInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
             }];
+        }
+        if (click == nil) {
+            CGRect rect = CGRectMake(20, top_H, 50, 50);
+            HomeGuideView* view = [[HomeGuideView alloc] nib];
+            [view show:self withRect:rect];
         }
     });
     
@@ -417,6 +422,9 @@ extern NSString* GlobalMonitorString;
 -(void)editBtnClicked
 {
 //    [self.view makeToast:@"编辑" duration:2 position:BOTTOM];
+    NSUserDefaults* defaluts = [NSUserDefaults standardUserDefaults];
+    [defaluts setObject:@"CLICK_SETTING" forKey:@"CLICK_SETTING"];
+    [defaluts synchronize];
     SettingViewController *nextVC = [[SettingViewController alloc] init];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
