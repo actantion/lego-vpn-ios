@@ -24,48 +24,9 @@ extension String{
     }
 }
 
-@objc class ViewController: BaseViewController,SKProductsRequestDelegate,SKPaymentTransactionObserver{
-//    @IBOutlet weak var vwSettingDesc: UIView!
-//    @IBOutlet weak var tvSetting: UITextView!
-//    //    @IBOutlet weak var btnChangePK: UIButton!
-//    @IBOutlet weak var tvInstruction: UITextView!
-//    @IBOutlet weak var vwCircleBack: CircleProgress!
-//    @IBOutlet weak var lbAccountAddress: UILabel!
-////    @IBOutlet weak var lbLego: UILabel!
-////    @IBOutlet weak var lbDolor: UILabel!
-//    @IBOutlet weak var imgConnect: UIImageView!
-//    @IBOutlet weak var lbConnect: UILabel!
-//    @IBOutlet weak var vwBackHub: CircleProgress!
-//    @IBOutlet weak var btnAccount: UIButton!
-//    @IBOutlet weak var btnConnect: UIButton!
-//    @IBOutlet weak var btnChoseCountry: UIButton!
-//    @IBOutlet weak var imgCountryIcon: UIImageView!
-//    @IBOutlet weak var lbNodes: UILabel!
-//    @IBOutlet weak var smartRoute: UISwitch!
-//    @IBOutlet weak var instructionView: UIView!
-//    @IBOutlet weak var exitButton: UIButton!
-//    @IBOutlet var exitBtn: UIButton!
-//    @IBOutlet weak var btnBuyTenon: UIButton!
-    //    @IBOutlet weak var btnUpgrade: UIButton!
-    
-    
-    let productId = "a4d599c18b9943de8d5bc020f0b88fc7"
-    var payWay:Int = 0
-    var payAmount:Int!
-    var isHub:Bool = false
-    var popMenu:FWPopMenu!
-    var isClick:Bool = false
-    var timer:Timer!
-    var isNetChange:Bool = false
+@objc class ViewController: BaseViewController{
     @objc public var choosed_country:String!
     var balance:UInt64!
-    var Dolor:Double!
-    
-    var getTenonView:TenonGetView!
-    var popUpgradeView:FWUpgradeView!
-    var popPKPopView:FWOperPKView!
-    var popBottomView:FWBottomPopView!
-    
     var local_country: String = ""
     @objc public var local_private_key: String = ""
     @objc public var local_account_id: String = ""
@@ -74,38 +35,10 @@ extension String{
     var iCon:[String] = ["us", "sg","de","fr", "nl", "kr", "jp", "ca","au","hk", "in", "gb", "cn"]
     var defaultCountry:[String] = ["US", "IN","CA","DE","AU"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
-    var transcationList = [TranscationModel]()
-    var payModelList = [payModel]()
-    var clickToExit = false
-    
     private var old_vpn_ip: String = ""
-    private var check_vip_times: Int = 0
-    
-    let kCurrentVersion = "1.0.5"
-    
     private var now_connect_status = 0
-    
     @objc public var user_started_vpn: Bool = false
-    private var sleepBacked = false;
-    
-    
     @objc public static var global_test_str: String = "";
-    var bannerView: GADBannerView!
-    
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        SKPaymentQueue.default().add(self)
-//        self.btnConnect.layer.cornerRadius = self.btnConnect.frame.width/2
-//        self.vwCircleBack.layer.cornerRadius = self.vwCircleBack.width/2
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        SKPaymentQueue.default().remove(self)
-    }
     
     @objc public func ResetPrivateKey(_ ss: String) -> Int {
         if ss == TenonP2pLib.sharedInstance.private_key {
@@ -127,26 +60,6 @@ extension String{
         VpnManager.shared.disconnect()
         return 0
     }
-    func addBannerViewToView(_ bannerView: GADBannerView) {
-     bannerView.translatesAutoresizingMaskIntoConstraints = false
-     view.addSubview(bannerView)
-     view.addConstraints(
-       [NSLayoutConstraint(item: bannerView,
-                           attribute: .bottom,
-                           relatedBy: .equal,
-                           toItem: bottomLayoutGuide,
-                           attribute: .top,
-                           multiplier: 1,
-                           constant: 0),
-        NSLayoutConstraint(item: bannerView,
-                           attribute: .centerX,
-                           relatedBy: .equal,
-                           toItem: view,
-                           attribute: .centerX,
-                           multiplier: 1,
-                           constant: 0)
-       ])
-    }
     
     @objc func InitP2p() -> Int {
         let bTime = Date().timeIntervalSince1970
@@ -161,12 +74,10 @@ extension String{
 
         let time1 = Date().timeIntervalSince1970
         print("time1: " , (time1 - bTime));
-        //ViewController.global_test_str = String(format:"%.2f", time1 - bTime) + ":";
         let res = TenonP2pLib.sharedInstance.InitP2pNetwork("0.0.0.0", 7981)
         print("init network res: \(res)")
         let time2 = Date().timeIntervalSince1970
         print("time2: " , (time2 - time1));
-        //ViewController.global_test_str += String(format:"%.2f", time2 - time1) + ":";
         if (res.local_country.isEmpty) {
             let alertController = UIAlertController(title: "error",
                             message: "Network invalid, please retry!", preferredStyle: .alert)
@@ -187,7 +98,6 @@ extension String{
         local_account_id = res.account_id as String
         let time3 = Date().timeIntervalSince1970
         print("time3: " , (time3 - time2));
-        //ViewController.global_test_str += String(format:"%.2f",time3 - time2) + ":";
         let routes = res.def_route.split(separator: ";")
         for item in routes {
             let item_split = item.split(separator: ":");
@@ -216,7 +126,6 @@ extension String{
         }
         let time5 = Date().timeIntervalSince1970
         print("time5: " , (time5 - time4));
-        //ViewController.global_test_str += String(format:"%.2f",time5 - time4) + ":";
         requestData()
         if UserDefaults.standard.bool(forKey: "FirstEnter") == false {
             print("yes")
@@ -253,37 +162,8 @@ extension String{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//            self.vwBackHub.proEndgress = 0.0
-//            self.vwBackHub.proStartgress = 0.0
-//            VpnManager.shared.disconnect()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.DidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
-        
         self.title = "TenonVPN"
         self.navigationController?.navigationBar.isHidden = true
-//        self.btnConnect.layer.masksToBounds = true
-//        self.btnConnect.layer.cornerRadius = self.btnConnect.frame.width/2
-//        self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
-//
-//        self.btnAccount.layer.masksToBounds = true
-//        self.btnAccount.layer.cornerRadius = 4
-//        self.btnChoseCountry.layer.masksToBounds = true
-//        self.btnChoseCountry.layer.cornerRadius = 4
-//        self.vwBackHub.proEndgress = 0.0
-//        self.vwBackHub.proStartgress = 0.0
-//
-//        self.vwCircleBack.layer.masksToBounds = true
-//        self.vwCircleBack.layer.cornerRadius = self.vwCircleBack.width/2
-//
-//        btnUpgrade.layer.masksToBounds = true
-//        btnUpgrade.layer.cornerRadius = 4
         let url = URL(string:"https://www.google.com");
         URLSession(configuration: .default).dataTask(with: url!, completionHandler: {
             (data, rsp, error) in
@@ -360,94 +240,13 @@ extension String{
 
     @IBAction func downToExit(_ sender: Any) {
         print("click to exit")
-        clickToExit = true
         if VpnManager.shared.vpnStatus == .on {
             clickConnect(sender)
         } else {
             _exit(1)
         }
     }
-
     
-    @objc func applicationWillResignActive(){
-        print("home and background.")
-        sleepBacked = true
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 25) {
-//            if (self.sleepBacked) {
-//                print("exit now")
-//                _exit(0)
-//            }
-//        }
-    }
-    @objc func applicationDidBecomeActive(){
-        print("active now.")
-        sleepBacked = false
-    }
-    
-    @objc func DidEnterBackground(){
-    }
-    
-    @objc func applicationWillTerminate(){
-        _exit(0)
-    }
-    
-    @IBAction func clickSettingConfirm(_ sender: Any) {
-//        vwSettingDesc.isHidden = true
-    }
-    @IBAction func clickAgree(_ sender: Any) {
-        if UserDefaults.standard.bool(forKey: "FirstEnter") == false{
-            UserDefaults.standard.set(true, forKey: "FirstEnter")
-        }else{
-            UserDefaults.standard.set(true, forKey: "FirstConnect")
-//            clickConnect(btnConnect as Any)
-        }
-//        instructionView.isHidden = true
-    }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    @IBAction func clickSmartRoute(_ sender: Any) {
-//        if VpnManager.shared.vpnStatus == .on {
-//            clickConnect(sender)
-//        }
-//        
-//        VpnManager.shared.use_smart_route = smartRoute.isOn
-    }
-    
-    @IBAction func clickPKPop(_ sender: Any) {
-//        self.btnChangePK.isUserInteractionEnabled = false
-//        self.popPKPopView = FWOperPKView.init(frame:CGRect(x: Int(AUTOSIZE_HEIGHT(value: 60.0)),
-//                                                           y: Int(SCREEN_HEIGHT/2.0 - AUTOSIZE_HEIGHT(value: 300)/2),
-//                                                           width: Int(SCREEN_WIDTH - AUTOSIZE_HEIGHT(value: 60.0)*2),
-//                                                           height: Int(AUTOSIZE_HEIGHT(value: 300))))
-//        self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
-//        self.popPKPopView.privateKey = self.local_private_key
-//        self.popPKPopView.clickBlck = {(value) in
-//            UIView.animate(withDuration: 0.2, animations: {
-//                self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
-//            }) { (Bool) in
-//                UIView.animate(withDuration: 0.3, animations: {
-//                    self.popPKPopView.transform = __CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0)
-//                    self.popPKPopView.alpha = 0
-//                }) { (Bool) in
-//                    self.popPKPopView.removeFromSuperview()
-//                    self.btnChangePK.isUserInteractionEnabled = true
-//                }
-//            }
-//        }
-//        self.view.addSubview(self.popPKPopView)
-//        UIView.animate(withDuration: 0.2, animations: {
-//            self.popPKPopView.transform = __CGAffineTransformMake(1.2, 0, 0, 1.2, 0, 0)
-//        }) { (Bool) in
-//            UIView.animate(withDuration: 0.3, animations: {
-//                self.popPKPopView.transform = CGAffineTransform.identity
-//            }) { (Bool) in
-//
-//            }
-//        }
-        
-    }
-
     func setRouteInfo() {
         var res_str = TenonP2pLib.sharedInstance.GetVpnNodes("ALL", true) as String
         if (res_str.isEmpty) {
@@ -498,6 +297,9 @@ extension String{
 
         balance = TenonP2pLib.sharedInstance.GetBalance()
         if balance != UInt64.max {
+            if TenonP2pLib.sharedInstance.now_balance != Int64(balance) {
+                NotificationCenter.default.post(name: Notification.Name("NOTIFICATION_BALANCE"), object: nil)
+            }
             TenonP2pLib.sharedInstance.now_balance = Int64(balance)
             TenonP2pLib.sharedInstance.PayforVpn()
         }
@@ -659,155 +461,6 @@ extension String{
         }
     }
     
-    @IBAction func clickChoseCountry(_ sender: Any) {
-        if self.isClick == true {
-            self.popMenu.removeFromSuperview()
-        }else{
-//            self.popMenu = FWPopMenu.init(frame:CGRect(x: self.btnChoseCountry.left, y: self.btnChoseCountry.bottom, width: self.btnChoseCountry.width, height: SCREEN_HEIGHT/2))
-            self.popMenu.loadCell("CountryTableViewCell", countryCode.count)
-            self.popMenu.callBackBlk = {(cell,indexPath) in
-                let tempCell:CountryTableViewCell = cell as! CountryTableViewCell
-                tempCell.backgroundColor = APP_COLOR
-                tempCell.lbNodeCount.text = self.countryNodes[indexPath.row]
-                tempCell.lbCountryName.text = self.countryCode[indexPath.row]
-                tempCell.imgIcon.image = UIImage(named:self.iCon[indexPath.row])
-                return tempCell
-            }
-            self.popMenu.clickBlck = {(idx) in
-//                if idx != -1{
-//                    self.btnChoseCountry.setTitle(self.countryCode[idx], for: UIControl.State.normal)
-//                    self.imgCountryIcon.image = UIImage(named:self.iCon[idx])
-//                    self.lbNodes.text = self.countryNodes[idx]
-//                    self.choosed_country = super.getCountryShort(countryCode: self.countryCode[idx])
-//                    VpnManager.shared.choosed_country = self.choosed_country
-//                    if VpnManager.shared.vpnStatus == .on{
-//                        self.clickConnect(self.btnConnect as Any)
-//                    }
-//                }
-                
-                self.popMenu.removeFromSuperview()
-                self.isClick = !self.isClick
-            }
-            self.view.addSubview(self.popMenu)
-        }
-        
-        self.isClick = !self.isClick
-    }
-    @IBAction func clickUpgrade(_ sender: Any) {
-//        if btnUpgrade.isUserInteractionEnabled == true {
-//            let version_str = TenonP2pLib.sharedInstance.CheckVersion()
-//            let plats = version_str.split(separator: ",")
-//            var down_url: String = "";
-//            for item in plats {
-//                let item_split = item.split(separator: ";")
-//                if (item_split[0] == "ios") {
-//                    if (item_split[1] != kCurrentVersion) {
-//                        down_url = String(item_split[2])
-//                    }
-//                    break
-//                }
-//            }
-//
-//            popUpgradeView = FWUpgradeView.init(frame: CGRect(x: 0, y: SCREEN_HEIGHT - 150, width: SCREEN_WIDTH, height: 150))
-//            popUpgradeView.Show(download_url: down_url)
-//            self.popUpgradeView.clickBlck = {(idx) in
-//                if idx == -1{
-//                    UIView.animate(withDuration: 0.4, animations: {
-//                        self.popUpgradeView.top = SCREEN_HEIGHT
-//                    }, completion: { (Bool) in
-//                        self.popUpgradeView.removeFromSuperview()
-//                    })
-//                }
-////                self.btnUpgrade.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-//            }
-//            self.popUpgradeView.top = self.popUpgradeView.height
-//            self.view.addSubview(popUpgradeView)
-//            UIView.animate(withDuration: 0.4, animations: {
-//                self.popUpgradeView.top = 0
-//            }, completion: { (Bool) in
-////                self.btnUpgrade.isUserInteractionEnabled = !self.btnUpgrade.isUserInteractionEnabled
-//            })
-//        }else{
-//
-//        }
-    }
-    
-    @IBAction func clickBuyTenon(_ sender: Any) {
-        if SKPaymentQueue.canMakePayments() {
-            CBToast.showToastAction()
-            self.view.isUserInteractionEnabled = false;
-            let product:NSArray = NSArray.init(object: productId)
-            let nsset:NSSet = NSSet.init(array: product as! [Any])
-            
-            let request:SKProductsRequest = SKProductsRequest.init(productIdentifiers: nsset as! Set<String>)
-            request.delegate = self
-            request.start()
-        }else{
-            CBToast.showToastAction(message: "your telephone not support IAP")
-        }
-    }
-    @IBAction func clickAccountSetting(_ sender: Any) {
-//        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-//        if self.btnAccount.isUserInteractionEnabled == false{
-//            self.popBottomView = FWBottomPopView.init(frame:CGRect(x: 0, y: SCREEN_HEIGHT - 300, width: SCREEN_WIDTH, height: 300))
-//            self.popBottomView.loadCell("AccountSetTableViewCell","AccountSetHeaderTableViewCell", self.transcationList.count)
-//            self.popBottomView.callBackBlk = {(cell,indexPath) in
-//                if indexPath.section == 0 {
-//                    let tempCell:AccountSetHeaderTableViewCell = cell as! AccountSetHeaderTableViewCell
-//                    tempCell.tvPrivateKeyValue.text = self.local_private_key
-//                    tempCell.pkBlock = { (str) in
-//                        self.local_private_key = str
-//                        print("set private key :",self.local_private_key)
-//                    }
-//                    tempCell.lbAccountAddress.text = self.local_account_id
-//
-////                    tempCell.lbBalanceLego.text = String(self.balance) + " Tenon"
-////                    tempCell.lbBalanceCost.text = String(format:"%.2f $",self.Dolor)
-////                    tempCell.clickNoticeBtn = {
-////                        self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-////                        UIView.animate(withDuration: 0.4, animations: {
-////                            self.popBottomView.top = SCREEN_HEIGHT
-////                        }, completion: { (Bool) in
-////                            self.popBottomView.removeFromSuperview()
-////                            self.tvSetting.backgroundColor = UIColor.white
-////                            self.vwSettingDesc.isHidden = false
-////                        })
-////                    }
-//                    return tempCell
-//                }
-//                else{
-//                    let tempCell:AccountSetTableViewCell = cell as! AccountSetTableViewCell
-//                    tempCell.layer.masksToBounds = true
-//                    tempCell.layer.cornerRadius = 8
-//                    let model:TranscationModel = self.transcationList[indexPath.row]
-//                    tempCell.lbDateTime.text = model.dateTime
-//                    tempCell.lbType.text = model.type
-//                    tempCell.lbAccount.text = model.acount
-//                    //tetempCell.lbAmount.text = model.amount
-//                    return tempCell
-//                }
-//            }
-//
-//            self.popBottomView.clickBlck = {(idx) in
-//                if idx == -1{
-//                    self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-//                    UIView.animate(withDuration: 0.4, animations: {
-//                        self.popBottomView.top = SCREEN_HEIGHT
-//                    }, completion: { (Bool) in
-//                        self.popBottomView.removeFromSuperview()
-//                    })
-//                }
-//            }
-//            self.popBottomView.top = self.popBottomView.height
-//            self.view.addSubview(self.popBottomView)
-//            UIView.animate(withDuration: 0.4, animations: {
-//                self.popBottomView.top = 0
-//            }, completion: { (Bool) in
-////                self.btnAccount.isUserInteractionEnabled = !self.btnAccount.isUserInteractionEnabled
-//            })
-//        }
-    }
-    
     @objc func threadOne() {
         let url = URL(string:"https://www.google.com");
         for _ in 0...200 {
@@ -821,7 +474,7 @@ extension String{
     }
     
     @objc func onVPNStatusChanged(){
-        isNetChange = true
+        
         if VpnManager.shared.vpnStatus == .on{
 //            self.btnConnect.backgroundColor = APP_COLOR
 //            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
@@ -830,7 +483,7 @@ extension String{
 //            lbConnect.text = "Connected"
             self.user_started_vpn = true
             self.now_connect_status = 0
-            
+            print("reloadVPNStatus = onVPNStatusChanged = on")
 //            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
 //            addBannerViewToView(bannerView)
 //            bannerView.adUnitID = "ca-app-pub-1878869478486684/7948441541"
@@ -840,6 +493,9 @@ extension String{
 //            newThread.start()
         }else{
             self.user_started_vpn = false
+            print("reloadVPNStatus = onVPNStatusChanged = off")
+//            NotificationCenter.default.post(name: Notification.Name("NOTIFICATION_VPN_OFFLINE"), object: nil)
+            
 //            if (self.user_started_vpn) {
 //                if (self.now_connect_status == 1) {
 //                    return
@@ -862,125 +518,4 @@ extension String{
         }
     }
     
-    func stopAnimotion() {
-        if self.timer != nil {
-            self.timer.invalidate()
-            self.timer = nil
-        }
-        
-    }
-    @objc func playAnimotion() {
-        if self.timer == nil {
-            self.timer = Timer(timeInterval: 0.05, target: self, selector: #selector(startAnimotion), userInfo: nil, repeats: true)
-            RunLoop.current.add(self.timer, forMode: RunLoop.Mode.common)
-        }
-    }
-    @objc func startAnimotion() {
-//        if self.vwBackHub.proStartgress == 0.0 {
-//            self.vwBackHub.proEndgress += 0.1
-//            if self.vwBackHub.proEndgress > 1{
-//                self.vwBackHub.proEndgress = 1
-//                self.vwBackHub.proStartgress += 0.1
-//            }
-//        }else{
-//            self.vwBackHub.proStartgress += 0.1
-//            if self.vwBackHub.proStartgress > 1.0{
-//                if isNetChange == true{
-//                    stopAnimotion()
-//                    isNetChange = false
-//                }else{
-//                    self.vwBackHub.proEndgress = 0.0
-//                    self.vwBackHub.proStartgress = 0.0
-//                }
-//            }
-//        }
-    }
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        let product:[SKProduct] = response.products
-        if product.count == 0 {
-            CBToast.hiddenToastAction()
-            CBToast.showToastAction(message: "no item")
-        }else{
-            var requestProduct:SKProduct!
-            for pro:SKProduct in product{
-                if pro.productIdentifier == productId{
-                    requestProduct = pro
-                }
-            }
-            let payment:SKMutablePayment = SKMutablePayment(product: requestProduct)
-            payment.applicationUsername = local_account_id+productId
-            SKPaymentQueue.default().add(payment)
-        }
-    }
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for tran:SKPaymentTransaction in transactions{
-            switch tran.transactionState{
-            case .purchased:do {
-                print("deal done")
-                CBToast.hiddenToastAction()
-                SKPaymentQueue.default().finishTransaction(tran)
-                completeTransaction(transaction: tran)
-            }
-            case .purchasing:do {
-                print("added")
-            }
-            case .failed:do {
-                CBToast.hiddenToastAction()
-                self.view.isUserInteractionEnabled = true
-                SKPaymentQueue.default().finishTransaction(tran)
-            }
-            case .restored:do {
-                print("purchased")
-                self.view.isUserInteractionEnabled = true
-            }
-            case .deferred:do {
-                print("delay")
-                self.view.isUserInteractionEnabled = true
-            }
-            @unknown default:
-                print("unknown error")
-                self.view.isUserInteractionEnabled = true
-            }
-        }
-    }
-    
-    func  completeTransaction(transaction:SKPaymentTransaction) {
-        let receiptURL:NSURL = Bundle.main.appStoreReceiptURL! as NSURL
-        let receiptData:NSData! = NSData(contentsOf: receiptURL as URL)
-        let encodeStr:NSString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions.endLineWithLineFeed) as NSString
-        let reqDic:Dictionary<String, String> = ["transactionID":transaction.transactionIdentifier!,"receipt":encodeStr as String]
-        AF.request("http://98.126.31.159:80/appleIAPAuth" ,parameters:reqDic).responseJSON {
-            (response)   in
-            let result:Bool = response.value as! Bool
-            CBToast.hiddenToastAction()
-            self.view.isUserInteractionEnabled = true
-            if result == true{
-                CBToast.showToastAction(message: "Please record the privitekey")
-            }else{
-                CBToast.showToastAction(message: "server verify error")
-            }
-        }
-
-
-//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
-//        urlRequest.HTTPMethod = @"POST";
-//        NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//        _receipt = encodeStr;
-//        NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
-//        NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
-//        urlRequest.HTTPBody = payloadData;
-//
-//        NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
-//
-//        if (result == nil) {
-//            NSLog(@"verify error.");
-//            return;
-//        }
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
-//        NSLog(@"success data:%@",dic);
-//
-//
-//        NSString *productId = transaction.payment.productIdentifier;
-//        NSString *applicationUsername = transaction.payment.applicationUsername;
-    }
 }

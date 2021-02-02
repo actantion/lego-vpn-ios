@@ -138,6 +138,9 @@ extern NSString* GlobalMonitorString;
     self.view.backgroundColor = [UIColor blackColor];
     [self initNavView];
     [self initUI];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadVPNStatus) name:@"kProxyServiceVPNStatusNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadBalance) name:@"NOTIFICATION_BALANCE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
     
@@ -147,6 +150,18 @@ extern NSString* GlobalMonitorString;
     if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000) {
         prevAdViewTm = nowAdViewTm;
         [self.rewardedAd presentFromRootViewController:self delegate:self];
+    }
+}
+-(void)reloadBalance{
+    _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
+    _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
+}
+- (void)reloadVPNStatus{
+    if (swiftViewController.user_started_vpn == true) {
+        NSLog(@"网络状态变更状态- VPN开启");
+    }else{
+        NSLog(@"网络状态变更状态- VPN关闭");
+        [self disconnectVpn];
     }
 }
 -(void)reloadLanguage

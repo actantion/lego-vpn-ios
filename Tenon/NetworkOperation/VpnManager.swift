@@ -60,6 +60,7 @@ enum VPNStatus {
     
     fileprivate(set) var vpnStatus = VPNStatus.off {
         didSet {
+            print("reloadVPNStatus = 网络通知")
             NotificationCenter.default.post(name: Notification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
         }
     }
