@@ -15,7 +15,7 @@
 #import <CommonCrypto/CommonDigest.h>
  
 #import <CoreLocation/CoreLocation.h>
-
+#import "KeychainItemWrapper.h"
 extern long prevAdViewTm;
 extern ViewController *swiftViewController;
 /*原生视频广告*/
@@ -42,8 +42,20 @@ extern ViewController *swiftViewController;
     [self initUI];
     self.bIsShowAd = NO;
     [self createAndLoadRewardedAd];
+    NSString* uuid = [self UUID];
+    NSLog(@"设备唯一标识 = %@",uuid);
 }
-
+-(NSString *)UUID {
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
+    NSString *UUID = [wrapper objectForKey:(__bridge id)kSecValueData];
+    
+    if (UUID.length == 0) {
+        UUID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        [wrapper setObject:UUID forKey:(__bridge id)kSecValueData];
+    }
+    
+    return UUID;
+}
 
 - (void)initializeLocationService {
     // 初始化定位管理器
