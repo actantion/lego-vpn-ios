@@ -64,6 +64,19 @@ NSString* GlobalMonitorString;
 - (void)applicationWillTerminate:(UIApplication *)application {
     printf("applicationWillTerminate called!");
     [LibP2P Destroy];
+    AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        //此处如果不强转 AppDelegate，会报警告：Initializing 'AppDelegate *__strong' with
+        // an expression of incompatible type 'id<UIApplicationDelegate>
+        UIWindow *window = app.window;
+        // 动画 1
+        [UIView animateWithDuration:0.6f animations:^{
+            window.alpha = 0;
+            window.frame = CGRectMake(0, window.bounds.size.width, 0, 0);
+        } completion:^(BOOL finished) {
+            exit(0);
+        }];
+
+    
 }
 
 /* 全局键盘自动弹出设置 */

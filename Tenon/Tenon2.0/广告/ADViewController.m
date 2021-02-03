@@ -252,6 +252,8 @@ extern ViewController *swiftViewController;
             }
         }
     }
+    
+    if (TenonP2pLib.sharedInstance.IsVip || _secondNum <= 0) {
         if (self.codeTimer != nil) {
             [self.codeTimer invalidate];
             self.codeTimer = nil;
@@ -262,6 +264,7 @@ extern ViewController *swiftViewController;
         }else{
             [self.navigationController popViewControllerAnimated:YES];
         }
+    }
 }
 - (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
     [self createAndLoadRewardedAd];
