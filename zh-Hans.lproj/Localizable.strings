@@ -10,7 +10,7 @@
 "Email"="邮箱";
 "Upgrade"="更新版本";
 "Cancel"="取消";
-"Skip Ads"="跳过广告";
+"Skip Ads"="";
 "Failed to initialize P2P network, please try again!"="初始化P2P网络失败，请重试！";
 "Seel out"="提币";
 "private_key_notices"="提示：为了保障安全，请保存好您的私钥，不要告诉任何人，确保您的账户安全";

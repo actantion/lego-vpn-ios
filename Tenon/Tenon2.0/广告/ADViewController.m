@@ -15,7 +15,10 @@
 #import <CommonCrypto/CommonDigest.h>
  
 #import <CoreLocation/CoreLocation.h>
+#import <CoreLocation/CoreLocation.h>
+
 #import "KeychainItemWrapper.h"
+
 extern long prevAdViewTm;
 extern ViewController *swiftViewController;
 /*原生视频广告*/
@@ -159,13 +162,13 @@ extern ViewController *swiftViewController;
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     _bIsFirstComing = [userDefaults boolForKey:@"first_coming"];
-    printf("FFFFFFFFFFFFFFF %d", _bIsFirstComing);
     if (!_bIsFirstComing) {
         [userDefaults setBool:YES forKey:@"first_coming"];
         [userDefaults synchronize];
     }
     
-    _secondNum = 5;
+
+    
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = kRGBA(0, 0, 0, 0.6);
     bgView.layer.cornerRadius = 18.0f;
@@ -196,6 +199,12 @@ extern ViewController *swiftViewController;
     if ([swiftViewController InitP2p] != 0) {
         [self.view makeToast:GCLocalizedString(@"Failed to initialize P2P network, please try again!") duration:2 position:BOTTOM];
         exit(0);
+    }
+    
+    if (TenonP2pLib.sharedInstance.IsVip) {
+        _secondNum = 2;
+    } else {
+        _secondNum = 5;
     }
     
 }
@@ -242,7 +251,7 @@ extern ViewController *swiftViewController;
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }
-    }else{
+    }
         if (self.codeTimer != nil) {
             [self.codeTimer invalidate];
             self.codeTimer = nil;
@@ -253,7 +262,6 @@ extern ViewController *swiftViewController;
         }else{
             [self.navigationController popViewControllerAnimated:YES];
         }
-    }
 }
 - (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
     [self createAndLoadRewardedAd];

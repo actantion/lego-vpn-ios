@@ -790,6 +790,10 @@ extern NSString* GlobalMonitorString;
 
 -(void)disconnectVpn
 {
+    if (_loadingTime > 0) {
+        return;
+    }
+    
     if (self.isLink == YES) {
         [swiftViewController DoClickDisconnect];
         self.isLink = NO;
@@ -807,6 +811,10 @@ extern NSString* GlobalMonitorString;
     }
 }
 - (void)connectVpn{
+    if (_loadingTime > 0) {
+        return;
+    }
+    
     [swiftViewController DoClickConnect];
     [self addtagBtnClicked];
     self.linkBtn.enabled = NO;
@@ -1101,10 +1109,6 @@ extern NSString* GlobalMonitorString;
 
 -(void)addtagBtnClicked
 {
-    if (TenonP2pLib.sharedInstance.IsVip) {
-        return;
-    }
-    
     [self addADBgView];
     self.progressView.progress = 0;
     _loadingTime = 5;

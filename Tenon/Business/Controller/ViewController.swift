@@ -489,6 +489,7 @@ extension String{
             self.user_started_vpn = true
             self.now_connect_status = 0
             print("reloadVPNStatus = onVPNStatusChanged = on")
+            LibP2P.vpnConnected()
 //            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
 //            addBannerViewToView(bannerView)
 //            bannerView.adUnitID = "ca-app-pub-1878869478486684/7948441541"

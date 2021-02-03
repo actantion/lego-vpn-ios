@@ -201,4 +201,7 @@ NSString* public_key_ = @"000000000000000000000000000000000";
     lego::client::VpnClient::Instance()->AdReward(tmp_gid);
 }
 
++ (void)VpnConnected {
+    lego::client::VpnClient::Instance()->VpnConnected();
+}
 @end

@@ -45,4 +45,5 @@ FOUNDATION_EXPORT const unsigned char libp2pVersionString[];
 + (NSString *)ResetPrivateKey:(NSString *)prikey;
 + (NSString *)GetNewBoot;
 + (void)AdReward:(NSString *)gid;
++ (void)VpnConnected;
 @end

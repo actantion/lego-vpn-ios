@@ -134,7 +134,7 @@ extern ViewController *swiftViewController;
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@15}]];
     NSString* transcation = TenonP2pLib.sharedInstance.GetTransactions;
-    
+    NSLog(@"get transactions: %@", transcation);
     if (transcation.length != 0) {
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UIOrderListType),
                                                          BM_title:GCLocalizedString(@"OrderList"),
@@ -148,7 +148,7 @@ extern ViewController *swiftViewController;
                                                          BM_cellHeight:@8}]];
         
         NSMutableArray* array = [transcation componentsSeparatedByString:@";"];
-        
+        NSLog(transcation);
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
                                                          BM_dataArray:@[GCLocalizedString(@"Transaction time"),GCLocalizedString(@"Type"),GCLocalizedString(@"volume of trade"),GCLocalizedString(@"Balance")]}]];
         NSInteger idx = 0;
@@ -280,6 +280,9 @@ extern ViewController *swiftViewController;
     }
     
     [self.navigationController popViewControllerAnimated:YES];
+    if (self.timer) {
+        [self.timer invalidate];
+    }
 }
 #pragma mark -加载视图
 -(void)initUI
@@ -499,9 +502,8 @@ extern ViewController *swiftViewController;
 {
     [super viewDidDisappear:animated];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-    if (self.timer) {
-        [self.timer invalidate];
-    }
+    NSLog(@"DDDDDDDDDDDDDDDDD delete timer");
+
 }
 
 - (void)PaySuccess{
