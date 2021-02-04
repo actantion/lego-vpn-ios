@@ -400,13 +400,13 @@ extern ViewController *swiftViewController;
             if ([model.index intValue] == 2) {
                 // 包月
                 self.selectIdx = 1;
-                self.selectAppleGoodsID = @"91858c25f442453e95de063494981b1c"; // 测试消耗品 bf68d4c5c70048d68bfa5f1ac1f28d74
+                self.selectAppleGoodsID = @"5a7bd18ceafc43cfbe35a467044a4f74"; // 测试消耗品 bf68d4c5c70048d68bfa5f1ac1f28d74
                 self.applepayProducID = [NSString stringWithFormat:@"%@%@",[TenonP2pLib sharedInstance].account_id,[self getNowTimeTimestamp]];
                 [self orderToApplePay];
             }else if ([model.index intValue] == 3) {
                 // 包季
                 self.selectIdx = 2;
-                self.selectAppleGoodsID = @"f55ce3d2138349adb754eb6c1fff53b1";
+                self.selectAppleGoodsID = @"83f0b08931374fb4a80aa1ad4fc1cae5";
                 self.applepayProducID = [NSString stringWithFormat:@"%@%@",[TenonP2pLib sharedInstance].account_id,[self getNowTimeTimestamp]];
                 [self orderToApplePay];
             }else if ([model.index intValue] == 4) {
