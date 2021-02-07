@@ -584,7 +584,6 @@ extern ViewController *swiftViewController;
             case SKPaymentTransactionStateFailed:
             {
                 NSLog(@"交易失败");
-                self.view.userInteractionEnabled = YES;
                 [DKProgressHUD dismissHud];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"order failed")];
@@ -606,7 +605,6 @@ extern ViewController *swiftViewController;
             default:
             {
                 NSLog(@"交易失败 default");
-                self.view.userInteractionEnabled = YES;
                 [DKProgressHUD dismissHud];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
             }
