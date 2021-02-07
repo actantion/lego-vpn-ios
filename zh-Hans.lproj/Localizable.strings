@@ -41,6 +41,10 @@
 "Method seven"="方式7";
 "Buy"="购买";
 "Join"="加入";
+"Buy Success"="购买成功";
+"your phone cannot IAP"="您的手机不支持内购";
+"no product"="暂无商品";
+"order failed"="交易失败";
 "Click modify settings"="点击修改设置";
 "$9 per month"           ="包月        5   美元";
 "$21 per quarter/20% off"="包季        12 美元 / 8折";

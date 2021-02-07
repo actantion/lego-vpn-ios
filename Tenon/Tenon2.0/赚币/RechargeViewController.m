@@ -502,14 +502,15 @@ extern ViewController *swiftViewController;
 {
     [super viewDidDisappear:animated];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    [DKProgressHUD dismissHud];
     NSLog(@"DDDDDDDDDDDDDDDDD delete timer");
 
 }
 
 - (void)PaySuccess{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [DKProgressHUD dismiss];
-        [DKProgressHUD showSuccessWithStatus:@"购买成功"];
+        [DKProgressHUD dismissHud];
+        [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
     });
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -517,18 +518,17 @@ extern ViewController *swiftViewController;
 - (void)orderToApplePay{
     //是否允许内购
     if ([SKPaymentQueue canMakePayments]) {
-        [DKProgressHUD showLoading];
+        [DKProgressHUD showHUDHoldOn:self];
         NSArray *product = [[NSArray alloc] initWithObjects:self.selectAppleGoodsID,nil];
         NSSet *nsset = [NSSet setWithArray:product];
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
         request.delegate = self;
         [request start];
-        
     }else{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [DKProgressHUD showInfoWithStatus:@"your phone cannot IAP"];
+            [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"your phone cannot IAP")];
         });
-        [DKProgressHUD dismiss];
+        [DKProgressHUD dismissHud];
     }
 }
 #pragma mark - SKProductsRequestDelegate
@@ -537,6 +537,7 @@ extern ViewController *swiftViewController;
     NSArray *product = response.products;
     if([product count] != 0){
         SKProduct *requestProduct = nil;
+        NSLog(@"product = %@",product);
         for (SKProduct *pro in product) {
             if([pro.productIdentifier isEqualToString:self.selectAppleGoodsID]){
                 requestProduct = pro;
@@ -549,17 +550,16 @@ extern ViewController *swiftViewController;
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }else{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [DKProgressHUD showInfoWithStatus:@"no product"];
-            
+            [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"no product")];
         });
-        [DKProgressHUD dismiss];
+        [DKProgressHUD dismissHud];
     }
 }
 #pragma mark - SKRequestDelegate
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
-    [DKProgressHUD dismiss];
+    [DKProgressHUD dismissHud];
 }
 
 //请求结束
@@ -576,7 +576,7 @@ extern ViewController *swiftViewController;
             case SKPaymentTransactionStatePurchased:
             {
                 NSLog(@"交易完成");
-                [DKProgressHUD dismiss];
+                [DKProgressHUD dismissHud];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 [self completeTransaction:tran];
             }
@@ -585,15 +585,31 @@ extern ViewController *swiftViewController;
             {
                 NSLog(@"交易失败");
                 self.view.userInteractionEnabled = YES;
-                [DKProgressHUD dismiss];
+                [DKProgressHUD dismissHud];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [DKProgressHUD showInfoWithStatus:@"failed"];
+                    [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"order failed")];
                 });
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                
+            }
+                break;
+            case SKPaymentTransactionStatePurchasing:
+            {
+                NSLog(@"商品添加进列表");
+            }
+                break;
+            case SKPaymentTransactionStateRestored:
+            {
+                NSLog(@"已经购买过商品");
+                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
             }
                 break;
             default:
+            {
+                NSLog(@"交易失败 default");
+                self.view.userInteractionEnabled = YES;
+                [DKProgressHUD dismissHud];
+                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+            }
                 break;
         }
     }
@@ -602,7 +618,7 @@ extern ViewController *swiftViewController;
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [DKProgressHUD showLoading];
+        [DKProgressHUD showHUDHoldOn:self];
     });
     
     NSURL *rurl = [[NSBundle mainBundle] appStoreReceiptURL];
@@ -619,7 +635,7 @@ extern ViewController *swiftViewController;
     NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
     if (result == nil) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [DKProgressHUD dismiss];
+            [DKProgressHUD dismissHud];
         });
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     }else{
@@ -636,15 +652,15 @@ extern ViewController *swiftViewController;
                     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
                 }else{
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [DKProgressHUD dismiss];
-                        [DKProgressHUD showErrorWithStatus:model.message];
+                        [DKProgressHUD dismissHud];
+                        [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
                     });
                     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
                 }
             }];
         }
         else{
-            [DKProgressHUD dismiss];
+            [DKProgressHUD dismissHud];
             [self.navigationController popViewControllerAnimated:YES];
             [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         }
