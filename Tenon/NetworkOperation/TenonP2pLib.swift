@@ -10,6 +10,50 @@ import Foundation
 import libp2p
 import NEKit
 
+extension String {
+
+    func subStringFrom(_ index: Int) -> String {
+         let theIndex = self.index(self.endIndex, offsetBy: index - self.count)
+         return String(self[theIndex..<endIndex])
+     }
+
+
+     func findFirst(_ sub:String)->Int {
+         var pos = -1
+         if let range = range(of:sub, options: .literal ) {
+             if !range.isEmpty {
+                 pos = self.distance(from:startIndex, to:range.lowerBound)
+             }
+         }
+         return pos
+     }
+
+
+     func findLast(_ sub:String)->Int {
+         var pos = -1
+         if let range = range(of:sub, options: .backwards ) {
+             if !range.isEmpty {
+                 pos = self.distance(from:startIndex, to:range.lowerBound)
+             }
+         }
+         return pos
+     }
+
+
+     func findFirst(_ sub:String,_ begin:Int)->Int {
+         var str:String = self.subStringFrom(begin)
+         var pos:Int = str.findFirst(sub)
+         return pos == -1 ? -1 : (pos + begin)
+     }
+
+
+     func findLast(_ sub:String,_ begin:Int)->Int {
+         var str:String = self.subStringFrom(begin)
+         var pos:Int = str.findLast(sub)
+         return pos == -1 ? -1 : (pos + begin)
+     }
+}
+
 extension Date {
     var milliStamp : UInt64 {
         let timeInterval: TimeInterval = self.timeIntervalSince1970
@@ -90,11 +134,22 @@ class TenonP2pLib : NSObject {
     
     func GetTransactions() -> String {
         let res = LibP2P.getTransactions() as String
+        print("Ddddddddd GetTransactions: " + res)
         return res
     }
     
     func GetBalance() -> UInt64 {
         let res = LibP2P.getBalance() as UInt64
+        let local_amount: Int = UserDefaults.standard.integer(forKey: "local_charge_info_amount")
+        if (local_amount != 0) {
+            let trans_res: String = LibP2P.getTransactions() as String
+            let local_gid: String = UserDefaults.standard.value(forKey: "local_charge_info_gid") as! String
+            let location = trans_res.findFirst(local_gid)
+            if (location > 0) {
+                UserDefaults.standard.setValue(0, forKey: "local_charge_info_amount")
+            }
+        }
+        
         return res
     }
     
@@ -138,6 +193,15 @@ class TenonP2pLib : NSObject {
     }
         
     func PayforVpn() {
+        var local_added_amount: Int64 = 0
+        let local_amount: Int = UserDefaults.standard.integer(forKey: "local_charge_info_amount")
+        if (local_amount == 1) {
+            local_added_amount = 1990
+        } else if (local_amount == 2) {
+            local_added_amount = 5950
+        } else if (local_amount == 3) {
+            local_added_amount = 23800
+        }
         let day_msec: Int64 = 3600 * 1000 * 24;
         let days_timestamp = payfor_timestamp / day_msec;
         let cur_timestamp: Int64 = Int64(Date().milliStamp)
@@ -146,7 +210,7 @@ class TenonP2pLib : NSObject {
         vip_left_days = (Int32)(now_balance / min_payfor_vpn_tenon);
         if (payfor_timestamp != Int64.max && days_timestamp + vip_days > days_cur) {
             payfor_gid = "";
-            vip_left_days = Int32((days_timestamp + vip_days - days_cur)) + (Int32)(now_balance / min_payfor_vpn_tenon);
+            vip_left_days = Int32((days_timestamp + vip_days - days_cur)) + (Int32)((now_balance + local_added_amount) / min_payfor_vpn_tenon);
             return;
         } else {
             if (now_balance >= min_payfor_vpn_tenon) {

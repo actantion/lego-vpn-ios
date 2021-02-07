@@ -67,7 +67,7 @@ class AccountSetHeaderTableViewCell: UITableViewCell,UITextViewDelegate {
         btnNotice.layer.cornerRadius = 4
         btnNotice.layer.borderColor = APP_COLOR.cgColor
         btnNotice.layer.borderWidth = 1
-        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
         let global_mode: UInt32 = UInt32(userDefaults?.string(forKey: "global_mode") ?? "0") ?? 0
         if (global_mode == 1) {
             globalModeSwitch.isOn = true
@@ -81,7 +81,7 @@ class AccountSetHeaderTableViewCell: UITableViewCell,UITextViewDelegate {
     }
     
     @IBAction func GlobalModeChanged(_ sender: Any) {
-        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
         
         if (globalModeSwitch.isOn) {
             userDefaults?.set(String("1"), forKey: "global_mode")

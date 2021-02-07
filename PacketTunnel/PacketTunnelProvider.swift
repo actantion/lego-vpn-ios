@@ -288,7 +288,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 Thread.sleep(forTimeInterval: 1)
             }
         }
-        
+
         let directAdapterFactory:NEKit.AdapterFactory
         if use_global_mode {
             directAdapterFactory = ssAdapterFactory
@@ -342,7 +342,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 break
             }
         }
-        
+
+
         var rule_array : [NEKit.DomainListRule.MatchCriterion] = []
         for item in domainKeyWords {
             rule_array.append(DomainListRule.MatchCriterion.keyword(String(item)))
@@ -361,12 +362,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         UserRules.append(DomainListRule(adapterFactory: directAdapterFactory, criteria: not_rule_array))
 
         // Rules
-        
+
         UserRules.append(try! IPRangeListRule(adapterFactory: directAdapterFactory, ranges: ["42.51.39.113/32","42.51.33.89/32","42.51.41.173/32","113.17.169.103/32","113.17.169.105/32","113.17.169.106/32","113.17.169.93/32","113.17.169.94/32","113.17.169.95/32","216.108.227.52/32","216.108.231.102/32","216.108.231.103/32","216.108.231.105/32","216.108.231.19/32","3.12.73.217/32","3.137.186.226/32","3.22.68.200/32","3.138.121.98/32","18.188.190.127/32", "54.198.157.144/32", "3.81.161.170/32", "35.153.74.125/32"]))
-        
-        if (local_country == "CN") {
-            UserRules.append(try! IPRangeListRule(adapterFactory: directAdapterFactory, ranges: ["127.0.0.0/8", "192.168.0.0/16",  "10.0.0.0/8",  "224.0.0.0/8",  "169.254.0.0/16", ]))
-        }
+
+
         let chinaRule = CountryRule(countryCode: local_country, match: true, adapterFactory: directAdapterFactory)
         let unKnowLoc = CountryRule(countryCode: "--", match: true, adapterFactory: ssAdapterFactory)
         let dnsFailRule = DNSFailRule(adapterFactory: ssAdapterFactory)
@@ -464,7 +463,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 self.interface.start()
             }
             self.started = true
-            
         }
         
     }

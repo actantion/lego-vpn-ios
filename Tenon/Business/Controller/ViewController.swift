@@ -61,6 +61,41 @@ extension String{
         return 0
     }
     
+    @objc func onSetingVPNStatusChanged0() {
+        print("onSetingVPNStatusChanged0 called")
+    }
+    
+    @objc func onSetingVPNStatusChanged1() {
+        print("onSetingVPNStatusChanged1 called")
+    }
+    
+    @objc func onSetingVPNStatusChanged2() {
+        print("onSetingVPNStatusChanged2 called")
+    }
+    
+    @objc func onSetingVPNStatusChanged3() {
+        print("onSetingVPNStatusChanged3 called")
+    }
+    
+    @objc func onSetingVPNStatusChanged4() {
+        print("onSetingVPNStatusChanged4 called")
+    }
+    @objc func onSetingVPNStatusChanged5() {
+        print("onSetingVPNStatusChanged5 called")
+    }
+    @objc func onSetingVPNStatusChanged6() {
+        print("onSetingVPNStatusChanged6 called")
+    }
+    @objc func onSetingVPNStatusChanged7() {
+        print("onSetingVPNStatusChanged7 called")
+    }
+    @objc func onSetingVPNStatusChanged8() {
+        print("onSetingVPNStatusChanged8 called")
+    }
+    @objc func onSetingVPNStatusChanged9() {
+        print("onSetingVPNStatusChanged9 called")
+    }
+    
     @objc func InitP2p() -> Int {
         let bTime = Date().timeIntervalSince1970
         VpnManager.shared.vpn_init()
@@ -114,6 +149,16 @@ extension String{
         VpnManager.shared.local_country = local_country
         NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged), name: NSNotification.Name(rawValue: "kSetingProxyServiceVPNStatusNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged0), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged0"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged1), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged1"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged2), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged2"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged3), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged3"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged4), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged4"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged5), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged5"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged6), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged6"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged7), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged7"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged8), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged8"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSetingVPNStatusChanged9), name: NSNotification.Name(rawValue: "onSetingVPNStatusChanged9"), object: nil)
         for _ in countryCode {
             countryNodes.append((String)(Int(arc4random_uniform((UInt32)(900))) + 100) + " nodes")
         }
@@ -135,7 +180,7 @@ extension String{
         }
         let time6 = Date().timeIntervalSince1970
         print("time6: ", (time6 - time5));
-        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
         userDefaults?.set("ok", forKey: "vpnsvr_status")
         return 0
     }
@@ -235,7 +280,7 @@ extension String{
             
         }
         
-        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
         userDefaults?.set("ok", forKey: "vpnsvr_status")
     }
 
@@ -289,7 +334,7 @@ extension String{
     }
     
     @objc func requestData(){
-        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
         if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
             if messages == "bwo" || messages == "cni" || messages == "oul" {
                 VpnManager.shared.disconnect()
@@ -340,7 +385,7 @@ extension String{
     }
     
     @objc func ConnectVpn() {
-        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
         userDefaults?.set("ok", forKey: "vpnsvr_status")
         print("now connect vpn called")
         if self.choosed_country != nil{
@@ -400,6 +445,7 @@ extension String{
                 VpnManager.shared.password = vpn_node.passwd
                 VpnManager.shared.algorithm = "aes-128-cfb"
                 self.now_connect_status = 1
+                VpnManager.shared.disconnect()
                 VpnManager.shared.connect()
                 old_vpn_ip = vpn_node.ip
             }else{
@@ -479,48 +525,12 @@ extension String{
     }
     
     @objc func onVPNStatusChanged(){
-        
         if VpnManager.shared.vpnStatus == .on{
-//            self.btnConnect.backgroundColor = APP_COLOR
-//            self.vwCircleBack.backgroundColor = UIColor(rgb: 0x6FFCEB)
-//            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xA1FDEE))
-//            imgConnect.image = UIImage(named: "connected")
-//            lbConnect.text = "Connected"
             self.user_started_vpn = true
             self.now_connect_status = 0
-            print("reloadVPNStatus = onVPNStatusChanged = on")
             LibP2P.vpnConnected()
-//            bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-//            addBannerViewToView(bannerView)
-//            bannerView.adUnitID = "ca-app-pub-1878869478486684/7948441541"
-//            bannerView.rootViewController = self
-//            bannerView.load(GADRequest())
-//            let newThread = Thread.init(target: self, selector: #selector(threadOne), object: nil)
-//            newThread.start()
         }else{
             self.user_started_vpn = false
-            print("reloadVPNStatus = onVPNStatusChanged = off")
-//            NotificationCenter.default.post(name: Notification.Name("NOTIFICATION_VPN_OFFLINE"), object: nil)
-            
-//            if (self.user_started_vpn) {
-//                if (self.now_connect_status == 1) {
-//                    return
-//                }
-//
-//                let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
-//                if let messages = userDefaults?.string(forKey: "vpnsvr_status") {
-//                    if messages == "ok" {
-//                        ConnectVpn()
-//                        print("reconnect now. \(messages)")
-//                        return
-//                    }
-//                }
-//            }
-//            self.btnConnect.backgroundColor = UIColor(rgb: 0xDAD8D9)
-//            self.vwCircleBack.backgroundColor = UIColor(rgb: 0xF7f8f8)
-//            self.vwBackHub.setLayerColor(color: UIColor(rgb: 0xE4E2E3))
-//            imgConnect.image = UIImage(named: "connect")
-//            lbConnect.text = "Connect"
         }
     }
     

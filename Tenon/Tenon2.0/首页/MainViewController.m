@@ -658,7 +658,7 @@ extern NSString* GlobalMonitorString;
         [chongBtn addTarget:self action:@selector(chongBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         [twoRightView addSubview:chongBtn];
         
-        UIButton *tiXianBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 35, (kWIDTH-35)/2-50, 35)];
+        UIButton *tiXianBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 35, (kWIDTH-35)/2-50, 65)];
         [tiXianBtn addTarget:self action:@selector(tiXianBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         [twoRightView addSubview:tiXianBtn];
     }
@@ -695,8 +695,19 @@ extern NSString* GlobalMonitorString;
 -(void)tiXianBtnClicked
 {
 //    [self.view makeToast:@"提现" duration:2 position:BOTTOM];
-    WithdrawViewController *nextVC = [[WithdrawViewController alloc] init];
-    [self.navigationController pushViewController:nextVC animated:YES];
+//    WithdrawViewController *nextVC = [[WithdrawViewController alloc] init];
+//    [self.navigationController pushViewController:nextVC animated:YES];
+//    
+    NSURL* url2 = [NSURL URLWithString:@"https://www.tenonvpn.net/withdraw"];
+    UIApplication *application = [UIApplication sharedApplication];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:url2 options:@{} completionHandler:^(BOOL success) {
+
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:url2];
+    }
 }
 
 -(void)refreshLinkView
@@ -879,8 +890,21 @@ extern NSString* GlobalMonitorString;
         [_freeView addSubview:changeBtn];
         
         if (TenonP2pLib.sharedInstance.vip_left_days >= 0) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            long amount = [userDefaults integerForKey:@"local_charge_info_amount"];
+            UInt64 show_balance = TenonP2pLib.sharedInstance.GetBalance;
+            if (amount == 1) {
+                show_balance += 1990;
+            } else if (amount == 2) {
+                show_balance += 5950;
+            } else if (amount == 3) {
+                show_balance += 23800;
+            }
+            
+            TenonP2pLib.sharedInstance.PayforVpn;
+
             _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
-            _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
+            _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",show_balance];
         } else {
             _typeSignLabel.text = [NSString stringWithFormat:@"%d%@", 0, GCLocalizedString(@"left_days")];
             _typeTextLabel.text = [NSString stringWithFormat:@"%d TEN",0];

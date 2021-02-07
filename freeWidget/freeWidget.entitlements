@@ -16,6 +16,7 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.XL.Tenonvpn</string>
+		<string>group.com.tenon.tenonvpn</string>
 	</array>
 </dict>
 </plist>

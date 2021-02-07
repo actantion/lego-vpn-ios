@@ -648,6 +648,19 @@ extern ViewController *swiftViewController;
     }else{
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
         if (dic != nil) {
+            NSString* gid = [self sha256HashForText:(self.receipt)];
+            NSLog(@"called success and get receipt gid: %@", gid);
+
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setValue: gid forKey:@"local_charge_info_gid"];
+            [userDefaults setInteger: self.selectIdx forKey:@"local_charge_info_amount"];
+            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
+            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
+            [nsdf2 setDateFormat:@"MM-DD HH:mm"];
+            NSString *date=[nsdf2 stringFromDate:[NSDate date]];
+            [userDefaults setValue: date forKey:@"local_charge_info_date"];
+            [userDefaults synchronize];
+
             NSLog(@"支付成功");
             [DKProgressHUD dismissHud];
             [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
