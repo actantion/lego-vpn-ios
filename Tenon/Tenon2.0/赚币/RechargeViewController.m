@@ -503,7 +503,9 @@ extern ViewController *swiftViewController;
     [super viewDidDisappear:animated];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
     [DKProgressHUD dismissHud];
-    NSLog(@"DDDDDDDDDDDDDDDDD delete timer");
+    if (self.timer) {
+        [self.timer invalidate];
+    }
 
 }
 
@@ -565,6 +567,7 @@ extern ViewController *swiftViewController;
 //请求结束
 - (void)requestDidFinish:(SKRequest *)request
 {
+    [DKProgressHUD dismissHud];
 }
 
 #pragma mark - SKPaymentTransactionObserver
@@ -594,14 +597,16 @@ extern ViewController *swiftViewController;
             case SKPaymentTransactionStatePurchasing:
             {
                 NSLog(@"商品添加进列表");
+                [DKProgressHUD dismissHud];
             }
                 break;
-            case SKPaymentTransactionStateRestored:
-            {
-                NSLog(@"已经购买过商品");
-                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-            }
-                break;
+//            case SKPaymentTransactionStateRestored:
+//            {
+//                NSLog(@"已经购买过商品");
+//                [DKProgressHUD dismissHud];
+//                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+//            }
+//                break;
             default:
             {
                 NSLog(@"交易失败 default");
@@ -646,6 +651,7 @@ extern ViewController *swiftViewController;
                                         url:@"/appleIAPAuth"
                                    callback:^(JTBaseReqModel *model) {
                 if (model.status == 1) {
+                    NSLog(@"支付成功");
                     [self PaySuccess];
                     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
                 }else{
@@ -653,6 +659,7 @@ extern ViewController *swiftViewController;
                         [DKProgressHUD dismissHud];
                         [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
                     });
+                    NSLog(@"支付失败");
                     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
                 }
             }];
