@@ -72,7 +72,7 @@
     [[JTNetwork manager] addHeader:param];
     NSString *urlString = [NSString stringWithFormat:@"%@%@",SERVER_URL,url];
     NSLog(@"url ---  %@",urlString);
-    NSLog(@"param = %@",param);
+//    NSLog(@"param = %@",param);
     [[JTNetwork manager].manager POST:urlString parameters:param headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         JTBaseReqModel *model = [JTBaseReqModel mj_objectWithKeyValues:responseObject];
         if (callback) {
