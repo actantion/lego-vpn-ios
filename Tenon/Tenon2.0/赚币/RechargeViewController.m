@@ -645,11 +645,7 @@ extern ViewController *swiftViewController;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
         if (dic != nil) {
             
-            [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
-                                              @"receipt":self.receipt,
-                                              @"type":@(self.selectIdx)}
-                                        url:@"/appleIAPAuth"
-                                   callback:^(JTBaseReqModel *model) {
+            [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id, @"receipt":self.receipt, @"type":@(self.selectIdx)} url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
                 if (model.status == 1) {
                     NSLog(@"支付成功");
                     [self PaySuccess];
