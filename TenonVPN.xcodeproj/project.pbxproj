@@ -25,6 +25,21 @@
 		847143CD25C9247300D58BE6 /* HomeGuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847143CC25C9247300D58BE6 /* HomeGuideView.xib */; };
 		8482CD9D25C7F415007C256E /* SettingSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8482CD9B25C7F415007C256E /* SettingSelectCell.m */; };
 		8482CD9E25C7F415007C256E /* SettingSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8482CD9C25C7F415007C256E /* SettingSelectCell.xib */; };
+		84941ECE25CF7FBC00A3A062 /* load8.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC125CF7FBC00A3A062 /* load8.png */; };
+		84941ECF25CF7FBC00A3A062 /* load9.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC225CF7FBC00A3A062 /* load9.png */; };
+		84941ED025CF7FBC00A3A062 /* load2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC325CF7FBC00A3A062 /* load2.png */; };
+		84941ED125CF7FBC00A3A062 /* load3.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC425CF7FBC00A3A062 /* load3.png */; };
+		84941ED225CF7FBC00A3A062 /* load1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC525CF7FBC00A3A062 /* load1.png */; };
+		84941ED325CF7FBC00A3A062 /* load4.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC625CF7FBC00A3A062 /* load4.png */; };
+		84941ED425CF7FBC00A3A062 /* load5.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC725CF7FBC00A3A062 /* load5.png */; };
+		84941ED525CF7FBC00A3A062 /* load12.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC825CF7FBC00A3A062 /* load12.png */; };
+		84941ED625CF7FBC00A3A062 /* load10.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC925CF7FBC00A3A062 /* load10.png */; };
+		84941ED725CF7FBC00A3A062 /* load7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941ECA25CF7FBC00A3A062 /* load7.png */; };
+		84941ED825CF7FBC00A3A062 /* load6.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941ECB25CF7FBC00A3A062 /* load6.png */; };
+		84941ED925CF7FBC00A3A062 /* load11.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941ECC25CF7FBC00A3A062 /* load11.png */; };
+		84941EDA25CF7FBC00A3A062 /* AZHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84941ECD25CF7FBC00A3A062 /* AZHUDView.m */; };
+		84941EED25CF82EC00A3A062 /* UIImage+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 84941EDE25CF82EC00A3A062 /* UIImage+Extra.m */; };
+		84941EF125CF82EC00A3A062 /* DKProgressHUD+LKExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 84941EE325CF82EC00A3A062 /* DKProgressHUD+LKExt.m */; };
 		849CEE9725B90EC1005FDECD /* TenonProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849CEE9525B90EC1005FDECD /* TenonProtocolView.swift */; };
 		849CEE9825B90EC1005FDECD /* TenonProtocolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849CEE9625B90EC1005FDECD /* TenonProtocolView.xib */; };
 		849CEE9C25B90EC9005FDECD /* UIView+Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849CEE9B25B90EC9005FDECD /* UIView+Layer.swift */; };
@@ -250,6 +265,25 @@
 		8482CD9A25C7F415007C256E /* SettingSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingSelectCell.h; sourceTree = "<group>"; };
 		8482CD9B25C7F415007C256E /* SettingSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingSelectCell.m; sourceTree = "<group>"; };
 		8482CD9C25C7F415007C256E /* SettingSelectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSelectCell.xib; sourceTree = "<group>"; };
+		84941EBF25CF7FBC00A3A062 /* AZHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHUDView.h; sourceTree = "<group>"; };
+		84941EC125CF7FBC00A3A062 /* load8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load8.png; sourceTree = "<group>"; };
+		84941EC225CF7FBC00A3A062 /* load9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load9.png; sourceTree = "<group>"; };
+		84941EC325CF7FBC00A3A062 /* load2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load2.png; sourceTree = "<group>"; };
+		84941EC425CF7FBC00A3A062 /* load3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load3.png; sourceTree = "<group>"; };
+		84941EC525CF7FBC00A3A062 /* load1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load1.png; sourceTree = "<group>"; };
+		84941EC625CF7FBC00A3A062 /* load4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load4.png; sourceTree = "<group>"; };
+		84941EC725CF7FBC00A3A062 /* load5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load5.png; sourceTree = "<group>"; };
+		84941EC825CF7FBC00A3A062 /* load12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load12.png; sourceTree = "<group>"; };
+		84941EC925CF7FBC00A3A062 /* load10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load10.png; sourceTree = "<group>"; };
+		84941ECA25CF7FBC00A3A062 /* load7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load7.png; sourceTree = "<group>"; };
+		84941ECB25CF7FBC00A3A062 /* load6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load6.png; sourceTree = "<group>"; };
+		84941ECC25CF7FBC00A3A062 /* load11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load11.png; sourceTree = "<group>"; };
+		84941ECD25CF7FBC00A3A062 /* AZHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHUDView.m; sourceTree = "<group>"; };
+		84941EDE25CF82EC00A3A062 /* UIImage+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extra.m"; sourceTree = "<group>"; };
+		84941EE325CF82EC00A3A062 /* DKProgressHUD+LKExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DKProgressHUD+LKExt.m"; sourceTree = "<group>"; };
+		84941EE525CF82EC00A3A062 /* LKExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKExt.h; sourceTree = "<group>"; };
+		84941EE625CF82EC00A3A062 /* UIImage+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extra.h"; sourceTree = "<group>"; };
+		84941EEC25CF82EC00A3A062 /* DKProgressHUD+LKExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DKProgressHUD+LKExt.h"; sourceTree = "<group>"; };
 		849CEE9525B90EC1005FDECD /* TenonProtocolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenonProtocolView.swift; sourceTree = "<group>"; };
 		849CEE9625B90EC1005FDECD /* TenonProtocolView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenonProtocolView.xib; sourceTree = "<group>"; };
 		849CEE9B25B90EC9005FDECD /* UIView+Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layer.swift"; sourceTree = "<group>"; };
@@ -588,6 +622,47 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		84941EBE25CF7FBC00A3A062 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				84941EBF25CF7FBC00A3A062 /* AZHUDView.h */,
+				84941EC025CF7FBC00A3A062 /* loadImgs */,
+				84941ECD25CF7FBC00A3A062 /* AZHUDView.m */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
+		84941EC025CF7FBC00A3A062 /* loadImgs */ = {
+			isa = PBXGroup;
+			children = (
+				84941EC125CF7FBC00A3A062 /* load8.png */,
+				84941EC225CF7FBC00A3A062 /* load9.png */,
+				84941EC325CF7FBC00A3A062 /* load2.png */,
+				84941EC425CF7FBC00A3A062 /* load3.png */,
+				84941EC525CF7FBC00A3A062 /* load1.png */,
+				84941EC625CF7FBC00A3A062 /* load4.png */,
+				84941EC725CF7FBC00A3A062 /* load5.png */,
+				84941EC825CF7FBC00A3A062 /* load12.png */,
+				84941EC925CF7FBC00A3A062 /* load10.png */,
+				84941ECA25CF7FBC00A3A062 /* load7.png */,
+				84941ECB25CF7FBC00A3A062 /* load6.png */,
+				84941ECC25CF7FBC00A3A062 /* load11.png */,
+			);
+			path = loadImgs;
+			sourceTree = "<group>";
+		};
+		84941EDD25CF82EC00A3A062 /* LKExt */ = {
+			isa = PBXGroup;
+			children = (
+				84941EEC25CF82EC00A3A062 /* DKProgressHUD+LKExt.h */,
+				84941EE325CF82EC00A3A062 /* DKProgressHUD+LKExt.m */,
+				84941EE525CF82EC00A3A062 /* LKExt.h */,
+				84941EE625CF82EC00A3A062 /* UIImage+Extra.h */,
+				84941EDE25CF82EC00A3A062 /* UIImage+Extra.m */,
+			);
+			path = LKExt;
+			sourceTree = "<group>";
+		};
 		84A09FDF259037D6005F0253 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,6 +944,8 @@
 		F656DFF4257E542200791518 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				84941EDD25CF82EC00A3A062 /* LKExt */,
+				84941EBE25CF7FBC00A3A062 /* HUD */,
 				F656E015257E545100791518 /* NSData+Base65EnCode.h */,
 				F656E003257E544600791518 /* NSData+Base65EnCode.m */,
 				F656E010257E544D00791518 /* NSDictionary+extension.h */,
@@ -1182,10 +1259,15 @@
 				D316BC2923224F24008C8FD3 /* CountryTableViewCell.xib in Resources */,
 				D3204B5623261E5D002ECB69 /* AccountSetTableViewCell.xib in Resources */,
 				F656E077257E579800791518 /* UILabelButtonCell.xib in Resources */,
+				84941ED325CF7FBC00A3A062 /* load4.png in Resources */,
+				84941ED425CF7FBC00A3A062 /* load5.png in Resources */,
 				F656DF95257E506700791518 /* SettingTableViewCell.xib in Resources */,
 				F656E06E257E579800791518 /* UITextFiledCell.xib in Resources */,
 				D316BC2123224D86008C8FD3 /* ChoseCountryViewController.xib in Resources */,
+				84941ED125CF7FBC00A3A062 /* load3.png in Resources */,
 				F656E068257E579800791518 /* UISpaceCell.xib in Resources */,
+				84941ED925CF7FBC00A3A062 /* load11.png in Resources */,
+				84941ED725CF7FBC00A3A062 /* load7.png in Resources */,
 				F656E06B257E579800791518 /* UILineCell.xib in Resources */,
 				D34378F82328DDC1000F1F69 /* AccountSetHeaderTableViewCell.xib in Resources */,
 				849CEE9825B90EC1005FDECD /* TenonProtocolView.xib in Resources */,
@@ -1193,20 +1275,27 @@
 				F656E066257E579800791518 /* UITipsCell.xib in Resources */,
 				F656DF97257E506700791518 /* HistoryListTableViewCell.xib in Resources */,
 				D316BB75232210C5008C8FD3 /* HomePageViewController.xib in Resources */,
+				84941ED525CF7FBC00A3A062 /* load12.png in Resources */,
 				8482CD9E25C7F415007C256E /* SettingSelectCell.xib in Resources */,
 				F6C5645025C543FE006B62FE /* TenonHeadCell.xib in Resources */,
 				8545F2D025A199D5008FEEF7 /* Localizable.strings in Resources */,
 				18E9149C2267220B005E6027 /* NEKitRule.conf in Resources */,
 				F656E06C257E579800791518 /* UIConfirnBtnCell.xib in Resources */,
 				18E914242266C7B5005E6027 /* Assets.xcassets in Resources */,
+				84941ECF25CF7FBC00A3A062 /* load9.png in Resources */,
 				F656E078257E579800791518 /* UIVerificationCodeCell.xib in Resources */,
+				84941ED625CF7FBC00A3A062 /* load10.png in Resources */,
 				F6C5644925C51339006B62FE /* getTenonCell.xib in Resources */,
 				F656E074257E579800791518 /* UIForgetRegistCell.xib in Resources */,
+				84941ED825CF7FBC00A3A062 /* load6.png in Resources */,
 				F656E071257E579800791518 /* UIImageLabelSelectCell.xib in Resources */,
+				84941ECE25CF7FBC00A3A062 /* load8.png in Resources */,
+				84941ED225CF7FBC00A3A062 /* load1.png in Resources */,
 				18E914272266C7B5005E6027 /* LaunchScreen.storyboard in Resources */,
 				D316BC2523224D97008C8FD3 /* AcountSetViewController.xib in Resources */,
 				F6C5645925C56316006B62FE /* OrderListHeaderCell.xib in Resources */,
 				18E914222266C7B4005E6027 /* Main.storyboard in Resources */,
+				84941ED025CF7FBC00A3A062 /* load2.png in Resources */,
 				F656DF91257E506700791518 /* share_pic.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1322,6 +1411,7 @@
 			files = (
 				84FBD94425C9530800C376C3 /* KeychainItemWrapper.m in Sources */,
 				84FBD95225C9543200C376C3 /* KeychainItemWrapper.h in Sources */,
+				84941EF125CF82EC00A3A062 /* DKProgressHUD+LKExt.m in Sources */,
 				85F19851257BFDD600E32107 /* AppDelegate.m in Sources */,
 				8545F28825920E87008FEEF7 /* VpnManager.swift in Sources */,
 				F656DF7B257E501500791518 /* ADViewController.m in Sources */,
@@ -1370,6 +1460,7 @@
 				F656E073257E579800791518 /* UILabelContentCell.m in Sources */,
 				F656DF92257E506700791518 /* SettingTableViewCell.m in Sources */,
 				F656E029257E545700791518 /* UIImage+GIF.m in Sources */,
+				84941EED25CF82EC00A3A062 /* UIImage+Extra.m in Sources */,
 				F656DFF1257E53D700791518 /* BaseController.m in Sources */,
 				F656E030257E545700791518 /* UIColor+Extension.m in Sources */,
 				F656E023257E545700791518 /* NSString+Tool.m in Sources */,
@@ -1387,6 +1478,7 @@
 				F656DFF0257E53D700791518 /* BaseTableViewController.m in Sources */,
 				F656E02F257E545700791518 /* UIImage+RCImage.m in Sources */,
 				F6C5645825C56316006B62FE /* OrderListHeaderCell.m in Sources */,
+				84941EDA25CF7FBC00A3A062 /* AZHUDView.m in Sources */,
 				D3204B522325EA7A002ECB69 /* UITableView+Extension.swift in Sources */,
 				F656E02C257E545700791518 /* UIView+PubicColor.m in Sources */,
 				849CEE9725B90EC1005FDECD /* TenonProtocolView.swift in Sources */,

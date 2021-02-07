@@ -19,10 +19,11 @@
 #import "UITableView+loadCell.h"
 #import "JTNetwork.h"
 #import <DKProgressHUD.h>
+#import "LKExt.h"
 #import "NSObject+MJKeyValue.h"
-#define SERVER_URL @"http://192.168.0.13:8080"
+#define SERVER_URL @"http://216.108.227.52:80"
 
-
+#define ZSWindow  [[UIApplication sharedApplication].delegate window]
 #define APP_MAIN_COLOR kRBColor(18, 181, 170)
 #define BOTTOM                  @"bottom"
 #define CENTER                  @"center"
