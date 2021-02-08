@@ -23,6 +23,7 @@
 #import <StoreKit/StoreKit.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "MainViewController.h"
+#import "KeychainItemWrapper.h"
 
 extern ViewController *swiftViewController;
 
@@ -58,13 +59,38 @@ extern ViewController *swiftViewController;
     [self initUI];
     self.selectIdx = -1;
     self.selectAppleGoodsID = @"";
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
+    if ([self getKeyChainReceipt].length == 0) {
+        NSLog(@"getKeyChainReceipt");
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
+    }else{
+        NSLog(@"recept = %@",[self getKeyChainReceipt]);
+        NSLog(@"type = %ld",(long)[self getKeyChainType]);
+        [DKProgressHUD showHUDHoldOn:self];
+        [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id, @"receipt":[self getKeyChainReceipt], @"type":@([self getKeyChainType])} url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
+            if (model.status == 1) {
+                NSLog(@"支付成功");
+                [self setKeyChainReceipt:@""];
+                [self setKeyChainType:0];
+                [DKProgressHUD dismissHud];
+                [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                NSLog(@"支付失败");
+                [self setKeyChainReceipt:@""];
+                [self setKeyChainType:0];
+                [DKProgressHUD dismissHud];
+                [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    }
+    
 }
 - (void)startTimer{
-//    [_listarray removeAllObjects];
-//    [self loadUI];
-//    [_myTableView reloadData];
+    [_listarray removeAllObjects];
+    [self loadUI];
+    [_myTableView reloadData];
 }
 - (void)loadUI{
     _listarray = [[NSMutableArray alloc] init];
@@ -391,7 +417,6 @@ extern ViewController *swiftViewController;
     
     UIBaseModel* model = self.listarray[indexPath.row];
     if ([model.type  isEqual: @(UITipsType)]) {
-        NSLog(@"tableView:cellForRowAtIndexPath");
         getTenonCell* cell = [tableView dequeueReusableCellWithIdentifier:@"getTenonCell"];
         cell.lbTitle.text = model.title;
         cell.lbTitle.font = Font_H(16);
@@ -511,12 +536,15 @@ extern ViewController *swiftViewController;
 
 }
 
-- (void)PaySuccess{
+- (void)PaySuccess:(SKPaymentTransaction *)transaction{
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self setKeyChainReceipt:@""];
+        [self setKeyChainType:0];
+        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         [DKProgressHUD dismissHud];
         [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
+        [self.navigationController popViewControllerAnimated:YES];
     });
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)orderToApplePay{
@@ -530,9 +558,7 @@ extern ViewController *swiftViewController;
             request.delegate = self;
             [request start];
         }else{
-            
             [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"your phone cannot IAP")];
-            
             [DKProgressHUD dismissHud];
         }
     });
@@ -556,9 +582,9 @@ extern ViewController *swiftViewController;
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }else{
         dispatch_async(dispatch_get_main_queue(), ^{
+            [DKProgressHUD dismissHud];
             [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"no product")];
         });
-        [DKProgressHUD dismissHud];
     }
 }
 #pragma mark - SKRequestDelegate
@@ -571,55 +597,62 @@ extern ViewController *swiftViewController;
 //请求结束
 - (void)requestDidFinish:(SKRequest *)request
 {
-    [DKProgressHUD dismissHud];
+//    [DKProgressHUD dismissHud];
 }
 
 #pragma mark - SKPaymentTransactionObserver
 //监听购买结果
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
-    for(SKPaymentTransaction *tran in transactions){
-        switch (tran.transactionState) {
-            case SKPaymentTransactionStatePurchased:
-            {
-                NSLog(@"交易完成");
-                [DKProgressHUD dismissHud];
-                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                [self completeTransaction:tran];
-            }
-                break;
-            case SKPaymentTransactionStateFailed:
-            {
-                NSLog(@"交易失败");
-                [DKProgressHUD dismissHud];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"order failed")];
-                });
-                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-            }
-                break;
-            case SKPaymentTransactionStatePurchasing:
-            {
-                NSLog(@"商品添加进列表");
-                [DKProgressHUD dismissHud];
-            }
-                break;
-//            case SKPaymentTransactionStateRestored:
-//            {
-//                NSLog(@"已经购买过商品");
-//                [DKProgressHUD dismissHud];
-//                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-//            }
-//                break;
-            default:
-            {
-                NSLog(@"交易失败 default");
-                [DKProgressHUD dismissHud];
-                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-            }
-                break;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([transactions count] != 1) {
+            NSLog(@"transactions count = %ld",[transactions count]);
+            [self.navigationController popViewControllerAnimated:YES];
+            [DKProgressHUD dismissHud];
+            return;
         }
-    }
+        
+        for(SKPaymentTransaction *tran in transactions){
+            switch (tran.transactionState) {
+                case SKPaymentTransactionStatePurchased:
+                {
+                    NSLog(@"交易完成");
+                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                    [DKProgressHUD dismissHud];
+                    [self completeTransaction:tran];
+                }
+                    break;
+                case SKPaymentTransactionStateFailed:
+                {
+                    NSLog(@"交易失败");
+                    [DKProgressHUD dismissHud];
+                    [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"order failed")];
+                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                }
+                    break;
+                case SKPaymentTransactionStatePurchasing:
+                {
+                    // 此处不能调用 finishTransaction 否则会闪退
+                    NSLog(@"商品添加进列表");
+                }
+                    break;
+                    //            case SKPaymentTransactionStateRestored:
+                    //            {
+                    //                NSLog(@"已经购买过商品");
+                    //                [DKProgressHUD dismissHud];
+                    //                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                    //            }
+                    //                break;
+                default:
+                {
+                    NSLog(@"交易失败 default");
+                    [DKProgressHUD dismissHud];
+                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                }
+                    break;
+            }
+        }
+    });
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
@@ -643,48 +676,66 @@ extern ViewController *swiftViewController;
     if (result == nil) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [DKProgressHUD dismissHud];
+            [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         });
-        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     }else{
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
         if (dic != nil) {
-            NSString* gid = [self sha256HashForText:(self.receipt)];
-            NSLog(@"called success and get receipt gid: %@", gid);
+//            NSString* gid = [self sha256HashForText:(self.receipt)];
+//            NSLog(@"called success and get receipt gid: %@", gid);
+//
+//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//            [userDefaults setValue: gid forKey:@"local_charge_info_gid"];
+//            [userDefaults setInteger: self.selectIdx forKey:@"local_charge_info_amount"];
+//            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
+//            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
+//            [nsdf2 setDateFormat:@"MM-DD HH:mm"];
+//            NSString *date=[nsdf2 stringFromDate:[NSDate date]];
+//            [userDefaults setValue: date forKey:@"local_charge_info_date"];
+//            [userDefaults synchronize];
+            
+            [self setKeyChainReceipt:self.receipt];
+            [self setKeyChainType:self.selectIdx];
+            [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id, @"receipt":self.receipt, @"type":@(self.selectIdx)} url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
+                if (model.status == 1) {
+                    NSLog(@"支付成功");
+                    [self PaySuccess:transaction];
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self setKeyChainReceipt:@""];
+                        [self setKeyChainType:0];
 
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setValue: gid forKey:@"local_charge_info_gid"];
-            [userDefaults setInteger: self.selectIdx forKey:@"local_charge_info_amount"];
-            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
-            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
-            [nsdf2 setDateFormat:@"MM-DD HH:mm"];
-            NSString *date=[nsdf2 stringFromDate:[NSDate date]];
-            [userDefaults setValue: date forKey:@"local_charge_info_date"];
-            [userDefaults synchronize];
-
-            NSLog(@"支付成功");
-            [DKProgressHUD dismissHud];
-            [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-//            [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id, @"receipt":self.receipt, @"type":@(self.selectIdx)} url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
-//                if (model.status == 1) {
-//                    NSLog(@"支付成功");
-//                    [self PaySuccess];
-//                    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-//                }else{
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        [DKProgressHUD dismissHud];
-//                        [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
-//                    });
-//                    NSLog(@"支付失败");
-//                    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-//                }
-//            }];
-        }
-        else{
+                        [DKProgressHUD dismissHud];
+                        [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
+                        NSLog(@"支付失败");
+                        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+                    });
+                }
+            }];
+        }else{
             NSLog(@"支付失败2");
             [DKProgressHUD dismissHud];
             [self.navigationController popViewControllerAnimated:YES];
             [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         }
     }
+}
+
+- (NSString*)getKeyChainReceipt{
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
+    return [wrapper objectForKey:(__bridge id)kSecAttrAccount];
+}
+- (NSInteger)getKeyChainType{
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
+    return [[wrapper objectForKey:(__bridge id)kSecAttrType] integerValue];
+}
+
+-(void)setKeyChainReceipt:(NSString*)receipt {
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
+    [wrapper setObject:receipt forKey:(__bridge id)kSecAttrAccount];
+}
+-(void)setKeyChainType:(NSInteger)Type {
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
+    [wrapper setObject:@(Type) forKey:(__bridge id)kSecAttrType];
 }
 @end

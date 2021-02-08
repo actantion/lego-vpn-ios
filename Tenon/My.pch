@@ -23,6 +23,10 @@
 #import "NSObject+MJKeyValue.h"
 #define SERVER_URL @"http://216.108.227.52:80"
 
+#define KCK_ACCOUNT @"KEYCHAIN_TENONVIP_ACCOUNT"
+#define KCK_RECEIPT @"KEYCHAIN_TENONVIP_RECEIPT"
+#define KCK_TYPE @"KEYCHAIN_TENONVIP_TYPE"
+
 #define ZSWindow  [[UIApplication sharedApplication].delegate window]
 #define APP_MAIN_COLOR kRBColor(18, 181, 170)
 #define BOTTOM                  @"bottom"
