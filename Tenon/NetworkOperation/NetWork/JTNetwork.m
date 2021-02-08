@@ -84,7 +84,7 @@
         JTBaseReqModel *model = [[JTBaseReqModel alloc] init];
         model.message = (NSString *)model.data;
         model.error = error;
-        model.status = 0;
+        model.status = -2;
         if (callback) {
             callback(model);
         }

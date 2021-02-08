@@ -139,17 +139,26 @@ class TenonP2pLib : NSObject {
     }
     
     func GetBalance() -> UInt64 {
-        let res = LibP2P.getBalance() as UInt64
-        let local_amount: Int = UserDefaults.standard.integer(forKey: "local_charge_info_amount")
-        if (local_amount != 0) {
-            let trans_res: String = LibP2P.getTransactions() as String
-            let local_gid: String = UserDefaults.standard.value(forKey: "local_charge_info_gid") as! String
-            let location = trans_res.findFirst(local_gid)
-            if (location > 0) {
-                UserDefaults.standard.setValue(0, forKey: "local_charge_info_amount")
-            }
+        var res = LibP2P.getBalance() as UInt64
+//        let local_amount: Int = UserDefaults.standard.integer(forKey: "local_charge_info_amount")
+//        if (local_amount != 0) {
+//            let trans_res: String = LibP2P.getTransactions() as String
+//            let local_gid: String = UserDefaults.standard.value(forKey: "local_charge_info_gid") as! String
+//            let location = trans_res.findFirst(local_gid)
+//            if (location > 0) {
+//                UserDefaults.standard.setValue(0, forKey: "local_charge_info_amount")
+//            }
+//        }
+//        if ([[KeychainManager shareInstence] getKeyChainTranscate].length == 0) {
+//            transcation = TenonP2pLib.sharedInstance.GetTransactions;
+//        }
+        if KeychainManager.shareInstence().getKeyChainTranscate().count != 0 {
+            let transcate = KeychainManager.shareInstence().getKeyChainTranscate()
+            let array = transcate.split(separator: ",")
+            let amount = array[2]
+            print("amount = \(amount)")
+            res += UInt64(amount)!
         }
-        
         return res
     }
     
@@ -191,7 +200,10 @@ class TenonP2pLib : NSObject {
         UserDefaults.standard.set(false, forKey: "use_global_mode")
         VpnManager.shared.use_global_mode = false
     }
-        
+    @objc func getLeftDays() -> Int32 {
+        vip_left_days = (Int32)(Int64(GetBalance()) / min_payfor_vpn_tenon);
+        return vip_left_days
+    }
     func PayforVpn() {
         var local_added_amount: Int64 = 0
         let local_amount: Int = UserDefaults.standard.integer(forKey: "local_charge_info_amount")
@@ -207,7 +219,7 @@ class TenonP2pLib : NSObject {
         let cur_timestamp: Int64 = Int64(Date().milliStamp)
         let days_cur = cur_timestamp / day_msec;
         let vip_days = payfor_amount / min_payfor_vpn_tenon
-        vip_left_days = (Int32)(now_balance / min_payfor_vpn_tenon);
+        vip_left_days = getLeftDays() //  changed by FriendWu
         if (payfor_timestamp != Int64.max && days_timestamp + vip_days > days_cur) {
             payfor_gid = "";
             vip_left_days = Int32((days_timestamp + vip_days - days_cur)) + (Int32)((now_balance + local_added_amount) / min_payfor_vpn_tenon);

@@ -23,6 +23,7 @@
 		5DA1BE6BD0C526BF119CCCE7 /* Pods_PacketTunnel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74E606D8AE4BE562B38CEF4 /* Pods_PacketTunnel.framework */; };
 		847143C925C9246200D58BE6 /* HomeGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847143C825C9246200D58BE6 /* HomeGuideView.m */; };
 		847143CD25C9247300D58BE6 /* HomeGuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847143CC25C9247300D58BE6 /* HomeGuideView.xib */; };
+		847462B525D11A7C00272C68 /* KeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 847462B425D11A7C00272C68 /* KeychainManager.m */; };
 		8482CD9D25C7F415007C256E /* SettingSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8482CD9B25C7F415007C256E /* SettingSelectCell.m */; };
 		8482CD9E25C7F415007C256E /* SettingSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8482CD9C25C7F415007C256E /* SettingSelectCell.xib */; };
 		84941ECE25CF7FBC00A3A062 /* load8.png in Resources */ = {isa = PBXBuildFile; fileRef = 84941EC125CF7FBC00A3A062 /* load8.png */; };
@@ -262,6 +263,8 @@
 		847143C725C9246200D58BE6 /* HomeGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeGuideView.h; sourceTree = "<group>"; };
 		847143C825C9246200D58BE6 /* HomeGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeGuideView.m; sourceTree = "<group>"; };
 		847143CC25C9247300D58BE6 /* HomeGuideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGuideView.xib; sourceTree = "<group>"; };
+		847462B325D11A7C00272C68 /* KeychainManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeychainManager.h; sourceTree = "<group>"; };
+		847462B425D11A7C00272C68 /* KeychainManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeychainManager.m; sourceTree = "<group>"; };
 		8482CD9A25C7F415007C256E /* SettingSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingSelectCell.h; sourceTree = "<group>"; };
 		8482CD9B25C7F415007C256E /* SettingSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingSelectCell.m; sourceTree = "<group>"; };
 		8482CD9C25C7F415007C256E /* SettingSelectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSelectCell.xib; sourceTree = "<group>"; };
@@ -732,6 +735,8 @@
 				D3204B5B232635FB002ECB69 /* UIButton+Extension.swift */,
 				85257776232A197F00BF8AF8 /* CircleProgressButton.swift */,
 				8535EFCC232F6A23001ED6E8 /* CBToast.swift */,
+				847462B325D11A7C00272C68 /* KeychainManager.h */,
+				847462B425D11A7C00272C68 /* KeychainManager.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1468,6 +1473,7 @@
 				F656E031257E545700791518 /* NSDictionary+extension.m in Sources */,
 				D34378F72328DDC1000F1F69 /* AccountSetHeaderTableViewCell.swift in Sources */,
 				18E9141D2266C7B4005E6027 /* AppDelegate.swift in Sources */,
+				847462B525D11A7C00272C68 /* KeychainManager.m in Sources */,
 				F656E026257E545700791518 /* NSObject+setProperty.m in Sources */,
 				F656DF94257E506700791518 /* WithdrawViewController.m in Sources */,
 				D316BC2823224F24008C8FD3 /* CountryTableViewCell.swift in Sources */,

@@ -269,7 +269,6 @@
                 failure(nil, serializationError);
             });
         }
-
         return nil;
     }
 

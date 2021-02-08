@@ -158,7 +158,7 @@ extern NSString* GlobalMonitorString;
     }
 }
 -(void)reloadBalance{
-    _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
+    _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.getLeftDays, GCLocalizedString(@"left_days")];
     _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
 }
 

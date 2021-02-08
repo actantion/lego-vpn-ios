@@ -23,21 +23,19 @@
 #import <StoreKit/StoreKit.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "MainViewController.h"
-#import "KeychainItemWrapper.h"
 
 extern ViewController *swiftViewController;
 
 @interface RechargeViewController()<UITableViewDelegate,UITableViewDataSource,SKPaymentTransactionObserver,SKProductsRequestDelegate>
-@property (nonatomic, assign)NSInteger selectIdx;
-@property (nonatomic, strong)NSString* selectAppleGoodsID;
-@property (nonatomic, strong)NSString* applepayProducID;
-@property(nonatomic, strong) NSString* receipt;
+@property (nonatomic, assign) NSInteger selectIdx;
+@property (nonatomic, strong) NSString* selectAppleGoodsID;
+@property (nonatomic, strong) NSString* applepayProducID;
+@property (nonatomic, strong) NSString* receipt;
+@property (nonatomic, strong) UITableView *myTableView;
+@property (nonatomic, strong) NSMutableArray *listarray;
 
-@property (nonatomic,strong) UITableView *myTableView;
-@property (nonatomic,strong) NSMutableArray *listarray;
-
-@property(nonatomic, strong) GADRewardedAd *rewardedAd;
-@property(nonatomic, strong) GADAdLoader *adLoader;
+@property (nonatomic, strong) GADRewardedAd *rewardedAd;
+@property (nonatomic, strong) GADAdLoader *adLoader;
 @property (nonatomic, assign) BOOL bIsShowAd;
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIView *loadingAdView;
@@ -59,33 +57,43 @@ extern ViewController *swiftViewController;
     [self initUI];
     self.selectIdx = -1;
     self.selectAppleGoodsID = @"";
-    if ([self getKeyChainReceipt].length == 0) {
+    if ([[KeychainManager shareInstence] getKeyChainReceipt].length == 0) {
         NSLog(@"getKeyChainReceipt");
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
     }else{
-        NSLog(@"recept = %@",[self getKeyChainReceipt]);
-        NSLog(@"type = %ld",(long)[self getKeyChainType]);
+        NSLog(@"recept = %@",[[KeychainManager shareInstence] getKeyChainReceipt]);
+        NSLog(@"type = %ld",(long)[[KeychainManager shareInstence] getKeyChainType]);
         [DKProgressHUD showHUDHoldOn:self];
-        [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id, @"receipt":[self getKeyChainReceipt], @"type":@([self getKeyChainType])} url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
+        [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
+                                          @"receipt":[[KeychainManager shareInstence] getKeyChainReceipt],
+                                          @"type":@([[KeychainManager shareInstence] getKeyChainType])}
+                                    url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
             if (model.status == 1) {
                 NSLog(@"支付成功");
-                [self setKeyChainReceipt:@""];
-                [self setKeyChainType:0];
+                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+                [[KeychainManager shareInstence] setKeyChainType:0];
+                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
                 [DKProgressHUD dismissHud];
                 [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
                 [self.navigationController popViewControllerAnimated:YES];
+            }else if(model.status == -2){
+                // 网络请求报错
+                NSLog(@"网络请求报错");
+                [DKProgressHUD dismissHud];
+                [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
+                [self.navigationController popViewControllerAnimated:YES];
             }else{
-                NSLog(@"支付失败");
-                [self setKeyChainReceipt:@""];
-                [self setKeyChainType:0];
+                NSLog(@"服务器验证失败");
+                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+                [[KeychainManager shareInstence] setKeyChainType:0];
+                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
                 [DKProgressHUD dismissHud];
                 [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
     }
-    
 }
 - (void)startTimer{
     [_listarray removeAllObjects];
@@ -159,8 +167,14 @@ extern ViewController *swiftViewController;
     }]];
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@15}]];
-    NSString* transcation = TenonP2pLib.sharedInstance.GetTransactions;
+    NSString* transcation = @"";
+    if ([[KeychainManager shareInstence] getKeyChainTranscate].length == 0) {
+        transcation = TenonP2pLib.sharedInstance.GetTransactions;
+    }else{
+        transcation = [NSString stringWithFormat:@"%@%@",[[KeychainManager shareInstence] getKeyChainTranscate],TenonP2pLib.sharedInstance.GetTransactions];
+    }
     NSLog(@"get transactions: %@", transcation);
+    
     if (transcation.length != 0) {
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UIOrderListType),
                                                          BM_title:GCLocalizedString(@"OrderList"),
@@ -538,8 +552,8 @@ extern ViewController *swiftViewController;
 
 - (void)PaySuccess:(SKPaymentTransaction *)transaction{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setKeyChainReceipt:@""];
-        [self setKeyChainType:0];
+        [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+        [[KeychainManager shareInstence] setKeyChainType:0];
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         [DKProgressHUD dismissHud];
         [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
@@ -609,47 +623,46 @@ extern ViewController *swiftViewController;
             NSLog(@"transactions count = %ld",[transactions count]);
             [self.navigationController popViewControllerAnimated:YES];
             [DKProgressHUD dismissHud];
-            return;
-        }
-        
-        for(SKPaymentTransaction *tran in transactions){
-            switch (tran.transactionState) {
-                case SKPaymentTransactionStatePurchased:
-                {
-                    NSLog(@"交易完成");
-                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                    [DKProgressHUD dismissHud];
-                    [self completeTransaction:tran];
+        }else{
+            for(SKPaymentTransaction *tran in transactions){
+                switch (tran.transactionState) {
+                    case SKPaymentTransactionStatePurchased:
+                    {
+                        NSLog(@"交易完成");
+                        [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                        [DKProgressHUD dismissHud];
+                        [self completeTransaction:tran];
+                    }
+                        break;
+                    case SKPaymentTransactionStateFailed:
+                    {
+                        NSLog(@"交易失败");
+                        [DKProgressHUD dismissHud];
+                        [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"order failed")];
+                        [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                    }
+                        break;
+                    case SKPaymentTransactionStatePurchasing:
+                    {
+                        // 此处不能调用 finishTransaction 否则会闪退
+                        NSLog(@"商品添加进列表");
+                    }
+                        break;
+                        //            case SKPaymentTransactionStateRestored:
+                        //            {
+                        //                NSLog(@"已经购买过商品");
+                        //                [DKProgressHUD dismissHud];
+                        //                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                        //            }
+                        //                break;
+                    default:
+                    {
+                        NSLog(@"交易失败 default");
+                        [DKProgressHUD dismissHud];
+                        [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                    }
+                        break;
                 }
-                    break;
-                case SKPaymentTransactionStateFailed:
-                {
-                    NSLog(@"交易失败");
-                    [DKProgressHUD dismissHud];
-                    [DKProgressHUD showInfoWithStatus:GCLocalizedString(@"order failed")];
-                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                }
-                    break;
-                case SKPaymentTransactionStatePurchasing:
-                {
-                    // 此处不能调用 finishTransaction 否则会闪退
-                    NSLog(@"商品添加进列表");
-                }
-                    break;
-                    //            case SKPaymentTransactionStateRestored:
-                    //            {
-                    //                NSLog(@"已经购买过商品");
-                    //                [DKProgressHUD dismissHud];
-                    //                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                    //            }
-                    //                break;
-                default:
-                {
-                    NSLog(@"交易失败 default");
-                    [DKProgressHUD dismissHud];
-                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                }
-                    break;
             }
         }
     });
@@ -687,24 +700,56 @@ extern ViewController *swiftViewController;
 //            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //            [userDefaults setValue: gid forKey:@"local_charge_info_gid"];
 //            [userDefaults setInteger: self.selectIdx forKey:@"local_charge_info_amount"];
+            
 //            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
 //            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
-//            [nsdf2 setDateFormat:@"MM-DD HH:mm"];
+//            [nsdf2 setDateFormat:@"MM/DD HH:mm"];
 //            NSString *date=[nsdf2 stringFromDate:[NSDate date]];
+            
 //            [userDefaults setValue: date forKey:@"local_charge_info_date"];
 //            [userDefaults synchronize];
             
-            [self setKeyChainReceipt:self.receipt];
-            [self setKeyChainType:self.selectIdx];
+            
+            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
+            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
+            [nsdf2 setDateFormat:@"MM/DD HH:mm"];
+            NSString *date = [nsdf2 stringFromDate:[NSDate date]];
+            NSString *type = @"1";
+            NSString *amount = @"";
+            if (self.selectIdx == 1) {
+                amount = @"1990";
+            }else if(self.selectIdx == 2){
+                amount = @"5950";
+            }else if (self.selectIdx == 3){
+                amount = @"23800";
+            }else{
+                amount = @"1990";
+            }
+            UInt64 balance = [[TenonP2pLib sharedInstance] GetBalance];
+            NSString *gid = [self sha256HashForText:(self.receipt)];
+            NSString* record = [NSString stringWithFormat:@"%@,%@,%@,%llu,%@,0,0;",date,type,amount,balance,gid];
+            NSLog(@"record = %@",record);
+            [[KeychainManager shareInstence] setKeyChainReceipt:self.receipt];
+            [[KeychainManager shareInstence] setKeyChainType:self.selectIdx];
+            [[KeychainManager shareInstence] setKeyChainTranscate:record];
+            
             [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id, @"receipt":self.receipt, @"type":@(self.selectIdx)} url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
                 if (model.status == 1) {
                     NSLog(@"支付成功");
                     [self PaySuccess:transaction];
-                }else{
+                }else if(model.status == -2){
+                    // 网络请求报错
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setKeyChainReceipt:@""];
-                        [self setKeyChainType:0];
-
+                        [DKProgressHUD dismissHud];
+                        [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
+                        NSLog(@"支付失败");
+                        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+                    });
+                }else{
+                    // 服务端验证失败
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+                        [[KeychainManager shareInstence] setKeyChainType:0];
                         [DKProgressHUD dismissHud];
                         [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
                         NSLog(@"支付失败");
@@ -719,23 +764,5 @@ extern ViewController *swiftViewController;
             [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         }
     }
-}
-
-- (NSString*)getKeyChainReceipt{
-    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
-    return [wrapper objectForKey:(__bridge id)kSecAttrAccount];
-}
-- (NSInteger)getKeyChainType{
-    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
-    return [[wrapper objectForKey:(__bridge id)kSecAttrType] integerValue];
-}
-
--(void)setKeyChainReceipt:(NSString*)receipt {
-    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
-    [wrapper setObject:receipt forKey:(__bridge id)kSecAttrAccount];
-}
--(void)setKeyChainType:(NSInteger)Type {
-    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
-    [wrapper setObject:@(Type) forKey:(__bridge id)kSecAttrType];
 }
 @end
