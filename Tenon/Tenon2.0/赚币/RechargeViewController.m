@@ -44,6 +44,7 @@ extern ViewController *swiftViewController;
 @property (nonatomic, assign) NSInteger loadingTime;
 @property (nonatomic, assign) MainViewController* mainViewController;
 @property (nonatomic, strong) NSTimer * timer;
+@property (nonatomic, assign) NSInteger prevPurchaseTime;
 @end
 
 @implementation RechargeViewController
@@ -71,9 +72,9 @@ extern ViewController *swiftViewController;
                                     url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
             if (model.status == 1) {
                 NSLog(@"支付成功");
-                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
-                [[KeychainManager shareInstence] setKeyChainType:0];
-                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
+//                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+//                [[KeychainManager shareInstence] setKeyChainType:0];
+//                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
                 [DKProgressHUD dismissHud];
                 [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -85,9 +86,9 @@ extern ViewController *swiftViewController;
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 NSLog(@"服务器验证失败");
-                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
-                [[KeychainManager shareInstence] setKeyChainType:0];
-                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
+//                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+//                [[KeychainManager shareInstence] setKeyChainType:0];
+//                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
                 [DKProgressHUD dismissHud];
                 [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -107,7 +108,7 @@ extern ViewController *swiftViewController;
                                                      BM_title:GCLocalizedString(@"Method one"),
                                                      BM_titleSize:@(24),
                                                      BM_subTitle:GCLocalizedString(@"Transfer Tenon directly to your anonymous account"),
-                                                     BM_dataArray:@[swiftViewController.local_account_id],
+                                                     BM_dataArray:@[swiftViewController.local_private_key],
                                                      BM_subTitleSize:@(24),
                                                      BM_mark:GCLocalizedString(@"Copy")
     }]];
@@ -171,9 +172,18 @@ extern ViewController *swiftViewController;
     if ([[KeychainManager shareInstence] getKeyChainTranscate].length == 0) {
         transcation = TenonP2pLib.sharedInstance.GetTransactions;
     }else{
-        transcation = [NSString stringWithFormat:@"%@%@",[[KeychainManager shareInstence] getKeyChainTranscate],TenonP2pLib.sharedInstance.GetTransactions];
+        NSString* local_trans = [[KeychainManager shareInstence] getKeyChainTranscate];
+        NSMutableArray* array = [local_trans componentsSeparatedByString:@","];
+        UInt64 balance = [[TenonP2pLib sharedInstance] GetBalance];
+        if (balance > 1844674407370955161) {
+            balance = 0;
+        }
+        
+        int local_amount = [array[2] intValue];
+        balance += local_amount;
+        NSString* record = [NSString stringWithFormat:@"%@,%s,%@,%llu,%@,0,0;",array[0],"3",array[2],balance,array[4]];
+        transcation = [NSString stringWithFormat:@"%@%@", record, TenonP2pLib.sharedInstance.GetTransactions];
     }
-    NSLog(@"get transactions: %@", transcation);
     
     if (transcation.length != 0) {
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UIOrderListType),
@@ -188,12 +198,14 @@ extern ViewController *swiftViewController;
                                                          BM_cellHeight:@8}]];
         
         NSMutableArray* array = [transcation componentsSeparatedByString:@";"];
-        NSLog(transcation);
         [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UILineType),
                                                          BM_dataArray:@[GCLocalizedString(@"Transaction time"),GCLocalizedString(@"Type"),GCLocalizedString(@"volume of trade"),GCLocalizedString(@"Balance")]}]];
         NSInteger idx = 0;
         for (NSString* value in array) {
             NSMutableArray* dataArray = [value componentsSeparatedByString:@","];
+            if (dataArray.count < 4) {
+                continue;
+            }
             NSString* type = dataArray[1];
             NSString* typeValue = @"";
             if ([type intValue] == 1) {
@@ -201,7 +213,7 @@ extern ViewController *swiftViewController;
             }else if ([type intValue] == 2){
                 typeValue = GCLocalizedString(@"transfer_out");
             }else if ([type intValue] == 3){
-                typeValue = GCLocalizedString(@"Charge flow");
+                typeValue = GCLocalizedString(@"recharge");
             }else if ([type intValue] == 4){
                 typeValue = GCLocalizedString(@"transfer_in");
             }else if ([type intValue] == 5){
@@ -373,7 +385,7 @@ extern ViewController *swiftViewController;
 -(void)copyBtnClicked
 {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = swiftViewController.local_account_id;
+    pasteboard.string = swiftViewController.local_private_key;
     [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
 }
 
@@ -552,8 +564,9 @@ extern ViewController *swiftViewController;
 
 - (void)PaySuccess:(SKPaymentTransaction *)transaction{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[KeychainManager shareInstence] setKeyChainReceipt:@""];
-        [[KeychainManager shareInstence] setKeyChainType:0];
+//        [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+//        [[KeychainManager shareInstence] setKeyChainType:0];
+//        [[KeychainManager shareInstence] setKeyChainTranscate:@""];
         [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
         [DKProgressHUD dismissHud];
         [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
@@ -562,6 +575,11 @@ extern ViewController *swiftViewController;
 }
 
 - (void)orderToApplePay{
+    NSLog(@"DDDDDDDDDDDDDDDDD: %lu", (unsigned long)[[KeychainManager shareInstence] getKeyChainReceipt].length);
+    if ([[KeychainManager shareInstence] getKeyChainReceipt].length != 0) {
+        [self.view makeToast:GCLocalizedString(@"paying") duration:2 position:BOTTOM];
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         //是否允许内购
         if ([SKPaymentQueue canMakePayments]) {
@@ -694,26 +712,10 @@ extern ViewController *swiftViewController;
     }else{
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingAllowFragments error:nil];
         if (dic != nil) {
-//            NSString* gid = [self sha256HashForText:(self.receipt)];
-//            NSLog(@"called success and get receipt gid: %@", gid);
-//
-//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//            [userDefaults setValue: gid forKey:@"local_charge_info_gid"];
-//            [userDefaults setInteger: self.selectIdx forKey:@"local_charge_info_amount"];
-            
-//            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
-//            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
-//            [nsdf2 setDateFormat:@"MM/DD HH:mm"];
-//            NSString *date=[nsdf2 stringFromDate:[NSDate date]];
-            
-//            [userDefaults setValue: date forKey:@"local_charge_info_date"];
-//            [userDefaults synchronize];
-            
-            
-            NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
-            [nsdf2 setDateStyle:NSDateFormatterShortStyle];
-            [nsdf2 setDateFormat:@"MM/DD HH:mm"];
-            NSString *date = [nsdf2 stringFromDate:[NSDate date]];
+            NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
+            [formatter setDateFormat:@"MM-dd hh:mm"];
+            NSString *dateex =  [formatter stringFromDate:[NSDate date]];
+            NSString *date = [[NSString alloc] initWithFormat:@"%@", dateex];
             NSString *type = @"1";
             NSString *amount = @"";
             if (self.selectIdx == 1) {
@@ -748,8 +750,9 @@ extern ViewController *swiftViewController;
                 }else{
                     // 服务端验证失败
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [[KeychainManager shareInstence] setKeyChainReceipt:@""];
-                        [[KeychainManager shareInstence] setKeyChainType:0];
+//                        [[KeychainManager shareInstence] setKeyChainReceipt:@""];
+//                        [[KeychainManager shareInstence] setKeyChainTranscate:@""];
+//                        [[KeychainManager shareInstence] setKeyChainType:0];
                         [DKProgressHUD dismissHud];
                         [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
                         NSLog(@"支付失败");

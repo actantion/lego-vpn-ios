@@ -146,13 +146,14 @@ extern NSString* GlobalMonitorString;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadVPNStatus) name:@"kProxyServiceVPNStatusNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadBalance) name:@"NOTIFICATION_BALANCE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
+    //self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
     
 }
 
 - (void)showAdsTimer{
     long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && !TenonP2pLib.sharedInstance.IsVip) {
+    // (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 &&
+    if (self.rewardedAd.isReady && !TenonP2pLib.sharedInstance.IsVip) {
         prevAdViewTm = nowAdViewTm;
         [self.rewardedAd presentFromRootViewController:self delegate:self];
     }
@@ -819,7 +820,7 @@ extern NSString* GlobalMonitorString;
     if (self.isLink == YES) {
         [self disconnectVpn];
     }else {
-        [self showAdsTimer];
+        //[self showAdsTimer];
         [self connectVpn];
     }
 }
@@ -890,19 +891,8 @@ extern NSString* GlobalMonitorString;
         [_freeView addSubview:changeBtn];
         
         if (TenonP2pLib.sharedInstance.vip_left_days >= 0) {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            long amount = [userDefaults integerForKey:@"local_charge_info_amount"];
-            UInt64 show_balance = TenonP2pLib.sharedInstance.GetBalance;
-            if (amount == 1) {
-                show_balance += 1990;
-            } else if (amount == 2) {
-                show_balance += 5950;
-            } else if (amount == 3) {
-                show_balance += 23800;
-            }
-            
+            UInt64 show_balance = TenonP2pLib.sharedInstance.GetBalance + TenonP2pLib.sharedInstance.GetLocalAmount;
             TenonP2pLib.sharedInstance.PayforVpn;
-
             _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
             _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",show_balance];
         } else {
@@ -1103,35 +1093,43 @@ extern NSString* GlobalMonitorString;
     return YES;
 }
 
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
-    return (action == @selector(copy:) || action == @selector(copy1:));
-}
+//- (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+//    return (action == @selector(copy:) || action == @selector(copy1:));
+//}
 
 - (void)copy:(id)sender{
+    NSLog(@"copy account id called: %@", swiftViewController.local_account_id);
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
     pasteBoard.string = swiftViewController.local_account_id;
 }
 
 - (void)copy1:(id)sender{
+    NSLog(@"copy private key called: %@", swiftViewController.local_private_key);
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
     pasteBoard.string = swiftViewController.local_private_key;
 }
 // 处理长按事件
 - (void)longPre:(UILongPressGestureRecognizer *)recognizer{
     [self becomeFirstResponder];
-    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy:)];
-    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
-    [[UIMenuController sharedMenuController] setTargetRect:self.codeLabel.frame inView:self.codeLabel.superview];
-    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = swiftViewController.local_account_id;
+    [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
+//    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy:)];
+//    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
+//    [[UIMenuController sharedMenuController] setTargetRect:self.codeLabel.frame inView:self.codeLabel.superview];
+//    [[UIMenuController sharedMenuController] setMenuVisible:FALSE animated:YES];
 }
 
 // 处理长按事件
 - (void)longPre1:(UILongPressGestureRecognizer *)recognizer{
     [self becomeFirstResponder];
-    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy1:)];
-    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
-    [[UIMenuController sharedMenuController] setTargetRect:self.keyLabel.frame inView:self.keyLabel.superview];
-    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = swiftViewController.local_private_key;
+    [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
+//    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy1:)];
+//    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
+//    [[UIMenuController sharedMenuController] setTargetRect:self.keyLabel.frame inView:self.keyLabel.superview];
+//    [[UIMenuController sharedMenuController] setMenuVisible:FALSE animated:YES];
 }
 
 -(void)addtagBtnClicked
@@ -1154,6 +1152,20 @@ extern NSString* GlobalMonitorString;
 
 -(void)getCodeTime
 {
+    if (self.rewardedAd.isReady && !TenonP2pLib.sharedInstance.IsVip) {
+        [self.rewardedAd presentFromRootViewController:self delegate:self];
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+
+        self.loadingView.hidden = YES;
+        [self.loadingView removeFromSuperview];
+        self.isLink = true;
+        [self refreshLinkView];
+        _loadingTime = 0;
+    }
+    
     if (swiftViewController.user_started_vpn) {
 //        if (self.codeTimer != nil) {
 //          [self.codeTimer invalidate];

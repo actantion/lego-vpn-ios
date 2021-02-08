@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setKeyChainType:(NSInteger)Type;
 - (void)setKeyChainTranscate:(NSString*)transcate;
 - (NSString*)getKeyChainTranscate;
+- (NSString*)getKeyChainUUID;
+- (void)setKeyChainPrikey:(NSString*)pirvateKey;
+- (NSString*)getKeyChainPrikey;
 @end
 
 NS_ASSUME_NONNULL_END

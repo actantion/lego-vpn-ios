@@ -20,7 +20,8 @@
     return  sharedManager;
 }
 - (NSString*)getKeyChainReceipt{
-    return [_wrapper objectForKey:(__bridge id)kSecAttrAccount];
+    NSString* ret = [_wrapper objectForKey:(__bridge id)kSecAttrAccount];
+    return ret;
 }
 - (NSInteger)getKeyChainType{
     return [[_wrapper objectForKey:(__bridge id)kSecAttrType] integerValue];
@@ -37,6 +38,27 @@
 }
 - (NSString*)getKeyChainTranscate{
     NSString* ret = [NSString stringWithFormat:@"%@",[_wrapper objectForKey:(__bridge id)kSecAttrLabel]];
+    return ret;
+}
+- (NSString*)getKeyChainUUID {
+    NSString *UUID = [_wrapper objectForKey:(__bridge id)kSecValueData];
+    
+    if (UUID.length == 0) {
+        UUID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        [_wrapper setObject:UUID forKey:(__bridge id)kSecValueData];
+    }
+    
+    return UUID;
+}
+
+- (void)setKeyChainPrikey:(NSString*)pirvateKey {
+    NSLog(@"setKeyChainPrikey: %@", pirvateKey);
+    [_wrapper setObject:pirvateKey forKey:(__bridge id)kSecAttrGeneric];
+}
+
+- (NSString*)getKeyChainPrikey {
+    NSString* ret = [NSString stringWithFormat:@"%@",[_wrapper objectForKey:(__bridge id)kSecAttrGeneric]];
+    NSLog(@"getKeyChainPrikey: %@", ret);
     return ret;
 }
 @end
