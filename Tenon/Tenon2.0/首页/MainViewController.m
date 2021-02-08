@@ -165,7 +165,7 @@ extern NSString* GlobalMonitorString;
 
 - (void)reloadVPNStatus{
     printf("DDDDDDDD get vpn status: %d\n", swiftViewController.user_started_vpn);
-    if (swiftViewController.user_started_vpn == true) {
+    if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
           self.codeTimer = nil;
@@ -1166,17 +1166,17 @@ extern NSString* GlobalMonitorString;
         _loadingTime = 0;
     }
     
-    if (swiftViewController.user_started_vpn) {
-//        if (self.codeTimer != nil) {
-//          [self.codeTimer invalidate];
-//          self.codeTimer = nil;
-//        }
-//
-//        self.loadingView.hidden = YES;
-//        [self.loadingView removeFromSuperview];
-//        self.isLink = true;
-//        [self refreshLinkView];
-//        _loadingTime = 0;
+    if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+
+        self.loadingView.hidden = YES;
+        [self.loadingView removeFromSuperview];
+        self.isLink = true;
+        [self refreshLinkView];
+        _loadingTime = 0;
     }
     _loadingTime -= 1;
     if(_loadingTime > 0) {
