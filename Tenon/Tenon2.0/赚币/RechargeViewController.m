@@ -44,11 +44,31 @@ extern ViewController *swiftViewController;
 @property (nonatomic, assign) NSInteger loadingTime;
 @property (nonatomic, assign) MainViewController* mainViewController;
 @property (nonatomic, strong) NSTimer * timer;
+@property (nonatomic, strong) NSTimer * rechargeTimer;
 @property (nonatomic, assign) NSInteger prevPurchaseTime;
 @end
 
 @implementation RechargeViewController
 
+- (void)requestRechargeInterface{
+    if ([[KeychainManager shareInstence] getKeyChainReceipt].length == 0) {
+        NSLog(@"getKeyChainReceipt2");
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
+    }else{
+        [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
+                                          @"receipt":[[KeychainManager shareInstence] getKeyChainReceipt],
+                                          @"type":@([[KeychainManager shareInstence] getKeyChainType])}
+                                    url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
+            NSLog(@"调用服务端接口充值");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.rechargeTimer invalidate];
+                self.rechargeTimer = nil;
+                self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
+            });
+        }];
+    }
+}
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -63,37 +83,7 @@ extern ViewController *swiftViewController;
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
     }else{
-        NSLog(@"recept = %@",[[KeychainManager shareInstence] getKeyChainReceipt]);
-        NSLog(@"type = %ld",(long)[[KeychainManager shareInstence] getKeyChainType]);
-        [DKProgressHUD showHUDHoldOn:self];
-        [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
-                                          @"receipt":[[KeychainManager shareInstence] getKeyChainReceipt],
-                                          @"type":@([[KeychainManager shareInstence] getKeyChainType])}
-                                    url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
-            if (model.status == 1) {
-                NSLog(@"支付成功");
-//                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
-//                [[KeychainManager shareInstence] setKeyChainType:0];
-//                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
-                [DKProgressHUD dismissHud];
-                [DKProgressHUD showSuccessWithStatus:GCLocalizedString(@"Buy Success")];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else if(model.status == -2){
-                // 网络请求报错
-                NSLog(@"网络请求报错");
-                [DKProgressHUD dismissHud];
-                [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                NSLog(@"服务器验证失败");
-//                [[KeychainManager shareInstence] setKeyChainReceipt:@""];
-//                [[KeychainManager shareInstence] setKeyChainType:0];
-//                [[KeychainManager shareInstence] setKeyChainTranscate:@""];
-                [DKProgressHUD dismissHud];
-                [DKProgressHUD showErrorWithStatus:GCLocalizedString(@"order failed")];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }];
+        self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
     }
 }
 - (void)startTimer{
@@ -157,15 +147,15 @@ extern ViewController *swiftViewController;
                                                      BM_subTitle:GCLocalizedString(@"Share to earn Tenon"),
                                                      BM_mark:GCLocalizedString(@"Share")
     }]];
-    [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
-                                                     BM_cellHeight:@10
-    }]];
-    [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
-                                                     BM_Index:@"7",
-                                                     BM_title:GCLocalizedString(@"Method seven"),
-                                                     BM_subTitle:GCLocalizedString(@"mining"),
-                                                     BM_mark:GCLocalizedString(@"Join")
-    }]];
+//    [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
+//                                                     BM_cellHeight:@10
+//    }]];
+//    [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UITipsType),
+//                                                     BM_Index:@"7",
+//                                                     BM_title:GCLocalizedString(@"Method seven"),
+//                                                     BM_subTitle:GCLocalizedString(@"mining"),
+//                                                     BM_mark:GCLocalizedString(@"Join")
+//    }]];
     [_listarray addObject:[UIBaseModel initWithDic:@{BM_type:@(UISpaceType),
                                                      BM_cellHeight:@15}]];
     NSString* transcation = @"";
