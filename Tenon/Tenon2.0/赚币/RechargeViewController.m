@@ -224,8 +224,8 @@ extern ViewController *swiftViewController;
     }
 }
 -(void)createAndLoadRewardedAd{
-//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
-    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+//    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
     self.rewardedAd = [[GADRewardedAd alloc]
           initWithAdUnitID:adUID];
     GADRequest *request = [GADRequest request];

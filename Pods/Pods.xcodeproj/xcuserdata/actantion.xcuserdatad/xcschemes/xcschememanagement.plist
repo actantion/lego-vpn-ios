@@ -7,7 +7,7 @@
 		<key>AFNetworking.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
+			<integer>26</integer>
 		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
@@ -61,7 +61,7 @@
 		<key>MBProgressHUD+DK.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>25</integer>
 		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>

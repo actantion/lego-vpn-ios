@@ -121,30 +121,9 @@ extern ViewController *swiftViewController;
     [manager stopUpdatingLocation];
 }
 
-/*原生视频广告*/
-//    GADVideoOptions *videoOptions = [[GADVideoOptions alloc] init];
-//    videoOptions.customControlsRequested = YES;
-//    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/3986624511"
-//                                       rootViewController:self
-//                                                  adTypes:@[ kGADAdLoaderAdTypeUnifiedNative ]
-//                                                  options:@[ videoOptions ]];
-//    self.adLoader.delegate = self;
-//    [self.adLoader loadRequest:[GADRequest request]];
-//- (void)adLoader:(GADAdLoader *)adLoader
-//    didReceiveUnifiedNativeAd:(GADUnifiedNativeAd *)nativeAd {
-//  // Set the videoController's delegate to be notified of video events.
-//  nativeAd.mediaContent.videoController.delegate = self;
-//    NSLog(@"didReceiveUnifiedNativeAd");
-//}
-//
-//- (void)adLoaderDidFinishLoading:(GADAdLoader *) adLoader {
-//  // The adLoader has finished loading ads, and a new request can be sent.
-//    NSLog(@"adLoaderDidFinishLoading");
-//}
-
 -(void)createAndLoadRewardedAd{
-//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
-    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+//    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
     self.rewardedAd = [[GADRewardedAd alloc]
           initWithAdUnitID:adUID];
     GADRequest *request = [GADRequest request];

@@ -193,7 +193,7 @@ class BaseViewController: UIViewController {
     }
     
     func getOneRouteNode(country: String) -> (ip: String, port: String) {
-        let res_str = LibP2P.getVpnNodes(country, true) as String
+        let res_str = LibP2P.getVpnNodes(country, true, TenonP2pLib.sharedInstance.IsVip()) as String
         if (res_str.isEmpty) {
             return ("", "")
         }
@@ -213,7 +213,7 @@ class BaseViewController: UIViewController {
     }
     
     func getOneVpnNode(country: String) -> (ip: String, port: String, passwd: String) {
-        let res_str = LibP2P.getVpnNodes(country, false) as String
+        let res_str = LibP2P.getVpnNodes(country, false, TenonP2pLib.sharedInstance.IsVip()) as String
         if (res_str.isEmpty) {
             return ("", "", "")
         }

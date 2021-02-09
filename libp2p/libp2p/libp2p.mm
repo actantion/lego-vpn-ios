@@ -109,7 +109,13 @@ NSString* public_key_ = @"000000000000000000000000000000000";
 +(NSString*) GetVpnNodes:(NSString*) country: (Boolean) route : (Boolean) is_vip {
     std::vector<lego::client::VpnServerNodePtr> nodes;
     std::string tmp_country = std::string([country UTF8String]);
-    std::string nodes_res = lego::client::VpnClient::Instance()->GetVpnServerNodes(tmp_country, "", 16, route, is_vip, nodes);
+    std::string nodes_res = lego::client::VpnClient::Instance()->GetVpnServerNodes(
+                                                                                   tmp_country,
+                                                                                   "",
+                                                                                   16,
+                                                                                   route,
+                                                                                   is_vip,
+                                                                                   nodes);
     if (tmp_country == "ALL") {
         NSString *res_str = [NSString stringWithCString:nodes_res.c_str() encoding:[NSString defaultCStringEncoding]];
         return res_str;

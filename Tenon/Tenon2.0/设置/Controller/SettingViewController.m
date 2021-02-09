@@ -290,20 +290,20 @@
         [defaultdata synchronize];
         [self resetRootViewController];
     }];
-    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"한글" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        model.subTitle = @"한글";
-        [NSBundle setLanguage:@"en"];
-        
-        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
-        [defaultdata setObject:@"한글" forKey:@"language"];
-        [defaultdata synchronize];
-        [self resetRootViewController];
-    }];
+//    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"한글" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        model.subTitle = @"한글";
+//        [NSBundle setLanguage:@"en"];
+//
+//        NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+//        [defaultdata setObject:@"한글" forKey:@"language"];
+//        [defaultdata synchronize];
+//        [self resetRootViewController];
+//    }];
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:GCLocalizedString(@"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alert addAction:action];
     [alert addAction:action2];
-    [alert addAction:action3];
+//    [alert addAction:action3];
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
 }

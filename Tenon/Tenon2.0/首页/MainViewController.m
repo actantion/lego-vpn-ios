@@ -52,6 +52,7 @@ extern NSString* GlobalMonitorString;
 @property (nonatomic, strong) UILabel *linkNoticeLabel;
 
 @property (nonatomic, strong) UIButton *aboutBtn;
+@property (nonatomic, strong) UIButton *vipTgBtn;
 
 @property (nonatomic, strong) UIView *inputAlertBgView;
 @property (nonatomic, strong) UITextField *inputTextField;
@@ -77,8 +78,8 @@ extern NSString* GlobalMonitorString;
 @implementation MainViewController
 
 - (GADRewardedAd *)createAndLoadRewardedAd {
-//    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
-    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
+//    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
     GADRewardedAd *rewardedAd = [[GADRewardedAd alloc]
                                  initWithAdUnitID:adUID];
     GADRequest *request = [GADRequest request];
@@ -367,15 +368,29 @@ extern NSString* GlobalMonitorString;
     
     
     _aboutBtn = [[UIButton alloc] init];
-    [_aboutBtn setTitle:GCLocalizedString(@"About TenonVPN") forState:0];
+    [_aboutBtn setTitle:GCLocalizedString(@"About") forState:0];
     [_aboutBtn setTitleColor:kRBColor(21,203,191) forState:0];
     _aboutBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [_aboutBtn addTarget:self action:@selector(aboutBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_aboutBtn];
+    
     [_aboutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(kWIDTH-40);
+        make.width.mas_equalTo(140);
         make.height.mas_equalTo(55);
-        make.centerX.equalTo(self.view);
+        make.centerX.mas_equalTo(-45);
+        make.bottom.equalTo(_ADView.mas_top);
+    }];
+    
+    _vipTgBtn = [[UIButton alloc] init];
+    [_vipTgBtn setTitle:GCLocalizedString(@"Telegram") forState:0];
+    [_vipTgBtn setTitleColor:kRBColor(21,203,191) forState:0];
+    _vipTgBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [_vipTgBtn addTarget:self action:@selector(tgBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_vipTgBtn];
+    [_vipTgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(140);
+        make.height.mas_equalTo(55);
+        make.centerX.mas_equalTo(45);
         make.bottom.equalTo(_ADView.mas_top);
     }];
     
@@ -407,9 +422,25 @@ extern NSString* GlobalMonitorString;
 
 -(void)aboutBtnClicked:(UIButton *)sender
 {
-//    [self.view makeToast:@"关于我们" duration:2 position:BOTTOM];
     AboutViewController *nextVC = [[AboutViewController alloc] init];
     [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+-(void)tgBtnClicked:(UIButton *)sender
+{
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString: @"https://t.me/tenonvpn"];
+    if (TenonP2pLib.sharedInstance.IsVip) {
+        URL = [NSURL URLWithString: @"https://t.me/tenonvpn_vip"];
+    }
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+    }
 }
 
 -(void)addLeftView
@@ -1009,9 +1040,8 @@ extern NSString* GlobalMonitorString;
 {
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
-    
-    //    NSString* adUID = [[NSBundle mainBundle] infoDictionary][@"GADApplicationIdentifier"];
-        NSString* adUID = @"ca-app-pub-3940256099942544/2934735716";
+//    NSString* adUID = @"ca-app-pub-3940256099942544/2934735716";
+    NSString* adUID = @"ca-app-pub-1878869478486684/1414406836";
     self.bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(_ADView.width, _ADView.height))];
     self.bannerView.frame = CGRectMake(0, 0, _ADView.width, _ADView.height);
     self.bannerView.adUnitID = adUID;
