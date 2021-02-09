@@ -28,6 +28,12 @@ extern ViewController *swiftViewController;
     CLLocationManager *_locationManager;//定位服务管理类
     CLGeocoder *_geocoder;//初始化地理编码器
 }
+@property (weak, nonatomic) IBOutlet UILabel *lbFast;
+@property (weak, nonatomic) IBOutlet UILabel *lbSimple;
+@property (weak, nonatomic) IBOutlet UILabel *lbSafe;
+@property (weak, nonatomic) IBOutlet UILabel *lbTrust;
+@property (weak, nonatomic) IBOutlet UILabel *lbNoCenterVpn;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger secondNum;
 @property (nonatomic, strong) UIButton *getCodeBtn;
@@ -158,8 +164,15 @@ extern ViewController *swiftViewController;
     }
 }
 
+
 -(void)initUI
 {
+    self.lbTitle.text = GCLocalizedString(@"The light of Blockchain Apps");
+    self.lbNoCenterVpn.text = GCLocalizedString(@"Decentralization VPN");
+    self.lbFast.text = GCLocalizedString(@"Fast");
+    self.lbSafe.text = GCLocalizedString(@"Safe");
+    self.lbTrust.text = GCLocalizedString(@"Reliable");
+    self.lbSimple.text = GCLocalizedString(@"Easy");
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     _bIsFirstComing = [userDefaults boolForKey:@"first_coming"];
     if (!_bIsFirstComing) {

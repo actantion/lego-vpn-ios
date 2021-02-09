@@ -47,8 +47,8 @@
 		84A0A00D259037D6005F0253 /* JTNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A09FEC259037D6005F0253 /* JTNetwork.m */; };
 		84A0A015259037D6005F0253 /* JTBaseReqModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A09FFF259037D6005F0253 /* JTBaseReqModel.m */; };
 		84A0A04A259067CD005F0253 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A0A049259067CD005F0253 /* StoreKit.framework */; };
+		84BF9AAD25D25CAD00A5106F /* UIFont+Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF9AAC25D25CAD00A5106F /* UIFont+Fit.swift */; };
 		84FBD94425C9530800C376C3 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FBD94225C9530800C376C3 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		84FBD95225C9543200C376C3 /* KeychainItemWrapper.h in Sources */ = {isa = PBXBuildFile; fileRef = 84FBD95125C9543200C376C3 /* KeychainItemWrapper.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		852577732329ECD800BF8AF8 /* TenonP2pLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852577722329ECD800BF8AF8 /* TenonP2pLib.swift */; };
 		85257777232A197F00BF8AF8 /* CircleProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85257776232A197F00BF8AF8 /* CircleProgressButton.swift */; };
 		8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8535EFCC232F6A23001ED6E8 /* CBToast.swift */; };
@@ -295,10 +295,9 @@
 		84A09FFF259037D6005F0253 /* JTBaseReqModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTBaseReqModel.m; sourceTree = "<group>"; };
 		84A0A003259037D6005F0253 /* JTNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTNetwork.h; sourceTree = "<group>"; };
 		84A0A049259067CD005F0253 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		84BF9AAC25D25CAD00A5106F /* UIFont+Fit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Fit.swift"; sourceTree = "<group>"; };
 		84FBD94225C9530800C376C3 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		84FBD94325C9530800C376C3 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
-		84FBD95025C9543200C376C3 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = Tenon/Tool/KeychainItemWrapper.m; sourceTree = "<group>"; };
-		84FBD95125C9543200C376C3 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = Tenon/Tool/KeychainItemWrapper.h; sourceTree = "<group>"; };
 		852577722329ECD800BF8AF8 /* TenonP2pLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenonP2pLib.swift; sourceTree = "<group>"; };
 		85257776232A197F00BF8AF8 /* CircleProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressButton.swift; sourceTree = "<group>"; };
 		8535EFCC232F6A23001ED6E8 /* CBToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBToast.swift; sourceTree = "<group>"; };
@@ -538,8 +537,6 @@
 		18E914102266C7B4005E6027 = {
 			isa = PBXGroup;
 			children = (
-				84FBD95125C9543200C376C3 /* KeychainItemWrapper.h */,
-				84FBD95025C9543200C376C3 /* KeychainItemWrapper.m */,
 				8545F2D225A199D5008FEEF7 /* Localizable.strings */,
 				D34378FE2328F234000F1F69 /* TenonVPN.entitlements */,
 				18E9141B2266C7B4005E6027 /* Tenon */,
@@ -721,6 +718,7 @@
 				84FBD94325C9530800C376C3 /* KeychainItemWrapper.h */,
 				84FBD94225C9530800C376C3 /* KeychainItemWrapper.m */,
 				849CEE9B25B90EC9005FDECD /* UIView+Layer.swift */,
+				84BF9AAC25D25CAD00A5106F /* UIFont+Fit.swift */,
 				F656DF89257E506700791518 /* RBProgressView.h */,
 				F656DF88257E506700791518 /* RBProgressView.m */,
 				F656DF9B257E50B200791518 /* HelpTool.h */,
@@ -1415,7 +1413,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FBD94425C9530800C376C3 /* KeychainItemWrapper.m in Sources */,
-				84FBD95225C9543200C376C3 /* KeychainItemWrapper.h in Sources */,
 				84941EF125CF82EC00A3A062 /* DKProgressHUD+LKExt.m in Sources */,
 				85F19851257BFDD600E32107 /* AppDelegate.m in Sources */,
 				8545F28825920E87008FEEF7 /* VpnManager.swift in Sources */,
@@ -1479,6 +1476,7 @@
 				D316BC2823224F24008C8FD3 /* CountryTableViewCell.swift in Sources */,
 				8535EFCD232F6A23001ED6E8 /* CBToast.swift in Sources */,
 				D30B567323277953003E87EE /* FWPopMenu.swift in Sources */,
+				84BF9AAD25D25CAD00A5106F /* UIFont+Fit.swift in Sources */,
 				D3063965233B65410006CC7C /* FWOperPKView.swift in Sources */,
 				F656E02D257E545700791518 /* UIButton+countDown.m in Sources */,
 				F656DFF0257E53D700791518 /* BaseTableViewController.m in Sources */,

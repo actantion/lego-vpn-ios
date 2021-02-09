@@ -20,17 +20,25 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fq4-w4-IpW">
                         <rect key="frame" x="20" y="1" width="280" height="58"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="方法一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrZ-Xh-XN6">
-                                <rect key="frame" x="14" y="20.5" width="43" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Method 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrZ-Xh-XN6">
+                                <rect key="frame" x="14" y="19.5" width="70" height="19.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="ImS-dS-8DM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.070588235294117646" green="0.70980392156862748" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvw-ti-IR6">
-                                <rect key="frame" x="65" y="20.5" width="36" height="17"/>
+                                <rect key="frame" x="88" y="20.5" width="35.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.60392156862745094" green="0.63529411764705879" blue="0.63137254901960782" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fitFontSize">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uzU-7z-bmq">
                                 <rect key="frame" x="204" y="11" width="64" height="36"/>
@@ -54,12 +62,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.082352941176470587" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="uzU-7z-bmq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mvw-ti-IR6" secondAttribute="trailing" constant="4" id="8fX-Zm-U1P"/>
                             <constraint firstItem="PrZ-Xh-XN6" firstAttribute="leading" secondItem="Fq4-w4-IpW" secondAttribute="leading" constant="14" id="AhJ-bq-grU"/>
                             <constraint firstItem="Mvw-ti-IR6" firstAttribute="centerY" secondItem="PrZ-Xh-XN6" secondAttribute="centerY" id="O6v-3E-xuH"/>
                             <constraint firstItem="uzU-7z-bmq" firstAttribute="centerY" secondItem="Fq4-w4-IpW" secondAttribute="centerY" id="Qe9-ka-31B"/>
                             <constraint firstAttribute="height" constant="58" id="Uoq-Cm-eFU"/>
                             <constraint firstAttribute="trailing" secondItem="uzU-7z-bmq" secondAttribute="trailing" constant="12" id="k4H-C2-gWk"/>
-                            <constraint firstItem="Mvw-ti-IR6" firstAttribute="leading" secondItem="PrZ-Xh-XN6" secondAttribute="trailing" constant="8" symbolic="YES" id="lCa-Vb-jlr"/>
+                            <constraint firstItem="Mvw-ti-IR6" firstAttribute="leading" secondItem="PrZ-Xh-XN6" secondAttribute="trailing" constant="4" id="lCa-Vb-jlr"/>
                             <constraint firstItem="PrZ-Xh-XN6" firstAttribute="centerY" secondItem="Fq4-w4-IpW" secondAttribute="centerY" id="ptI-ou-hEJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

@@ -435,9 +435,9 @@ extern ViewController *swiftViewController;
     if ([model.type  isEqual: @(UITipsType)]) {
         getTenonCell* cell = [tableView dequeueReusableCellWithIdentifier:@"getTenonCell"];
         cell.lbTitle.text = model.title;
-        cell.lbTitle.font = Font_H(16);
+//        cell.lbTitle.font = Font_H(16);
         cell.lbSubTitle.text = model.subTitle;
-        cell.lbSubTitle.font = Font_H(16);
+//        cell.lbSubTitle.font = Font_H(16);
         [cell.btnEnter setTitle:model.mark forState:UIControlStateNormal];
         cell.clickBlock = ^{
             if ([model.index intValue] == 2) {
