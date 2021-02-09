@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{02E3ACCA-DA12-4BFE-9B01-9D428F193489}</ProjectGuid>
+    <RootNamespace>ios</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="libp2p\libp2p\libp2p.h" />
+    <ClInclude Include="libp2p\libp2p\vpn_client.h" />
+    <ClInclude Include="Tenon\Business\Controller\BaseController.h" />
+    <ClInclude Include="Tenon\Business\Controller\BaseTableViewController.h" />
+    <ClInclude Include="Tenon\Business\Model\UIBaseModel.h" />
+    <ClInclude Include="Tenon\NetworkOperation\NetWork\JTBaseReqModel.h" />
+    <ClInclude Include="Tenon\NetworkOperation\NetWork\JTNetwork.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\HUD\AZHUDView.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\LKExt\DKProgressHUD+LKExt.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\LKExt\LKExt.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\LKExt\UIImage+Extra.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\NSData+Base65EnCode.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\NSDictionary+extension.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\NSObject+setProperty.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\NSString+Tool.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIButton+countDown.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIButton+LargeArea.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIColor+Extension.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIColor+RCColor.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIImage+GIF.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIImage+RCImage.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIImage+TOO.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIImage+TOOL.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIImageView+loading.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UINavigationBar+handle.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UITableView+loadCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UITextView+Placeholder.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIView+baseExtra.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIView+Frame.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIView+PubicColor.h" />
+    <ClInclude Include="Tenon\Tenon2.0\Categories\UIView+tool.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UIConfirnBtnCell\UIConfirnBtnCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UIForgetRegistCell\UIForgetRegistCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UIImageLabelSelectCell\UIImageLabelSelectCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UILabelButtonCell\UILabelButtonCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UILabelContentCell\UILabelContentCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UILineCell\UILineCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UISpaceCell\UISpaceCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UITextFiledCell\UITextFiledCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UITipsCell\UITipsCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\UIBaseView\UIVerificationCodeCell\UIVerificationCodeCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\关于我们\AboutViewController.h" />
+    <ClInclude Include="Tenon\Tenon2.0\广告\ADViewController.h" />
+    <ClInclude Include="Tenon\Tenon2.0\提现\Controller\WithdrawViewController.h" />
+    <ClInclude Include="Tenon\Tenon2.0\提现\View\HistoryListTableViewCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\设置\Controller\SettingViewController.h" />
+    <ClInclude Include="Tenon\Tenon2.0\设置\View\SettingSelectCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\设置\View\SettingTableViewCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\赚币\getTenonCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\赚币\OrderListHeaderCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\赚币\RechargeViewController.h" />
+    <ClInclude Include="Tenon\Tenon2.0\赚币\TenonHeadCell.h" />
+    <ClInclude Include="Tenon\Tenon2.0\首页\AppDelegate.h" />
+    <ClInclude Include="Tenon\Tenon2.0\首页\MainViewController.h" />
+    <ClInclude Include="Tenon\Tenon2.0\首页\View\HomeGuideView.h" />
+    <ClInclude Include="Tenon\TenonVPN-Bridging-Header.h" />
+    <ClInclude Include="Tenon\TenonVPN-PCH.h" />
+    <ClInclude Include="Tenon\Tool\HelpTool.h" />
+    <ClInclude Include="Tenon\Tool\KeychainItemWrapper.h" />
+    <ClInclude Include="Tenon\Tool\KeychainManager.h" />
+    <ClInclude Include="Tenon\Tool\NSBundle+Language.h" />
+    <ClInclude Include="Tenon\Tool\RBProgressView.h" />
+    <ClInclude Include="Tenon\Tool\Toast+UIView.h" />
+    <ClInclude Include="Tenon\Tool\TSShareHelper.h" />
+    <ClInclude Include="Tenon\XSFPopViewController\LHCustomModalTransition.h" />
+    <ClInclude Include="Tenon\XSFPopViewController\PopViewController.h" />
+    <ClInclude Include="Tenon\XSFPopViewController\UIViewController+PopAnimated.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tenon\FWPopMenu\.DS_Store" />
+    <None Include="Tenon\FWPopMenu\FWBottomPopView.swift" />
+    <None Include="Tenon\FWPopMenu\FWOperPKView.swift" />
+    <None Include="Tenon\FWPopMenu\FWPopMenu.swift" />
+    <None Include="Tenon\FWPopMenu\FWUpgradeView.swift" />
+    <None Include="Tenon\FWPopMenu\TenonGetView.swift" />
+    <None Include="Tenon\FWPopMenu\View\AccountSetHeaderTableViewCell.swift" />
+    <None Include="Tenon\FWPopMenu\View\AccountSetHeaderTableViewCell.xib" />
+    <None Include="Tenon\FWPopMenu\View\GetTenonControl.swift" />
+    <None Include="Tenon\FWPopMenu\View\GetTenonControl.xib" />
+    <None Include="Tenon\NetworkOperation\NetWork\JTBaseReqModel.m" />
+    <None Include="Tenon\NetworkOperation\NetWork\JTNetwork.m" />
+    <None Include="Tenon\NetworkOperation\TenonP2pLib.swift" />
+    <None Include="Tenon\NetworkOperation\VpnManager.swift" />
+    <None Include="Tenon\Tenon2.0\.DS_Store" />
+    <None Include="Tenon\Tenon2.0\Categories\NSData+Base65EnCode.m" />
+    <None Include="Tenon\Tenon2.0\Categories\NSDictionary+extension.m" />
+    <None Include="Tenon\Tenon2.0\Categories\NSObject+setProperty.m" />
+    <None Include="Tenon\Tenon2.0\Categories\NSString+Tool.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIButton+countDown.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIButton+LargeArea.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIColor+Extension.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIColor+RCColor.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIImage+GIF.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIImage+RCImage.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIImage+TOO.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIImage+TOOL.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIImageView+loading.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UINavigationBar+handle.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UITableView+loadCell.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UITextView+Placeholder.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIView+baseExtra.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIView+Frame.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIView+PubicColor.m" />
+    <None Include="Tenon\Tenon2.0\Categories\UIView+tool.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIConfirnBtnCell\UIConfirnBtnCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIConfirnBtnCell\UIConfirnBtnCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIForgetRegistCell\UIForgetRegistCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIForgetRegistCell\UIForgetRegistCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIImageLabelSelectCell\UIImageLabelSelectCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIImageLabelSelectCell\UIImageLabelSelectCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UILabelButtonCell\UILabelButtonCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UILabelButtonCell\UILabelButtonCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UILabelContentCell\UILabelContentCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UILabelContentCell\UILabelContentCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UILineCell\UILineCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UILineCell\UILineCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UISpaceCell\UISpaceCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UISpaceCell\UISpaceCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UITextFiledCell\UITextFiledCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UITextFiledCell\UITextFiledCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UITipsCell\UITipsCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UITipsCell\UITipsCell.xib" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIVerificationCodeCell\UIVerificationCodeCell.m" />
+    <None Include="Tenon\Tenon2.0\UIBaseView\UIVerificationCodeCell\UIVerificationCodeCell.xib" />
+    <None Include="Tenon\Tenon2.0\关于我们\AboutViewController.m" />
+    <None Include="Tenon\Tenon2.0\广告\ADViewController.m" />
+    <None Include="Tenon\Tenon2.0\提现\Controller\WithdrawViewController.m" />
+    <None Include="Tenon\Tenon2.0\提现\View\HistoryListTableViewCell.m" />
+    <None Include="Tenon\Tenon2.0\提现\View\HistoryListTableViewCell.xib" />
+    <None Include="Tenon\Tenon2.0\设置\Controller\SettingViewController.m" />
+    <None Include="Tenon\Tenon2.0\设置\View\SettingSelectCell.m" />
+    <None Include="Tenon\Tenon2.0\设置\View\SettingSelectCell.xib" />
+    <None Include="Tenon\Tenon2.0\设置\View\SettingTableViewCell.m" />
+    <None Include="Tenon\Tenon2.0\设置\View\SettingTableViewCell.xib" />
+    <None Include="Tenon\Tenon2.0\赚币\getTenonCell.m" />
+    <None Include="Tenon\Tenon2.0\赚币\getTenonCell.xib" />
+    <None Include="Tenon\Tenon2.0\赚币\OrderListHeaderCell.m" />
+    <None Include="Tenon\Tenon2.0\赚币\OrderListHeaderCell.xib" />
+    <None Include="Tenon\Tenon2.0\赚币\RechargeViewController.m" />
+    <None Include="Tenon\Tenon2.0\赚币\TenonHeadCell.m" />
+    <None Include="Tenon\Tenon2.0\赚币\TenonHeadCell.xib" />
+    <None Include="Tenon\Tenon2.0\首页\AppDelegate.m" />
+    <None Include="Tenon\Tenon2.0\首页\Base.lproj\Main.storyboard" />
+    <None Include="Tenon\Tenon2.0\首页\MainViewController.m" />
+    <None Include="Tenon\Tenon2.0\首页\TenonProtocolView.swift" />
+    <None Include="Tenon\Tenon2.0\首页\TenonProtocolView.xib" />
+    <None Include="Tenon\Tenon2.0\首页\View\HomeGuideView.m" />
+    <None Include="Tenon\Tenon2.0\首页\View\HomeGuideView.xib" />
+    <None Include="Tenon\Tenon2.0\首页\zh-Hans.lproj\Main.strings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Tenon\Tenon2.0\share_pic.jpg" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

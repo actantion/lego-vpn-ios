@@ -128,7 +128,12 @@ class TenonP2pLib : NSObject {
     }
     
     func GetVpnNodes(_ country: String, _ route: Bool) -> String {
-        let res = LibP2P.getVpnNodes(country, route) as String
+        var is_vip: Bool = false
+        if (vip_left_days > 0) {
+            is_vip = true
+        }
+
+        let res = LibP2P.getVpnNodes(country, route, is_vip) as String
         return res
     }
     
