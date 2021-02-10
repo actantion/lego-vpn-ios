@@ -78,8 +78,7 @@ extern NSString* GlobalMonitorString;
 @implementation MainViewController
 
 - (GADRewardedAd *)createAndLoadRewardedAd {
-    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
-//    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
+    NSString* adUID = AD_ID;
     GADRewardedAd *rewardedAd = [[GADRewardedAd alloc]
                                  initWithAdUnitID:adUID];
     GADRequest *request = [GADRequest request];
@@ -1040,8 +1039,7 @@ extern NSString* GlobalMonitorString;
 {
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
-//    NSString* adUID = @"ca-app-pub-3940256099942544/2934735716";
-    NSString* adUID = @"ca-app-pub-1878869478486684/1414406836";
+    NSString* adUID = AD_ID_HORIZONTAL;
     self.bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(_ADView.width, _ADView.height))];
     self.bannerView.frame = CGRectMake(0, 0, _ADView.width, _ADView.height);
     self.bannerView.adUnitID = adUID;

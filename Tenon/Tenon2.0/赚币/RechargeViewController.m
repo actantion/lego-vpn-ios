@@ -224,8 +224,7 @@ extern ViewController *swiftViewController;
     }
 }
 -(void)createAndLoadRewardedAd{
-//    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
-    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
+    NSString* adUID = AD_ID;
     self.rewardedAd = [[GADRewardedAd alloc]
           initWithAdUnitID:adUID];
     GADRequest *request = [GADRequest request];
@@ -443,13 +442,13 @@ extern ViewController *swiftViewController;
             if ([model.index intValue] == 2) {
                 // 包月
                 self.selectIdx = 1;
-                self.selectAppleGoodsID = @"5a7bd18ceafc43cfbe35a467044a4f74"; // 测试消耗品 bf68d4c5c70048d68bfa5f1ac1f28d74
+                self.selectAppleGoodsID = @"801e6fc815664187b410b0a1672e6bbb"; // 测试消耗品 bf68d4c5c70048d68bfa5f1ac1f28d74
                 self.applepayProducID = [NSString stringWithFormat:@"%@%@",[TenonP2pLib sharedInstance].account_id,[self getNowTimeTimestamp]];
                 [self orderToApplePay];
             }else if ([model.index intValue] == 3) {
                 // 包季
                 self.selectIdx = 2;
-                self.selectAppleGoodsID = @"83f0b08931374fb4a80aa1ad4fc1cae5";
+                self.selectAppleGoodsID = @"ba84d7514e76446eb8e424c475a4d9b8";
                 self.applepayProducID = [NSString stringWithFormat:@"%@%@",[TenonP2pLib sharedInstance].account_id,[self getNowTimeTimestamp]];
                 [self orderToApplePay];
             }else if ([model.index intValue] == 4) {
