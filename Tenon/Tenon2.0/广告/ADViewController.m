@@ -122,9 +122,8 @@ extern ViewController *swiftViewController;
 }
 
 -(void)createAndLoadRewardedAd{
-    NSString* adUID = AD_ID;
     self.rewardedAd = [[GADRewardedAd alloc]
-          initWithAdUnitID:adUID];
+          initWithAdUnitID:AD_ID];
     GADRequest *request = [GADRequest request];
     [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
         if (error) {
