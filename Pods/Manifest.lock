@@ -14,47 +14,47 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - Alamofire (5.0.0-rc.2)
-  - Google-Mobile-Ads-SDK (7.65.0):
-    - GoogleAppMeasurement (~> 6.0)
+  - Alamofire (5.0.5)
+  - Google-Mobile-Ads-SDK (7.69.0):
+    - GoogleAppMeasurement (~> 7.0)
     - GoogleUserMessagingPlatform (~> 1.1)
-  - GoogleAppMeasurement (6.8.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
-    - GoogleUtilities/MethodSwizzler (~> 6.7)
-    - GoogleUtilities/Network (~> 6.7)
-    - "GoogleUtilities/NSData+zlib (~> 6.7)"
-    - nanopb (~> 1.30906.0)
-  - GoogleUserMessagingPlatform (1.1.0)
-  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
+  - GoogleAppMeasurement (7.8.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
+    - GoogleUtilities/MethodSwizzler (~> 7.0)
+    - GoogleUtilities/Network (~> 7.0)
+    - "GoogleUtilities/NSData+zlib (~> 7.0)"
+    - nanopb (~> 2.30907.0)
+  - GoogleUserMessagingPlatform (1.4.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.3.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.7.2):
+  - GoogleUtilities/Environment (7.3.0):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (6.7.2):
+  - GoogleUtilities/Logger (7.3.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.7.2):
+  - GoogleUtilities/MethodSwizzler (7.3.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.7.2):
+  - GoogleUtilities/Network (7.3.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.7.2)"
-  - GoogleUtilities/Reachability (6.7.2):
+  - "GoogleUtilities/NSData+zlib (7.3.0)"
+  - GoogleUtilities/Reachability (7.3.0):
     - GoogleUtilities/Logger
   - IQKeyboardManager (6.5.6)
-  - IQKeyboardManagerSwift (6.4.2)
+  - IQKeyboardManagerSwift (6.5.6)
   - Masonry (1.1.0)
   - "MBProgressHUD+DK (1.1.1)"
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.17)
   - MSWeakTimer (1.1.0)
-  - nanopb (1.30906.0):
-    - nanopb/decode (= 1.30906.0)
-    - nanopb/encode (= 1.30906.0)
-  - nanopb/decode (1.30906.0)
-  - nanopb/encode (1.30906.0)
-  - PromisesObjC (1.2.10)
+  - nanopb (2.30907.0):
+    - nanopb/decode (= 2.30907.0)
+    - nanopb/encode (= 2.30907.0)
+  - nanopb/decode (2.30907.0)
+  - nanopb/encode (2.30907.0)
+  - PromisesObjC (1.2.12)
   - SDWebImage (4.4.8):
     - SDWebImage/Core (= 4.4.8)
   - SDWebImage/Core (4.4.8)
@@ -67,7 +67,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Alamofire (~> 5.0.0-rc.2)
-  - Google-Mobile-Ads-SDK
+  - Google-Mobile-Ads-SDK (~> 7.69.0)
   - IQKeyboardManager
   - IQKeyboardManagerSwift
   - Masonry (~> 1.0)
@@ -104,25 +104,25 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
-  Google-Mobile-Ads-SDK: af735e001ee534d9dd2ce0a87cd8c355b19844b5
-  GoogleAppMeasurement: ecc30d0ab5b66d7d18e85ce1b8e2b345db60626d
-  GoogleUserMessagingPlatform: 9dc714d2e1f0aa727b9cc52d266dc1b155f4c3f2
-  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
+  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
+  Google-Mobile-Ads-SDK: 2f288748a42920d1c744946a460896a95b0e9110
+  GoogleAppMeasurement: 50a254ee92c1b94fbe2abea7e3da35e4c6dedce0
+  GoogleUserMessagingPlatform: b168e8c46cd8f92aa3e34b584c4ca78a411ce367
+  GoogleUtilities: abda45f519bc4073aa1171d2f8742108def46017
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
-  IQKeyboardManagerSwift: 79a3ec200dfb41cb66a89b8575417b5378107c5d
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   "MBProgressHUD+DK": 9394614f7106e640784d044bc19512c1167e9e97
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: ee5b68f639775462faba4db0fd243baf4d42c2cf
   MSWeakTimer: 9426150f933b80ed3acf3f6d228e4b61f0e303c8
-  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  nanopb: 59221d7f958fb711001e6a449489542d92ae113e
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Yaml: 52831fc1d9ac2db4ddf6d7562993457127256ca6
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 1cb771e1697c3edccd2915a204a0fb82c8949443
+PODFILE CHECKSUM: 71ada0c997215d9698d89a79693dec3febab50f0
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

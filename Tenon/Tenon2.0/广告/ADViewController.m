@@ -15,7 +15,6 @@
 #import <CommonCrypto/CommonDigest.h>
  
 #import <CoreLocation/CoreLocation.h>
-#import <CoreLocation/CoreLocation.h>
 
 #import "KeychainItemWrapper.h"
 
@@ -23,7 +22,7 @@ extern long prevAdViewTm;
 extern ViewController *swiftViewController;
 /*原生视频广告*/
 //GADUnifiedNativeAdLoaderDelegate, GADVideoControllerDelegate
-@interface ADViewController ()<GADRewardedAdDelegate, CLLocationManagerDelegate>
+@interface ADViewController ()<GADRewardedAdDelegate, CLLocationManagerDelegate, GADFullScreenContentDelegate>
 {
     CLLocationManager *_locationManager;//定位服务管理类
     CLGeocoder *_geocoder;//初始化地理编码器
@@ -37,10 +36,10 @@ extern ViewController *swiftViewController;
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
 @property (nonatomic, assign) NSInteger secondNum;
 @property (nonatomic, strong) UIButton *getCodeBtn;
-@property(nonatomic, strong) GADRewardedAd *rewardedAd;
 @property(nonatomic, strong) GADAdLoader *adLoader;
 @property (nonatomic, assign) BOOL bIsShowAd;
 @property (nonatomic, assign) BOOL bIsFirstComing;
+@property(nonatomic, strong) GADRewardedInterstitialAd* rewardedInterstitialAd;
 @end
 
 @implementation ADViewController
@@ -50,6 +49,7 @@ extern ViewController *swiftViewController;
     [self initializeLocationService];
     [self initUI];
     self.bIsShowAd = NO;
+    self.rewardedInterstitialAd = nil;
     [self createAndLoadRewardedAd];
     NSString* uuid = [self UUID];
     NSLog(@"设备唯一标识 = %@",uuid);
@@ -121,18 +121,52 @@ extern ViewController *swiftViewController;
     [manager stopUpdatingLocation];
 }
 
--(void)createAndLoadRewardedAd{
-    self.rewardedAd = [[GADRewardedAd alloc]
-          initWithAdUnitID:AD_ID];
-    GADRequest *request = [GADRequest request];
-    [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
-        if (error) {
-            // Handle ad failed to load case.
-        } else {
-            // Ad successfully loaded.
-        }
-    }];
+/// Tells the delegate that the ad failed to present full screen content.
+- (void)ad:(nonnull id<GADFullScreenPresentingAd>)ad
+didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
+    NSLog(@"Ad did fail to present full screen content.");
 }
+
+/// Tells the delegate that the ad presented full screen content.
+- (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+
+    NSLog(@"Ad did present full screen content.");
+}
+
+/// Tells the delegate that the ad dismissed full screen content.
+- (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+   NSLog(@"Ad did dismiss full screen content.");
+}
+
+-(void)createAndLoadRewardedAd{
+    [GADRewardedInterstitialAd
+           loadWithAdUnitID:@"ca-app-pub-1878869478486684/4656457319"
+                    request:[GADRequest request]                                                                                                                                                        
+          completionHandler:^(
+              GADRewardedInterstitialAd *_Nullable rewardedInterstitialAd,
+              NSError *_Nullable error) {
+            if (!error) {
+                NSLog(@"Ad did success to load full screen content.");
+              self.rewardedInterstitialAd = rewardedInterstitialAd;
+              self.rewardedInterstitialAd.fullScreenContentDelegate = self;
+            } else {
+                NSLog(@"Ad did failed to load full screen content. error(%@)", error);
+                [NSThread sleepForTimeInterval:0.5f];
+                [self createAndLoadRewardedAd];
+            }
+          }];
+}
+
+- (void)show {
+  [_rewardedInterstitialAd presentFromRootViewController:self
+                                userDidEarnRewardHandler:^{
+
+                                  GADAdReward *reward =
+                                      self.rewardedInterstitialAd.adReward;
+                                  // TODO: Reward the user!
+                                }];
+}
+
 -(void)dealloc
 {
    if (self.codeTimer != nil) {
@@ -194,7 +228,7 @@ extern ViewController *swiftViewController;
     if (TenonP2pLib.sharedInstance.IsVip) {
         _secondNum = 2;
     } else {
-        _secondNum = 5;
+        _secondNum = 6;
     }
     
 }
@@ -208,10 +242,10 @@ extern ViewController *swiftViewController;
     }
     
     long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-    if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing && !TenonP2pLib.sharedInstance.IsVip) {
+    if (self.rewardedInterstitialAd != nil && !TenonP2pLib.sharedInstance.IsVip) {
         prevAdViewTm = nowAdViewTm;
         self.bIsShowAd = YES;
-        [self.rewardedAd presentFromRootViewController:self delegate:self];
+        [self show];
         prevAdViewTm = [[NSDate date] timeIntervalSince1970]*1000;
         [self jumpBtnClicked];
     }
@@ -226,10 +260,10 @@ extern ViewController *swiftViewController;
 {
     if (self.bIsShowAd == NO) {
         long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-        if (self.rewardedAd.isReady && (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 && _bIsFirstComing && !TenonP2pLib.sharedInstance.IsVip) {
+        if (self.rewardedInterstitialAd != nil && !TenonP2pLib.sharedInstance.IsVip) {
             prevAdViewTm = nowAdViewTm;
             self.bIsShowAd = YES;
-            [self.rewardedAd presentFromRootViewController:self delegate:self];
+            [self show];
             if (self.codeTimer != nil) {
                 [self.codeTimer invalidate];
                 self.codeTimer = nil;

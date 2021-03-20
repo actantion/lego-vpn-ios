@@ -96,13 +96,17 @@ class TenonP2pLib : NSObject {
         let path = file!
         let conf_path = path
         
-        print("conf \(conf_path) get local private key \(private_key)")
+        if KeychainManager.shareInstence().getKeyChainPrikey().count != 0 {
+            private_key = KeychainManager.shareInstence().getKeyChainPrikey()
+        }
+        
+        print("conf \(conf_path) get local private key \(private_key), count: \(KeychainManager.shareInstence().getKeyChainPrikey().count)")
         let res = LibP2P.initP2pNetwork(
                 local_ip,
                 1,
                 "id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001,id:113.17.169.103:9001,id:113.17.169.105:9001,id:113.17.169.106:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:113.17.169.95:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,",
                 conf_path,
-                "3.0.0",
+                "5.0.0",
                 private_key) as String
 
         let array : Array = res.components(separatedBy: ",")
@@ -310,6 +314,7 @@ class TenonP2pLib : NSObject {
     }
     
     public func SavePrivateKey(prikey_in: String) -> Bool {
+        print("set private key chain: \(prikey_in)")
         KeychainManager.shareInstence().setKeyChainPrikey(prikey_in)
         
         let prikey = prikey_in.trimmingCharacters(in: [" "])
@@ -334,6 +339,7 @@ class TenonP2pLib : NSObject {
         }
         
         UserDefaults.standard.set(tmp_str, forKey: "all_private_key")
+        print("DDDDDDDDD save private key: " + tmp_str)
         return true
     }
     
@@ -346,6 +352,7 @@ class TenonP2pLib : NSObject {
         
         private_key = prikey
         account_id = String(res_split[1])
+        SavePrivateKey(prikey_in: private_key)
         return true
     }
 }

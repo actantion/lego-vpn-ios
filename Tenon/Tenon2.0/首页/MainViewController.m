@@ -25,7 +25,7 @@ long prevAdViewTm = 0;
 ViewController *swiftViewController;
 extern NSString* GlobalMonitorString;
 
-@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADBannerViewDelegate,GADRewardedAdDelegate>
+@interface MainViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,GADBannerViewDelegate,GADRewardedAdDelegate,GADFullScreenContentDelegate>
 {
     UIPickerView *pickViewss;
     NSArray *arrayOne;
@@ -72,14 +72,16 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) GADBannerView *bannerView;
 @property (nonatomic, assign) BOOL bAdLoaded;
 @property (nonatomic, strong) NSTimer * timer;
-
+@property(nonatomic, strong) GADRewardedInterstitialAd* rewardedInterstitialAd;
 @end
 
 @implementation MainViewController
 
 - (GADRewardedAd *)createAndLoadRewardedAd {
+    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
+//    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
     GADRewardedAd *rewardedAd = [[GADRewardedAd alloc]
-                                 initWithAdUnitID:AD_ID];
+                                 initWithAdUnitID:adUID];
     GADRequest *request = [GADRequest request];
     [rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
         if (error) {
@@ -98,6 +100,39 @@ extern NSString* GlobalMonitorString;
 - (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
     self.bAdLoaded = NO;
     self.rewardedAd = [self createAndLoadRewardedAd];
+}
+
+-(void)createAndLoadInsRewardedAd{
+    [GADRewardedInterstitialAd
+           loadWithAdUnitID:@"ca-app-pub-1878869478486684/4656457319"
+                    request:[GADRequest request]
+          completionHandler:^(
+              GADRewardedInterstitialAd *_Nullable rewardedInterstitialAd,
+              NSError *_Nullable error) {
+            if (!error) {
+                NSLog(@"Ad did success to load full screen content.");
+              self.rewardedInterstitialAd = rewardedInterstitialAd;
+              self.rewardedInterstitialAd.fullScreenContentDelegate = self;
+            } else {
+                NSLog(@"Ad did failed to load full screen content. error(%@)", error);
+                [NSThread sleepForTimeInterval:0.5f];
+                [self createAndLoadRewardedAd];
+            }
+          }];
+}
+
+- (void)showInsAd {
+  [_rewardedInterstitialAd presentFromRootViewController:self
+                                userDidEarnRewardHandler:^{
+
+                                  GADAdReward *reward =
+                                      self.rewardedInterstitialAd.adReward;
+                                  // TODO: Reward the user!
+      NSString* rand_str = [self random:2048];
+      NSString* gid = [self sha256HashForText:(rand_str)];
+      [LibP2P AdReward:gid];
+      NSLog(@"广告播放成功获得奖励");
+                                }];
 }
 
 -(NSString*)sha256HashForText:(NSString*)text {
@@ -138,6 +173,8 @@ extern NSString* GlobalMonitorString;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.rewardedAd = [self createAndLoadRewardedAd];
+    self.rewardedInterstitialAd = nil;
+    [self createAndLoadInsRewardedAd];
     self.view.backgroundColor = [UIColor blackColor];
     [self initNavView];
     [self initUI];
@@ -1038,9 +1075,11 @@ extern NSString* GlobalMonitorString;
 {
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
+//    NSString* adUID = @"ca-app-pub-3940256099942544/2934735716";
+    NSString* adUID = @"ca-app-pub-1878869478486684/1414406836";
     self.bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(_ADView.width, _ADView.height))];
     self.bannerView.frame = CGRectMake(0, 0, _ADView.width, _ADView.height);
-    self.bannerView.adUnitID = AD_ID_HORIZONTAL;
+    self.bannerView.adUnitID = adUID;
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
     self.bannerView.delegate = self;
@@ -1162,7 +1201,13 @@ extern NSString* GlobalMonitorString;
 {
     [self addADBgView];
     self.progressView.progress = 0;
-    _loadingTime = 5;
+    
+    if (TenonP2pLib.sharedInstance.IsVip) {
+        _loadingTime = 1;
+    } else {
+        _loadingTime = 7;
+    }
+    
     self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
@@ -1178,8 +1223,8 @@ extern NSString* GlobalMonitorString;
 
 -(void)getCodeTime
 {
-    if (self.rewardedAd.isReady && !TenonP2pLib.sharedInstance.IsVip) {
-        [self.rewardedAd presentFromRootViewController:self delegate:self];
+    if (self.rewardedInterstitialAd != nil && !TenonP2pLib.sharedInstance.IsVip) {
+        [self showInsAd];
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
           self.codeTimer = nil;
@@ -1191,6 +1236,20 @@ extern NSString* GlobalMonitorString;
         [self refreshLinkView];
         _loadingTime = 0;
     }
+    
+//    if (self.rewardedAd.isReady && !TenonP2pLib.sharedInstance.IsVip) {
+//        [self.rewardedAd presentFromRootViewController:self delegate:self];
+//        if (self.codeTimer != nil) {
+//          [self.codeTimer invalidate];
+//          self.codeTimer = nil;
+//        }
+//
+//        self.loadingView.hidden = YES;
+//        [self.loadingView removeFromSuperview];
+//        self.isLink = true;
+//        [self refreshLinkView];
+//        _loadingTime = 0;
+//    }
     
     if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
         if (self.codeTimer != nil) {
@@ -1210,6 +1269,8 @@ extern NSString* GlobalMonitorString;
     } else {
         if (!swiftViewController.user_started_vpn) {
             [self.view makeToast:GCLocalizedString(@"exit_and_retry") duration:2 position:BOTTOM];
+            self.isLink = false;
+            [self refreshLinkView];
         }
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];

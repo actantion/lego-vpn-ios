@@ -24,7 +24,7 @@ target 'TenonVPN' do
   pod 'IQKeyboardManagerSwift'
 #   Pods for TenonVPN
   pod 'YYKit'
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK', '~> 7.69.0'
   pod 'AFNetworking'
   pod 'Masonry', '~>1.0'            #界面约束
   pod 'SDWebImage',' ~> 4.4.6'      #图片加载

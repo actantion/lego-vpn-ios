@@ -12,6 +12,8 @@
 #import "ADViewController.h"
 #import "libp2p/libp2p.h"
 
+@import GoogleMobileAds;
+
 NSString  *GlobalLanguePath;
 NSString* GlobalMonitorString;
 @interface AppDelegate ()
@@ -22,6 +24,7 @@ NSString* GlobalMonitorString;
 #pragma mark 在应用程序加载完毕之后调用
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     ADViewController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ADViewController"];
     mainVC.FROM = @"MAIN";
     UINavigationController *na=[[UINavigationController alloc] initWithRootViewController:mainVC];

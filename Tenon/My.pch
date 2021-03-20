@@ -23,9 +23,9 @@
 #import "NSObject+MJKeyValue.h"
 #import "KeychainManager.h"
 
-#define SERVER_URL @"http://216.108.227.52:80"
+#define SERVER_URL @"https://www.tenonvpn.net"
 
-#define IS_DISTRIBUTION 1 //正式服 -- 0   测试服--- 1
+#define IS_DISTRIBUTION 0 //正式服 -- 0   测试服--- 1
 
 #if IS_DISTRIBUTION == 0
 //**************** 线上环境 ******************
