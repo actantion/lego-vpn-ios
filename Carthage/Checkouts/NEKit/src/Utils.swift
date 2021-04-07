@@ -1,6 +1,22 @@
 import Foundation
 
 public struct Utils {
+    public static func StartFreeTimeTimer() -> Void {
+        if #available(iOSApplicationExtension 10.0, *) {
+            let timer = Timer.init(timeInterval: 2, repeats:true) { (kTimer) in
+                print("定时器启动了")
+                let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
+                userDefaults?.set("ok", forKey: "vpnsvr_status")
+            }
+            RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
+            // TODO : 启动定时器
+            timer.fire()
+        } else {
+            // Fallback on earlier versions
+        }
+       
+    }
+    
     public struct HTTPData {
         public static let DoubleCRLF = "\r\n\r\n".data(using: String.Encoding.utf8)!
         public static let CRLF = "\r\n".data(using: String.Encoding.utf8)!

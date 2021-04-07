@@ -69,16 +69,17 @@ extern NSString* GlobalMonitorString;
 @property (nonatomic, strong) NSString *choosedCountry;
 //@property(nonatomic, strong) GADInterstitial *interstitial;
 @property(nonatomic, strong) GADRewardedAd *rewardedAd;
+@property(nonatomic, strong) GADRewardedAd *rewardedAd_5;
+@property(nonatomic, strong) GADRewardedAd *rewardedAd_3;
 @property(nonatomic, strong) GADBannerView *bannerView;
-@property (nonatomic, assign) BOOL bAdLoaded;
 @property (nonatomic, strong) NSTimer * timer;
 @property(nonatomic, strong) GADRewardedInterstitialAd* rewardedInterstitialAd;
 @end
 
 @implementation MainViewController
 
-- (GADRewardedAd *)createAndLoadRewardedAd {
-    NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
+- (GADRewardedAd *)createAndLoadRewardedAd : (NSString* ) adUID {
+    //NSString* adUID = @"ca-app-pub-1878869478486684/9128411174";
 //    NSString* adUID = @"ca-app-pub-3940256099942544/1712485313";
     GADRewardedAd *rewardedAd = [[GADRewardedAd alloc]
                                  initWithAdUnitID:adUID];
@@ -87,19 +88,26 @@ extern NSString* GlobalMonitorString;
         if (error) {
             // Handle ad failed to load case.
             NSLog(@"Handle ad failed to load case.");
-            self.bAdLoaded = NO;
-//            self.rewardedAd = [self createAndLoadRewardedAd];
         } else {
             // Ad successfully loaded.
-            self.bAdLoaded = YES;
             NSLog(@"Ad successfully loaded.");
         }
     }];
     return rewardedAd;
 }
+
 - (void)rewardedAdDidDismiss:(GADRewardedAd *)rewardedAd {
-    self.bAdLoaded = NO;
-    self.rewardedAd = [self createAndLoadRewardedAd];
+    if (self.rewardedAd == rewardedAd) {
+        self.rewardedAd = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/9128411174"];
+    }
+    
+    if (self.rewardedAd_5 == rewardedAd) {
+        self.rewardedAd_5 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/5067800095"];
+    }
+    
+    if (self.rewardedAd_3 == rewardedAd) {
+        self.rewardedAd_3 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/6456903388"];
+    }
 }
 
 -(void)createAndLoadInsRewardedAd{
@@ -116,23 +124,31 @@ extern NSString* GlobalMonitorString;
             } else {
                 NSLog(@"Ad did failed to load full screen content. error(%@)", error);
                 [NSThread sleepForTimeInterval:0.5f];
-                [self createAndLoadRewardedAd];
+                [self createAndLoadInsRewardedAd];
             }
           }];
 }
 
 - (void)showInsAd {
-  [_rewardedInterstitialAd presentFromRootViewController:self
-                                userDidEarnRewardHandler:^{
-
-                                  GADAdReward *reward =
-                                      self.rewardedInterstitialAd.adReward;
-                                  // TODO: Reward the user!
-      NSString* rand_str = [self random:2048];
-      NSString* gid = [self sha256HashForText:(rand_str)];
-      [LibP2P AdReward:gid];
-      NSLog(@"广告播放成功获得奖励");
-                                }];
+    [_rewardedInterstitialAd presentFromRootViewController: self userDidEarnRewardHandler:^{
+        GADAdReward *reward = self.rewardedInterstitialAd.adReward;
+        NSString* rand_str = [self random:2048];
+        NSString* gid = [self sha256HashForText:(rand_str)];
+        [LibP2P AdReward:gid];
+        if (reward.amount >= 5) {
+            [TenonP2pLib.sharedInstance ChangeFreeUseTimeMilliWithVal:30 * 60 * 1000];
+            NSLog(@"广告播放成功获得奖励 5: %@", reward.amount);
+        } else if (reward.amount >= 3) {
+            [TenonP2pLib.sharedInstance ChangeFreeUseTimeMilliWithVal:25 * 60 * 1000];
+            NSLog(@"广告播放成功获得奖励 3");
+        } else {
+            [TenonP2pLib.sharedInstance ChangeFreeUseTimeMilliWithVal:20 * 60 * 1000];
+            NSLog(@"广告播放成功获得奖励 1");
+        }
+    }];
+    
+    self.rewardedInterstitialAd = nil;
+    [self createAndLoadInsRewardedAd];
 }
 
 -(NSString*)sha256HashForText:(NSString*)text {
@@ -166,41 +182,56 @@ extern NSString* GlobalMonitorString;
     NSString* rand_str = [self random:2048];
     NSString* gid = [self sha256HashForText:(rand_str)];
     [LibP2P AdReward:gid];
-    NSLog(@"广告播放成功获得奖励");
+    if (reward.amount.intValue >= 5) {
+        [TenonP2pLib.sharedInstance ChangeFreeUseTimeMilliWithVal:30 * 60 * 1000];
+    } else if (reward.amount.intValue >= 3) {
+        [TenonP2pLib.sharedInstance ChangeFreeUseTimeMilliWithVal:25 * 60 * 1000];
+    } else {
+        [TenonP2pLib.sharedInstance ChangeFreeUseTimeMilliWithVal:20 * 60 * 1000];
+    }
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.rewardedAd = [self createAndLoadRewardedAd];
+    self.rewardedAd = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/9128411174"];
+    self.rewardedAd_5 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/5067800095"];
+    self.rewardedAd_3 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/6456903388"];
+    
     self.rewardedInterstitialAd = nil;
     [self createAndLoadInsRewardedAd];
     self.view.backgroundColor = [UIColor blackColor];
     [self initNavView];
     [self initUI];
-    
+    [self reloadBalance];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadVPNStatus) name:@"kProxyServiceVPNStatusNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadBalance) name:@"NOTIFICATION_BALANCE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
-    //self.timer = [NSTimer scheduledTimerWithTimeInterval:60*5 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
     
 }
 
 - (void)showAdsTimer{
-    long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
-    // (nowAdViewTm - prevAdViewTm) >= 5 * 60 * 1000 &&
-    if (self.rewardedAd.isReady && !TenonP2pLib.sharedInstance.IsVip) {
-        prevAdViewTm = nowAdViewTm;
-        [self.rewardedAd presentFromRootViewController:self delegate:self];
-    }
+    [self reloadBalance];
 }
+
 -(void)reloadBalance{
-    _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.getLeftDays, GCLocalizedString(@"left_days")];
+    if (TenonP2pLib.sharedInstance.IsVip) {
+        _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.getLeftDays, GCLocalizedString(@"left_days")];
+    } else {
+        UInt64 hourLeft = TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / (3600 * 1000);
+        UInt64 minLeft = TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / 60000 - hourLeft * 60;
+        UInt64 secLeft = TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / 1000 - hourLeft * 3600 - minLeft * 60;
+        _typeSignLabel.text = [NSString stringWithFormat:@"%@%02llu:%02llu:%02llu", GCLocalizedString(@"Left"), hourLeft, minLeft, secLeft];
+    }
+    
+    if (TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli <= 0) {
+        [self disconnectVpn];
+    }
     _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
 }
 
 - (void)reloadVPNStatus{
-    printf("DDDDDDDD get vpn status: %d\n", swiftViewController.user_started_vpn);
     if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
@@ -211,9 +242,7 @@ extern NSString* GlobalMonitorString;
         [self.loadingView removeFromSuperview];
         self.isLink = true;
         _loadingTime = 0;
-        NSLog(@"网络状态变更状态- VPN开启");
     }else{
-//        NSLog(@"网络状态变更状态- VPN关闭");
         _isLink = false;
     }
     [self refreshLinkView];
@@ -257,7 +286,7 @@ extern NSString* GlobalMonitorString;
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(82, top_H+36, 150, 14)];
-    label2.text = [NSString stringWithFormat:@"v%@",app_Version];
+    label2.text = [NSString stringWithFormat:@"V%@",app_Version];
     label2.font = [UIFont systemFontOfSize:16];
     label2.textColor = kRBColor(154, 162, 161);
     [navView addSubview:label2];
@@ -291,7 +320,10 @@ extern NSString* GlobalMonitorString;
 
 -(void)shareBtnClicked
 {
-    NSURL* url2 = [NSURL URLWithString:@"https://www.tenonvpn.net"];
+    NSString* string1 = @"https://www.tenonvpn.net";
+    NSString* string = [string1 stringByAppendingString:TenonP2pLib.sharedInstance.account_id];
+    NSURL* url2 = [NSURL URLWithString:string];
+    
     [TSShareHelper shareWithType:0
                    andController:self
                         andItems:@[url2]
@@ -525,7 +557,6 @@ extern NSString* GlobalMonitorString;
 
 -(void)editBtnClicked
 {
-//    [self.view makeToast:@"编辑" duration:2 position:BOTTOM];
     NSUserDefaults* defaluts = [NSUserDefaults standardUserDefaults];
     [defaluts setObject:@"CLICK_SETTING" forKey:@"CLICK_SETTING"];
     [defaluts synchronize];
@@ -629,6 +660,21 @@ extern NSString* GlobalMonitorString;
         make.height.mas_equalTo(28);
     }];
     
+    UILabel *chongL = [[UILabel alloc] init];
+    chongL.text = GCLocalizedString(@"+");
+    chongL.font = Font_B(30);
+    chongL.textColor = kRBColor(18, 181, 170);
+    [twoLeftView addSubview:chongL];
+    [chongL mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(twoLeftView).offset(-18);
+        make.top.equalTo(twoLeftView).offset(12);
+        make.height.mas_equalTo(20);
+    }];
+    
+    UIButton *chongBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 106)];
+    [chongBtn addTarget:self action:@selector(addMoreFreeTime) forControlEvents:UIControlEventTouchUpInside];
+    [twoLeftView addSubview:chongBtn];
+    
     _typeTextLabel = [[UILabel alloc] init];
     _typeTextLabel.text = GCLocalizedString(@"Free");
     _typeTextLabel.font = [UIFont systemFontOfSize:18];
@@ -710,24 +756,24 @@ extern NSString* GlobalMonitorString;
             make.height.mas_equalTo(20);
         }];
         
-        UILabel *tiL = [[UILabel alloc] init];
-        tiL.text = GCLocalizedString(@"Seel out");
-        tiL.font = Font_B(20);
-        tiL.textColor = kRBColor(18, 181, 170);
-        [twoRightView addSubview:tiL];
-        [tiL mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(twoRightView).offset(-12);
-            make.bottom.equalTo(twoRightView).offset(-12);
-            make.height.mas_equalTo(20);
-        }];
+//        UILabel *tiL = [[UILabel alloc] init];
+//        tiL.text = GCLocalizedString(@"Seel out");
+//        tiL.font = Font_B(20);
+//        tiL.textColor = kRBColor(18, 181, 170);
+//        [twoRightView addSubview:tiL];
+//        [tiL mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(twoRightView).offset(-12);
+//            make.bottom.equalTo(twoRightView).offset(-12);
+//            make.height.mas_equalTo(20);
+//        }];
         
         UIButton *chongBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 35)];
         [chongBtn addTarget:self action:@selector(chongBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         [twoRightView addSubview:chongBtn];
         
-        UIButton *tiXianBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 35, (kWIDTH-35)/2-50, 65)];
-        [tiXianBtn addTarget:self action:@selector(tiXianBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [twoRightView addSubview:tiXianBtn];
+//        UIButton *tiXianBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 35, (kWIDTH-35)/2-50, 65)];
+//        [tiXianBtn addTarget:self action:@selector(tiXianBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//        [twoRightView addSubview:tiXianBtn];
     }
     
 }
@@ -741,30 +787,21 @@ extern NSString* GlobalMonitorString;
     [self changeBtnClicked:sender];
 }
 
+-(void)addMoreFreeTime
+{
+    [self clickIncreaseFreeTime];
+}
+
 -(void)chongBtnClicked
 {
-//    [self.view makeToast:@"充值" duration:2 position:BOTTOM];
-//    BOOL bConnect = NO;
-//    if (self.isLink == YES) {
-//        [self disconnectVpn];
-//        bConnect = YES;
-//    }
-    
     RechargeViewController *nextVC = [[RechargeViewController alloc] init];
     nextVC.backBlock = ^{
-//        if (bConnect == YES){
-//            [self connectVpn];
-//        }
     };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 -(void)tiXianBtnClicked
 {
-//    [self.view makeToast:@"提现" duration:2 position:BOTTOM];
-//    WithdrawViewController *nextVC = [[WithdrawViewController alloc] init];
-//    [self.navigationController pushViewController:nextVC animated:YES];
-//    
     NSURL* url2 = [NSURL URLWithString:@"https://www.tenonvpn.net/withdraw"];
     UIApplication *application = [UIApplication sharedApplication];
     if (@available(iOS 10.0, *)) {
@@ -962,9 +999,10 @@ extern NSString* GlobalMonitorString;
             _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
             _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",show_balance];
         } else {
-            _typeSignLabel.text = [NSString stringWithFormat:@"%d%@", 0, GCLocalizedString(@"left_days")];
+            _typeSignLabel.text = [NSString stringWithFormat:@"%d%@", TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / 1000, GCLocalizedString(@"left_days")];
             _typeTextLabel.text = [NSString stringWithFormat:@"%d TEN",0];
         }
+        [self reloadBalance];
     }
 }
 
@@ -1075,7 +1113,6 @@ extern NSString* GlobalMonitorString;
 {
     _ADView = [[UIView alloc] initWithFrame:CGRectMake(0, kHEIGHT-60, kWIDTH, 60)];
     _ADView.backgroundColor = kRBColor(59, 34, 116);
-//    NSString* adUID = @"ca-app-pub-3940256099942544/2934735716";
     NSString* adUID = @"ca-app-pub-1878869478486684/1414406836";
     self.bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(_ADView.width, _ADView.height))];
     self.bannerView.frame = CGRectMake(0, 0, _ADView.width, _ADView.height);
@@ -1086,6 +1123,7 @@ extern NSString* GlobalMonitorString;
     
     [self.view addSubview:_ADView];
 }
+
 - (void)adViewDidReceiveAd:(GADBannerView *)adView {
   // Add adView to view and add constraints as above.
     [_ADView addSubview:self.bannerView];
@@ -1179,10 +1217,6 @@ extern NSString* GlobalMonitorString;
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
     pasteBoard.string = swiftViewController.local_account_id;
     [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
-//    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy:)];
-//    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
-//    [[UIMenuController sharedMenuController] setTargetRect:self.codeLabel.frame inView:self.codeLabel.superview];
-//    [[UIMenuController sharedMenuController] setMenuVisible:FALSE animated:YES];
 }
 
 // 处理长按事件
@@ -1191,10 +1225,6 @@ extern NSString* GlobalMonitorString;
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
     pasteBoard.string = swiftViewController.local_private_key;
     [self.view makeToast:GCLocalizedString(@"Copy success!") duration:2 position:BOTTOM];
-//    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:GCLocalizedString(@"Copy") action:@selector(copy1:)];
-//    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
-//    [[UIMenuController sharedMenuController] setTargetRect:self.keyLabel.frame inView:self.keyLabel.superview];
-//    [[UIMenuController sharedMenuController] setMenuVisible:FALSE animated:YES];
 }
 
 -(void)addtagBtnClicked
@@ -1237,20 +1267,6 @@ extern NSString* GlobalMonitorString;
         _loadingTime = 0;
     }
     
-//    if (self.rewardedAd.isReady && !TenonP2pLib.sharedInstance.IsVip) {
-//        [self.rewardedAd presentFromRootViewController:self delegate:self];
-//        if (self.codeTimer != nil) {
-//          [self.codeTimer invalidate];
-//          self.codeTimer = nil;
-//        }
-//
-//        self.loadingView.hidden = YES;
-//        [self.loadingView removeFromSuperview];
-//        self.isLink = true;
-//        [self refreshLinkView];
-//        _loadingTime = 0;
-//    }
-    
     if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
@@ -1278,4 +1294,84 @@ extern NSString* GlobalMonitorString;
         }
     }
 }
+
+
+-(void)clickIncreaseFreeTime
+{
+    [self addADBgView];
+    self.progressView.progress = 0;
+    
+    if (TenonP2pLib.sharedInstance.IsVip) {
+        _loadingTime = 1;
+    } else {
+        _loadingTime = 7;
+    }
+    
+    self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incFreeGetCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];
+    
+    [UIView animateWithDuration:_loadingTime animations:^{
+        self.progressView.progress = 1;
+      } completion:^(BOOL finished) {
+          self.loadingView.hidden = YES;
+          self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…0s",GCLocalizedString(@"Linking for you")];
+          [self.loadingView removeFromSuperview];
+      }];
+}
+
+-(void)incFreeGetCodeTime
+{
+    if (!TenonP2pLib.sharedInstance.IsVip) {
+        bool adShowd = false;
+        if (self.rewardedAd_5.isReady) {
+            [self.rewardedAd_5 presentFromRootViewController:self delegate:self];
+            adShowd = true;
+            NSLog(@"rewardedAd_5 called!");
+        } else if (self.rewardedAd_3.isReady) {
+            [self.rewardedAd_3 presentFromRootViewController:self delegate:self];
+            adShowd = true;
+            NSLog(@"rewardedAd_3 called!");
+        } else if (self.rewardedAd.isReady) {
+            [self.rewardedAd presentFromRootViewController:self delegate:self];
+            adShowd = true;
+            NSLog(@"rewardedAd called!");
+        }
+        
+        if (adShowd) {
+            if (self.codeTimer != nil) {
+              [self.codeTimer invalidate];
+              self.codeTimer = nil;
+            }
+
+            self.loadingView.hidden = YES;
+            [self.loadingView removeFromSuperview];
+            _loadingTime = 0;
+        }
+    }
+    
+    if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+
+        self.loadingView.hidden = YES;
+        [self.loadingView removeFromSuperview];
+        _loadingTime = 0;
+    }
+    _loadingTime -= 1;
+    if(_loadingTime > 0) {
+        self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
+    } else {
+
+            [self.view makeToast:GCLocalizedString(@"ad_exit_and_retry") duration:2 position:BOTTOM];
+
+        if (self.codeTimer != nil) {
+          [self.codeTimer invalidate];
+          self.codeTimer = nil;
+        }
+    }
+}
+
 @end

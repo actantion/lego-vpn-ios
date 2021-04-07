@@ -118,3 +118,5 @@
 "Safe"="Safe";
 "Reliable"="Reliable";
 "Easy"="Easy";
+"ad_exit_and_retry"="ads is not ready, retry later...";
+"Left"="Left ";

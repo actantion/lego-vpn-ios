@@ -86,6 +86,11 @@ class TenonP2pLib : NSObject {
     public var private_key: String = ""
     var keeped_private_kyes: [String] = []
     
+    public var mLeftFreeUseTimeMilli: Int64 = 0;
+    public var mTodayFreeDayTm: Int64 = 0;
+    public var mPrevSaveFreeTimeMilli: Int64 = 0;
+    private var queue = DispatchQueue(label: "freeTm.queue.identifier")
+    
     func InitP2pNetwork (
             _ local_ip: String,
             _ local_port: Int) -> (local_country: String, prikey: String, account_id: String, def_route: String) {
@@ -104,7 +109,7 @@ class TenonP2pLib : NSObject {
         let res = LibP2P.initP2pNetwork(
                 local_ip,
                 1,
-                "id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001,id:113.17.169.103:9001,id:113.17.169.105:9001,id:113.17.169.106:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:113.17.169.95:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,",
+                "id:113.107.161.10:9001,id:113.107.161.7:9001,id:113.107.161.5:9001,id:1.15.185.189:9001,id:82.156.224.174:9001,id:82.156.249.60:9001,id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,",
                 conf_path,
                 "5.0.0",
                 private_key) as String
@@ -124,6 +129,7 @@ class TenonP2pLib : NSObject {
         CheckVip()
         GetVipStatus()
         PayforVpn()
+        GetTodayFreeTime()
         return (array[0], array[2], array[1], array[3])
     }
     
@@ -313,8 +319,46 @@ class TenonP2pLib : NSObject {
         UserDefaults.standard.set(payfor_amount, forKey: "vip_status_payfor_amount")
     }
     
+    func ChangeFreeUseTimeMilli(val: Int64) {
+        queue.sync {
+            if (val < 0 && mLeftFreeUseTimeMilli <= -val) {
+                mLeftFreeUseTimeMilli = 0;
+                return
+            }
+            
+            mLeftFreeUseTimeMilli += val
+        }
+    }
+    
+    func GetTodayFreeTime() {
+        mTodayFreeDayTm = Int64(UserDefaults.standard.integer(forKey: "mTodayFreeDayTm"))
+        let nowDayTm: Int64 = Int64(Date().milliStamp) / (24 * 3600 * 1000)
+        if (mTodayFreeDayTm != nowDayTm) {
+            mLeftFreeUseTimeMilli = 3600 * 1000;
+            mTodayFreeDayTm = nowDayTm
+        } else {
+            mLeftFreeUseTimeMilli = Int64(UserDefaults.standard.integer(forKey: "mLeftFreeUseTimeMilli"))
+        }
+    }
+    
+    func SaveTodayFreeTime() {
+        let now_tm: Int64 = Int64(Date().milliStamp)
+        if (now_tm - mPrevSaveFreeTimeMilli < 3000) {
+            return
+        }
+        
+        let nowDayTm: Int64 = Int64(Date().milliStamp) / (24 * 3600 * 1000)
+        if (mTodayFreeDayTm != nowDayTm) {
+            mLeftFreeUseTimeMilli = 3600 * 1000;
+            mTodayFreeDayTm = nowDayTm
+        }
+        
+        mPrevSaveFreeTimeMilli = now_tm
+        UserDefaults.standard.set(mTodayFreeDayTm, forKey: "mTodayFreeDayTm")
+        UserDefaults.standard.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
+    }
+    
     public func SavePrivateKey(prikey_in: String) -> Bool {
-        print("set private key chain: \(prikey_in)")
         KeychainManager.shareInstence().setKeyChainPrikey(prikey_in)
         
         let prikey = prikey_in.trimmingCharacters(in: [" "])
@@ -339,7 +383,6 @@ class TenonP2pLib : NSObject {
         }
         
         UserDefaults.standard.set(tmp_str, forKey: "all_private_key")
-        print("DDDDDDDDD save private key: " + tmp_str)
         return true
     }
     

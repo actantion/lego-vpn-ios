@@ -101,7 +101,7 @@ extension ShadowsocksAdapter {
             if data.count == 3 {
                 let tmp_data = String(data: data, encoding: String.Encoding.utf8) as String?
                 if tmp_data == "bwo" || tmp_data == "cni" || tmp_data == "oul" {
-                    let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+                    let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
                     userDefaults?.set(tmp_data, forKey: "vpnsvr_status")
                     _exit(1)
                 }
@@ -140,7 +140,7 @@ extension ShadowsocksAdapter {
                 start_pos = 6
             }
             
-            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
             let ex_route_ip: UInt32 = UInt32(userDefaults?.string(forKey: "ex_route_ip_int") ?? "0") ?? 0
             let ex_route_port: UInt16 = UInt16(userDefaults?.string(forKey: "ex_route_port_int") ?? "0") ?? 0
             if (ex_route_ip > 0) {

@@ -230,6 +230,7 @@ extern ViewController *swiftViewController;
     [self.rewardedAd loadRequest:request completionHandler:^(GADRequestError * _Nullable error) {
         if (error) {
             // Handle ad failed to load case.
+            [self createAndLoadRewardedAd];
         } else {
             // Ad successfully loaded.
         }
@@ -461,7 +462,10 @@ extern ViewController *swiftViewController;
                 [self lookADBtnClicked];
             }else if ([model.index intValue] == 6) {
                 // 分享
-                NSURL* url2 = [NSURL URLWithString:@"https://www.tenonvpn.net"];
+                NSString* string1 = @"https://www.tenonvpn.net";
+                NSString* string = [string1 stringByAppendingString:TenonP2pLib.sharedInstance.account_id];
+                NSURL* url2 = [NSURL URLWithString:string];
+                
                 [TSShareHelper shareWithType:0
                                andController:self
                                     andItems:@[url2]

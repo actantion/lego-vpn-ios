@@ -97,6 +97,24 @@ NSString* GlobalMonitorString;
 }
 
 -(void)configAppLangue{
+    NSUserDefaults *defaultdata = [NSUserDefaults standardUserDefaults];
+    NSString *language = [defaultdata objectForKey:@"language"];
+    if (language.length == 0) {
+        NSArray* languages = [[NSBundle mainBundle] preferredLocalizations];
+        if ([languages[0] isEqual: @"zh-Hans-CN"]) {
+            [NSBundle setLanguage:@"zh-Hans-CN"];
+            [defaultdata setObject:@"中文" forKey:@"language"];
+            [defaultdata synchronize];
+        } else if ([languages[0] isEqual: @"zh-Hans"]) {
+            [NSBundle setLanguage:@"zh-Hans-CN"];
+            [defaultdata setObject:@"中文" forKey:@"language"];
+            [defaultdata synchronize];
+        } else {
+            [NSBundle setLanguage:@"en"];
+            [defaultdata setObject:@"English" forKey:@"language"];
+            [defaultdata synchronize];
+        }
+    }
     
 }
 

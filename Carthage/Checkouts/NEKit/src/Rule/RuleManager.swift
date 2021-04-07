@@ -62,7 +62,7 @@ open class RuleManager {
      - returns: The matched configured adapter.
      */
     func match(_ session: ConnectSession) -> AdapterFactory! {
-//        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn.groups")
+//        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
 //        let global_mode: UInt32 = UInt32(userDefaults?.string(forKey: "global_mode") ?? "0") ?? 0
 //        if (global_mode == 1) {
 //            session.matchedRule = self.ssRule
