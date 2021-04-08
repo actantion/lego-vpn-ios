@@ -111,7 +111,7 @@
                 <outlet property="cellThreeLab" destination="hVT-E6-3Kv" id="PLb-oL-MIE"/>
                 <outlet property="cellTwoLab" destination="ZPW-f2-Bb1" id="REV-rQ-MCT"/>
             </connections>
-            <point key="canvasLocation" x="138.40579710144928" y="121.54017857142857"/>
+            <point key="canvasLocation" x="43" y="125"/>
         </tableViewCell>
     </objects>
     <resources>
