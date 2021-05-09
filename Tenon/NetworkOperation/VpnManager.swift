@@ -46,6 +46,7 @@ enum VPNStatus {
     public var vpn_nodes: String = ""
     @objc public var local_country: String = ""
     @objc public var choosed_country: String = ""
+    @objc public var vpn_connected: Bool = false
     public var use_smart_route: Bool = true
     public var default_routing_map: Dictionary<String, String> = [:]
     @objc public var use_global_mode: Bool = false
@@ -115,15 +116,21 @@ enum VPNStatus {
     
     
     func updateVPNStatus(_ manager: NEVPNManager) {
+        self.vpn_connected = false
         switch manager.connection.status {
         case .connected:
             self.vpnStatus = .on
+            self.vpn_connected = true
+            break
         case .connecting, .reasserting:
             self.vpnStatus = .connecting
+            break
         case .disconnecting:
             self.vpnStatus = .disconnecting
+            break
         case .disconnected, .invalid:
             self.vpnStatus = .off
+            break
         @unknown default: break
             
         }

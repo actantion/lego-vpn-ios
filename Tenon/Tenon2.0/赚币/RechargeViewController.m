@@ -326,6 +326,8 @@ extern ViewController *swiftViewController;
     }
 }
 #pragma mark -加载视图
+
+
 -(void)initUI
 {
     CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
@@ -336,14 +338,53 @@ extern ViewController *swiftViewController;
     aboutLab.font = Font_B(36);
     [self.view addSubview:aboutLab];
     
-    UILabel *noticeLab = [[UILabel alloc] initWithFrame:CGRectMake(20, aboutLab.bottom+15, kWIDTH-40, 75)];
-    noticeLab.text = GCLocalizedString(@"private_key_notices");
-    noticeLab.textColor = kRBColor(18, 181, 170);
-    noticeLab.lineBreakMode = NSLineBreakByWordWrapping;
-    noticeLab.numberOfLines = 0;
-    noticeLab.font = Font_B(16);
-    [self.view addSubview:noticeLab];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(20, aboutLab.bottom - 5, kWIDTH-40, 150)];
+    UILabel *label = [[UILabel alloc] init];
+    CGSize s = [GCLocalizedString(@"payment_notice") sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(kWIDTH-50, 2000) ];
+    label.textColor = kRBColor(18, 181, 170);
+    label.font = Font_B(16);
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.frame =CGRectMake(5, 5, s.width, s.height + 80);
+    label.text =GCLocalizedString(@"payment_notice");
+    label.numberOfLines = 0;
+    label.backgroundColor =[UIColor clearColor];
+    
+    scrollView.contentSize = label.frame.size;
+    [scrollView addSubview:label];
+    [self.view addSubview:scrollView];
+    
+    
+//    UILabel *paymentNotice = [[UILabel alloc] initWithFrame:CGRectMake(20, aboutLab.bottom+15, kWIDTH-40, 300)];
+//    paymentNotice.text = GCLocalizedString(@"payment_notice");
+//    paymentNotice.textColor = kRBColor(18, 181, 170);
+//    paymentNotice.lineBreakMode = NSLineBreakByWordWrapping;
+//    paymentNotice.numberOfLines = 0;
+//    paymentNotice.font = Font_B(15);
+//    [self.view addSubview:paymentNotice];
     [self loadUI];
+    
+    
+    UILabel *termOfUse = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-320, scrollView.bottom+15, kWIDTH-40, 25)];
+    termOfUse.text = GCLocalizedString(@"《Terms Of Use》");
+    termOfUse.textColor = kRBColor(154, 162, 161);
+    termOfUse.lineBreakMode = NSLineBreakByWordWrapping;
+    termOfUse.numberOfLines = 0;
+    termOfUse.font = Font_B(16);
+    [self.view addSubview:termOfUse];
+    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTouchUpInside:)];
+    [termOfUse addGestureRecognizer:labelTapGestureRecognizer];
+    termOfUse.userInteractionEnabled = YES; // 可以理解为设置label可被点击
+    
+    UILabel *termOfUse1 = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-185, scrollView.bottom+15, kWIDTH-40, 25)];
+    termOfUse1.text = GCLocalizedString(@"《Privacy Policy》");
+    termOfUse1.textColor = kRBColor(154, 162, 161);
+    termOfUse1.lineBreakMode = NSLineBreakByWordWrapping;
+    termOfUse1.numberOfLines = 0;
+    termOfUse1.font = Font_B(16);
+    [self.view addSubview:termOfUse1];
+    UITapGestureRecognizer *labelTapGestureRecognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTouchUpInside2:)];
+    [termOfUse1 addGestureRecognizer:labelTapGestureRecognizer2];
+    termOfUse1.userInteractionEnabled = YES; // 可以理解为设置label可被点击
     
     _myTableView = [[UITableView alloc] init];
     _myTableView.tableFooterView = [[UIView alloc] init];
@@ -365,7 +406,7 @@ extern ViewController *swiftViewController;
     [_myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.width.mas_equalTo(kWIDTH);
-        make.top.equalTo(noticeLab.mas_bottom);
+        make.top.equalTo(termOfUse1.mas_bottom).offset(15);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
@@ -687,7 +728,7 @@ extern ViewController *swiftViewController;
     NSURL *rurl = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *rdata = [NSData dataWithContentsOfURL:rurl];
     
-    NSURL *url = [NSURL URLWithString:@"https://sandbox.itunes.apple.com/verifyReceipt"];
+    NSURL *url = [NSURL URLWithString:@"https://buy.itunes.apple.com/verifyReceipt"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
     urlRequest.HTTPMethod = @"POST";
     NSString *encodeStr = [rdata base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
@@ -760,4 +801,35 @@ extern ViewController *swiftViewController;
         }
     }
 }
+
+-(void) labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
+   UILabel *label=(UILabel*)recognizer.view;
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:@"https://www.tenonvpn.net/views/termsOfUse.html"];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/termsOfUse.html",success);
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+        NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/termsOfUse.html",success);
+    }
+}
+
+-(void) labelTouchUpInside2:(UITapGestureRecognizer *)recognizer{
+   UILabel *label=(UILabel*)recognizer.view;
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:@"https://www.tenonvpn.net/views/privacyPolicy.html"];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/privacyPolicy.html",success);
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+        NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/privacyPolicy.html",success);
+    }
+}
+
 @end

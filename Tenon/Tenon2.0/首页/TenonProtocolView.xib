@@ -18,7 +18,7 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oEh-6h-jWC">
                     <rect key="frame" x="8" y="44" width="398" height="782"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <string key="text">
+                    <mutableString key="text">
 In this policy, we describe how we are processing your personal data as a data controller and how you as an individual can exercise your rights. We only process personal data in accordance with the GDPR and other applicable legislations.
 
 All of our policies regarding data and its storage
@@ -81,7 +81,6 @@ If you would like to exercise your rights, please contact support@tenonvpn.org f
 Please note that exercising some rights may limit our ability to provide support that requires such information, for example issuing a refund or finding a lost account. We are also unable to approve some request due to legal requirements or that the processing of personal data might be based on a legal basis to which the right do not apply.
 
 Data controller contact information
-Reg. no. +8613735484728
 Box SAN PO KONG
 Rm 1604 Perfect Indl Building
 Hong Kong
@@ -90,7 +89,7 @@ support@tenonvpn.org
 To exercise your rights under the GDPR or if you have any questions regarding our processing of your personal data, please send your inquiry to the e-mail address above.
 
 Updates
-This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</string>
+This Privacy policy may be updated and, in such case, a new version will be published on TenonVPN’s website.</mutableString>
                     <color key="textColor" systemColor="labelColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

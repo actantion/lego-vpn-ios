@@ -13,10 +13,16 @@
 	<array>
 		<string>allow-vpn</string>
 	</array>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.tenon.tenonvpn</string>
 		<string>group.com.XL.Tenonvpn</string>
 	</array>
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<key>com.apple.security.personal-information.location</key>
+	<true/>
 </dict>
 </plist>

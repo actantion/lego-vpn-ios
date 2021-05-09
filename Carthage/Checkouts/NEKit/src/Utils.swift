@@ -1,21 +1,42 @@
 import Foundation
 
+extension Date {
+    var milliStamp : UInt64 {
+        let timeInterval: TimeInterval = self.timeIntervalSince1970
+        let millisecond = CLongLong(round(timeInterval*1000))
+        return UInt64(millisecond)
+    }
+}
+
+var timerQueue = DispatchQueue.global()
+var timer = DispatchSource.makeTimerSource(queue: timerQueue)
 public struct Utils {
     public static func StartFreeTimeTimer() -> Void {
-        if #available(iOSApplicationExtension 10.0, *) {
-            let timer = Timer.init(timeInterval: 2, repeats:true) { (kTimer) in
-                print("定时器启动了")
-                let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
-                userDefaults?.set("ok", forKey: "vpnsvr_status")
+        timer.schedule(deadline: .now(), repeating: 1)
+        timer.setEventHandler { [] in
+            let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
+            var mLeftFreeUseTimeMilli: Int64 = Int64(userDefaults?.integer(forKey: "mLeftFreeUseTimeMilli") ?? 0)
+            if (mLeftFreeUseTimeMilli >= 1000) {
+                mLeftFreeUseTimeMilli -= 1000
+                userDefaults?.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
+            } else {
+                exit(0)
             }
-            RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
-            // TODO : 启动定时器
-            timer.fire()
-        } else {
-            // Fallback on earlier versions
+
+            let nowDayTm: Int64 = Int64(Date().milliStamp) / (24 * 3600 * 1000)
+            var mTodayFreeDayTm = Int64(userDefaults?.integer(forKey: "mTodayFreeDayTm") ?? 0)
+            if (mTodayFreeDayTm != nowDayTm) {
+                mLeftFreeUseTimeMilli = 3600 * 1000;
+                mTodayFreeDayTm = nowDayTm
+                userDefaults?.set(mTodayFreeDayTm, forKey: "mTodayFreeDayTm")
+                userDefaults?.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
+            }
+
         }
-       
+        timer.resume()
+
     }
+
     
     public struct HTTPData {
         public static let DoubleCRLF = "\r\n\r\n".data(using: String.Encoding.utf8)!

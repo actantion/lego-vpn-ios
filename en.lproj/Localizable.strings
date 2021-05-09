@@ -109,6 +109,9 @@
 "success, now should reconnet vpn."="success, now should reconnet vpn.";
 "recharge"="recharge";
 "paying"="The last purchase has not been confirmed";
+""="";
+""="";
+
 "The light of Blockchain Apps"="The Light of Blockchain Apps";
 "Decentralization VPN"="Decentralized VPN";
 "Fast"="Fast";
@@ -117,3 +120,13 @@
 "Easy"="Easy";
 "ad_exit_and_retry"="ads is not ready, retry later...";
 "Left"="Left ";
+"SAbout"="About";
+"Terms"="Terms";
+"《Terms Of Use》"="《Terms Of Use》";
+"《Privacy Policy》"="《Privacy Policy》";
+"payment_notice"="Tip: \nPlease keep your private key, to ensure the security of your account.\n\nAbout purchasing Tenon:\n1. $5 exchange 2050 Tenon for 30 days vip.\n2. $12 exchange 6010 Tenon for 90 days vip.\n3. $36 exchange 23860 Tenon for 360 days vip.\n\nAbout Tenon:\nTenon is used to redeem VIP. After you purchase Tenon, TenonVPN will automatically deduct 1980 Tenon every month and redeem VIP for 30 days. Until your Tenon is consumed, the VIP privilege will expire. You can continue to pay by subscription and purchase Tenon and recover VIP rights. If Tenon is consumed and you cancel your subscription, you can still continue to use Tenon’s free features.  \n\n";
+"Automatic"="Automatic";
+"Timeout"="Timeout";
+"Free time expires, watch ads or subscribe to VIP."="Free time expires, watch ads or subscribe to VIP.";
+"Watch Ads"="Watch Ads";
+"Become VIP"="Become VIP";

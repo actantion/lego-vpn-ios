@@ -109,6 +109,9 @@
 "success, now should reconnet vpn."="设置成功，请重连VPN.";
 "recharge"="充值";
 "paying"="上一次购买还在消费中.";
+""="";
+""="";
+""="";
 "The light of Blockchain Apps"="区块链应用之光";
 "Decentralization VPN"="去中心化 VPN";
 "Fast"="快速";
@@ -117,3 +120,13 @@
 "Easy"="简单";
 "ad_exit_and_retry"="广告还没准备好，请重试...";
 "Left"="剩余 ";
+"SAbout"="关于";
+"Terms"="服务条款";
+"《Terms Of Use》"="《使用条款》";
+"《Privacy Policy》"="《用户隐私协议》";
+"payment_notice"="提示：\n为了保障安全，请保存好您的私钥，不要告诉任何人，确保您的账户安全.\n\n关于购买Tenon:\n1. 5美金购买2050Tenon并使用30天VIP.\n2. 12美金购买6010Tenon并使用90天VIP.\n3. 36美元购买23860Tenon并使用360天VIP.\n\n关于Tenon:\nTenon用来兑换VIP，当你购买Tenon后，TenonVPN会每个月自动扣除1980个Tenon，并兑换30天的VIP，直到你的Tenon被消耗完，VIP权限就到期，你可以通过订阅付费继续购买Tenon，并拥有VIP权限。如果Tenon消耗完毕，你取消了订阅，你仍然可以继续使用Tenon的免费功能。\n\n";
+"Automatic"="智能";
+"Timeout"="超时";
+"Free time expires, watch ads or subscribe to VIP."="免费时间超时，看广告延时或者订阅VIP.";
+"Watch Ads"="观看广告";
+"Become VIP"="订阅VIP";

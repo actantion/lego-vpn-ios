@@ -16,6 +16,7 @@
     dispatch_once(&onceToken, ^{
         sharedManager = [[KeychainManager alloc] init];
         sharedManager.wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
+        NSLog(@"DDDDDDDDDDDDDDDDDDDDDD");
     });
     return  sharedManager;
 }
@@ -34,6 +35,7 @@
     [_wrapper setObject:@(Type) forKey:(__bridge id)kSecAttrType];
 }
 - (void)setKeyChainTranscate:(NSString*)transcate{
+    NSLog(@"set transacte: %@", transcate);
     [_wrapper setObject:transcate forKey:(__bridge id)kSecAttrLabel];
 }
 - (NSString*)getKeyChainTranscate{
@@ -54,11 +56,37 @@
 - (void)setKeyChainPrikey:(NSString*)pirvateKey {
     NSLog(@"setKeyChainPrikey: %@", pirvateKey);
     [_wrapper setObject:pirvateKey forKey:(__bridge id)kSecValueData];
+    NSString* ret =[_wrapper objectForKey:(__bridge id)kSecValueData];
+    NSLog(@"getKeyChainPrikey: %@", ret);
 }
 
 - (NSString*)getKeyChainPrikey {
     NSString* ret =[_wrapper objectForKey:(__bridge id)kSecValueData];
     NSLog(@"getKeyChainPrikey: %@", ret);
     return ret;
+}
+
+- (void)clearKeyChain {
+    NSMutableDictionary *query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnAttributes,
+                                  (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
+                                  nil];
+    NSArray *secItemClasses = [NSArray arrayWithObjects:
+                               (__bridge id)kSecClassGenericPassword,
+                               (__bridge id)kSecClassInternetPassword,
+                               (__bridge id)kSecClassCertificate,
+                               (__bridge id)kSecClassKey,
+                               (__bridge id)kSecClassIdentity,
+                               nil];
+    for (id secItemClass in secItemClasses) {
+        [query setObject:secItemClass forKey:(__bridge id)kSecClass];
+        
+        CFTypeRef result = NULL;
+        SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+        if (result != NULL) CFRelease(result);
+        
+        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
+        SecItemDelete((__bridge CFDictionaryRef)spec);
+    }
 }
 @end

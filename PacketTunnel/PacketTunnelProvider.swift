@@ -195,6 +195,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         domainKeyWords.append("github")
         domainKeyWords.append("digitalocean")
         domainKeyWords.append("godaddy")
+        domainKeyWords.append("tenonvpn")
+        domainKeyWords.append("tenon")
         
         domainNotKeyWords.append("weixin")
         domainNotKeyWords.append("qq")
@@ -409,13 +411,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         proxySettings.exceptionList = []
         networkSettings.proxySettings = proxySettings
         
-        if enablePacketProcessing {
+        if self.enablePacketProcessing {
             let DNSSettings = NEDNSSettings(servers: ["8.8.8.8"])
             DNSSettings.matchDomains = [""]
             DNSSettings.matchDomainsNoSearch = false
             networkSettings.dnsSettings = DNSSettings
         }
         
+
         setTunnelNetworkSettings(networkSettings) {
             error in
             guard error == nil else {
@@ -443,26 +446,22 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 }
                 
                 self.interface = TUNInterface(packetFlow: self.packetFlow)
-                
-                
 //                let fakeIPPool = try! IPPool(range: IPRange(startIP: IPAddress(fromString: "198.168.1.1")!, endIP: IPAddress(fromString: "198.168.255.255")!))
-                
-//
 //                let dnsServer = DNSServer(address: IPAddress(fromString: "8.8.8.8")!, port: NEKit.Port(port: 53), fakeIPPool: fakeIPPool)
 //                let resolver = UDPDNSResolver(address: IPAddress(fromString: "114.114.114.114")!, port: NEKit.Port(port: 53))
 //                dnsServer.registerResolver(resolver)
 //                self.interface.register(stack: dnsServer)
-//
 //                DNSServer.currentServer = dnsServer
-//
-//                let udpStack = UDPDirectStack()
-//                self.interface.register(stack: udpStack)
+                let udpStack = UDPDirectStack()
+                self.interface.register(stack: udpStack)
+                
                 let tcpStack = TCPStack.stack
                 tcpStack.proxyServer = self.proxyServer
                 self.interface.register(stack:tcpStack)
                 self.interface.start()
             }
             self.started = true
+            
         }
         
     }

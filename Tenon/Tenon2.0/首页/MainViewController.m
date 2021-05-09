@@ -62,7 +62,6 @@ extern NSString* GlobalMonitorString;
 @property (nonatomic, strong) UIView *loadingAdView;
 @property (nonatomic, strong) RBProgressView *progressView;
 @property (nonatomic, strong) MSWeakTimer *codeTimer;
-@property (nonatomic, assign) NSInteger loadingTime;
 @property (nonatomic, strong) UIButton *linkBtn;
 @property(nonatomic, strong) NSMutableArray *shareArray;
 @property(nonatomic, strong) NSMutableArray *functionArray;
@@ -73,7 +72,14 @@ extern NSString* GlobalMonitorString;
 @property(nonatomic, strong) GADRewardedAd *rewardedAd_3;
 @property(nonatomic, strong) GADBannerView *bannerView;
 @property (nonatomic, strong) NSTimer * timer;
+@property (nonatomic, strong) NSTimer * rechargeTimer;
 @property(nonatomic, strong) GADRewardedInterstitialAd* rewardedInterstitialAd;
+
+@property (strong, nonatomic) UIAlertAction *okBtn;
+@property (strong, nonatomic) UIAlertAction *cancelBtn;
+@property (nonatomic, assign) BOOL outoftimeShowed;
+@property (nonatomic, assign) UInt64 prevShowInsAdTimestamp;
+@property (nonatomic, assign) NSInteger loadingTime;
 @end
 
 @implementation MainViewController
@@ -147,6 +153,7 @@ extern NSString* GlobalMonitorString;
         }
     }];
     
+    _prevShowInsAdTimestamp = [[NSDate date] timeIntervalSince1970]*1000;
     self.rewardedInterstitialAd = nil;
     [self createAndLoadInsRewardedAd];
 }
@@ -195,7 +202,7 @@ extern NSString* GlobalMonitorString;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.rewardedAd = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/9128411174"];
-    self.rewardedAd_5 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/5067800095"];
+    self.rewardedAd_3 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/5067800095"];
     self.rewardedAd_3 = [self createAndLoadRewardedAd: @"ca-app-pub-1878869478486684/6456903388"];
     
     self.rewardedInterstitialAd = nil;
@@ -208,26 +215,67 @@ extern NSString* GlobalMonitorString;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadBalance) name:@"NOTIFICATION_BALANCE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLanguage) name:@"reloadLanguage" object:nil];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showAdsTimer) userInfo:nil repeats:YES];
-    
+    [self requestRechargeInterface];
+    _outoftimeShowed = false;
 }
 
 - (void)showAdsTimer{
     [self reloadBalance];
 }
 
+- (void) showToast2 {
+    // 初始化对话框
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:GCLocalizedString(@"Timeout") message:GCLocalizedString(@"Free time expires, watch ads or subscribe to VIP.") preferredStyle:UIAlertControllerStyleAlert];
+    // 确定按钮监听
+    _okBtn = [UIAlertAction actionWithTitle:GCLocalizedString(@"Watch Ads") style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        NSLog(@"点击了确定按钮");
+        [self clickIncreaseFreeTime];
+    }];
+    _cancelBtn =[UIAlertAction actionWithTitle:GCLocalizedString(@"Become VIP") style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+        NSLog(@"点击了取消按钮");
+        [self chongBtnClicked];
+    }];
+    //添加按钮到弹出上
+    [alert addAction:_okBtn];
+    [alert addAction:_cancelBtn];
+    // 弹出对话框
+    [self presentViewController:alert animated:true completion:nil];
+}
+
 -(void)reloadBalance{
-    if (TenonP2pLib.sharedInstance.IsVip) {
+    NSUserDefaults * userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.tenon.tenonvpn"];
+    [userDefaults synchronize];
+    UInt64 mLeftFreeUseTimeMilli = [userDefaults integerForKey:@"mLeftFreeUseTimeMilli"];
+      if (TenonP2pLib.sharedInstance.IsVip) {
         _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.getLeftDays, GCLocalizedString(@"left_days")];
+          if (mLeftFreeUseTimeMilli < 2000) {
+              mLeftFreeUseTimeMilli = 3600 * 1000;
+              [userDefaults setInteger:mLeftFreeUseTimeMilli forKey:@"mLeftFreeUseTimeMilli"];
+          }
     } else {
-        UInt64 hourLeft = TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / (3600 * 1000);
-        UInt64 minLeft = TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / 60000 - hourLeft * 60;
-        UInt64 secLeft = TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / 1000 - hourLeft * 3600 - minLeft * 60;
+        UInt64 hourLeft = mLeftFreeUseTimeMilli / (3600 * 1000);
+        UInt64 minLeft = mLeftFreeUseTimeMilli / 60000 - hourLeft * 60;
+        UInt64 secLeft = mLeftFreeUseTimeMilli / 1000 - hourLeft * 3600 - minLeft * 60;
         _typeSignLabel.text = [NSString stringWithFormat:@"%@%02llu:%02llu:%02llu", GCLocalizedString(@"Left"), hourLeft, minLeft, secLeft];
+        
+        if (!_isLink) {
+            if (mLeftFreeUseTimeMilli >= 1000) {
+                mLeftFreeUseTimeMilli -= 1000;
+                [userDefaults setInteger:mLeftFreeUseTimeMilli forKey:@"mLeftFreeUseTimeMilli"];
+            }
+        }
+        
+        if (mLeftFreeUseTimeMilli <= 1000) {
+            [self disconnectVpn];
+            self.isLink = NO;
+            [self refreshLinkView];
+            if (!_outoftimeShowed) {
+                [self showToast2];
+                _outoftimeShowed = true;
+            }
+        }
     }
     
-    if (TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli <= 0) {
-        [self disconnectVpn];
-    }
     _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",TenonP2pLib.sharedInstance.GetBalance];
 }
 
@@ -410,7 +458,9 @@ extern NSString* GlobalMonitorString;
         
     });
     
-    arrayOne = @[GCLocalizedString(@"United States"),
+    arrayOne = @[
+                 GCLocalizedString(@"Automatic"),
+                 GCLocalizedString(@"United States"),
                  GCLocalizedString(@"China"),
                  GCLocalizedString(@"Singapore"),
                  GCLocalizedString(@"Japan"),
@@ -425,8 +475,8 @@ extern NSString* GlobalMonitorString;
                  GCLocalizedString(@"Hong Kong"),
                  GCLocalizedString(@"India"),
                  GCLocalizedString(@"Russia")];
-    arrayImg = @[@"us",@"cn",@"sg",@"jp",@"kr",@"ca",@"fr",@"gb",@"de",@"au",@"br",@"nl",@"hk",@"in",@"ru"];
-    arrayShortCountry = @[@"US",@"CN",@"SG",@"JP",@"KR",@"CA",@"FR",@"GB",@"DE",@"AU",@"BR",@"NL",@"HK",@"IN",@"RU"];
+    arrayImg = @[@"aa",@"us",@"cn",@"sg",@"jp",@"kr",@"ca",@"fr",@"gb",@"de",@"au",@"br",@"nl",@"hk",@"in",@"ru"];
+    arrayShortCountry = @[@"AA",@"US",@"CN",@"SG",@"JP",@"KR",@"CA",@"FR",@"GB",@"DE",@"AU",@"BR",@"NL",@"HK",@"IN",@"RU"];
     
     if (!TenonP2pLib.sharedInstance.IsVip) {
         // 非vip显示地步广告
@@ -676,7 +726,7 @@ extern NSString* GlobalMonitorString;
     [twoLeftView addSubview:chongBtn];
     
     _typeTextLabel = [[UILabel alloc] init];
-    _typeTextLabel.text = GCLocalizedString(@"Free");
+    _typeTextLabel.text = GCLocalizedString(@"FreeDDDDDDDD");
     _typeTextLabel.font = [UIFont systemFontOfSize:18];
     _typeTextLabel.textColor = kRBColor(154, 162, 161);
     [twoLeftView addSubview:_typeTextLabel];
@@ -701,7 +751,7 @@ extern NSString* GlobalMonitorString;
     bgImgV.image = [UIImage imageNamed:@"black_bg2"];
     [twoRightView addSubview:bgImgV];
     
-    if(_isFree) {
+    if(false) {
         UILabel *rtLabel = [[UILabel alloc] init];
         rtLabel.text = GCLocalizedString(@"Higher performance");
         rtLabel.font = Font_M(20);
@@ -732,9 +782,9 @@ extern NSString* GlobalMonitorString;
             make.height.mas_equalTo(24);
         }];
         
-        UIButton *changeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 106)];
-        [changeBtn addTarget:self action:@selector(toUpdateBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [twoRightView addSubview:changeBtn];
+//        UIButton *changeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (kWIDTH-35)/2, 106)];
+//        [changeBtn addTarget:self action:@selector(toUpdateBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        [twoRightView addSubview:changeBtn];
     } else {
         UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(50, 20, (kWIDTH-35)/2-30, 10)];
         lineV.backgroundColor = [UIColor blackColor];
@@ -920,6 +970,19 @@ extern NSString* GlobalMonitorString;
 
 -(void)linkBtnClicked
 {
+    NSUserDefaults * userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.tenon.tenonvpn"];
+    [userDefaults synchronize];
+    UInt64 mLeftFreeUseTimeMilli = [userDefaults integerForKey:@"mLeftFreeUseTimeMilli"];
+    if (mLeftFreeUseTimeMilli <= 1000) {
+        [self showToast2];
+        _outoftimeShowed = true;
+        return;
+    }
+    
+    if (_outoftimeShowed) {
+        _outoftimeShowed = false;
+    }
+
     if (self.isLink == YES) {
         [self disconnectVpn];
     }else {
@@ -975,23 +1038,23 @@ extern NSString* GlobalMonitorString;
         freeLab.font = Font_M(14);
         [_freeView addSubview:freeLab];
         
-        UILabel *freeL = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-24-54, 0, 50, 36)];
-        freeL.text = GCLocalizedString(@"Free");
-        freeL.textColor = kRBColor(18, 181, 170);
-        freeL.font = [UIFont systemFontOfSize:19];
-        [_freeView addSubview:freeL];
+//        UILabel *freeL = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-24-54, 0, 50, 36)];
+//        freeL.text = GCLocalizedString(@"Free");
+//        freeL.textColor = kRBColor(18, 181, 170);
+//        freeL.font = [UIFont systemFontOfSize:19];
+//        [_freeView addSubview:freeL];
+//
+//        UIImageView *changeImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"change_icon"]];
+//        [_freeView addSubview:changeImg];
+//        [changeImg mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(_freeView);
+//            make.height.width.mas_equalTo(18);
+//            make.right.equalTo(freeL.mas_left).offset(-7);
+//        }];
         
-        UIImageView *changeImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"change_icon"]];
-        [_freeView addSubview:changeImg];
-        [changeImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(_freeView);
-            make.height.width.mas_equalTo(18);
-            make.right.equalTo(freeL.mas_left).offset(-7);
-        }];
-        
-        UIButton *changeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWIDTH-24, 36)];
-        [changeBtn addTarget:self action:@selector(changeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_freeView addSubview:changeBtn];
+//        UIButton *changeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWIDTH-24, 36)];
+//        [changeBtn addTarget:self action:@selector(changeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        [_freeView addSubview:changeBtn];
         
         if (TenonP2pLib.sharedInstance.vip_left_days >= 0) {
             UInt64 show_balance = TenonP2pLib.sharedInstance.GetBalance + TenonP2pLib.sharedInstance.GetLocalAmount;
@@ -999,11 +1062,12 @@ extern NSString* GlobalMonitorString;
             _typeSignLabel.text = [NSString stringWithFormat:@"%d%@",TenonP2pLib.sharedInstance.vip_left_days, GCLocalizedString(@"left_days")];
             _typeTextLabel.text = [NSString stringWithFormat:@"%lld TEN",show_balance];
         } else {
-            _typeSignLabel.text = [NSString stringWithFormat:@"%d%@", TenonP2pLib.sharedInstance.mLeftFreeUseTimeMilli / 1000, GCLocalizedString(@"left_days")];
+            _typeSignLabel.text = [NSString stringWithFormat:@"%d%@", 0, GCLocalizedString(@"left_days")];
             _typeTextLabel.text = [NSString stringWithFormat:@"%d TEN",0];
         }
-        [self reloadBalance];
     }
+    
+    [self reloadBalance];
 }
 
 -(void)changeBtnClicked:(UIButton *)sender
@@ -1085,6 +1149,22 @@ extern NSString* GlobalMonitorString;
     _inputAlertBgView.hidden = YES;
 }
 
+- (void)exitApplication {
+    [UIView beginAnimations:@"exitApplication" context:nil];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationTransition:UIViewAnimationCurveEaseOut forView:self.view cache:NO];
+    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+    self.view.bounds = CGRectMake(0, 0, 0, 0);
+    [UIView commitAnimations];
+}
+
+- (void)animationFinished:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    if ([animationID compare:@"exitApplication"] == 0) {
+        exit(0);
+    }
+}
+
 -(void)confirmBtnClicked
 {
     [self.view endEditing:YES];
@@ -1100,7 +1180,7 @@ extern NSString* GlobalMonitorString;
                                     message:GCLocalizedString(@"after success reset private key, must restart program.")
                                     preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:GCLocalizedString(@"OK") style:UIAlertActionStyleDefault
-                                    handler:^(UIAlertAction * action) { exit(0); }];
+                                    handler:^(UIAlertAction * action) { [self exitApplication]; }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
@@ -1146,6 +1226,35 @@ extern NSString* GlobalMonitorString;
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return arrayOne.count;
+}
+
+- (void)requestRechargeInterface{
+    if ([[KeychainManager shareInstence] getKeyChainReceipt].length > 0) {
+        UInt64 localAmount = [[TenonP2pLib sharedInstance] GetBalance];
+        NSString *type = @"1";
+        if (localAmount == 1990) {
+            type = @"1";
+        } else if (localAmount == 5950) {
+            type = @"2";
+        } else if (localAmount == 23800) {
+            type = @"3";
+        }
+        
+        [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
+                                          @"receipt":[[KeychainManager shareInstence] getKeyChainReceipt],
+                                          @"type":type}
+                                    url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
+            NSLog(@"调用服务端接口充值, %@, %@, %@",
+                  [TenonP2pLib sharedInstance].account_id,
+                  type,
+                  [[KeychainManager shareInstence] getKeyChainReceipt]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.rechargeTimer invalidate];
+                self.rechargeTimer = nil;
+                self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
+            });
+        }];
+    }
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
@@ -1232,11 +1341,7 @@ extern NSString* GlobalMonitorString;
     [self addADBgView];
     self.progressView.progress = 0;
     
-    if (TenonP2pLib.sharedInstance.IsVip) {
-        _loadingTime = 1;
-    } else {
-        _loadingTime = 7;
-    }
+    _loadingTime = 7;
     
     self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -1253,7 +1358,8 @@ extern NSString* GlobalMonitorString;
 
 -(void)getCodeTime
 {
-    if (self.rewardedInterstitialAd != nil && !TenonP2pLib.sharedInstance.IsVip) {
+    UInt64 nowTm = [[NSDate date] timeIntervalSince1970]*1000;
+    if (self.rewardedInterstitialAd != nil && !TenonP2pLib.sharedInstance.IsVip && swiftViewController.user_started_vpn && (nowTm - _prevShowInsAdTimestamp >= 30000)) {
         [self showInsAd];
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
@@ -1267,7 +1373,7 @@ extern NSString* GlobalMonitorString;
         _loadingTime = 0;
     }
     
-    if (swiftViewController.user_started_vpn && TenonP2pLib.sharedInstance.IsVip) {
+    if (swiftViewController.user_started_vpn && (TenonP2pLib.sharedInstance.IsVip || (nowTm - _prevShowInsAdTimestamp < 30000))) {
         if (self.codeTimer != nil) {
           [self.codeTimer invalidate];
           self.codeTimer = nil;
@@ -1300,13 +1406,7 @@ extern NSString* GlobalMonitorString;
 {
     [self addADBgView];
     self.progressView.progress = 0;
-    
-    if (TenonP2pLib.sharedInstance.IsVip) {
-        _loadingTime = 1;
-    } else {
-        _loadingTime = 7;
-    }
-    
+    _loadingTime = 7;
     self.progressView.textLabel.text = [NSString stringWithFormat:@"%@…%lds",GCLocalizedString(@"Linking for you"),(long)_loadingTime];
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     self.codeTimer = [MSWeakTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incFreeGetCodeTime) userInfo:nil repeats:YES dispatchQueue:(mainQueue)];

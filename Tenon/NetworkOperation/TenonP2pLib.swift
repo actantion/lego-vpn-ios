@@ -85,8 +85,7 @@ class TenonP2pLib : NSObject {
     public var account_id: String = ""
     public var private_key: String = ""
     var keeped_private_kyes: [String] = []
-    
-    public var mLeftFreeUseTimeMilli: Int64 = 0;
+
     public var mTodayFreeDayTm: Int64 = 0;
     public var mPrevSaveFreeTimeMilli: Int64 = 0;
     private var queue = DispatchQueue(label: "freeTm.queue.identifier")
@@ -100,11 +99,7 @@ class TenonP2pLib : NSObject {
             true).first
         let path = file!
         let conf_path = path
-        
-        if KeychainManager.shareInstence().getKeyChainPrikey().count != 0 {
-            private_key = KeychainManager.shareInstence().getKeyChainPrikey()
-        }
-        
+        private_key = GetPrivateKey()        
         print("conf \(conf_path) get local private key \(private_key), count: \(KeychainManager.shareInstence().getKeyChainPrikey().count)")
         let res = LibP2P.initP2pNetwork(
                 local_ip,
@@ -129,7 +124,17 @@ class TenonP2pLib : NSObject {
         CheckVip()
         GetVipStatus()
         PayforVpn()
-        GetTodayFreeTime()
+        
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
+        userDefaults?.set("ok", forKey: "vpnsvr_status")
+        let nowDayTm: Int64 = Int64(Date().milliStamp) / (24 * 3600 * 1000)
+        var mTodayFreeDayTm = Int64(userDefaults?.integer(forKey: "mTodayFreeDayTm") ?? 0)
+        if (mTodayFreeDayTm != nowDayTm) {
+            let mLeftFreeUseTimeMilli: Int64 = 3600 * 1000;
+            mTodayFreeDayTm = nowDayTm
+            userDefaults?.set(mTodayFreeDayTm, forKey: "mTodayFreeDayTm")
+            userDefaults?.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
+        }
         return (array[0], array[2], array[1], array[3])
     }
     
@@ -148,11 +153,13 @@ class TenonP2pLib : NSObject {
     }
     
     func GetLocalAmount() -> UInt64 {
-        if KeychainManager.shareInstence().getKeyChainTranscate().count != 0 {
+        if KeychainManager.shareInstence().getKeyChainTranscate().count > 20 {
             let transcate = KeychainManager.shareInstence().getKeyChainTranscate()
             let array = transcate.split(separator: ",")
-            let amount = array[2]
-            return UInt64(amount)!
+            if (array.count >= 3) {
+                let amount = array[2]
+                return UInt64(amount)!
+            }
         }
         
         return 0;
@@ -172,27 +179,31 @@ class TenonP2pLib : NSObject {
 //                UserDefaults.standard.setValue(0, forKey: "local_charge_info_amount")
 //            }
 //        }
+        
         if (KeychainManager.shareInstence().getKeyChainTranscate().count != 0) {
-            var local_transcation = KeychainManager.shareInstence().getKeyChainTranscate();
+            let local_transcation = KeychainManager.shareInstence().getKeyChainTranscate();
             let array = local_transcation.split(separator: ",")
             if (array.count > 4) {
                 let trans_res: String = LibP2P.getTransactions() as String
-                let location = trans_res.findFirst(String(array[4]))
-                if (location > 0) {
+                let location = trans_res.contains(String(array[4]))
+                if (location) {
                     KeychainManager.shareInstence().setKeyChainType(0)
                     KeychainManager.shareInstence().setKeyChainReceipt("")
                     KeychainManager.shareInstence().setKeyChainTranscate("")
+                    KeychainManager.shareInstence().clearKeyChain()
                 }
             }
             
         }
-//        if KeychainManager.shareInstence().getKeyChainTranscate().count != 0 {
-//            let transcate = KeychainManager.shareInstence().getKeyChainTranscate()
-//            let array = transcate.split(separator: ",")
-//            let amount = array[2]
-//            print("amount = \(amount) res = \(res)")
-//            res += UInt64(amount)!
-//        }
+        
+        if KeychainManager.shareInstence().getKeyChainTranscate().count > 20 {
+            let transcate = KeychainManager.shareInstence().getKeyChainTranscate()
+            let array = transcate.split(separator: ",")
+            if (array.count >= 3) {
+                let amount = array[2]
+                res += UInt64(amount)!
+            }
+        }
         return res
     }
     
@@ -235,24 +246,29 @@ class TenonP2pLib : NSObject {
         VpnManager.shared.use_global_mode = false
     }
     @objc func getLeftDays() -> Int32 {
-        vip_left_days = (Int32)(Int64(GetBalance() + GetLocalAmount()) / min_payfor_vpn_tenon);
-        return vip_left_days
-    }
-    func PayforVpn() {
+        vip_left_days = (Int32)(Int64(GetBalance()) / min_payfor_vpn_tenon);
         let day_msec: Int64 = 3600 * 1000 * 24;
         let days_timestamp = payfor_timestamp / day_msec;
         let cur_timestamp: Int64 = Int64(Date().milliStamp)
         let days_cur = cur_timestamp / day_msec;
         let vip_days = payfor_amount / min_payfor_vpn_tenon
-        vip_left_days = getLeftDays() //  changed by FriendWu
         if (payfor_timestamp != Int64.max && days_timestamp + vip_days > days_cur) {
             payfor_gid = "";
             vip_left_days = Int32((days_timestamp + vip_days - days_cur)) + (Int32)((now_balance + Int64(GetLocalAmount())) / min_payfor_vpn_tenon);
+        }
+        return vip_left_days
+    }
+    
+    func PayforVpn() {
+        if (now_balance >= min_payfor_vpn_tenon && (payfor_timestamp == Int64.max || payfor_timestamp == 0)) {
+            _ = CheckVip();
+            PayforVipTrans();
+        }
+        
+        vip_left_days = getLeftDays()
+        if (vip_left_days > 0) {
+            payfor_gid = "";
             return;
-        } else {
-            if (now_balance >= min_payfor_vpn_tenon) {
-                PayforVipTrans();
-            }
         }
 
         _ = CheckVip()
@@ -302,11 +318,7 @@ class TenonP2pLib : NSObject {
     
     private override init() {
         super.init()
-        
-        if KeychainManager.shareInstence().getKeyChainPrikey().count != 0 {
-            private_key = KeychainManager.shareInstence().getKeyChainPrikey()
-        }
-
+        private_key = GetPrivateKey()
     }
     
     func GetVipStatus() {
@@ -320,42 +332,33 @@ class TenonP2pLib : NSObject {
     }
     
     func ChangeFreeUseTimeMilli(val: Int64) {
-        queue.sync {
-            if (val < 0 && mLeftFreeUseTimeMilli <= -val) {
-                mLeftFreeUseTimeMilli = 0;
-                return
-            }
-            
-            mLeftFreeUseTimeMilli += val
-        }
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
+        var mLeftFreeUseTimeMilli: Int64 = Int64(userDefaults?.integer(forKey: "mLeftFreeUseTimeMilli") ?? 0)
+        mLeftFreeUseTimeMilli += val
+        userDefaults?.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
     }
     
-    func GetTodayFreeTime() {
-        mTodayFreeDayTm = Int64(UserDefaults.standard.integer(forKey: "mTodayFreeDayTm"))
-        let nowDayTm: Int64 = Int64(Date().milliStamp) / (24 * 3600 * 1000)
-        if (mTodayFreeDayTm != nowDayTm) {
-            mLeftFreeUseTimeMilli = 3600 * 1000;
-            mTodayFreeDayTm = nowDayTm
-        } else {
-            mLeftFreeUseTimeMilli = Int64(UserDefaults.standard.integer(forKey: "mLeftFreeUseTimeMilli"))
+    public func GetPrivateKey() -> String {
+        let all_key: String = UserDefaults.standard.string(forKey: "all_private_key") ?? ""
+        let res_split = all_key.split(separator: ",")
+        if res_split.count < 1 {
+            KeychainManager.shareInstence().setKeyChainTranscate("")
+            KeychainManager.shareInstence().setKeyChainType(0)
+            KeychainManager.shareInstence().setKeyChainReceipt("")
+            KeychainManager.shareInstence().setKeyChainTranscate("")
+            return ""
         }
+        
+        return String(res_split[0])
     }
     
-    func SaveTodayFreeTime() {
-        let now_tm: Int64 = Int64(Date().milliStamp)
-        if (now_tm - mPrevSaveFreeTimeMilli < 3000) {
-            return
-        }
-        
-        let nowDayTm: Int64 = Int64(Date().milliStamp) / (24 * 3600 * 1000)
-        if (mTodayFreeDayTm != nowDayTm) {
-            mLeftFreeUseTimeMilli = 3600 * 1000;
-            mTodayFreeDayTm = nowDayTm
-        }
-        
-        mPrevSaveFreeTimeMilli = now_tm
-        UserDefaults.standard.set(mTodayFreeDayTm, forKey: "mTodayFreeDayTm")
-        UserDefaults.standard.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
+    func clearAllUserDefaultsData(){
+       let userDefaults = UserDefaults.standard
+       let dics = userDefaults.dictionaryRepresentation()
+       for key in dics {
+           userDefaults.removeObject(forKey: key.key)
+       }
+       userDefaults.synchronize()
     }
     
     public func SavePrivateKey(prikey_in: String) -> Bool {
@@ -382,7 +385,12 @@ class TenonP2pLib : NSObject {
             tmp_str += "," + item
         }
         
+        let userDefaults = UserDefaults(suiteName: "group.com.tenon.tenonvpn")
+        let mLeftFreeUseTimeMilli: Int64 = Int64(userDefaults?.integer(forKey: "mLeftFreeUseTimeMilli") ?? 0)
+        KeychainManager.shareInstence().clearKeyChain()
+        clearAllUserDefaultsData()
         UserDefaults.standard.set(tmp_str, forKey: "all_private_key")
+        UserDefaults.standard.set(mLeftFreeUseTimeMilli, forKey: "mLeftFreeUseTimeMilli")
         return true
     }
     

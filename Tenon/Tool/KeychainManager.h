@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 //- (NSString*)getKeyChainUUID;
 - (void)setKeyChainPrikey:(NSString*)pirvateKey;
 - (NSString*)getKeyChainPrikey;
+- (void)clearKeyChain;
 @end
 
 NS_ASSUME_NONNULL_END

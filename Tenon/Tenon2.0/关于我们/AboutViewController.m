@@ -65,20 +65,42 @@
     CGFloat topH = isIPhoneXSeries ? 53.0f : 29.0f;
     
     UILabel *aboutLab = [[UILabel alloc] initWithFrame:CGRectMake(20, topH+48, 240, 50)];
-    aboutLab.text = GCLocalizedString(@"About");
+    aboutLab.text = GCLocalizedString(@"SAbout");
     aboutLab.textColor = kRBColor(154, 162, 161);
     aboutLab.font = Font_B(36);
     [self.view addSubview:aboutLab];
     
-
     
-    
-    UILabel *companyLab = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-160, topH+78, 140, 20)];
-    companyLab.text = @"TenonVPN © 2021";
+    UILabel *companyLab = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-290, topH+70, 240, 20)];
+    companyLab.text = @"TenonVPN @ 2021";
     companyLab.textAlignment = NSTextAlignmentRight;
     companyLab.textColor = kRBColor(154, 162, 161);
-    companyLab.font = [UIFont systemFontOfSize:18];
+    companyLab.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:companyLab];
+    
+    
+   
+    UILabel *termOfUse = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-320, companyLab.bottom+25, kWIDTH-40, 25)];
+    termOfUse.text = GCLocalizedString(@"《Terms Of Use》");
+    termOfUse.textColor = kRBColor(18, 181, 170);
+    termOfUse.lineBreakMode = NSLineBreakByWordWrapping;
+    termOfUse.numberOfLines = 0;
+    termOfUse.font = Font_B(16);
+    [self.view addSubview:termOfUse];
+    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTouchUpInside:)];
+    [termOfUse addGestureRecognizer:labelTapGestureRecognizer];
+    termOfUse.userInteractionEnabled = YES; // 可以理解为设置label可被点击
+    
+    UILabel *termOfUse1 = [[UILabel alloc] initWithFrame:CGRectMake(kWIDTH-185, companyLab.bottom+25, kWIDTH-40, 25)];
+    termOfUse1.text = GCLocalizedString(@"《Privacy Policy》");
+    termOfUse1.textColor = kRBColor(18, 181, 170);
+    termOfUse1.lineBreakMode = NSLineBreakByWordWrapping;
+    termOfUse1.numberOfLines = 0;
+    termOfUse1.font = Font_B(16);
+    [self.view addSubview:termOfUse1];
+    UITapGestureRecognizer *labelTapGestureRecognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTouchUpInside2:)];
+    [termOfUse1 addGestureRecognizer:labelTapGestureRecognizer2];
+    termOfUse1.userInteractionEnabled = YES; // 可以理解为设置label可被点击
     
     UIScrollView *textBgView = [[UIScrollView alloc] init];
     textBgView.contentSize = CGSizeMake(0,1000);
@@ -88,7 +110,7 @@
     [textBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.width.mas_equalTo(kWIDTH-40);
-        make.top.equalTo(companyLab.mas_bottom).offset(12);
+        make.top.equalTo(termOfUse.mas_bottom).offset(16);
         make.bottom.equalTo(self.view.mas_bottom).offset(-30-kSafeAreaBottomHeight);
     }];
     
@@ -127,6 +149,36 @@
     paragraphStyle.alignment = NSTextAlignmentJustified; //设置两端对齐显示
     [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
     textLab.attributedText = str;
+}
+
+-(void) labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
+   UILabel *label=(UILabel*)recognizer.view;
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:@"https://www.tenonvpn.net/views/termsOfUse.html"];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/termsOfUse.html",success);
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+        NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/termsOfUse.html",success);
+    }
+}
+
+-(void) labelTouchUpInside2:(UITapGestureRecognizer *)recognizer{
+   UILabel *label=(UILabel*)recognizer.view;
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:@"https://www.tenonvpn.net/views/privacyPolicy.html"];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/privacyPolicy.html",success);
+        }];
+    } else {
+        // Fallback on earlier versions
+        BOOL success = [application openURL:URL];
+        NSLog(@"Open %@: %d",@"https://www.tenonvpn.net/views/privacyPolicy.html",success);
+    }
 }
 
 -(void)shareBtnClicked

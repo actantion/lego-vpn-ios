@@ -157,6 +157,8 @@ class BaseViewController: UIViewController {
     }
     func getCountryShort(countryCode:String) -> String {
         switch countryCode {
+        case "Automatic":
+            return "AA";
         case "United States":
             return "US"
         case "Singapore":
@@ -181,8 +183,8 @@ class BaseViewController: UIViewController {
             return "IN"
         case "United Kingdom":
             return "GB"
-//        case "China":
-//            return "CN"
+        case "China":
+            return "CN"
         default:
             return ""
         }
@@ -193,7 +195,8 @@ class BaseViewController: UIViewController {
     }
     
     func getOneRouteNode(country: String) -> (ip: String, port: String) {
-        let res_str = LibP2P.getVpnNodes(country, true, TenonP2pLib.sharedInstance.IsVip()) as String
+        let bVip = TenonP2pLib.sharedInstance.IsVip()
+        let res_str = LibP2P.getVpnNodes(country, true, bVip) as String
         if (res_str.isEmpty) {
             return ("", "")
         }

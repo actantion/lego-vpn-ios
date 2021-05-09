@@ -39,6 +39,7 @@ extern ViewController *swiftViewController;
 @property(nonatomic, strong) GADAdLoader *adLoader;
 @property (nonatomic, assign) BOOL bIsShowAd;
 @property (nonatomic, assign) BOOL bIsFirstComing;
+@property (nonatomic, assign) BOOL bJumpted;
 @property(nonatomic, strong) GADRewardedInterstitialAd* rewardedInterstitialAd;
 @end
 
@@ -51,19 +52,7 @@ extern ViewController *swiftViewController;
     self.bIsShowAd = NO;
     self.rewardedInterstitialAd = nil;
     [self createAndLoadRewardedAd];
-    NSString* uuid = [self UUID];
-    NSLog(@"设备唯一标识 = %@",uuid);
-}
--(NSString *)UUID {
-    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"com.tenon.tenonvpn" accessGroup:@"group.com.tenon.tenonvpn"];
-    NSString *UUID = [wrapper objectForKey:(__bridge id)kSecValueData];
-    
-    if (UUID.length == 0) {
-        UUID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-        [wrapper setObject:UUID forKey:(__bridge id)kSecValueData];
-    }
-    
-    return UUID;
+    self.bJumpted = false;
 }
 
 - (void)initializeLocationService {
@@ -209,7 +198,7 @@ didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
     [_getCodeBtn setTitle:[NSString stringWithFormat:@"%@ %lds",GCLocalizedString(@"Skip Ads"),(long)_secondNum] forState:0];
     [_getCodeBtn setTitleColor:kRBColor(154,162,161) forState:0];
     _getCodeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_getCodeBtn addTarget:self action:@selector(jumpBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_getCodeBtn addTarget:self action:@selector(clickJumpBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:_getCodeBtn];
     
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -256,7 +245,7 @@ didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
     }
 }
 
--(void)jumpBtnClicked
+-(void)clickJumpBtnClicked
 {
     if (self.bIsShowAd == NO) {
         long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
@@ -287,6 +276,53 @@ didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
             [self.navigationController pushViewController:nextVC animated:YES];
         }else{
             [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
+-(void)jumpBtnClicked
+{
+    if (self.bIsShowAd == NO) {
+        long nowAdViewTm = [[NSDate date] timeIntervalSince1970] * 1000;
+        if (self.rewardedInterstitialAd != nil && !TenonP2pLib.sharedInstance.IsVip) {
+            prevAdViewTm = nowAdViewTm;
+            self.bIsShowAd = YES;
+            [self show];
+            if (self.codeTimer != nil) {
+                [self.codeTimer invalidate];
+                self.codeTimer = nil;
+            }
+            if([self.FROM isEqualToString:@"MAIN"]){
+                if (![self bJumpted]) {
+                    self.bJumpted = true;
+                    MainViewController *nextVC = [[MainViewController alloc] init];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
+            }else{
+                if (![self bJumpted]) {
+                    self.bJumpted = true;
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+        }
+    }
+    
+    if (TenonP2pLib.sharedInstance.IsVip || _secondNum <= 0) {
+        if (self.codeTimer != nil) {
+            [self.codeTimer invalidate];
+            self.codeTimer = nil;
+        }
+        if([self.FROM isEqualToString:@"MAIN"]){
+            if (![self bJumpted]) {
+                self.bJumpted = true;
+                MainViewController *nextVC = [[MainViewController alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+        }else{
+            if (![self bJumpted]) {
+                self.bJumpted = true;
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
 }

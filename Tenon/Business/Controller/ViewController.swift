@@ -30,14 +30,14 @@ extension String{
     var local_country: String = ""
     @objc public var local_private_key: String = ""
     @objc public var local_account_id: String = ""
-    var countryCode:[String] = ["United States", "Singapore", "Germany","France", "Netherlands", "Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom", "China"]
+    var countryCode:[String] = ["Automatic", "United States", "Singapore", "Germany","France", "Netherlands", "Korea", "Japan", "Canada","Australia","Hong Kong", "India", "United Kingdom", "China"]
     var countryNodes:[String] = []
-    var iCon:[String] = ["us", "sg","de","fr", "nl", "kr", "jp", "ca","au","hk", "in", "gb", "cn"]
+    var iCon:[String] = ["aa", "us", "sg","de","fr", "nl", "kr", "jp", "ca","au","hk", "in", "gb", "cn"]
     var defaultCountry:[String] = ["US", "IN","CA","DE","AU"]
     let encodeMethodList:[String] = ["aes-128-cfb","aes-192-cfb","aes-256-cfb","chacha20","salsa20","rc4-md5"]
     private var old_vpn_ip: String = ""
     private var now_connect_status = 0
-    @objc public var user_started_vpn: Bool = false
+    
     @objc public static var global_test_str: String = "";
     
     @objc public func ResetPrivateKey(_ ss: String) -> Int {
@@ -63,6 +63,10 @@ extension String{
     
     @objc func onSetingVPNStatusChanged0() {
         print("onSetingVPNStatusChanged0 called")
+    }
+    
+    @objc func user_started_vpn() -> Bool {
+        return VpnManager.shared.vpn_connected
     }
     
     @objc func onSetingVPNStatusChanged1() {
@@ -292,8 +296,6 @@ extension String{
             TenonP2pLib.sharedInstance.PayforVpn()
         }
         
-        TenonP2pLib.sharedInstance.ChangeFreeUseTimeMilli(val: -1000)
-        TenonP2pLib.sharedInstance.SaveTodayFreeTime()
         setRouteInfo()
         self.perform(#selector(requestData), afterDelay: 1)
     }
@@ -355,7 +357,7 @@ extension String{
     }
     
     @objc func DoClickDisconnect() {
-        self.user_started_vpn = false
+        VpnManager.shared.vpn_connected = false
         UNUserNotificationCenter.current().getNotificationSettings { set in
             DispatchQueue.main.sync {
                 if VpnManager.shared.vpnStatus != .off {
@@ -366,7 +368,7 @@ extension String{
     }
     
     @objc func DoClickConnect() {
-        self.user_started_vpn = false
+        VpnManager.shared.vpn_connected = false
         UNUserNotificationCenter.current().getNotificationSettings { set in
             DispatchQueue.main.sync {
                 if VpnManager.shared.vpnStatus == .off {
@@ -382,7 +384,7 @@ extension String{
         if UserDefaults.standard.bool(forKey: "FirstConnect") == false {
             return
         }
-        self.user_started_vpn = false
+        VpnManager.shared.vpn_connected = false
         UNUserNotificationCenter.current().getNotificationSettings { set in
             DispatchQueue.main.sync {
                 if VpnManager.shared.vpnStatus == .off {
@@ -412,11 +414,10 @@ extension String{
     
     @objc func onVPNStatusChanged(){
         if VpnManager.shared.vpnStatus == .on{
-            self.user_started_vpn = true
             self.now_connect_status = 0
             LibP2P.vpnConnected()
         }else{
-            self.user_started_vpn = false
+          
         }
     }
     
