@@ -122,7 +122,6 @@
 		F656DF7B257E501500791518 /* ADViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F656DF7A257E501500791518 /* ADViewController.m */; };
 		F656DF8F257E506700791518 /* HistoryListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F656DF7E257E506600791518 /* HistoryListTableViewCell.m */; };
 		F656DF90257E506700791518 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F656DF7F257E506600791518 /* MainViewController.m */; };
-		F656DF91257E506700791518 /* share_pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F656DF80257E506600791518 /* share_pic.jpg */; };
 		F656DF92257E506700791518 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F656DF81257E506600791518 /* SettingTableViewCell.m */; };
 		F656DF93257E506700791518 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F656DF82257E506600791518 /* SettingViewController.m */; };
 		F656DF94257E506700791518 /* WithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F656DF83257E506600791518 /* WithdrawViewController.m */; };
@@ -367,7 +366,6 @@
 		F656DF7A257E501500791518 /* ADViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADViewController.m; sourceTree = "<group>"; };
 		F656DF7E257E506600791518 /* HistoryListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryListTableViewCell.m; sourceTree = "<group>"; };
 		F656DF7F257E506600791518 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		F656DF80257E506600791518 /* share_pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = share_pic.jpg; sourceTree = "<group>"; };
 		F656DF81257E506600791518 /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
 		F656DF82257E506600791518 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		F656DF83257E506600791518 /* WithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawViewController.m; sourceTree = "<group>"; };
@@ -674,6 +672,31 @@
 			path = NetWork;
 			sourceTree = "<group>";
 		};
+		84B0E4E8269D589D0012CD69 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F656DF8B257E506700791518 /* RechargeViewController.h */,
+				F656DF8E257E506700791518 /* RechargeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		84B0E4E9269D58A30012CD69 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F6C5644625C51339006B62FE /* getTenonCell.h */,
+				F6C5644525C51339006B62FE /* getTenonCell.m */,
+				F6C5644725C51339006B62FE /* getTenonCell.xib */,
+				F6C5644C25C543FE006B62FE /* TenonHeadCell.h */,
+				F6C5644D25C543FE006B62FE /* TenonHeadCell.m */,
+				F6C5644E25C543FE006B62FE /* TenonHeadCell.xib */,
+				F6C5645525C56316006B62FE /* OrderListHeaderCell.h */,
+				F6C5645625C56316006B62FE /* OrderListHeaderCell.m */,
+				F6C5645725C56316006B62FE /* OrderListHeaderCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		AE2E93114404A35E87606173 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,7 +852,6 @@
 				F656DFAD257E514900791518 /* 提现 */,
 				F656DFAC257E513F00791518 /* 赚币 */,
 				F656DFAB257E512000791518 /* 首页 */,
-				F656DF80257E506600791518 /* share_pic.jpg */,
 			);
 			path = Tenon2.0;
 			sourceTree = "<group>";
@@ -852,17 +874,8 @@
 		F656DFAC257E513F00791518 /* 赚币 */ = {
 			isa = PBXGroup;
 			children = (
-				F656DF8B257E506700791518 /* RechargeViewController.h */,
-				F656DF8E257E506700791518 /* RechargeViewController.m */,
-				F6C5644625C51339006B62FE /* getTenonCell.h */,
-				F6C5644525C51339006B62FE /* getTenonCell.m */,
-				F6C5644725C51339006B62FE /* getTenonCell.xib */,
-				F6C5644C25C543FE006B62FE /* TenonHeadCell.h */,
-				F6C5644D25C543FE006B62FE /* TenonHeadCell.m */,
-				F6C5644E25C543FE006B62FE /* TenonHeadCell.xib */,
-				F6C5645525C56316006B62FE /* OrderListHeaderCell.h */,
-				F6C5645625C56316006B62FE /* OrderListHeaderCell.m */,
-				F6C5645725C56316006B62FE /* OrderListHeaderCell.xib */,
+				84B0E4E9269D58A30012CD69 /* View */,
+				84B0E4E8269D589D0012CD69 /* Controller */,
 			);
 			path = "赚币";
 			sourceTree = "<group>";
@@ -1299,7 +1312,6 @@
 				F6C5645925C56316006B62FE /* OrderListHeaderCell.xib in Resources */,
 				18E914222266C7B4005E6027 /* Main.storyboard in Resources */,
 				84941ED025CF7FBC00A3A062 /* load2.png in Resources */,
-				F656DF91257E506700791518 /* share_pic.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
