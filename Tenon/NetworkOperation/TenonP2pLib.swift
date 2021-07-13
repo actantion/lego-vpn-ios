@@ -192,6 +192,9 @@ class TenonP2pLib : NSObject {
                     KeychainManager.shareInstence().setKeyChainTranscate("")
                     KeychainManager.shareInstence().clearKeyChain()
                 }
+//                else{
+//                    KeychainManager.shareInstence().clearKeyChain()
+//                }
             }
             
         }

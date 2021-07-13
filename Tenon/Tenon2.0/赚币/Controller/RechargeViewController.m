@@ -52,15 +52,17 @@ extern ViewController *swiftViewController;
 
 - (void)requestRechargeInterface{
     if ([[KeychainManager shareInstence] getKeyChainReceipt].length == 0) {
-        NSLog(@"getKeyChainReceipt2");
+        NSLog(@"交易凭证为空--用户第一次充值失败后，重新进入页面以后，app调用自动充值成功，并且清空了本地keychaint交易记录信息");
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
     }else{
+        NSLog(@"交易凭证不为空--用户第一次充值失败后，重新进入页面以后，会走到这里，去调用充值接口");
         [JTNetwork requestPostWithParam:@{@"account":[TenonP2pLib sharedInstance].account_id,
                                           @"receipt":[[KeychainManager shareInstence] getKeyChainReceipt],
                                           @"type":@([[KeychainManager shareInstence] getKeyChainType])}
                                     url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
             NSLog(@"调用服务端接口充值");
+            // 调用充值成功，再次启动定时器，验证转币是否成功（调用TenonP2pLib.GetBalance()去清空本地keychaint ），查看本地keychaint是否为空
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.rechargeTimer invalidate];
                 self.rechargeTimer = nil;
@@ -69,6 +71,7 @@ extern ViewController *swiftViewController;
         }];
     }
 }
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -83,6 +86,7 @@ extern ViewController *swiftViewController;
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startTimer) userInfo:nil repeats:YES];
     }else{
+        // 交易凭证不为空，代表之前充值苹果验证通过以后，充值接口调用失败
         self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
     }
 }
