@@ -62,17 +62,23 @@ extern ViewController *swiftViewController;
                                           @"type":@([[KeychainManager shareInstence] getKeyChainType])}
                                     url:@"/appleIAPAuth" callback:^(JTBaseReqModel *model) {
             NSLog(@"调用服务端接口充值");
-            if (model.status == 200) {
-                // 调用充值成功，再次启动定时器，验证转币是否成功（调用TenonP2pLib.GetBalance()去清空本地keychaint ），查看本地keychaint是否为空
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.rechargeTimer invalidate];
-                    self.rechargeTimer = nil;
-                    self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
-                });
-            }else{
-                // 如果服务器验证内购数据失败，不在处理，清空本地的验证失败记录
-                [[KeychainManager shareInstence] clearKeyChain];
-            }
+//            if (model.status == 200) {
+//                // 调用充值成功，再次启动定时器，验证转币是否成功（调用TenonP2pLib.GetBalance()去清空本地keychaint ），查看本地keychaint是否为空
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.rechargeTimer invalidate];
+//                    self.rechargeTimer = nil;
+//                    self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
+//                });
+//            }else{
+//                // 如果服务器验证内购数据失败，不在处理，清空本地的验证失败记录
+//                [[KeychainManager shareInstence] clearKeyChain];
+//            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.rechargeTimer invalidate];
+                self.rechargeTimer = nil;
+                self.rechargeTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(requestRechargeInterface) userInfo:nil repeats:NO];
+            });
         }];
     }
 }
